@@ -1,0 +1,66 @@
+[
+  {
+    "id": "kitchen_1",
+    "filename": "kitchen_1.webp",
+    "group": "kitchen",
+    "title": "Blue Cup and Yellow Plate",
+    "key_phrase": "There is a light blue cup sitting inside a white bowl on a wooden table. You can also see a yellow plate placed to the right of the bowl.",
+    "translation": "木製のテーブルの上にある白いボウルの中に、水色のカップが入っています。ボウルの右側には黄色いお皿が置いてあるのが見えます。"
+  },
+  {
+    "id": "kitchen_2",
+    "filename": "kitchen_2.webp",
+    "group": "kitchen",
+    "title": "Pink Cup and Striped Mat",
+    "key_phrase": "In this picture, a pink cup is placed inside a light blue bowl. The dishes are arranged on a yellow and white striped placemat.",
+    "translation": "この写真では、ピンク色のカップが水色のボウルの中に入っています。食器は黄色と白のしま模様のランチョンマットの上に並べられています。"
+  },
+  {
+    "id": "kitchen_3",
+    "filename": "kitchen_3.webp",
+    "group": "kitchen",
+    "title": "Yellow Cup and Pink Plate",
+    "key_phrase": "A bright yellow cup is resting inside a white bowl. On the right side of the image, there is a pink plate on the counter.",
+    "translation": "明るい黄色のカップが白いボウルの中に収まっています。画像の右側、カウンターの上にはピンク色のお皿があります。"
+  },
+  {
+    "id": "kitchen_4",
+    "filename": "kitchen_4.webp",
+    "group": "kitchen",
+    "title": "Green Cup and Pink Bowl",
+    "key_phrase": "A green cup is placed directly inside a pink bowl. To the left of the bowl, there is a white plate sitting on the surface.",
+    "translation": "緑色のカップがピンク色のボウルの中に直接置かれています。ボウルの左側には、白いお皿が置かれています。"
+  },
+  {
+    "id": "ball_1",
+    "filename": "ball_1.webp",
+    "group": "ball",
+    "title": "Red and White Soccer Ball",
+    "key_phrase": "There is a red and white soccer ball under the table. It is sitting on the rug near someone's white shoes.",
+    "translation": "赤と白のサッカーボールがテーブルの下にあります。それは誰かの白い靴の近く、ラグの上に置かれています。"
+  },
+  {
+    "id": "ball_2",
+    "filename": "ball_2.webp",
+    "group": "ball",
+    "title": "Orange Basketball",
+    "key_phrase": "Look for an orange basketball resting under the dark table. It is positioned on the carpet in front of a white sofa.",
+    "translation": "暗い色のテーブルの下にあるオレンジ色のバスケットボールを探してください。それは白いソファの前、カーペットの上に位置しています。"
+  },
+  {
+    "id": "ball_3",
+    "filename": "ball_3.webp",
+    "group": "ball",
+    "title": "Blue and Yellow Volleyball",
+    "key_phrase": "A blue and yellow volleyball is located beneath the wooden table. It is sitting on the floor between the table legs.",
+    "translation": "青と黄色のバレーボールが木製のテーブルの下にあります。それはテーブルの脚の間、床の上に置かれています。"
+  },
+  {
+    "id": "ball_4",
+    "filename": "ball_4.webp",
+    "group": "ball",
+    "title": "Colorful Beach Ball",
+    "key_phrase": "You can see a colorful beach ball below the grey shelf. It is lying on the rug next to some small toys.",
+    "translation": "グレーの棚の下にカラフルなビーチボールが見えます。それは小さなおもちゃの隣、ラグの上に転がっています。"
+  }
+]
