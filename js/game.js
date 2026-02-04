@@ -250,13 +250,18 @@ document.addEventListener('DOMContentLoaded', () => {
         let timeLeft = EXPLAIN_TIME;
         const total = EXPLAIN_TIME;
         
+        // 修正: 円周の長さを定義 (2 * PI * 45 ≈ 283)
+        const maxDash = 283;
+        
         elements.timers.explain.textContent = timeLeft;
         elements.timers.explainProgress.style.strokeDashoffset = 0;
 
         state.timerInterval = setInterval(() => {
             timeLeft--;
             elements.timers.explain.textContent = timeLeft;
-            const offset = 100 - (timeLeft / total) * 100;
+            
+            // 修正: 283を基準にオフセットを計算
+            const offset = maxDash - (timeLeft / total) * maxDash;
             elements.timers.explainProgress.style.strokeDashoffset = offset;
             
             if (timeLeft <= 0) startChoicePhase();
