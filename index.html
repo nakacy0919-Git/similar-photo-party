@@ -10,18 +10,33 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* 横画面時の特例調整 */
-        @media (orientation: landscape) and (max-height: 500px) {
-            .landscape-compact { transform: scale(0.85); transform-origin: top center; }
-            .landscape-hide { display: none; }
-            .landscape-row { flex-direction: row !important; gap: 1rem; }
-            section { padding-top: 3rem !important; padding-bottom: 0 !important; }
+        /* 横画面(ランドスケープ)時の強制調整 */
+        @media (orientation: landscape) and (max-height: 600px) {
+            body { overflow: hidden; }
+            /* メインコンテナを縮小して画面内に収める */
+            .landscape-fit {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                transform: scale(0.75); /* 全体を75%に縮小 */
+                transform-origin: center center;
+                height: 100vh;
+                width: 133vw; /* 縮小分を補正 */
+                margin-left: -16.5vw;
+            }
+            /* スクロールが必要な箇所の調整 */
+            #view-landing {
+                align-items: center !important;
+                justify-content: center !important;
+                padding-top: 0 !important;
+            }
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
 
-    <a href="https://nakacy0919-git.github.io/SimilarPhoto/" class="fixed top-4 left-4 z-[100] h-10 px-4 flex items-center bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition font-bold text-slate-600 border-2 border-slate-100 text-sm">
+    <a href="https://nakacy0919-git.github.io/SimilarPhoto/" target="_blank" class="fixed top-4 left-4 z-[100] h-10 px-4 flex items-center bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition font-bold text-slate-600 border-2 border-slate-100 text-sm">
         <i class="fa-solid fa-arrow-left mr-2"></i> Review
     </a>
 
@@ -29,17 +44,17 @@
         <button id="bgmBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center">
             <i class="fa-solid fa-music text-lg"></i>
         </button>
-        <button id="langToggle" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center">
-            <i class="fa-solid fa-globe text-lg"></i>
+        <button id="langToggle" class="w-12 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center font-bold text-xl">
+            🇺🇸
         </button>
         <button id="settingsBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-500 border-2 border-slate-100 flex items-center justify-center">
             <i class="fa-solid fa-gear text-lg"></i>
         </button>
     </div>
 
-    <main class="flex-1 w-full h-full relative flex flex-col items-center justify-center p-2 md:p-4 landscape-compact">
+    <main class="flex-1 w-full h-full relative flex flex-col items-center justify-start md:justify-center p-2 md:p-4 landscape-fit">
 
-        <section id="view-landing" class="w-full h-full overflow-y-auto flex flex-col items-center justify-start md:justify-center gap-6 py-10 pt-20 relative">
+        <section id="view-landing" class="w-full h-full overflow-y-auto flex flex-col items-center justify-start gap-6 py-20 relative no-scrollbar">
             <div class="text-center relative shrink-0">
                 <h1 class="sparkling-title text-5xl md:text-7xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 filter drop-shadow-md">
                     Similar Photo Party
@@ -55,34 +70,34 @@
             </button>
 
             <div class="bg-white/70 backdrop-blur-md border-2 border-white rounded-3xl p-6 w-full max-w-4xl shadow-xl mb-12 shrink-0">
-                <h3 class="text-slate-600 font-black text-2xl mb-6 border-b-4 border-slate-100 pb-2 inline-block text-center w-full" data-i18n="howToPlay">HOW TO PLAY</h3>
+                <h3 id="how-title" class="text-slate-600 font-black text-2xl mb-6 border-b-4 border-slate-100 pb-2 inline-block text-center w-full">HOW TO PLAY</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex flex-col items-center gap-2 text-center">
                         <div class="text-4xl">👀</div>
-                        <div class="font-black text-slate-700 text-lg" data-i18n="step1Title">1. Memorize</div>
-                        <p class="text-sm text-slate-500" data-i18n="step1Desc">Player A looks at the image for 10s.</p>
+                        <div id="step1-title" class="font-black text-slate-700 text-lg">1. Memorize</div>
+                        <p id="step1-desc" class="text-sm text-slate-500">Player A looks at the image for 10s.</p>
                     </div>
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex flex-col items-center gap-2 text-center">
                         <div class="text-4xl">🗣️</div>
-                        <div class="font-black text-slate-700 text-lg" data-i18n="step2Title">2. Explain</div>
-                        <p class="text-sm text-slate-500" data-i18n="step2Desc">Player A describes it in English (15s).</p>
+                        <div id="step2-title" class="font-black text-slate-700 text-lg">2. Explain</div>
+                        <p id="step2-desc" class="text-sm text-slate-500">Player A describes it in English (15s).</p>
                     </div>
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex flex-col items-center gap-2 text-center">
                         <div class="text-4xl">👈</div>
-                        <div class="font-black text-slate-700 text-lg" data-i18n="step3Title">3. Choose</div>
-                        <p class="text-sm text-slate-500" data-i18n="step3Desc">Player B picks the correct image!</p>
+                        <div id="step3-title" class="font-black text-slate-700 text-lg">3. Choose</div>
+                        <p id="step3-desc" class="text-sm text-slate-500">Player B picks the correct image!</p>
                     </div>
                 </div>
             </div>
 
-            <div class="text-[10px] md:text-xs text-slate-400 font-bold opacity-60 font-sans absolute bottom-2 pb-safe">
-                &copy; Similar Photo Party by <a href="https://sites.google.com/view/koheinakashima/bio" target="_blank" class="underline hover:text-indigo-500">Kohei Nakashima</a>. All Rights Reserved.
+            <div class="text-[10px] md:text-xs text-slate-400 font-bold opacity-60 font-sans absolute bottom-2 pb-safe w-full text-center">
+                &copy; Similar Photo Party by <a href="https://sites.google.com/view/koheinakashima/bio" target="_blank" class="underline hover:text-indigo-500 cursor-pointer relative z-[101]">Kohei Nakashima</a>. All Rights Reserved.
             </div>
         </section>
 
-        <section id="view-memory" class="hidden w-full h-full flex flex-col items-center justify-center gap-4 animate-zoom-in pt-12">
+        <section id="view-memory" class="hidden w-full h-full flex flex-col items-center justify-center gap-4 animate-zoom-in pt-16">
             <div class="bg-white px-8 py-2 rounded-full shadow-lg text-blue-600 font-black text-2xl flex items-center gap-3 border border-blue-100 shrink-0 relative z-10">
-                <i class="fa-solid fa-stopwatch"></i> <span data-i18n="time">Time</span>: <span id="memory-timer" class="text-3xl">10</span>s
+                <i class="fa-solid fa-stopwatch"></i> <span>Time</span>: <span id="memory-timer" class="text-3xl">10</span>s
             </div>
             
             <div class="relative w-full h-full flex-1 flex items-center justify-center overflow-hidden">
@@ -94,16 +109,16 @@
             </button>
         </section>
 
-        <section id="view-explain" class="hidden w-full h-full flex flex-col items-center justify-center gap-8 animate-fade-in pt-12">
+        <section id="view-explain" class="hidden w-full h-full flex flex-col items-center justify-center gap-8 animate-fade-in pt-16">
             <div class="text-center relative z-10">
                 <div class="inline-block bg-pink-100 text-pink-600 px-6 py-2 rounded-full font-bold text-xl mb-4 shadow-sm border border-pink-200">
                     <i class="fa-solid fa-user-astronaut mr-2"></i> Player A
                 </div>
-                <h2 class="text-4xl md:text-6xl font-black text-slate-700 drop-shadow-sm" data-i18n="explainTitle">Explain now!</h2>
+                <h2 class="text-4xl md:text-6xl font-black text-slate-700 drop-shadow-sm">Explain now!</h2>
             </div>
             
             <div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90 drop-shadow-xl" viewBox="0 0 100 100">
+                <svg class="w-full h-full transform -rotate-90 scale-x-[-1] drop-shadow-xl" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="45" stroke="white" stroke-width="6" fill="transparent" class="opacity-30" />
                     <circle id="explain-progress" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6" fill="transparent" class="text-purple-500 transition-all duration-1000 ease-linear" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" />
                 </svg>
@@ -112,14 +127,14 @@
                 </div>
             </div>
 
-            <p class="text-xl text-slate-500 font-bold" data-i18n="explainDesc">Describe the features to Player B.</p>
+            <p class="text-xl text-slate-500 font-bold">Describe the features to Player B.</p>
 
             <button id="explain-skip-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95">
                 I'm Ready! <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </section>
 
-        <section id="view-choice" class="hidden w-full h-full flex flex-col items-center justify-between py-2 animate-fade-in pt-12">
+        <section id="view-choice" class="hidden w-full h-full flex flex-col items-center justify-between py-2 animate-fade-in pt-16">
             <div class="text-center shrink-0 mb-2 relative z-10">
                 <div class="inline-block bg-blue-100 text-blue-600 px-6 py-1 rounded-full font-bold text-lg mb-2 shadow-sm border border-blue-200">
                     <i class="fa-solid fa-child-reaching mr-2"></i> Player B
@@ -133,7 +148,7 @@
                 </div>
         </section>
 
-        <section id="view-result" class="hidden w-full h-full flex flex-col items-center justify-center gap-2 py-4 animate-bounce-in z-20 pt-16">
+        <section id="view-result" class="hidden w-full h-full flex flex-col items-center justify-center gap-2 py-4 animate-bounce-in z-20 pt-20">
             
             <div class="result-badge shrink-0 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-3xl font-black py-2 px-10 rounded-full shadow-lg transform -rotate-2 border-4 border-white mb-2 relative z-10">
                 <i class="fa-solid fa-crown mr-2"></i> Excellent!
@@ -170,7 +185,7 @@
             </button>
         </section>
 
-        <div id="view-settings" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="view-settings" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] items-center justify-center opacity-0 transition-opacity duration-300">
             <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl p-8 transform scale-95 transition-transform duration-300 m-4 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center mb-6 border-b-2 border-slate-100 pb-4">
                     <h2 class="text-3xl font-black text-slate-700"><i class="fa-solid fa-sliders mr-3"></i>Settings</h2>
@@ -185,9 +200,9 @@
                         <div>
                             <div class="flex justify-between mb-2">
                                 <label class="font-bold text-slate-600"><i class="fa-solid fa-music mr-2"></i>Menu BGM</label>
-                                <span id="vol-menu-val" class="font-bold text-blue-500">5%</span>
+                                <span id="vol-menu-val" class="font-bold text-blue-500">10%</span>
                             </div>
-                            <input type="range" id="vol-menu" min="0" max="100" value="5" class="w-full h-4 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                            <input type="range" id="vol-menu" min="0" max="100" value="10" class="w-full h-4 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
