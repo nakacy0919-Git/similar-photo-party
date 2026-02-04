@@ -12,12 +12,16 @@
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
 
-    <div class="fixed top-4 right-4 z-50 flex gap-3">
-        <button id="langToggle" class="h-10 px-4 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition font-bold text-slate-600 border-2 border-slate-100 text-sm">
-            <i class="fa-solid fa-globe mr-2"></i><span id="lang-text">English</span>
+    <a href="https://nakacy0919-git.github.io/SimilarPhoto/" class="fixed top-4 left-4 z-50 h-10 px-4 flex items-center bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition font-bold text-slate-600 border-2 border-slate-100 text-sm">
+        <i class="fa-solid fa-arrow-left mr-2"></i> Review
+    </a>
+
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+        <button id="langToggle" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center">
+            <i class="fa-solid fa-globe text-lg"></i>
         </button>
-        <button id="settingsBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-500 border-2 border-slate-100">
-            <i class="fa-solid fa-gear"></i>
+        <button id="settingsBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-500 border-2 border-slate-100 flex items-center justify-center">
+            <i class="fa-solid fa-gear text-lg"></i>
         </button>
     </div>
 
@@ -171,7 +175,7 @@
                                 <label class="font-bold text-slate-600"><i class="fa-solid fa-music mr-2"></i>Menu BGM</label>
                                 <span id="vol-menu-val" class="font-bold text-blue-500">5%</span>
                             </div>
-                            <input type="range" id="vol-menu" min="0" max="100" value="5" class="w-full h-4 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
+                            <input type="range" id="vol-menu" min="0" max="100" value="10" class="w-full h-4 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500">
                         </div>
                         <div>
                             <div class="flex justify-between mb-2">
