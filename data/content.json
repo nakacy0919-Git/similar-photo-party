@@ -62,5 +62,487 @@
     "title": "Colorful Beach Ball",
     "key_phrase": "You can see a colorful beach ball below the grey shelf. It is lying on the rug next to some small toys.",
     "translation": "グレーの棚の下にカラフルなビーチボールが見えます。それは小さなおもちゃの隣、ラグの上に転がっています。"
+  },
+  {
+    "id": "door_1",
+    "filename": "door_1.webp",
+    "group": "door",
+    "title": "Girl in the doorway",
+    "key_phrase": "A girl in a pink shirt is in the doorway. She looks happy in her room.",
+    "translation": "ピンクのシャツを着た女の子が戸口にいます。彼女は部屋で幸せそうです。"
+  },
+  {
+    "id": "door_2",
+    "filename": "door_2.webp",
+    "group": "door",
+    "title": "Boy in the doorway",
+    "key_phrase": "Look at the boy in the orange shirt. He stands in the open doorway.",
+    "translation": "オレンジ色のシャツを着た男の子を見てください。彼は開いた戸口に立っています。"
+  },
+  {
+    "id": "door_3",
+    "filename": "door_3.webp",
+    "group": "door",
+    "title": "Boy by the wooden door",
+    "key_phrase": "A boy in green stands by a wooden door. He is in the kitchen.",
+    "translation": "緑色の服を着た男の子が木のドアのそばに立っています。彼は台所にいます。"
+  },
+  {
+    "id": "door_4",
+    "filename": "door_4.webp",
+    "group": "door",
+    "title": "Girl by the open door",
+    "key_phrase": "The girl in the blue dress is by the door. She is smiling at us.",
+    "translation": "青いドレスを着た女の子がドアのそばにいます。彼女はこちらに微笑みかけています。"
+  },
+  {
+    "id": "between_1",
+    "filename": "between_1.webp",
+    "group": "between",
+    "title": "Between the walls",
+    "key_phrase": "The boy stands between two walls. He is looking at the city over the water.",
+    "translation": "男の子が2つの壁の間に立っています。彼は水辺の向こうの街を見ています。"
+  },
+  {
+    "id": "between_2",
+    "filename": "between_2.webp",
+    "group": "between",
+    "title": "Between brick buildings",
+    "key_phrase": "A boy stands between brick buildings. He sees a tall skyscraper in the distance.",
+    "translation": "男の子がレンガ造りの建物の間に立っています。彼は遠くに高い摩天楼を見ています。"
+  },
+  {
+    "id": "between_3",
+    "filename": "between_3.webp",
+    "group": "between",
+    "title": "Between stone houses",
+    "key_phrase": "The girl stands between stone houses. She looks at a big castle on the hill.",
+    "translation": "女の子が石造りの家の間に立っています。彼女は丘の上の大きな城を見ています。"
+  },
+  {
+    "id": "between_4",
+    "filename": "between_4.webp",
+    "group": "between",
+    "title": "Between stone walls",
+    "key_phrase": "A man stands between stone walls. He is looking at the beautiful tropical beach.",
+    "translation": "男性が石壁の間に立っています。彼は美しい熱帯のビーチを見ています。"
+  },
+  {
+    "id": "beside_1",
+    "filename": "beside_1.webp",
+    "group": "beside",
+    "title": "Beside the frozen river",
+    "key_phrase": "The couple sits beside a frozen river. They are looking at the snowy mountains.",
+    "translation": "カップルが凍った川のそばに座っています。彼らは雪山を眺めています。"
+  },
+  {
+    "id": "beside_2",
+    "filename": "beside_2.webp",
+    "group": "beside",
+    "title": "Beside the lake",
+    "key_phrase": "A man and woman sit beside the lake. They watch the mountains and water.",
+    "translation": "男性と女性が湖のそばに座っています。彼らは山と水を眺めています。"
+  },
+  {
+    "id": "beside_3",
+    "filename": "beside_3.webp",
+    "group": "beside",
+    "title": "Beside the water at sunset",
+    "key_phrase": "The couple sits beside the water. They are watching the beautiful sunset together.",
+    "translation": "カップルが水辺のそばに座っています。彼らは一緒に美しい夕日を見ています。"
+  },
+  {
+    "id": "beside_4",
+    "filename": "beside_4.webp",
+    "group": "beside",
+    "title": "Beside the autumn lake",
+    "key_phrase": "They are sitting beside the lake. The trees show beautiful autumn colors.",
+    "translation": "彼らは湖のそばに座っています。木々は美しい紅葉を見せています。"
+  },
+  {
+    "id": "box_1",
+    "filename": "box_1.webp",
+    "group": "box",
+    "title": "Man in the box",
+    "key_phrase": "The man in green is in the box. He is smiling inside the tight space.",
+    "translation": "緑の服の男性が箱の中にいます。彼は窮屈な空間の中で微笑んでいます。"
+  },
+  {
+    "id": "box_2",
+    "filename": "box_2.webp",
+    "group": "box",
+    "title": "Businessman in the box",
+    "key_phrase": "A man in a blue shirt is in the box. He looks uncomfortable in the office.",
+    "translation": "青いシャツの男性が箱の中にいます。彼はオフィスで居心地が悪そうです。"
+  },
+  {
+    "id": "box_3",
+    "filename": "box_3.webp",
+    "group": "box",
+    "title": "Man in the box outside",
+    "key_phrase": "The man in yellow is in the box. He sits inside the box on the grass.",
+    "translation": "黄色の服の男性が箱の中にいます。彼は芝生の上で箱の中に座っています。"
+  },
+  {
+    "id": "box_4",
+    "filename": "box_4.webp",
+    "group": "box",
+    "title": "Man curled in the box",
+    "key_phrase": "A man in red is inside the box. He curls up in the box on the floor.",
+    "translation": "赤い服の男性が箱の中にいます。彼は床の上で箱の中に丸まっています。"
+  },
+  {
+    "id": "bridge_1",
+    "filename": "bridge_1.webp",
+    "group": "bridge",
+    "title": "Boy under the bridge",
+    "key_phrase": "The boy sits under the bridge. He looks at the calm river and green trees.",
+    "translation": "男の子が橋の下に座っています。彼は穏やかな川と緑の木々を見ています。"
+  },
+  {
+    "id": "bridge_2",
+    "filename": "bridge_2.webp",
+    "group": "bridge",
+    "title": "Hiker under the bridge",
+    "key_phrase": "A man sits under the bridge. He is watching the waterfall in the green forest.",
+    "translation": "男性が橋の下に座っています。彼は緑の森の中にある滝を眺めています。"
+  },
+  {
+    "id": "bridge_3",
+    "filename": "bridge_3.webp",
+    "group": "bridge",
+    "title": "Woman under the bridge",
+    "key_phrase": "A woman sits under the bridge. She looks at the sunset over the river.",
+    "translation": "女性が橋の下に座っています。彼女は川の向こうの夕日を見ています。"
+  },
+  {
+    "id": "bridge_4",
+    "filename": "bridge_4.webp",
+    "group": "bridge",
+    "title": "Man under the city bridge",
+    "key_phrase": "A man sits under the bridge. He watches the city lights across the water.",
+    "translation": "男性が橋の下に座っています。彼は水辺の向こうの街の明かりを眺めています。"
+  },
+  {
+    "id": "carthrough_1",
+    "filename": "carthrough_1.webp",
+    "group": "through",
+    "title": "Car in the tunnel",
+    "key_phrase": "The white car drives through the tunnel. It is moving fast under the lights.",
+    "translation": "白い車がトンネルを通り抜けています。明かりの下を速く走っています。"
+  },
+  {
+    "id": "carthrough_2",
+    "filename": "carthrough_2.webp",
+    "group": "through",
+    "title": "Blue car in the tunnel",
+    "key_phrase": "A blue car goes through the tunnel. The lights shine on the ceiling.",
+    "translation": "青い車がトンネルを通り抜けます。天井でライトが輝いています。"
+  },
+  {
+    "id": "carthrough_3",
+    "filename": "carthrough_3.webp",
+    "group": "through",
+    "title": "Car in stone tunnel",
+    "key_phrase": "The red car drives through a stone tunnel. It is coming out into nature.",
+    "translation": "赤い車が石のトンネルを通り抜けています。自然の中へ出て行きます。"
+  },
+  {
+    "id": "carthrough_4",
+    "filename": "carthrough_4.webp",
+    "group": "through",
+    "title": "Truck in the tunnel",
+    "key_phrase": "A truck drives through the tunnel. Sunlight shines brightly at the end.",
+    "translation": "トラックがトンネルを通り抜けています。出口で太陽の光が明るく輝いています。"
+  },
+  {
+    "id": "dog_1",
+    "filename": "dog_1.webp",
+    "group": "dog",
+    "title": "Dog with blue sunglasses",
+    "key_phrase": "The dog wears blue sunglasses on its head. It looks happy in the forest.",
+    "translation": "その犬は頭に青いサングラスをかけています。森の中で幸せそうです。"
+  },
+  {
+    "id": "dog_2",
+    "filename": "dog_2.webp",
+    "group": "dog",
+    "title": "Dog with black sunglasses",
+    "key_phrase": "A golden dog has sunglasses on its head. It smiles in the green park.",
+    "translation": "金色の犬が頭にサングラスを乗せています。緑の公園で微笑んでいます。"
+  },
+  {
+    "id": "dog_3",
+    "filename": "dog_3.webp",
+    "group": "dog",
+    "title": "Dog on the beach",
+    "key_phrase": "This dog wears sunglasses on its head. It is relaxing on the sandy beach.",
+    "translation": "この犬は頭にサングラスをかけています。砂浜でリラックスしています。"
+  },
+  {
+    "id": "dog_4",
+    "filename": "dog_4.webp",
+    "group": "dog",
+    "title": "Dog with flowers",
+    "key_phrase": "The curly dog has sunglasses on its head. It is surrounded by colorful flowers.",
+    "translation": "巻き毛の犬が頭にサングラスを乗せています。色とりどりの花に囲まれています。"
+  },
+  {
+    "id": "on_1",
+    "filename": "on_1.webp",
+    "group": "on",
+    "title": "White cat on the fridge",
+    "key_phrase": "A white cat is sleeping on the fridge. It looks very comfortable in the kitchen.",
+    "translation": "白い猫が冷蔵庫の上で眠っています。台所でとても心地よさそうです。"
+  },
+  {
+    "id": "on_2",
+    "filename": "on_2.webp",
+    "group": "on",
+    "title": "Ginger cat on the fridge",
+    "key_phrase": "The ginger cat sleeps on the white fridge. It is taking a nap in the quiet room.",
+    "translation": "茶色の猫が白い冷蔵庫の上で眠っています。静かな部屋で昼寝をしています。"
+  },
+  {
+    "id": "on_3",
+    "filename": "on_3.webp",
+    "group": "on",
+    "title": "Gray cat on the fridge",
+    "key_phrase": "A gray cat is sleeping on the silver fridge. It looks peaceful high up on the appliance.",
+    "translation": "灰色の猫が銀色の冷蔵庫の上で眠っています。家電の上で平和そうに見えます。"
+  },
+  {
+    "id": "on_4",
+    "filename": "on_4.webp",
+    "group": "on",
+    "title": "Cat with sunglasses on the fridge",
+    "key_phrase": "This cat wears sunglasses and sleeps on the blue fridge. It looks cool and relaxed.",
+    "translation": "この猫はサングラスをかけて、青い冷蔵庫の上で眠っています。かっこよくてリラックスしているように見えます。"
+  },
+  {
+    "id": "river_1",
+    "filename": "river_1.webp",
+    "group": "river",
+    "title": "Woman walking by the river",
+    "key_phrase": "A woman with a backpack walks by the river. Palm trees grow along the sunny path.",
+    "translation": "バックパックを背負った女性が川のそばを歩いています。日当たりの良い小道に沿ってヤシの木が生えています。"
+  },
+  {
+    "id": "river_2",
+    "filename": "river_2.webp",
+    "group": "river",
+    "title": "Woman hiking near the waterfall",
+    "key_phrase": "She is walking along the river. There is a beautiful waterfall in the green forest.",
+    "translation": "彼女は川沿いを歩いています。緑の森の中に美しい滝があります。"
+  },
+  {
+    "id": "river_3",
+    "filename": "river_3.webp",
+    "group": "river",
+    "title": "Man walking by the mountain river",
+    "key_phrase": "A man hikes on the path by the river. He looks at the mountains and trees.",
+    "translation": "男性が川のそばの小道をハイキングしています。彼は山や木々を見ています。"
+  },
+  {
+    "id": "river_4",
+    "filename": "river_4.webp",
+    "group": "river",
+    "title": "Boy walking along the river",
+    "key_phrase": "A boy in a red shirt walks by the river. He is near a small village.",
+    "translation": "赤いシャツを着た男の子が川のそばを歩いています。彼は小さな村の近くにいます。"
+  },
+  {
+    "id": "road_1",
+    "filename": "road_1.webp",
+    "group": "road",
+    "title": "Road by the city",
+    "key_phrase": "The road goes along the river near the city. Tall buildings stand under the sunny sky.",
+    "translation": "その道路は街の近くの川沿いを通っています。日当たりの良い空の下に高い建物が立っています。"
+  },
+  {
+    "id": "road_2",
+    "filename": "road_2.webp",
+    "group": "road",
+    "title": "Road in the valley",
+    "key_phrase": "This road follows the fast river. Mountains and green trees surround the beautiful valley path.",
+    "translation": "この道路は急流の川に沿っています。山と緑の木々が美しい谷の小道を囲んでいます。"
+  },
+  {
+    "id": "road_3",
+    "filename": "road_3.webp",
+    "group": "road",
+    "title": "Road by the sea",
+    "key_phrase": "The road curves by the blue sea. Palm trees grow next to the sunny coast.",
+    "translation": "その道路は青い海のそばでカーブしています。日当たりの良い海岸の隣にヤシの木が生えています。"
+  },
+  {
+    "id": "road_4",
+    "filename": "road_4.webp",
+    "group": "road",
+    "title": "Road through the village",
+    "key_phrase": "The road passes stone houses by the river. A bridge crosses the water in the distance.",
+    "translation": "その道路は川のそばの石造りの家を通り過ぎます。遠くで橋が水にかかっています。"
+  },
+  {
+    "id": "station_1",
+    "filename": "station_1.webp",
+    "group": "station",
+    "title": "Station at sunset",
+    "key_phrase": "People walk in front of the station. The large building glows in the warm sunset light.",
+    "translation": "人々が駅の前を歩いています。大きな建物が暖かい夕日の光の中で輝いています。"
+  },
+  {
+    "id": "station_2",
+    "filename": "station_2.webp",
+    "group": "station",
+    "title": "Station from above",
+    "key_phrase": "We see the station from above. The street lights shine on the busy corner cafe.",
+    "translation": "上から駅が見えます。街灯が賑やかな角のカフェを照らしています。"
+  },
+  {
+    "id": "station_3",
+    "filename": "station_3.webp",
+    "group": "station",
+    "title": "Travelers at the station",
+    "key_phrase": "Travelers with luggage walk to the station. A cafe with a bright sign is nearby.",
+    "translation": "荷物を持った旅行者が駅へ歩いています。明るい看板のあるカフェが近くにあります。"
+  },
+  {
+    "id": "station_4",
+    "filename": "station_4.webp",
+    "group": "station",
+    "title": "View from the cafe",
+    "key_phrase": "We look at the station from inside a cafe. People enjoy food while watching the street.",
+    "translation": "カフェの中から駅を見ています。人々は通りを眺めながら食事を楽しんでいます。"
+  },
+  {
+    "id": "studylibrary_1",
+    "filename": "studylibrary_1.webp",
+    "group": "studylibrary",
+    "title": "Students at the library",
+    "key_phrase": "Two students study in the library. They are looking at a laptop together at the table.",
+    "translation": "2人の学生が図書館で勉強しています。彼らはテーブルで一緒にノートパソコンを見ています。"
+  },
+  {
+    "id": "studylibrary_2",
+    "filename": "studylibrary_2.webp",
+    "group": "studylibrary",
+    "title": "Writing in the library",
+    "key_phrase": "Three students study in the library. They are busy writing in their notebooks.",
+    "translation": "3人の学生が図書館で勉強しています。彼らはノートに書くのに忙しそうです。"
+  },
+  {
+    "id": "studylibrary_3",
+    "filename": "studylibrary_3.webp",
+    "group": "studylibrary",
+    "title": "Couple studying in yellow",
+    "key_phrase": "A boy and a girl study in the library. Both of them are wearing yellow shirts.",
+    "translation": "男の子と女の子が図書館で勉強しています。彼らは両方とも黄色いシャツを着ています。"
+  },
+  {
+    "id": "studylibrary_4",
+    "filename": "studylibrary_4.webp",
+    "group": "studylibrary",
+    "title": "Children in the library",
+    "key_phrase": "Three children study in the library. They are writing in their books at the desk.",
+    "translation": "3人の子供たちが図書館で勉強しています。彼らは机で本に書き込んでいます。"
+  },
+  {
+    "id": "umbrella_1",
+    "filename": "umbrella_1.webp",
+    "group": "umbrella",
+    "title": "Umbrella on the beach",
+    "key_phrase": "A woman holds a yellow umbrella. She walks on the sandy beach in the rain.",
+    "translation": "女性が黄色い傘を持っています。彼女は雨の中、砂浜を歩いています。"
+  },
+  {
+    "id": "umbrella_2",
+    "filename": "umbrella_2.webp",
+    "group": "umbrella",
+    "title": "Umbrella in the city",
+    "key_phrase": "A man uses a blue umbrella. He walks on the wet city street at night.",
+    "translation": "男性が青い傘を使っています。彼は夜の濡れた街の通りを歩いています。"
+  },
+  {
+    "id": "umbrella_3",
+    "filename": "umbrella_3.webp",
+    "group": "umbrella",
+    "title": "Umbrella in the village",
+    "key_phrase": "She walks with a red umbrella. The stone street is wet with rain.",
+    "translation": "彼女は赤い傘をさして歩いています。石畳の通りは雨で濡れています。"
+  },
+  {
+    "id": "umbrella_4",
+    "filename": "umbrella_4.webp",
+    "group": "umbrella",
+    "title": "Umbrella in the forest",
+    "key_phrase": "A boy holds a green umbrella. He walks on a path through the rainy forest.",
+    "translation": "男の子が緑色の傘を持っています。彼は雨の森の中の小道を歩いています。"
+  },
+  {
+    "id": "under_1",
+    "filename": "under_1.webp",
+    "group": "under",
+    "title": "Cat under the table",
+    "key_phrase": "A cat sits under the wooden table. It looks calm in the warm light.",
+    "translation": "猫が木のテーブルの下に座っています。暖かい光の中で穏やかに見えます。"
+  },
+  {
+    "id": "under_2",
+    "filename": "under_2.webp",
+    "group": "under",
+    "title": "Ginger cat under the chair",
+    "key_phrase": "An orange cat is under the chair. It is looking at us from the floor.",
+    "translation": "茶色の猫が椅子の下にいます。床からこちらを見ています。"
+  },
+  {
+    "id": "under_3",
+    "filename": "under_3.webp",
+    "group": "under",
+    "title": "Gray cat under the coffee table",
+    "key_phrase": "The gray cat hides under the coffee table. It stays quiet on the bottom shelf.",
+    "translation": "灰色の猫がコーヒーテーブルの下に隠れています。下の棚で静かにしています。"
+  },
+  {
+    "id": "under_4",
+    "filename": "under_4.webp",
+    "group": "under",
+    "title": "Cat under the desk",
+    "key_phrase": "A cat lies under the desk. It is resting next to a backpack on the rug.",
+    "translation": "猫が机の下に寝そべっています。ラグの上のバックパックの隣で休んでいます。"
+  },
+  {
+    "id": "underbed_1",
+    "filename": "underbed_1.webp",
+    "group": "underbed",
+    "title": "Boy under the bed",
+    "key_phrase": "The boy is hiding under the bed. He looks out from the dark space.",
+    "translation": "男の子がベッドの下に隠れています。彼は暗い場所から外を見ています。"
+  },
+  {
+    "id": "underbed_2",
+    "filename": "underbed_2.webp",
+    "group": "underbed",
+    "title": "Boy with toy car under bed",
+    "key_phrase": "A boy lies under the bed. There is a blue toy car next to him.",
+    "translation": "男の子がベッドの下に寝そべっています。彼の隣に青いおもちゃの車があります。"
+  },
+  {
+    "id": "underbed_3",
+    "filename": "underbed_3.webp",
+    "group": "underbed",
+    "title": "Girl hiding under the bed",
+    "key_phrase": "The girl is under the bed. She is hiding quietly on the wooden floor.",
+    "translation": "女の子がベッドの下にいます。彼女は木の床の上で静かに隠れています。"
+  },
+  {
+    "id": "underbed_4",
+    "filename": "underbed_4.webp",
+    "group": "underbed",
+    "title": "Girl with teddy bear under bed",
+    "key_phrase": "A girl hides under the bed. She is holding a brown teddy bear tightly.",
+    "translation": "女の子がベッドの下に隠れています。彼女は茶色のテディベアをしっかりと抱いています。"
   }
 ]
+
+ 

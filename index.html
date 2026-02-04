@@ -23,7 +23,7 @@
 
     <main class="flex-1 w-full h-full relative flex flex-col items-center justify-center p-2 md:p-4">
 
-        <section id="view-landing" class="w-full h-full overflow-y-auto flex flex-col items-center justify-center gap-6 animate-fade-in py-10">
+        <section id="view-landing" class="w-full h-full overflow-y-auto flex flex-col items-center justify-center gap-6 animate-fade-in py-10 relative">
             <div class="text-center relative">
                 <h1 class="sparkling-title text-5xl md:text-7xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 filter drop-shadow-md">
                     Similar Photo Party
@@ -38,7 +38,7 @@
                 <div class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
             </button>
 
-            <div class="bg-white/70 backdrop-blur-md border-2 border-white rounded-3xl p-6 w-full max-w-4xl shadow-xl">
+            <div class="bg-white/70 backdrop-blur-md border-2 border-white rounded-3xl p-6 w-full max-w-4xl shadow-xl mb-8">
                 <h3 class="text-slate-600 font-black text-2xl mb-6 border-b-4 border-slate-100 pb-2 inline-block text-center w-full" data-i18n="howToPlay">HOW TO PLAY</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-50 flex flex-col items-center gap-2 text-center">
@@ -58,15 +58,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="text-[10px] md:text-xs text-slate-400 font-bold opacity-60 font-sans absolute bottom-2">
+                &copy; Similar Photo Party by Kohei Nakashima. All Rights Reserved.
+            </div>
         </section>
 
         <section id="view-memory" class="hidden w-full h-full flex flex-col items-center justify-center gap-4 animate-zoom-in">
             <div class="bg-white px-8 py-2 rounded-full shadow-lg text-blue-600 font-black text-2xl flex items-center gap-3 border border-blue-100 shrink-0">
                 <i class="fa-solid fa-stopwatch"></i> <span data-i18n="time">Time</span>: <span id="memory-timer" class="text-3xl">10</span>s
             </div>
+            
             <div class="relative w-full h-full flex-1 flex items-center justify-center overflow-hidden">
                 <img id="memory-img" src="" class="w-full h-full object-contain rounded-xl drop-shadow-2xl">
             </div>
+
             <button id="memory-skip-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95 shrink-0 mb-2">
                 I'm Ready! <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
@@ -79,16 +85,19 @@
                 </div>
                 <h2 class="text-4xl md:text-6xl font-black text-slate-700 drop-shadow-sm" data-i18n="explainTitle">Explain now!</h2>
             </div>
+            
             <div class="relative w-64 h-64 md:w-80 md:h-80 flex items-center justify-center">
-                <svg class="w-full h-full transform -rotate-90 drop-shadow-xl" viewBox="0 0 100 100">
-                    <circle cx="50%" cy="50%" r="45%" stroke="white" stroke-width="20" fill="transparent" />
-                    <circle id="explain-progress" cx="50%" cy="50%" r="45%" stroke="currentColor" stroke-width="20" fill="transparent" class="text-purple-500 transition-all duration-1000 ease-linear" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" />
+                <svg class="w-full h-full transform -rotate-90 scale-x-[-1] drop-shadow-xl" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" stroke="white" stroke-width="6" fill="transparent" class="opacity-30" />
+                    <circle id="explain-progress" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6" fill="transparent" class="text-purple-500 transition-all duration-1000 ease-linear" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" />
                 </svg>
                 <div class="absolute text-7xl md:text-8xl font-black text-slate-700">
                     <span id="explain-timer">15</span>
                 </div>
             </div>
+
             <p class="text-xl text-slate-500 font-bold" data-i18n="explainDesc">Describe the features to Player B.</p>
+
             <button id="explain-skip-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95">
                 I'm Ready! <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
@@ -103,6 +112,7 @@
                     Which one is correct?
                 </h2>
             </div>
+
             <div id="choice-grid" class="grid grid-cols-2 gap-3 w-full max-w-7xl flex-1 min-h-0">
                 </div>
         </section>
@@ -144,7 +154,7 @@
             </button>
         </section>
 
-        <div id="view-settings" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div id="view-settings" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] items-center justify-center opacity-0 transition-opacity duration-300">
             <div class="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl p-8 transform scale-95 transition-transform duration-300 m-4 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center mb-6 border-b-2 border-slate-100 pb-4">
                     <h2 class="text-3xl font-black text-slate-700"><i class="fa-solid fa-sliders mr-3"></i>Settings</h2>
