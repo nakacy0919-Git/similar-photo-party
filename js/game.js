@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             btnNext: 'Next',
             btnStart: 'Start Game!',
-            langLabel: '日本語'
+            langLabel: '日本語',
+            btnPrev: 'Back'
         },
         ja: {
             title: '遊び方',
@@ -25,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             btnNext: '次へ',
             btnStart: 'ゲーム開始！',
-            langLabel: 'English'
+            langLabel: 'English',
+            btnPrev: '戻る'
         }
     };
 
@@ -65,10 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         btns: {
             start: document.getElementById('start-btn'),
-            tutorial: document.getElementById('tutorial-btn'), // LandingのHow to Playボタン
+            tutorial: document.getElementById('tutorial-btn'),
             tutClose: document.getElementById('tut-close-btn'),
             tutNext: document.getElementById('tut-next-btn'),
+            tutPrev: document.getElementById('tut-prev-btn'),
             tutLang: document.getElementById('tut-lang-btn'),
+            review: document.getElementById('reviewLink'),
             
             memorySkip: document.getElementById('memory-skip-btn'),
             explainSkip: document.getElementById('explain-skip-btn'),
@@ -131,10 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => { state.quizData = data; })
         .catch(err => console.error("Load Error:", err));
 
+    // 初回インタラクションでBGM開始
     document.body.addEventListener('click', initAudio, { once: true });
     
     function initAudio() {
-        if(state.isBgmEnabled) {
+        if(state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) {
             playBgm();
         }
     }
@@ -146,7 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.tutorial.addEventListener('click', openTutorial);
     elements.btns.tutClose.addEventListener('click', closeTutorial);
     elements.btns.tutNext.addEventListener('click', nextTutorialStep);
+    elements.btns.tutPrev.addEventListener('click', prevTutorialStep);
     elements.btns.tutLang.addEventListener('click', toggleTutorialLang);
+
+    // Review Link Event
+    elements.btns.review.addEventListener('click', () => {
+        elements.audio.bgm.pause();
+    });
 
     // Game Flow Events
     elements.btns.memorySkip.addEventListener('click', startExplainPhase);
@@ -174,6 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Tutorial Logic ===
 
     function openTutorial() {
+        // BGMを一時停止
+        elements.audio.bgm.pause();
+        
         state.tutStep = 0;
         updateTutorialView();
         elements.views.tutorial.classList.remove('hidden');
@@ -181,6 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeTutorial() {
         elements.views.tutorial.classList.add('hidden');
+        // BGM再開（ONの場合）
+        if(state.isBgmEnabled) playBgm();
     }
 
     function nextTutorialStep() {
@@ -189,6 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTutorialView();
         } else {
             closeTutorial();
+            startMemoryPhase(); // "Game Start"ボタンならゲーム開始
+        }
+    }
+
+    function prevTutorialStep() {
+        if (state.tutStep > 0) {
+            state.tutStep--;
+            updateTutorialView();
         }
     }
 
@@ -208,19 +232,28 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tutElements.desc.textContent = stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
         
-        // 画像更新 (プレースホルダー対応)
-        // ※画像がない場合は仮のアイコン等を表示するロジックを入れても良いですが
-        // 今回はassets内の画像を読み込む前提です
+        // 画像更新
         elements.tutElements.img.src = stepData.img;
 
         // ボタン更新
+        // Prevボタン制御
+        if (state.tutStep === 0) {
+            elements.btns.tutPrev.disabled = true;
+            elements.btns.tutPrev.classList.add('opacity-30', 'pointer-events-none');
+        } else {
+            elements.btns.tutPrev.disabled = false;
+            elements.btns.tutPrev.classList.remove('opacity-30', 'pointer-events-none');
+            elements.btns.tutPrev.innerHTML = `<i class="fa-solid fa-chevron-left"></i> ${data.btnPrev}`;
+        }
+
+        // Next/Startボタン制御
         if (state.tutStep === 2) {
             elements.btns.tutNext.innerHTML = `${data.btnStart} <i class="fa-solid fa-play ml-2"></i>`;
-            elements.btns.tutNext.classList.remove('bg-indigo-500', 'hover:bg-indigo-600');
+            elements.btns.tutNext.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
             elements.btns.tutNext.classList.add('bg-pink-500', 'hover:bg-pink-600');
         } else {
             elements.btns.tutNext.innerHTML = `${data.btnNext} <i class="fa-solid fa-chevron-right ml-2"></i>`;
-            elements.btns.tutNext.classList.add('bg-indigo-500', 'hover:bg-indigo-600');
+            elements.btns.tutNext.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
             elements.btns.tutNext.classList.remove('bg-pink-500', 'hover:bg-pink-600');
         }
     }
@@ -236,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.classList.remove('fa-volume-xmark');
             icon.classList.add('fa-music');
             icon.style.color = "";
-            if (!state.isSpeaking) playBgm();
+            if (!state.isSpeaking && elements.views.tutorial.classList.contains('hidden')) playBgm();
         } else {
             icon.classList.remove('fa-music');
             icon.classList.add('fa-volume-xmark');
@@ -276,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (type === 'game') elements.inputs.gameVal.textContent = val + '%';
         if (type === 'voice') elements.inputs.voiceVal.textContent = val + '%';
 
-        if (state.isBgmEnabled && !state.isSpeaking) {
+        if (state.isBgmEnabled && !state.isSpeaking && elements.views.tutorial.classList.contains('hidden')) {
             if (type === 'menu' && !state.isPlaying) elements.audio.bgm.volume = volume;
             if (type === 'game' && state.isPlaying) elements.audio.bgm.volume = volume;
         }
@@ -314,14 +347,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uttr.onend = () => {
             state.isSpeaking = false;
-            if (state.isBgmEnabled) {
+            // チュートリアル中はBGM再開しない
+            if (state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) {
                 playBgm();
             }
         };
         
         uttr.onerror = () => {
             state.isSpeaking = false;
-            if (state.isBgmEnabled) playBgm();
+            if (state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) playBgm();
         };
 
         speechSynthesis.speak(uttr);
@@ -331,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showView(viewName) {
         Object.values(elements.views).forEach(el => {
-            if(el.id !== 'view-settings') el.classList.add('hidden');
+            if(el.id !== 'view-settings' && el.id !== 'view-tutorial') el.classList.add('hidden');
         });
         elements.views[viewName].classList.remove('hidden');
 
