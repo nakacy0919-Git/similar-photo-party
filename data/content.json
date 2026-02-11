@@ -606,6 +606,166 @@
     "title": "Sore Throat and Lozenges",
     "key_phrase": "The woman holds a warm mug and touches her throat. She looks at the bag of throat lozenges because her throat hurts.",
     "translation": "女性は温かいマグカップを持ち、喉に触れています。彼女は喉が痛いので、のど飴の袋を見ています。"
+  },
+  {
+    "id": "quietstudy_1",
+    "filename": "quietstudy_1.webp",
+    "group": "quietstudy",
+    "title": "Sleeping in Class",
+    "key_phrase": "A boy sleeps on his desk. The gray sky looks cloudy and dark.",
+    "translation": "男の子が机で眠っています。曇った空は暗く見えます。"
+  },
+  {
+    "id": "quietstudy_2",
+    "filename": "quietstudy_2.webp",
+    "group": "quietstudy",
+    "title": "Red Hoodies",
+    "key_phrase": "Two boys wear red hoodies. One student uses headphones to listen to music.",
+    "translation": "2人の男の子が赤いパーカーを着ています。1人の生徒がヘッドホンを使っています。"
+  },
+  {
+    "id": "quietstudy_3",
+    "filename": "quietstudy_3.webp",
+    "group": "quietstudy",
+    "title": "Coffee Break",
+    "key_phrase": "A boy holds a cup and drinks. Another boy stands near the shelf.",
+    "translation": "男の子がカップを持って飲んでいます。別の男の子が棚の近くに立っています。"
+  },
+  {
+    "id": "quietstudy_4",
+    "filename": "quietstudy_4.webp",
+    "group": "quietstudy",
+    "title": "Laptop and Globe",
+    "key_phrase": "A boy types on a laptop. A large globe sits on the wooden shelf.",
+    "translation": "男の子がノートパソコンで入力をしています。大きな地球儀が木の棚に置いてあります。"
+  },
+  {
+    "id": "parkkid_1",
+    "filename": "parkkid_1.webp",
+    "group": "parkkid",
+    "title": "Dog Walk",
+    "key_phrase": "Four friends play soccer together. A person walks a golden dog nearby.",
+    "translation": "4人の友達が一緒にサッカーをしています。近くで人が金色の犬を散歩させています。"
+  },
+  {
+    "id": "parkkid_2",
+    "filename": "parkkid_2.webp",
+    "group": "parkkid",
+    "title": "Birdhouse",
+    "key_phrase": "A birdhouse hangs from the tree. A dog watches the game alone.",
+    "translation": "木から鳥小屋がぶら下がっています。犬が一人で試合を見ています。"
+  },
+  {
+    "id": "parkkid_3",
+    "filename": "parkkid_3.webp",
+    "group": "parkkid",
+    "title": "Sunset View",
+    "key_phrase": "An old couple sits on a bench. The sun goes down behind them.",
+    "translation": "老夫婦がベンチに座っています。太陽が彼らの後ろに沈んでいきます。"
+  },
+  {
+    "id": "parkkid_4",
+    "filename": "parkkid_4.webp",
+    "group": "parkkid",
+    "title": "Flying Kite",
+    "key_phrase": "A kite flies in the sky. Six children run after the soccer ball.",
+    "translation": "凧が空を飛んでいます。6人の子供たちがサッカーボールを追いかけて走っています。"
+  },
+  {
+    "id": "readingbook_1",
+    "filename": "readingbook_1.webp",
+    "group": "readingbook",
+    "title": "Blue and Red",
+    "key_phrase": "A woman in blue reads a red book. A small plant sits on the table near the sunny window.",
+    "translation": "青い服の女性が赤い本を読んでいます。日当たりの良い窓のそばのテーブルに小さな植物が置いてあります。"
+  },
+  {
+    "id": "readingbook_2",
+    "filename": "readingbook_2.webp",
+    "group": "readingbook",
+    "title": "Green and Blue",
+    "key_phrase": "She wears a green sweater and reads a blue book. A pair of glasses lies on the desk.",
+    "translation": "彼女は緑のセーターを着て青い本を読んでいます。メガネが机の上に置いてあります。"
+  },
+  {
+    "id": "readingbook_3",
+    "filename": "readingbook_3.webp",
+    "group": "readingbook",
+    "title": "Scarf and Passerby",
+    "key_phrase": "She wears a scarf and reads a red book. A man walks outside the window behind her.",
+    "translation": "彼女はスカーフを巻いて赤い本を読んでいます。彼女の後ろの窓の外を男性が歩いています。"
+  },
+  {
+    "id": "readingbook_4",
+    "filename": "readingbook_4.webp",
+    "group": "readingbook",
+    "title": "Glasses and Coffee",
+    "key_phrase": "A woman in green reads a blue book. Glasses and a coffee cup sit on the wooden table.",
+    "translation": "緑の服の女性が青い本を読んでいます。メガネとコーヒーカップが木のテーブルに置いてあります。"
+  },
+  {
+    "id": "tennisstrike_1",
+    "filename": "tennisstrike_1.webp",
+    "group": "tennisstrike",
+    "title": "Blue Shirt Backhand",
+    "key_phrase": "A man in blue hits the ball. Dark clouds fill the sky above the green tennis court.",
+    "translation": "青い服の男性がボールを打っています。緑のテニスコートの上空は暗い雲で覆われています。"
+  },
+  {
+    "id": "tennisstrike_2",
+    "filename": "tennisstrike_2.webp",
+    "group": "tennisstrike",
+    "title": "Green Shirt Match",
+    "key_phrase": "A player in green hits the ball on an orange court. A woman stands on the other side.",
+    "translation": "緑の服の選手がオレンジ色のコートでボールを打っています。反対側に女性が立っています。"
+  },
+  {
+    "id": "tennisstrike_3",
+    "filename": "tennisstrike_3.webp",
+    "group": "tennisstrike",
+    "title": "Doubles Partner",
+    "key_phrase": "A man in a white shirt holds a racket. His partner stands in the back of the court.",
+    "translation": "白いシャツの男性がラケットを持っています。彼のパートナーがコートの後ろに立っています。"
+  },
+  {
+    "id": "tennisstrike_4",
+    "filename": "tennisstrike_4.webp",
+    "group": "tennisstrike",
+    "title": "Indoor Serve",
+    "key_phrase": "A player in a red shirt serves the ball. He plays inside a large building with high lights.",
+    "translation": "赤いシャツの選手がボールをサーブしています。彼は高い照明のある大きな建物の中でプレイしています。"
+  },
+  {
+    "id": "watchgame_1",
+    "filename": "watchgame_1.webp",
+    "group": "watchgame",
+    "title": "Watching the Game",
+    "key_phrase": "The parents sit on chairs and watch the game. They hold warm coffee cups in their hands.",
+    "translation": "両親は椅子に座って試合を見ています。彼らは温かいコーヒーカップを手に持っています。"
+  },
+  {
+    "id": "watchgame_2",
+    "filename": "watchgame_2.webp",
+    "group": "watchgame",
+    "title": "Cheering Dad",
+    "key_phrase": "The father stands up and cheers for his son. A man walks his dog in the background.",
+    "translation": "父親が立ち上がって息子を応援しています。男性が背景で犬を散歩させています。"
+  },
+  {
+    "id": "watchgame_3",
+    "filename": "watchgame_3.webp",
+    "group": "watchgame",
+    "title": "Taking a Photo",
+    "key_phrase": "The mother takes a photo with her smartphone. A couple enjoys a picnic on the grass.",
+    "translation": "母親がスマートフォンで写真を撮っています。カップルが芝生の上でピクニックを楽しんでいます。"
+  },
+  {
+    "id": "watchgame_4",
+    "filename": "watchgame_4.webp",
+    "group": "watchgame",
+    "title": "The Big Kick",
+    "key_phrase": "The boy in red kicks the soccer ball hard. His parents watch him from the sideline.",
+    "translation": "赤い服の男の子がサッカーボールを強く蹴っています。彼の両親がサイドラインから彼を見ています。"
   }
 ]
 
