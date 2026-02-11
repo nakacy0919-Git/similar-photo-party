@@ -542,6 +542,70 @@
     "title": "Girl with teddy bear under bed",
     "key_phrase": "A girl hides under the bed. She is holding a brown teddy bear tightly.",
     "translation": "女の子がベッドの下に隠れています。彼女は茶色のテディベアをしっかりと抱いています。"
+  },
+  {
+    "id": "cookingman_1",
+    "filename": "cookingman_1.webp",
+    "group": "cookingman",
+    "title": "Cooking Dinner Without an Apron",
+    "key_phrase": "The man cooks dinner in the kitchen at night. He holds a wooden spoon and stirs the stew in the pot.",
+    "translation": "男性は夜、キッチンで夕食を作っています。彼は木のスプーンを持ち、鍋の中のシチューをかき混ぜています。"
+  },
+  {
+    "id": "cookingman_2",
+    "filename": "cookingman_2.webp",
+    "group": "cookingman",
+    "title": "Frying Vegetables for Lunch",
+    "key_phrase": "The man makes lunch on a sunny day. He wears a blue striped apron and fries vegetables in a pan.",
+    "translation": "男性は晴れた日に昼食を作っています。彼は青いストライプのエプロンを着て、フライパンで野菜を炒めています。"
+  },
+  {
+    "id": "cookingman_3",
+    "filename": "cookingman_3.webp",
+    "group": "cookingman",
+    "title": "Seasoning Breakfast",
+    "key_phrase": "The man prepares breakfast in the morning. He wears a red apron and sprinkles seasoning into the frying pan.",
+    "translation": "男性は朝、朝食の準備をしています。彼は赤いエプロンを着て、フライパンに調味料を振りかけています。"
+  },
+  {
+    "id": "cookingman_4",
+    "filename": "cookingman_4.webp",
+    "group": "cookingman",
+    "title": "Tasting Soup with Glasses",
+    "key_phrase": "The man wears glasses and tastes the soup from the pot. He holds a spoon to his mouth to check the flavor.",
+    "translation": "男性は眼鏡をかけ、鍋のスープの味見をしています。彼は味を確認するためにスプーンを口元に持っています。"
+  },
+  {
+    "id": "feelunwell_1",
+    "filename": "feelunwell_1.webp",
+    "group": "feelunwell",
+    "title": "Coughing on the Sofa",
+    "key_phrase": "The woman sits on the sofa and coughs into her hand. She feels sick and needs a tissue from the box on the table.",
+    "translation": "女性はソファに座り、手で口を覆って咳をしています。彼女は気分が悪く、テーブルの上の箱からティッシュを必要としています。"
+  },
+  {
+    "id": "feelunwell_2",
+    "filename": "feelunwell_2.webp",
+    "group": "feelunwell",
+    "title": "Sick in Bed at Night",
+    "key_phrase": "The woman rests in bed at night because she has a cold. She covers her mouth with a tissue while she coughs.",
+    "translation": "女性は風邪をひいているため、夜ベッドで休んでいます。彼女は咳をする間、ティッシュで口を覆っています。"
+  },
+  {
+    "id": "feelunwell_3",
+    "filename": "feelunwell_3.webp",
+    "group": "feelunwell",
+    "title": "Coughing at the Office",
+    "key_phrase": "The woman works at her computer and wears a mask. She coughs at her desk, so she uses a humidifier.",
+    "translation": "女性はコンピュータに向かって仕事をし、マスクを着けています。彼女はデスクで咳をしているため、加湿器を使っています。"
+  },
+  {
+    "id": "feelunwell_4",
+    "filename": "feelunwell_4.webp",
+    "group": "feelunwell",
+    "title": "Sore Throat and Lozenges",
+    "key_phrase": "The woman holds a warm mug and touches her throat. She looks at the bag of throat lozenges because her throat hurts.",
+    "translation": "女性は温かいマグカップを持ち、喉に触れています。彼女は喉が痛いので、のど飴の袋を見ています。"
   }
 ]
 
