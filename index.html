@@ -13,19 +13,17 @@
         /* 横画面(ランドスケープ)時の強制調整 */
         @media (orientation: landscape) and (max-height: 600px) {
             body { overflow: hidden; }
-            /* メインコンテナを縮小して画面内に収める */
             .landscape-fit {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                transform: scale(0.75); /* 全体を75%に縮小 */
+                transform: scale(0.75);
                 transform-origin: center center;
                 height: 100vh;
-                width: 133vw; /* 縮小分を補正 */
+                width: 133vw;
                 margin-left: -16.5vw;
             }
-            /* スクロールが必要な箇所の調整 */
             #view-landing {
                 align-items: center !important;
                 justify-content: center !important;
