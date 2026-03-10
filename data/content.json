@@ -766,7 +766,584 @@
     "title": "The Big Kick",
     "key_phrase": "The boy in red kicks the soccer ball hard. His parents watch him from the sideline.",
     "translation": "赤い服の男の子がサッカーボールを強く蹴っています。彼の両親がサイドラインから彼を見ています。"
+  },
+  {
+    "id": "201_1",
+    "filename": "201_1.jpg",
+    "group": "201",
+    "title": "Boy with a Red Bike",
+    "key_phrase": "A boy wearing a denim jacket is standing on the street with his red bicycle. He seems to enjoy watching the beautiful sunset behind him.",
+    "translation": "デニムジャケットを着た男の子が、赤い自転車と一緒に通りに立っています。後ろの美しい夕日を見るのを楽しんでいるようです。"
+  },
+  {
+    "id": "201_2",
+    "filename": "201_2.jpg",
+    "group": "201",
+    "title": "Boy with a Blue Bike and a Dog",
+    "key_phrase": "The boy standing in the backyard is holding a blue bicycle. He enjoys spending time outdoors with his dog walking on the green grass.",
+    "translation": "裏庭に立っている男の子は、青い自転車を持っています。彼は緑の芝生を歩いている犬と一緒に、屋外で過ごす時間を楽しんでいます。"
+  },
+  {
+    "id": "201_3",
+    "filename": "201_3.jpg",
+    "group": "201",
+    "title": "Boy with a Green Bike at a Garage",
+    "key_phrase": "The boy wearing glasses is standing in front of the open garage, holding a green bicycle. Keeping the tools organized on the wall is important for fixing bikes.",
+    "translation": "メガネをかけた男の子が、緑色の自転車を持って開いたガレージの前に立っています。壁に工具を整理しておくことは、自転車を修理するために重要です。"
+  },
+  {
+    "id": "201_4",
+    "filename": "201_4.jpg",
+    "group": "201",
+    "title": "Boy with a Yellow Bike in a Park",
+    "key_phrase": "Wearing a grey hoodie and a cap, the laughing boy is pushing a yellow road bike. Walking along the path in the park seems to be a relaxing activity for him despite the cloudy weather.",
+    "translation": "グレーのパーカーと帽子をかぶった笑っている男の子が、黄色いロードバイクを押しています。公園の小道を歩くことは、曇りの天気にもかかわらず彼にとってリラックスできる活動のようです。"
+  },
+  {
+    "id": "203_1",
+    "filename": "203_1.jpg",
+    "group": "203",
+    "title": "Juggling a Soccer Ball in Autumn",
+    "key_phrase": "Wearing a warm beanie, the boy is practicing juggling a soccer ball in the park. Yellow autumn leaves falling on the green grass create a beautiful seasonal atmosphere.",
+    "translation": "暖かいニット帽をかぶった男の子が、公園でサッカーボールのリフティングを練習しています。緑の芝生に落ちている黄色い秋の葉が、美しい季節の雰囲気を作り出しています。"
+  },
+  {
+    "id": "203_2",
+    "filename": "203_2.jpg",
+    "group": "203",
+    "title": "Two Boys Talking on the Field",
+    "key_phrase": "Two boys wearing red shirts are standing on the green field and talking to each other. The boy holding the soccer ball is looking at his friend before starting the game.",
+    "translation": "赤いシャツを着た2人の男の子が緑のフィールドに立ち、お互いに話しています。サッカーボールを持っている男の子は、試合を始める前に友達を見ています。"
+  },
+  {
+    "id": "203_3",
+    "filename": "203_3.jpg",
+    "group": "203",
+    "title": "Placing a Soccer Ball on the Grass",
+    "key_phrase": "Bending down on the green grass, the boy wearing a blue uniform is carefully placing the soccer ball. Playing soccer in the park on such a sunny day is a great way to stay active.",
+    "translation": "青いユニフォームを着た男の子が、緑の芝生にかがんで慎重にサッカーボールを置いています。こんなに晴れた日に公園でサッカーをすることは、活動的に過ごすための素晴らしい方法です。"
+  },
+  {
+    "id": "203_4",
+    "filename": "203_4.jpg",
+    "group": "203",
+    "title": "Walking Home After Soccer Practice",
+    "key_phrase": "Carrying a heavy backpack, the boy is walking on the soccer field at sunset. Looking down at the rolling ball, he seems to be heading home after finishing his practice.",
+    "translation": "重いバックパックを背負った男の子が、夕暮れ時のサッカーグラウンドを歩いています。転がるボールを見下ろしながら、彼は練習を終えて家に帰るところのようです。"
+  },
+  {
+    "id": "205_1",
+    "filename": "205_1.jpg",
+    "group": "205",
+    "title": "Walking in the Parking Lot",
+    "key_phrase": "Wearing a beige trench coat, the smiling woman is walking in the parking lot at sunset. Carrying a reusable bag filled with apples is an eco-friendly choice.",
+    "translation": "ベージュのトレンチコートを着た笑顔の女性が、夕暮れ時の駐車場を歩いています。りんごがいっぱい入ったエコバッグを持ち歩くのは、環境に優しい選択です。"
+  },
+  {
+    "id": "205_2",
+    "filename": "205_2.jpg",
+    "group": "205",
+    "title": "Entering the Supermarket",
+    "key_phrase": "Holding a shopping basket, the woman wearing a red coat is entering the supermarket through the sliding doors. Going grocery shopping on a sunny day seems to put her in a good mood.",
+    "translation": "買い物かごを持った赤いコートの女性が、自動ドアを通ってスーパーに入ろうとしています。晴れた日に食料品の買い出しに行くことは、彼女を良い気分にさせているようです。"
+  },
+  {
+    "id": "205_3",
+    "filename": "205_3.jpg",
+    "group": "205",
+    "title": "Choosing Apples at the Store",
+    "key_phrase": "Standing in the produce section, the woman wearing a blue sweater is carefully picking fresh apples. Putting the selected fruits into a plastic bag is the first step of her shopping.",
+    "translation": "青果売り場に立っている青いセーターを着た女性が、新鮮なりんごを慎重に選んでいます。選んだ果物をビニール袋に入れることは、彼女の買い物の最初のステップです。"
+  },
+  {
+    "id": "205_4",
+    "filename": "205_4.jpg",
+    "group": "205",
+    "title": "Paying at the Cash Register",
+    "key_phrase": "Wearing a yellow scarf, the woman is paying for her apples by handing a credit card to the cashier. Smiling at the store clerk makes the checkout process pleasant.",
+    "translation": "黄色いマフラーをした女性が、レジ係にクレジットカードを渡してりんごの代金を支払っています。店員に微笑みかけることで、会計のプロセスが楽しくなります。"
+  },
+  {
+    "id": "207_1",
+    "filename": "207_1.jpg",
+    "group": "207",
+    "title": "Reading a Novel by the Window",
+    "key_phrase": "Sitting by the window with a cup of coffee, the smiling woman says she enjoys reading novels. Relaxing in a comfortable chair and immersing herself in a book is her favorite pastime.",
+    "translation": "窓辺でコーヒーを飲みながら座っている笑顔の女性は、小説を読むのが楽しいと言っています。快適な椅子でリラックスして本に没頭することは、彼女のお気に入りの娯楽です。"
+  },
+  {
+    "id": "207_2",
+    "filename": "207_2.jpg",
+    "group": "207",
+    "title": "Reading a Picture Book",
+    "key_phrase": "Sitting at the table next to a small potted plant, the woman mentions enjoying reading picture books. Looking at the colorful illustrations helps her unwind after a long day.",
+    "translation": "小さな鉢植えの隣のテーブルに座っている女性は、絵本を読むのが楽しいと話しています。カラフルなイラストを見ることは、長い一日の後にリラックスするのに役立ちます。"
+  },
+  {
+    "id": "207_3",
+    "filename": "207_3.jpg",
+    "group": "207",
+    "title": "Reading Comics in the Library",
+    "key_phrase": "Sitting on the floor among the bookshelves, the woman says she enjoys reading comics here. Leaning against the bookshelf with her backpack beside her creates a cozy reading spot.",
+    "translation": "本棚の間の床に座っている女性は、ここで漫画を読むのが楽しいと言っています。バックパックを横に置いて本棚に寄りかかることで、居心地の良い読書スペースができます。"
+  },
+  {
+    "id": "207_4",
+    "filename": "207_4.jpg",
+    "group": "207",
+    "title": "Reading on a Tablet",
+    "key_phrase": "Resting her tablet on her drawn-up knees, the smiling woman says she enjoys reading on her device. Sitting by the large window provides plenty of natural light for looking at the screen.",
+    "translation": "立てた膝の上にタブレットを置いた笑顔の女性は、自分のデバイスで読書を楽しんでいると言っています。大きな窓辺に座ることで、画面を見るための自然光がたっぷり入ります。"
+  },
+  {
+    "id": "209_1",
+    "filename": "209_1.jpg",
+    "group": "209",
+    "title": "Cooking Healthy Food",
+    "key_phrase": "Standing in the kitchen, the smiling woman says she likes cooking healthy food. Chopping fresh carrots on the wooden cutting board is good for her family's health.",
+    "translation": "キッチンに立っている笑顔の女性は、健康的な食事を作るのが好きだと言っています。木のカッティングボードの上で新鮮なニンジンを刻むことは、彼女の家族の健康に良いです。"
+  },
+  {
+    "id": "209_2",
+    "filename": "209_2.jpg",
+    "group": "209",
+    "title": "Making Soup for Everyone",
+    "key_phrase": "Stirring the hot soup in the pot, the woman mentions enjoying making soup for everyone. Watching her family eating happily in the background makes her feel satisfied.",
+    "translation": "鍋の熱いスープをかき混ぜながら、女性はみんなのためにスープを作るのを楽しんでいると話しています。背景で家族が幸せそうに食べているのを見ることは、彼女を満足した気持ちにさせます。"
+  },
+  {
+    "id": "209_3",
+    "filename": "209_3.jpg",
+    "group": "209",
+    "title": "Serving Pasta",
+    "key_phrase": "Holding a pair of tongs, the woman says she likes serving pasta to her family. Plating the delicious spaghetti with tomatoes looks very appetizing.",
+    "translation": "トングを持っている女性は、家族にパスタを出すのが好きだと言っています。トマトが入った美味しそうなスパゲッティを盛り付けることは、とても食欲をそそるように見えます。"
+  },
+  {
+    "id": "209_4",
+    "filename": "209_4.jpg",
+    "group": "209",
+    "title": "Roasting Chicken",
+    "key_phrase": "Wearing oven mitts, the smiling woman says she loves roasting chicken for dinner. Taking the golden-brown chicken out of the hot oven fills the kitchen with a great smell.",
+    "translation": "オーブンミトンをつけている笑顔の女性は、夕食にチキンをローストするのが大好きだと言っています。熱いオーブンから黄金色のチキンを取り出すことは、キッチンを素晴らしい香りでいっぱいにします。"
+  },
+  {
+    "id": "211_1",
+    "filename": "211_1.jpg",
+    "group": "211",
+    "title": "Dribbling the Ball",
+    "key_phrase": "Playing soccer on the green field, the boy says he is good at dribbling. Running with the ball past his opponent shows his great skills.",
+    "translation": "緑のフィールドでサッカーをしている男の子は、ドリブルが得意だと言っています。相手を抜いてボールを持って走ることは、彼の素晴らしいスキルを示しています。"
+  },
+  {
+    "id": "211_2",
+    "filename": "211_2.jpg",
+    "group": "211",
+    "title": "Shooting Goals",
+    "key_phrase": "Kicking the ball with power, the boy shouts he is good at shooting goals. Watching the flying ball head straight into the net is exciting.",
+    "translation": "力強くボールを蹴りながら、男の子はシュートが得意だと叫んでいます。飛んでいるボールがネットに真っ直ぐ向かっていくのを見るのはエキサイティングです。"
+  },
+  {
+    "id": "211_3",
+    "filename": "211_3.jpg",
+    "group": "211",
+    "title": "Passing the Ball",
+    "key_phrase": "Looking at his teammate, the boy mentions being good at passing the ball. Sharing the ball smoothly during the game requires good teamwork.",
+    "translation": "チームメイトを見ながら、男の子はボールをパスするのが得意だと話しています。試合中にボールをスムーズに共有することは、良いチームワークを必要とします。"
+  },
+  {
+    "id": "211_4",
+    "filename": "211_4.jpg",
+    "group": "211",
+    "title": "Controlling the Ball",
+    "key_phrase": "Sitting on the grass, the boy says he is good at controlling the ball. Juggling the soccer ball in the air with his feet requires a lot of practice.",
+    "translation": "芝生に座っている男の子は、ボールをコントロールするのが得意だと言っています。足でサッカーボールを宙に浮かせてリフティングすることは、たくさんの練習を必要とします。"
+  },
+  {
+    "id": "213_1",
+    "filename": "213_1.jpg",
+    "group": "213",
+    "title": "Visiting the Golden Pavilion",
+    "key_phrase": "Taking a selfie in front of the Golden Pavilion, the smiling woman says she likes visiting Kyoto. The beautiful temple reflecting on the water looks amazing.",
+    "translation": "笑顔の女性は金閣寺の前で自撮りをしながら、京都を訪れるのが好きだと言っています。水面に反射している美しいお寺は素晴らしく見えます。"
+  },
+  {
+    "id": "213_2",
+    "filename": "213_2.jpg",
+    "group": "213",
+    "title": "Walking Through the Red Gates",
+    "key_phrase": "Carrying a backpack, the young man enjoys visiting Kyoto and exploring the famous shrines. Walking through the tunnel made of countless red gates is an unforgettable experience.",
+    "translation": "バックパックを背負った若い男性は、京都を訪れて有名な神社を探索することを楽しんでいます。無数の赤い鳥居でできたトンネルを歩くことは、忘れられない経験です。"
+  },
+  {
+    "id": "213_3",
+    "filename": "213_3.jpg",
+    "group": "213",
+    "title": "Looking at the Autumn Leaves",
+    "key_phrase": "Standing on the wooden stage of the historic temple, the older man says he likes visiting Kyoto. Looking at the beautiful autumn leaves covering the hills gives him a peaceful feeling.",
+    "translation": "歴史あるお寺の木の舞台に立って、年配の男性は京都を訪れるのが好きだと言っています。丘を覆う美しい紅葉を見ることは、彼に穏やかな気持ちを与えます。"
+  },
+  {
+    "id": "213_4",
+    "filename": "213_4.jpg",
+    "group": "213",
+    "title": "Strolling in the Bamboo Forest",
+    "key_phrase": "Holding hands, the smiling couple is walking along the path in the bamboo forest. They say they like visiting Kyoto and feeling the refreshing breeze blowing through the tall bamboo trees.",
+    "translation": "手をつないで、笑顔のカップルが竹林の小道を歩いています。彼らは京都を訪れ、背の高い竹林を吹き抜けるさわやかな風を感じるのが好きだと言っています。"
+  },
+  {
+    "id": "215_1",
+    "filename": "215_1.jpg",
+    "group": "215",
+    "title": "Chatting at a Cafe",
+    "key_phrase": "Drinking coffee and eating cake, the girl says she enjoys spending time with her friends. Laughing together at the cafe makes their weekend very special.",
+    "translation": "コーヒーを飲み、ケーキを食べながら、少女は友達と過ごす時間を楽しんでいると言っています。カフェで一緒に笑い合うことは、彼らの週末をとても特別なものにします。"
+  },
+  {
+    "id": "215_2",
+    "filename": "215_2.jpg",
+    "group": "215",
+    "title": "Playing Basketball Outside",
+    "key_phrase": "Dribbling the basketball on the outdoor court, the boy says he enjoys spending time with his friends. Playing sports together on a sunny day is a great way to stay healthy and happy.",
+    "translation": "屋外のコートでバスケットボールをドリブルしながら、男の子は友達と過ごす時間を楽しんでいると言っています。晴れた日に一緒にスポーツをすることは、健康で幸せでいるための素晴らしい方法です。"
+  },
+  {
+    "id": "215_3",
+    "filename": "215_3.jpg",
+    "group": "215",
+    "title": "Playing Video Games at Home",
+    "key_phrase": "Sitting on the comfortable sofa and holding controllers, the young people are playing a video game. The girl in the middle says she enjoys spending time with her friends while eating snacks.",
+    "translation": "快適なソファに座ってコントローラーを持ち、若者たちはビデオゲームをしています。真ん中の女の子は、スナックを食べながら友達と過ごす時間を楽しんでいると言っています。"
+  },
+  {
+    "id": "215_4",
+    "filename": "215_4.jpg",
+    "group": "215",
+    "title": "Watching a Movie at the Theater",
+    "key_phrase": "Holding large buckets of popcorn, the friends are sitting in the dark theater and watching a funny movie. The girl says she enjoys spending time with her friends and sharing a good laugh.",
+    "translation": "大きなポップコーンのバケツを持って、友人たちは暗い映画館に座って面白い映画を見ています。女の子は、友達と過ごす時間を楽しみ、一緒に笑い合うのが好きだと言っています。"
+  },
+  {
+    "id": "217_1",
+    "filename": "217_1.jpg",
+    "group": "217",
+    "title": "Thinking About Quitting",
+    "key_phrase": "Sitting at the kitchen table, the serious man says he wants to stop smoking. Looking down at the pack of cigarettes, he is deeply thinking about quitting his bad habit.",
+    "translation": "キッチンのテーブルに座って、真剣な表情の男性はタバコをやめたいと言っています。タバコの箱を見下ろしながら、彼は悪い習慣をやめることについて深く考えています。"
+  },
+  {
+    "id": "217_2",
+    "filename": "217_2.jpg",
+    "group": "217",
+    "title": "Throwing Away Cigarettes",
+    "key_phrase": "Throwing his cigarettes and lighter into the trash can, the man says he wants to stop smoking. Getting rid of them is a great first step toward a healthier life.",
+    "translation": "タバコとライターをゴミ箱に捨てながら、男性はタバコをやめたいと言っています。それらを処分することは、より健康的な生活に向けた素晴らしい第一歩です。"
+  },
+  {
+    "id": "217_3",
+    "filename": "217_3.jpg",
+    "group": "217",
+    "title": "Jogging in the Park",
+    "key_phrase": "Sweating and holding a water bottle, the man jogging in the park says he wants to stop smoking. Exercising regularly outside is a much better habit than smoking cigarettes.",
+    "translation": "汗をかき、水筒を持って公園をジョギングしている男性は、タバコをやめたいと言っています。外で定期的に運動することは、タバコを吸うことよりもはるかに良い習慣です。"
+  },
+  {
+    "id": "217_4",
+    "filename": "217_4.jpg",
+    "group": "217",
+    "title": "Talking to the Doctor",
+    "key_phrase": "Sitting in the clinic, the man says he wants to stop smoking to his doctor. The doctor holding a \"No Smoking\" sign is giving him professional advice.",
+    "translation": "クリニックに座って、男性は医師にタバコをやめたいと言っています。「禁煙」のサインを持っている医師は、彼に専門的なアドバイスをしています。"
+  },
+  {
+    "id": "219_1",
+    "filename": "219_1.jpg",
+    "group": "219",
+    "title": "Picking Up Clothes",
+    "key_phrase": "Holding a large black trash bag, the boy says, \"Let's start cleaning the room.\" Picking up all the clothes scattered on the floor is going to take some time.",
+    "translation": "大きな黒いゴミ袋を持って、男の子は「部屋の掃除を始めよう」と言っています。床に散らばった服をすべて拾うのには、少し時間がかかりそうです。"
+  },
+  {
+    "id": "219_2",
+    "filename": "219_2.jpg",
+    "group": "219",
+    "title": "Organizing Books",
+    "key_phrase": "Carrying a heavy stack of books, the boy says, \"Let's start cleaning the room.\" Putting the scattered books back on the wooden bookshelf will make his space much neater.",
+    "translation": "重い本の束を運びながら、男の子は「部屋の掃除を始めよう」と言っています。散らばった本を木の本棚に戻すことで、彼の空間ははるかに整頓されます。"
+  },
+  {
+    "id": "219_3",
+    "filename": "219_3.jpg",
+    "group": "219",
+    "title": "Vacuuming the Living Room",
+    "key_phrase": "Holding a vacuum cleaner, the sighing boy says, \"Let's start cleaning the room.\" Vacuuming the carpet covered with many toys and games looks like a tiring job.",
+    "translation": "掃除機を持って、ため息をついている男の子は「部屋の掃除を始めよう」と言っています。たくさんのおもちゃやゲームで覆われたカーペットに掃除機をかけるのは、疲れる仕事になりそうです。"
+  },
+  {
+    "id": "219_4",
+    "filename": "219_4.jpg",
+    "group": "219",
+    "title": "Wiping the Desk",
+    "key_phrase": "Wiping his messy desk with a white cloth, the smiling boy says, \"Let's start cleaning the room.\" Organizing the gadgets and snacks on the table will help him focus better.",
+    "translation": "白い布で散らかった机を拭きながら、笑顔の男の子は「部屋の掃除を始めよう」と言っています。テーブルの上のガジェットやスナックを整理することは、彼がより集中するのに役立ちます。"
+  },
+  {
+    "id": "221_1",
+    "filename": "221_1.jpg",
+    "group": "221",
+    "title": "Texting on the Sofa",
+    "key_phrase": "Sitting on a comfortable sofa, the smiling woman is sending a message on her smartphone. She types, \"I'm looking forward to seeing you,\" feeling excited about the upcoming meeting.",
+    "translation": "快適なソファに座り、笑顔の女性はスマートフォンでメッセージを送っています。彼女は次の集まりにワクワクしながら、「あなたに会えるのを楽しみにしているわ」と打ち込んでいます。"
+  },
+  {
+    "id": "221_2",
+    "filename": "221_2.jpg",
+    "group": "221",
+    "title": "Waiting at a Cafe",
+    "key_phrase": "Waiting at a cafe, the woman wearing a white shirt is checking her watch. Looking out the window, she says she is looking forward to seeing her friend.",
+    "translation": "カフェで待ちながら、白いシャツを着た女性は腕時計を確認しています。窓の外を見ながら、彼女は友達に会えるのを楽しみにしていると言っています。"
+  },
+  {
+    "id": "221_3",
+    "filename": "221_3.jpg",
+    "group": "221",
+    "title": "Reading an Invitation",
+    "key_phrase": "Reading a written invitation, the woman with long hair is smiling happily. Holding the elegant card, she mentions looking forward to seeing the sender.",
+    "translation": "招待状を読みながら、長い髪の女性は幸せそうに微笑んでいます。上品なカードを持ちながら、彼女は送り主に会えるのを楽しみにしていると話しています。"
+  },
+  {
+    "id": "221_4",
+    "filename": "221_4.jpg",
+    "group": "221",
+    "title": "Greeting at the Airport",
+    "key_phrase": "Standing in the airport arrival area, the woman is holding a sign saying \"WELCOME.\" Waiting for her guest to arrive, she says she is looking forward to seeing them.",
+    "translation": "空港の到着エリアに立ち、女性は「WELCOME」と書かれたボードを持っています。ゲストが到着するのを待ちながら、彼女は会えるのを楽しみにしていると言っています。"
+  },
+  {
+    "id": "223_1",
+    "filename": "223_1.jpg",
+    "group": "223",
+    "title": "Tired of Hiking",
+    "key_phrase": "Hiking on a steep mountain trail, the sweating man is sitting on a rock to rest. Carrying a heavy backpack makes him say he is tired of walking.",
+    "translation": "険しい山道をハイキングしていて、汗をかいている男性は休むために岩の上に座っています。重いバックパックを背負っているため、彼は歩き疲れたと言っています。"
+  },
+  {
+    "id": "223_2",
+    "filename": "223_2.jpg",
+    "group": "223",
+    "title": "Exhausted from Shopping",
+    "key_phrase": "Surrounded by many colorful shopping bags, the exhausted man is resting on a bench in the city. Spending the whole day shopping makes him tired of walking.",
+    "translation": "カラフルな買い物袋に囲まれて、疲れ果てた男性は街のベンチで休んでいます。一日中買い物をして過ごしたため、彼は歩き疲れています。"
+  },
+  {
+    "id": "223_3",
+    "filename": "223_3.jpg",
+    "group": "223",
+    "title": "Walking on a Hot Road",
+    "key_phrase": "Walking alone on a straight road under the hot sun, the man looks totally exhausted. Carrying his backpack in this heat makes him feel tired of walking.",
+    "translation": "炎天下の真っ直ぐな道を一人で歩きながら、男性は完全に疲れ果てているように見えます。この暑さの中でバックパックを背負っているため、彼は歩くのに疲れたと感じています。"
+  },
+  {
+    "id": "223_4",
+    "filename": "223_4.jpg",
+    "group": "223",
+    "title": "Resting at an Amusement Park",
+    "key_phrase": "Sitting on the curb in a crowded amusement park, the sweating man is checking a map. Having visited so many attractions, he complains that he is tired of walking.",
+    "translation": "混雑した遊園地の縁石に座り、汗をかいている男性は地図を確認しています。たくさんのアトラクションを訪れたため、彼は歩き疲れたとこぼしています。"
+  },
+  {
+    "id": "225_1",
+    "filename": "225_1.jpg",
+    "group": "225",
+    "title": "Taking an Online English Lesson",
+    "key_phrase": "Smiling at the computer screen, the woman says she is interested in speaking English. Taking an online lesson at home is a convenient way to practice conversation.",
+    "translation": "パソコンの画面に向かって微笑みながら、女性は英語を話すことに興味があると言っています。自宅でオンラインレッスンを受けることは、会話を練習するのに便利な方法です。"
+  },
+  {
+    "id": "225_2",
+    "filename": "225_2.jpg",
+    "group": "225",
+    "title": "Guiding Tourists",
+    "key_phrase": "Helping the tourists looking at a map, the woman mentions being interested in speaking English. Communicating with people from other countries is a wonderful experience for her.",
+    "translation": "地図を見ている観光客を助けながら、女性は英語を話すことに興味があると話しています。他の国の人々とコミュニケーションをとることは、彼女にとって素晴らしい経験です。"
+  },
+  {
+    "id": "225_3",
+    "filename": "225_3.jpg",
+    "group": "225",
+    "title": "Chatting with International Friends",
+    "key_phrase": "Sitting around the table with her diverse friends, the woman says she is interested in speaking English. Enjoying lunch together while chatting in English seems very fun.",
+    "translation": "多様な友人たちとテーブルを囲んで座りながら、女性は英語を話すことに興味があると言っています。英語でおしゃべりしながら一緒に昼食を楽しむことは、とても楽しいようです。"
+  },
+  {
+    "id": "225_4",
+    "filename": "225_4.jpg",
+    "group": "225",
+    "title": "Giving a Speech in Class",
+    "key_phrase": "Standing in front of the classroom, the nervous student says she is interested in speaking English. Holding her notes tightly, she is trying her best to deliver a speech to her classmates.",
+    "translation": "教室の前に立って、緊張した生徒は英語を話すことに興味があると言っています。メモをしっかりと握りしめ、彼女はクラスメイトにスピーチをするためにベストを尽くしています。"
+  },
+  {
+    "id": "227_1",
+    "filename": "227_1.jpg",
+    "group": "227",
+    "title": "Drawing a Stick Figure in Art Class",
+    "key_phrase": "Looking at his simple stick figure, the boy says he is poor at drawing pictures. Comparing his work to the realistic portrait drawn by the girl next to him makes him feel discouraged.",
+    "translation": "自分のシンプルな棒人間を見ながら、男の子は絵を描くのが苦手だと言っています。自分の作品を隣の女の子が描いたリアルな肖像画と比べることは、彼をがっかりさせます。"
+  },
+  {
+    "id": "227_2",
+    "filename": "227_2.jpg",
+    "group": "227",
+    "title": "Showing a Drawing to a Friend",
+    "key_phrase": "Showing a picture of a dog to his friend, the boy admits he is poor at drawing pictures. Seeing the confused expression on his friend's face makes him feel a little embarrassed.",
+    "translation": "友達に犬の絵を見せながら、男の子は絵を描くのが苦手だと認めています。友達の困惑した表情を見ることは、彼を少し恥ずかしい気持ちにさせます。"
+  },
+  {
+    "id": "227_3",
+    "filename": "227_3.jpg",
+    "group": "227",
+    "title": "Playing a Drawing Game at a Party",
+    "key_phrase": "Holding a marker and drawing on the whiteboard, the boy says he is poor at drawing pictures. Watching his stick figure, the guests standing behind him look very confused.",
+    "translation": "マーカーを持ってホワイトボードに絵を描きながら、男の子は絵を描くのが苦手だと言っています。彼の棒人間を見て、彼の後ろに立っているゲストたちはとても困惑しているようです。"
+  },
+  {
+    "id": "227_4",
+    "filename": "227_4.jpg",
+    "group": "227",
+    "title": "Sketching in the Park",
+    "key_phrase": "Sitting on a park bench and holding his head, the boy sighs that he is poor at drawing pictures. Sketching the tree with green crayons didn't turn out as well as he hoped.",
+    "translation": "公園のベンチに座って頭を抱えながら、男の子は絵を描くのが苦手だとため息をついています。緑色のクレヨンで木をスケッチしましたが、彼が望んだほどうまくいきませんでした。"
+  },
+  {
+    "id": "229_1",
+    "filename": "229_1.jpg",
+    "group": "229",
+    "title": "Finishing Homework at the Desk",
+    "key_phrase": "Stretching his arms with a big smile, the boy says, \"I finished doing my homework.\" Completing all the assignments on his laptop makes him feel very relaxed.",
+    "translation": "満面の笑みで腕を伸ばしながら、男の子は「宿題をやり終えたよ」と言っています。ノートパソコンで課題をすべて終わらせることは、彼をとてもリラックスした気分にさせます。"
+  },
+  {
+    "id": "229_2",
+    "filename": "229_2.jpg",
+    "group": "229",
+    "title": "Closing a Book in the Library",
+    "key_phrase": "Closing his thick textbook in the library, the smiling boy thinks he finished doing his homework. Studying surrounded by other students helps him concentrate on his tasks.",
+    "translation": "図書館で分厚い教科書を閉じながら、笑顔の男の子は宿題をやり終えたと思っています。他の学生に囲まれて勉強することは、彼が課題に集中するのに役立ちます。"
+  },
+  {
+    "id": "229_3",
+    "filename": "229_3.jpg",
+    "group": "229",
+    "title": "Finishing a Painting",
+    "key_phrase": "Wiping his dirty hands with a cloth, the boy happily announces he finished doing his homework. Painting the big green tree on the canvas was a tiring but fun project.",
+    "translation": "汚れた手を布で拭きながら、男の子は宿題をやり終えたと嬉しそうに報告しています。キャンバスに大きな緑の木を描くことは、疲れますが楽しいプロジェクトでした。"
+  },
+  {
+    "id": "229_4",
+    "filename": "229_4.jpg",
+    "group": "229",
+    "title": "High-Fiving After a Project",
+    "key_phrase": "Giving a high-five to his friend, the boy cheerfully says, \"I finished doing my homework.\" Working together on the poster project sitting on the sofa was a great team effort.",
+    "translation": "友達とハイタッチをしながら、男の子は「宿題をやり終えたよ」と元気よく言っています。ソファに座ってポスターのプロジェクトに一緒に取り組むことは、素晴らしいチームの努力でした。"
+  },
+  {
+    "id": "233_1",
+    "filename": "233_1.jpg",
+    "group": "233",
+    "title": "Getting Help with Math",
+    "key_phrase": "Holding her textbooks, the smiling girl says, \"Thank you for helping me.\" Having her friend solve the complicated math equations is a great help.",
+    "translation": "教科書を持ちながら、笑顔の女の子は「手伝ってくれてありがとう」と言っています。友達に複雑な数学の方程式を解いてもらうことは、大きな助けになります。"
+  },
+  {
+    "id": "233_2",
+    "filename": "233_2.jpg",
+    "group": "233",
+    "title": "Opening the Door for Someone",
+    "key_phrase": "Carrying a heavy cardboard box, the smiling girl says, \"Thank you for helping me.\" Having the man open the door for her makes carrying the package much easier.",
+    "translation": "重い段ボール箱を運びながら、笑顔の女の子は「手伝ってくれてありがとう」と言っています。男性にドアを開けてもらうことは、荷物を運ぶのをずっと楽にします。"
+  },
+  {
+    "id": "233_3",
+    "filename": "233_3.jpg",
+    "group": "233",
+    "title": "Helping with the Dishes",
+    "key_phrase": "Chopping vegetables in the kitchen, the grandmother says, \"Thank you for helping me.\" Having her granddaughter wipe the wet dishes makes the chores go much faster.",
+    "translation": "キッチンで野菜を刻みながら、おばあさんは「手伝ってくれてありがとう」と言っています。孫娘に濡れたお皿を拭いてもらうことで、家事がずっと早く終わります。"
+  },
+  {
+    "id": "233_4",
+    "filename": "233_4.jpg",
+    "group": "233",
+    "title": "Helping an Injured Player",
+    "key_phrase": "Sitting on the field with a scraped knee, the injured soccer player says, \"Thank you for helping me.\" Reaching out to take his teammate's helping hand shows great sportsmanship.",
+    "translation": "擦りむいた膝でフィールドに座りながら、怪我をしたサッカー選手は「助けてくれてありがとう」と言っています。チームメイトの差し伸べられた手を取ろうと手を伸ばすことは、素晴らしいスポーツマンシップを示しています。"
+  },
+  {
+    "id": "235_1",
+    "filename": "235_1.jpg",
+    "group": "235",
+    "title": "Taking an Exam in Class",
+    "key_phrase": "Sitting at his desk in the classroom, the boy says he is afraid of making mistakes. Taking an important exam makes him feel very nervous and sweat a lot.",
+    "translation": "教室の机に座りながら、男の子は間違いをするのが怖いと言っています。重要な試験を受けることは、彼をとても緊張させ、たくさんの汗をかかせます。"
+  },
+  {
+    "id": "235_2",
+    "filename": "235_2.jpg",
+    "group": "235",
+    "title": "Giving a Speech to a Crowd",
+    "key_phrase": "Standing at the podium in front of a large audience, the sweating boy says he is afraid of making mistakes. Speaking in public is a terrifying experience for him.",
+    "translation": "大勢の聴衆の前で演台に立ち、汗をかいている男の子は間違いをするのが怖いと言っています。人前で話すことは、彼にとって恐ろしい経験です。"
+  },
+  {
+    "id": "235_3",
+    "filename": "235_3.jpg",
+    "group": "235",
+    "title": "Playing Basketball Under Pressure",
+    "key_phrase": "Holding the basketball on the court, the nervous boy admits he is afraid of making mistakes. Feeling the pressure from the opposing team makes him hesitate to shoot.",
+    "translation": "コートでバスケットボールを持ちながら、緊張した男の子は間違いをするのが怖いと認めています。相手チームからのプレッシャーを感じることで、彼はシュートするのをためらっています。"
+  },
+  {
+    "id": "235_4",
+    "filename": "235_4.jpg",
+    "group": "235",
+    "title": "Talking with People",
+    "key_phrase": "Surrounded by people, the anxious boy says he is afraid of making mistakes. Communicating in a new group makes him feel unsure of what to say.",
+    "translation": "人々に囲まれて、不安そうな男の子は間違いをするのが怖いと言っています。新しいグループでコミュニケーションをとることは、彼に何を言うべきか自信をなくさせます。"
+  },
+  {
+    "id": "237_1",
+    "filename": "237_1.jpg",
+    "group": "237",
+    "title": "Packing a Suitcase",
+    "key_phrase": "Sitting on her bed and reading a travel guidebook, the smiling girl says she is looking forward to traveling. Packing colorful clothes into her yellow suitcase makes her very excited.",
+    "translation": "ベッドに座って旅行のガイドブックを読みながら、笑顔の女の子は旅行を楽しみにしていると言っています。黄色いスーツケースにカラフルな服を詰めることは、彼女をとてもワクワクさせます。"
+  },
+  {
+    "id": "237_2",
+    "filename": "237_2.jpg",
+    "group": "237",
+    "title": "Waiting at the Airport",
+    "key_phrase": "Holding her passport and a ticket at the airport, the happy girl says she is looking forward to traveling. Watching the airplanes taking off through the big window increases her excitement.",
+    "translation": "空港でパスポートとチケットを持ちながら、幸せそうな女の子は旅行を楽しみにしていると言っています。大きな窓から飛行機が離陸するのを見ることは、彼女の興奮を高めます。"
+  },
+  {
+    "id": "237_3",
+    "filename": "237_3.jpg",
+    "group": "237",
+    "title": "Planning a Trip with a Friend",
+    "key_phrase": "Sitting at a cafe and pointing at a world map, the two friends say they are looking forward to traveling. Planning their next adventure together over coffee is a fun activity.",
+    "translation": "カフェに座って世界地図を指差しながら、2人の友達は旅行を楽しみにしていると言っています。コーヒーを飲みながら一緒に次の冒険を計画することは、楽しい活動です。"
+  },
+  {
+    "id": "237_4",
+    "filename": "237_4.jpg",
+    "group": "237",
+    "title": "Checking Cameras at a Store",
+    "key_phrase": "Holding a new black camera in the store, the smiling girl says she is looking forward to traveling. Taking beautiful pictures during her trip is one of her main goals.",
+    "translation": "店で新しい黒いカメラを持ちながら、笑顔の女の子は旅行を楽しみにしていると言っています。旅行中に美しい写真を撮ることは、彼女の主要な目標の1つです。"
   }
 ]
+
 
  
