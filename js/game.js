@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
     const MEMORY_TIME = 10;
-    const EXPLAIN_TIME = 15;
     
     // チュートリアル用のデータ (英語/日本語)
     const TUTORIAL_DATA = {
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'HOW TO PLAY',
             steps: [
                 { badge: 'STEP 1', title: 'Memorize', desc: 'Player A looks at the image for 10s. Memorize the details!', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'STEP 2', title: 'Explain', desc: 'Player A describes the image in English (15s). Player B listens.', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'STEP 2', title: 'Explain', desc: 'Player A describes the image in English. Player B listens.', img: 'assets/images/tutorial_2.webp' },
                 { badge: 'STEP 3', title: 'Choose', desc: 'Player B picks the correct image from 4 choices. Good luck!', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: 'Next',
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: '遊び方',
             steps: [
                 { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは画像を10秒間見て、詳細まで覚えます。', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'ステップ 2', title: '説明する', desc: 'Aさんは英語で画像の特徴を説明します(15秒)。Bさんは聞きます。', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'ステップ 2', title: '説明する', desc: 'Aさんは英語で画像の特徴を説明します。Bさんは聞きます。', img: 'assets/images/tutorial_2.webp' },
                 { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんは説明を聞いて、4枚の中から正解を選びます！', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: '次へ',
@@ -51,7 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         isPlaying: false,
         // チュートリアル状態
         tutStep: 0,
-        tutLang: 'en'
+        tutLang: 'en',
+        // 説明時間の状態 (初期値15秒)
+        explainTime: 15
     };
 
     // === DOM要素 ===
@@ -81,7 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
             settings: document.getElementById('settingsBtn'),
             closeSettings: document.getElementById('closeSettingsBtn'),
             backHome: document.getElementById('backHomeBtn'),
-            bgmToggle: document.getElementById('bgmBtn')
+            bgmToggle: document.getElementById('bgmBtn'),
+            // 時間選択ボタン
+            timeSelectors: document.querySelectorAll('.time-select-btn')
         },
         tutElements: {
             header: document.getElementById('tut-header'),
@@ -135,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => { state.quizData = data; })
         .catch(err => console.error("Load Error:", err));
 
-    // 初回インタラクションでBGM開始
     document.body.addEventListener('click', initAudio, { once: true });
     
     function initAudio() {
@@ -182,12 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.inputs.ratio.addEventListener('input', (e) => updateLayout('ratio', e.target.value));
     elements.inputs.textSize.addEventListener('input', (e) => updateLayout('text', e.target.value));
 
+    // 時間選択ボタンのイベント
+    elements.btns.timeSelectors.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // 全てのボタンのデザインをリセット
+            elements.btns.timeSelectors.forEach(b => {
+                b.classList.remove('bg-indigo-500', 'text-white', 'border-indigo-500');
+                b.classList.add('border-slate-200', 'text-slate-500');
+            });
+            // 選択されたボタンのデザインを変更
+            e.target.classList.remove('border-slate-200', 'text-slate-500');
+            e.target.classList.add('bg-indigo-500', 'text-white', 'border-indigo-500');
+            
+            // 状態を更新
+            state.explainTime = parseInt(e.target.getAttribute('data-time'));
+        });
+    });
+
+
     // === Tutorial Logic ===
 
     function openTutorial() {
-        // BGMを一時停止
         elements.audio.bgm.pause();
-        
         state.tutStep = 0;
         updateTutorialView();
         elements.views.tutorial.classList.remove('hidden');
@@ -195,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeTutorial() {
         elements.views.tutorial.classList.add('hidden');
-        // BGM再開（ONの場合）
         if(state.isBgmEnabled) playBgm();
     }
 
@@ -205,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTutorialView();
         } else {
             closeTutorial();
-            startMemoryPhase(); // "Game Start"ボタンならゲーム開始
+            startMemoryPhase();
         }
     }
 
@@ -225,18 +242,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = TUTORIAL_DATA[state.tutLang];
         const stepData = data.steps[state.tutStep];
 
-        // テキスト更新
         elements.tutElements.header.textContent = data.title;
         elements.tutElements.badge.textContent = stepData.badge;
         elements.tutElements.title.textContent = stepData.title;
         elements.tutElements.desc.textContent = stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
-        
-        // 画像更新
         elements.tutElements.img.src = stepData.img;
 
-        // ボタン更新
-        // Prevボタン制御
         if (state.tutStep === 0) {
             elements.btns.tutPrev.disabled = true;
             elements.btns.tutPrev.classList.add('opacity-30', 'pointer-events-none');
@@ -246,7 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.btns.tutPrev.innerHTML = `<i class="fa-solid fa-chevron-left"></i> ${data.btnPrev}`;
         }
 
-        // Next/Startボタン制御
         if (state.tutStep === 2) {
             elements.btns.tutNext.innerHTML = `${data.btnStart} <i class="fa-solid fa-play ml-2"></i>`;
             elements.btns.tutNext.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
@@ -347,7 +358,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uttr.onend = () => {
             state.isSpeaking = false;
-            // チュートリアル中はBGM再開しない
             if (state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) {
                 playBgm();
             }
@@ -404,8 +414,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(state.timerInterval);
         showView('explain');
         
-        let timeLeft = EXPLAIN_TIME;
-        const total = EXPLAIN_TIME;
+        // 設定された秒数を読み込む
+        let timeLeft = state.explainTime;
+        const total = state.explainTime;
         const maxDash = 283;
         
         elements.timers.explain.textContent = timeLeft;
