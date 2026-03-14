@@ -1,5 +1,5 @@
 // === パスワード設定 ===
-const CORRECT_PASSWORD = "party"; // ここに好きなパスワードを設定してください
+const CORRECT_PASSWORD = "party9"; // ここに好きなパスワードを設定してください
 
 // 画面が開いた瞬間にパスワード入力を求める
 const userInput = prompt("パスワードを入力してください:");
