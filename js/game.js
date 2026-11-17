@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
-    const MEMORY_TIME = 10;
+    const MEMORY_TIME_OPTIONS = [5, 10, 15];
     
     // チュートリアル用のデータ (英語/日本語)
     const TUTORIAL_DATA = {
@@ -58,8 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // チュートリアル状態
         tutStep: 0,
         tutLang: 'en',
-        // 説明時間の状態 (初期値15秒)
-        explainTime: 15
+        // 時間と英語ヒントの設定（初期値）
+        memoryTime: 10,
+        explainTime: 15,
+        hintMode: 'guided'
     };
 
     // === DOM要素 ===
@@ -91,7 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
             backHome: document.getElementById('backHomeBtn'),
             bgmToggle: document.getElementById('bgmBtn'),
             // 時間選択ボタン
-            timeSelectors: document.querySelectorAll('.time-select-btn')
+            timeSelectors: document.querySelectorAll('.time-select-btn'),
+            memorySelectors: document.querySelectorAll('.memory-time-select-btn'),
+            hintSelectors: document.querySelectorAll('.hint-mode-btn')
         },
         tutElements: {
             header: document.getElementById('tut-header'),
@@ -112,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             grid: document.getElementById('choice-grid')
         },
         text: {
+            explainHint: document.getElementById('explain-hint'),
             resultTitle: document.getElementById('result-title'),
             resultPhrase: document.getElementById('result-phrase'),
             resultTrans: document.getElementById('result-trans')
@@ -232,6 +237,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // Selected classroom options are applied to the next round; current scoring is unchanged.
+    function markSelectedButtons(buttons, attribute, selectedValue) {
+        buttons.forEach(button => {
+            const active = button.getAttribute(attribute) === String(selectedValue);
+            button.classList[active ? 'add' : 'remove']('bg-indigo-500', 'text-white', 'border-indigo-500');
+            button.classList[active ? 'remove' : 'add']('border-slate-200', 'text-slate-500');
+            button.setAttribute('aria-pressed', String(active));
+        });
+    }
+
+    function setMemoryTime(value) {
+        const seconds = Number(value);
+        if (!MEMORY_TIME_OPTIONS.includes(seconds)) return false;
+        state.memoryTime = seconds;
+        markSelectedButtons(elements.btns.memorySelectors, 'data-memory-time', seconds);
+        if (!elements.views.tutorial.classList.contains('hidden') && state.tutStep === 0) {
+            updateTutorialView();
+        }
+        return true;
+    }
+
+    function updateExplainHint() {
+        if (state.hintMode === 'free') elements.text.explainHint.classList.add('hidden');
+        else elements.text.explainHint.classList.remove('hidden');
+    }
+
+    function setHintMode(value) {
+        if (!['guided', 'free'].includes(value)) return false;
+        state.hintMode = value;
+        markSelectedButtons(elements.btns.hintSelectors, 'data-hint-mode', value);
+        updateExplainHint();
+        return true;
+    }
+
+    elements.btns.memorySelectors.forEach(button => {
+        button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-memory-time')));
+    });
+    elements.btns.hintSelectors.forEach(button => {
+        button.addEventListener('click', () => setHintMode(button.getAttribute('data-hint-mode')));
+    });
+
     // === Tutorial Logic ===
 
     function openTutorial() {
@@ -275,7 +321,11 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tutElements.header.textContent = data.title;
         elements.tutElements.badge.textContent = stepData.badge;
         elements.tutElements.title.textContent = stepData.title;
-        elements.tutElements.desc.textContent = stepData.desc;
+        elements.tutElements.desc.textContent = state.tutStep === 0
+            ? (state.tutLang === 'en'
+                ? `Player A looks at the image for ${state.memoryTime}s. Memorize the details!`
+                : `Aさんは画像を${state.memoryTime}秒間見て、詳細まで覚えます。`)
+            : stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
         elements.tutElements.img.src = stepData.img;
 
@@ -456,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generation !== state.generation || state.phase !== 'memory') return;
         elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
         elements.btns.memorySkip.disabled = false;
-        runTimer(MEMORY_TIME, elements.timers.memory, startExplainPhase);
+        runTimer(state.memoryTime, elements.timers.memory, startExplainPhase);
     }
 
     // Pause countdowns while settings are open or the page is in the background.
@@ -480,6 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startExplainPhase() {
         if (state.phase !== 'memory' || elements.btns.memorySkip.disabled) return;
         showView('explain');
+        updateExplainHint();
         elements.timers.explainProgress.style.strokeDashoffset = 0;
         runTimer(state.explainTime, elements.timers.explain, startChoicePhase, elements.timers.explainProgress);
     }
