@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         isBgmEnabled: true, 
         isSpeaking: false,
         speechToken: 0,
+        speechTimeout: null,
         volumes: {
             menu: 0.1,
             game: 0.05,
@@ -476,6 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopSpeech() {
         // Invalidate callbacks from previous utterances before cancelling them.
         state.speechToken++;
+        clearTimeout(state.speechTimeout);
+        state.speechTimeout = null;
         state.isSpeaking = false;
         try {
             if (window.speechSynthesis && typeof window.speechSynthesis.cancel === 'function') {
@@ -488,6 +491,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function speak(text) {
         if (state.phase !== 'result' || !text) return false;
+        if (document.hidden) {
+            elements.text.audioStatus.textContent = 'タブを開いてListenを押すと音声を再生できます。';
+            return false;
+        }
         const synth = window.speechSynthesis;
         const Utterance = window.SpeechSynthesisUtterance;
         if (!synth || typeof synth.speak !== 'function' || typeof Utterance !== 'function') {
@@ -499,6 +506,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = state.speechToken;
         const finish = (failed) => {
             if (token !== state.speechToken) return;
+            clearTimeout(state.speechTimeout);
+            state.speechTimeout = null;
             state.isSpeaking = false;
             if (state.phase !== 'result') return;
             elements.text.audioStatus.textContent = failed
@@ -517,6 +526,16 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.audio.bgm.pause();
             elements.text.audioStatus.textContent = '英文を読み上げています…';
             synth.speak(uttr);
+            if (state.isSpeaking && token === state.speechToken) {
+                // Web Speech may silently stall on mobile; never leave BGM muted indefinitely.
+                const maxDuration = Math.max(12000, Math.min(30000, text.length * 130));
+                state.speechTimeout = setTimeout(() => {
+                    if (token !== state.speechToken || !state.isSpeaking) return;
+                    stopSpeech();
+                    elements.text.audioStatus.textContent = '音声が停止したため終了しました。Listenで再試行できます。';
+                    playBgm();
+                }, maxDuration);
+            }
             return true;
         } catch {
             finish(true);
