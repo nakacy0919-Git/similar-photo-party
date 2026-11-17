@@ -45,3 +45,9 @@ body {
 }
 
 #view-settings.flex { display: flex; opacity: 1; transform: scale(1); }
+button:disabled { cursor: default; opacity: .55; }
+button:focus-visible, a:focus-visible { outline: 4px solid #6366f1; outline-offset: 3px; }
+.round-status { position: fixed; top: 3.5rem; left: 0; right: 0; text-align: center; font-size: .85rem; z-index: 99; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+}

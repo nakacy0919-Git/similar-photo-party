@@ -33,6 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // === 状態管理 ===
     const state = {
         quizData: [],
+        phase: "landing",
+        round: 0,
+        firstCorrect: 0,
+        attempts: 0,
+        remaining: [],
+        resultTimeout: null,
+        generation: 0,
         currentSet: [],
         correctItem: null,
         timerInterval: null,
@@ -133,10 +140,33 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // === 初期化 ===
+    elements.btns.start.disabled = true;
+    const loadStatus = document.getElementById('load-status');
     fetch('data/content.json')
-        .then(res => res.json())
-        .then(data => { state.quizData = data; })
-        .catch(err => console.error("Load Error:", err));
+        .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+        .then(data => {
+            if (!Array.isArray(data)) throw new Error('Invalid data');
+            const ids = new Set();
+            const files = new Set();
+            const groups = new Map();
+            for (const item of data) {
+                if (!item || !['id', 'filename', 'group', 'title', 'key_phrase', 'translation'].every(
+                    key => typeof item[key] === 'string' && item[key].trim() && item[key].length <= 2000
+                ) || !/^[a-zA-Z0-9_-]+\.(webp|png|jpe?g)$/.test(item.filename)
+                    || ids.has(item.id) || files.has(item.filename)) throw new Error('Invalid item');
+                ids.add(item.id); files.add(item.filename);
+                if (!groups.has(item.group)) groups.set(item.group, []);
+                groups.get(item.group).push(item);
+            }
+            state.quizData = [...groups.values()].filter(group => group.length >= 4).flat();
+            if (state.quizData.length < 4) throw new Error('No complete image groups');
+            loadStatus.textContent = '2人で遊びます。記憶中は聞き手に画面を見せないでください。';
+            elements.btns.start.disabled = false;
+        })
+        .catch(err => {
+            loadStatus.textContent = '教材を読み込めませんでした。ページを再読み込みしてください。';
+            console.error('Load Error:', err);
+        });
 
     document.body.addEventListener('click', initAudio, { once: true });
     
@@ -164,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Game Flow Events
     elements.btns.memorySkip.addEventListener('click', startExplainPhase);
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
-    elements.btns.next.addEventListener('click', backToLanding);
+    elements.btns.next.addEventListener('click', startMemoryPhase);
     elements.btns.speak.addEventListener('click', () => speak(state.correctItem.key_phrase));
 
     // Settings & Controls
@@ -300,16 +330,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = elements.views.settings;
         modal.classList.remove('hidden');
         modal.classList.add('flex');
-        setTimeout(() => modal.classList.add('opacity-100'), 10);
+        modal.classList.add('opacity-100');
     }
 
     function closeSettings() {
         const modal = elements.views.settings;
         modal.classList.remove('opacity-100');
-        setTimeout(() => {
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }, 300);
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
     }
 
     function updateVolume(type, val) {
@@ -347,6 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function speak(text) {
+        if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
+        speechSynthesis.cancel();
         state.isSpeaking = true;
         if (state.isBgmEnabled) {
             elements.audio.bgm.pause();
@@ -374,6 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // === Game Logic ===
 
     function showView(viewName) {
+        state.phase = viewName;
         Object.values(elements.views).forEach(el => {
             if(el.id !== 'view-settings' && el.id !== 'view-tutorial') el.classList.add('hidden');
         });
@@ -394,45 +425,67 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function startMemoryPhase() {
-        if (!prepareQuizData()) return;
-        showView('memory');
-        elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
-        
-        let timeLeft = MEMORY_TIME;
-        elements.timers.memory.textContent = timeLeft;
-        
+    async function startMemoryPhase() {
+        if (!['landing', 'result'].includes(state.phase) || elements.btns.start.disabled) return;
         clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        if ('speechSynthesis' in window) speechSynthesis.cancel();
+        state.isSpeaking = false;
+        if (!prepareQuizData()) return;
+        state.attempts = 0;
+        state.round++;
+        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
+        const generation = ++state.generation;
+        showView('memory');
+        elements.btns.memorySkip.disabled = true;
+        elements.timers.memory.textContent = '…';
+        try {
+            // Load all four choices before the memory clock starts.
+            await Promise.all(state.currentSet.map(item => new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = resolve;
+                img.onerror = reject;
+                img.src = `assets/images/${item.filename}`;
+            })));
+        } catch {
+            if (generation !== state.generation) return;
+            backToLanding();
+            loadStatus.textContent = '画像を読み込めませんでした。通信を確認して再度開始してください。';
+            return;
+        }
+        if (generation !== state.generation || state.phase !== 'memory') return;
+        elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
+        elements.btns.memorySkip.disabled = false;
+        runTimer(MEMORY_TIME, elements.timers.memory, startExplainPhase);
+    }
+
+    // Pause countdowns while settings are open or the page is in the background.
+    function runTimer(seconds, display, done, progress) {
+        clearInterval(state.timerInterval);
+        let remaining = seconds * 1000;
+        let last = performance.now();
+        display.textContent = seconds;
         state.timerInterval = setInterval(() => {
-            timeLeft--;
-            elements.timers.memory.textContent = timeLeft;
-            if (timeLeft <= 0) startExplainPhase();
-        }, 1000);
+            const now = performance.now();
+            if (!document.hidden && elements.views.settings.classList.contains('hidden')) {
+                remaining = Math.max(0, remaining - (now - last));
+            }
+            last = now;
+            display.textContent = Math.ceil(remaining / 1000);
+            if (progress) progress.style.strokeDashoffset = 283 * (1 - remaining / (seconds * 1000));
+            if (!remaining) { clearInterval(state.timerInterval); done(); }
+        }, 100);
     }
 
     function startExplainPhase() {
-        clearInterval(state.timerInterval);
+        if (state.phase !== 'memory' || elements.btns.memorySkip.disabled) return;
         showView('explain');
-        
-        // 設定された秒数を読み込む
-        let timeLeft = state.explainTime;
-        const total = state.explainTime;
-        const maxDash = 283;
-        
-        elements.timers.explain.textContent = timeLeft;
         elements.timers.explainProgress.style.strokeDashoffset = 0;
-
-        state.timerInterval = setInterval(() => {
-            timeLeft--;
-            elements.timers.explain.textContent = timeLeft;
-            const offset = maxDash - (timeLeft / total) * maxDash;
-            elements.timers.explainProgress.style.strokeDashoffset = offset;
-            
-            if (timeLeft <= 0) startChoicePhase();
-        }, 1000);
+        runTimer(state.explainTime, elements.timers.explain, startChoicePhase, elements.timers.explainProgress);
     }
 
     function startChoicePhase() {
+        if (state.phase !== 'explain') return;
         clearInterval(state.timerInterval);
         showView('choice');
         renderGrid();
@@ -441,13 +494,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderGrid() {
         const grid = elements.imgs.grid;
         grid.innerHTML = '';
-        state.currentSet.forEach(item => {
+        state.currentSet.forEach((item, index) => {
             const btn = document.createElement('button');
             btn.className = 'relative w-full h-full overflow-hidden rounded-2xl border-4 border-white shadow-lg hover:scale-[1.02] transition-transform duration-200 group bg-slate-100';
             
             const img = document.createElement('img');
             img.src = `assets/images/${item.filename}`;
             img.className = 'w-full h-full object-contain';
+            img.alt = `選択肢 ${index + 1}`;
+            btn.setAttribute('aria-label', `選択肢 ${index + 1}`);
             
             btn.appendChild(img);
             btn.onclick = () => checkAnswer(item, btn);
@@ -456,23 +511,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkAnswer(item, btn) {
+        if (state.phase !== 'choice' || btn.disabled) return;
+        state.attempts++;
+        btn.disabled = true;
         if (item.id === state.correctItem.id) {
+            state.phase = 'feedback';
+            if (state.attempts === 1) state.firstCorrect++;
+            elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
             elements.audio.correct.currentTime = 0;
             elements.audio.correct.volume = state.volumes.voice;
-            elements.audio.correct.play();
+            elements.audio.correct.play().catch(() => {});
             
             btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
             triggerConfetti();
-            setTimeout(showResultPhase, 1500);
+            state.resultTimeout = setTimeout(showResultPhase, 1500);
         } else {
             elements.audio.wrong.currentTime = 0;
             elements.audio.wrong.volume = state.volumes.voice;
-            elements.audio.wrong.play();
+            elements.audio.wrong.play().catch(() => {});
             btn.classList.add('opacity-40', 'grayscale');
         }
     }
 
     function showResultPhase() {
+        if (state.phase !== 'feedback') return;
+        document.getElementById('result-feedback').textContent = state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。違いを表す英語を確認しよう。`;
+        document.getElementById('round-status').textContent = `Round ${state.round} · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
         showView('result');
         elements.imgs.result.src = `assets/images/${state.correctItem.filename}`;
         elements.text.resultTitle.textContent = state.correctItem.title;
@@ -485,6 +549,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function backToLanding() {
+        clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        state.generation++;
+        if ('speechSynthesis' in window) speechSynthesis.cancel();
+        state.isSpeaking = false;
         showView('landing');
     }
 
@@ -493,21 +562,23 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Data not loaded or insufficient (need 4 images).");
             return false;
         }
-        state.correctItem = state.quizData[Math.floor(Math.random() * state.quizData.length)];
-        let opts = state.quizData.filter(i => i.group === state.correctItem.group);
-        while(opts.length < 4) {
-            let r = state.quizData[Math.floor(Math.random() * state.quizData.length)];
-            if(!opts.includes(r)) opts.push(r);
-        }
-        state.currentSet = opts.sort(() => Math.random() - 0.5).slice(0, 4);
-        if(!state.currentSet.includes(state.correctItem)) {
-            state.currentSet[0] = state.correctItem;
-            state.currentSet.sort(() => Math.random() - 0.5);
-        }
+        if (!state.remaining.length) state.remaining = shuffle([...state.quizData]);
+        state.correctItem = state.remaining.pop();
+        const alternatives = shuffle(state.quizData.filter(item => item.group === state.correctItem.group && item.id !== state.correctItem.id));
+        state.currentSet = shuffle([state.correctItem, ...alternatives.slice(0, 3)]);
         return true;
     }
 
+    function shuffle(items) {
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+        return items;
+    }
+
     function triggerConfetti() {
+        if (typeof confetti !== "function" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#FFD700', '#FF69B4', '#00BFFF'] });
     }
 });

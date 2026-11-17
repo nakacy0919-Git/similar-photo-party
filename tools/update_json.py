@@ -13,8 +13,11 @@ def update_json_by_group():
         with open(JSON_FILE, 'r', encoding='utf-8') as f:
             try:
                 current_data = json.load(f)
-            except json.JSONDecodeError:
-                current_data = []
+            except json.JSONDecodeError as error:
+                raise SystemExit(f"JSONが壊れています。既存データは変更しません: {error}")
+
+    if not isinstance(current_data, list) or any(not isinstance(item, dict) or "filename" not in item for item in current_data):
+        raise SystemExit("既存データの形式が不正です。変更しません。")
 
     # 既に登録済みのファイル名リスト
     existing_filenames = {item['filename'] for item in current_data}
@@ -38,6 +41,8 @@ def update_json_by_group():
         if filename in existing_filenames:
             continue
 
+        if filename.startswith('tutorial_'):
+            continue
         match = pattern.match(filename)
         if match:
             group_name = match.group(1)  # "dog" の部分
@@ -75,8 +80,10 @@ def update_json_by_group():
 
     # 4. JSONに書き込み保存
     if added_groups_count > 0:
-        with open(JSON_FILE, 'w', encoding='utf-8') as f:
+        temporary_file = JSON_FILE + '.tmp'
+        with open(temporary_file, 'w', encoding='utf-8') as f:
             json.dump(current_data, f, indent=2, ensure_ascii=False)
+        os.replace(temporary_file, JSON_FILE)
         print(f"\n✅ 完了: {added_groups_count} セット（計 {added_groups_count * 4} 枚）を追加しました！")
     else:
         print("\n✨ 追加できる4枚セットの画像は見つかりませんでした。")
