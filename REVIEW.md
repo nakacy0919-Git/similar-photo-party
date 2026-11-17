@@ -29,3 +29,11 @@ Reviewed all application source: index.html, privacy.html, js/game.js, css/style
 ## Validation
 `node --test tests/game.test.cjs` passes four suites covering content integrity, complete nonrepeating cycles, same-group choices, answer locking/attempt counting, role changes, home cleanup and malformed content rejection. `node --check js/game.js` and `git diff --check` pass.
 Headless Chromium could not launch in this execution environment (socket permission denied). Visual/mobile layout, actual audio and browser background behavior still need real-browser verification. No production deployment performed.
+
+## Follow-up changes — 2026-11-17 (chat development)
+- Added selectable memorization time: 5, 10, or 15 seconds (default remains 10). The new setting applies to the next memorization countdown and updates the tutorial description.
+- Added Guided and Free speaking modes (default Guided). Free mode removes the suggested English sentence frames in the explanation phase, not the target English answer displayed after the round.
+- Left the existing first-attempt scoring and automatic speaker alternation unchanged.
+- Added a fifth Node regression test for valid/invalid time settings, guided/free hints and cleanup.
+- Added a read-only GitHub Actions workflow to run the JavaScript syntax check and Node tests on pull requests. A successful workflow run must be checked on GitHub; authoring the workflow does not prove tests passed.
+- No merge to main or intentional production deployment was performed.
