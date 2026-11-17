@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timerInterval: null,
         isBgmEnabled: true, 
         isSpeaking: false,
+        speechToken: 0,
         volumes: {
             menu: 0.1,
             game: 0.05,
@@ -117,6 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         text: {
             explainHint: document.getElementById('explain-hint'),
+            audioStatus: document.getElementById('audio-status'),
+            nextRole: document.getElementById('next-role'),
             resultTitle: document.getElementById('result-title'),
             resultPhrase: document.getElementById('result-phrase'),
             resultTrans: document.getElementById('result-trans')
@@ -132,6 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ratioVal: document.getElementById('layout-ratio-val'),
             textSize: document.getElementById('text-size'),
             textSizeVal: document.getElementById('text-size-val')
+        },
+        roles: {
+            memory: document.getElementById('role-memory'),
+            explain: document.getElementById('role-explain'),
+            choice: document.getElementById('role-choice'),
+            result: document.getElementById('role-result')
         },
         layoutTargets: {
             imgContainer: document.getElementById('result-layout-img'),
@@ -174,6 +183,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     document.body.addEventListener('click', initAudio, { once: true });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            elements.audio.bgm.pause();
+            if (state.isSpeaking) {
+                stopSpeech();
+                elements.text.audioStatus.textContent = '音声は一時停止しました。Listenで再生できます。';
+            }
+        } else {
+            playBgm();
+        }
+    });
     
     function initAudio() {
         if(state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) {
@@ -200,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.memorySkip.addEventListener('click', startExplainPhase);
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
     elements.btns.next.addEventListener('click', startMemoryPhase);
-    elements.btns.speak.addEventListener('click', () => speak(state.correctItem.key_phrase));
+    elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
 
     // Settings & Controls
     elements.btns.settings.addEventListener('click', openSettings);
@@ -282,6 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openTutorial() {
         elements.audio.bgm.pause();
+        stopSpeech();
         state.tutStep = 0;
         updateTutorialView();
         elements.views.tutorial.classList.remove('hidden');
@@ -370,10 +391,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function playBgm() {
-        if (!state.isBgmEnabled) return;
+        if (!state.isBgmEnabled || state.isSpeaking || document.hidden ||
+            !elements.views.tutorial.classList.contains('hidden')) return;
         const targetVol = state.isPlaying ? state.volumes.game : state.volumes.menu;
         elements.audio.bgm.volume = targetVol;
-        elements.audio.bgm.play().catch(()=>{});
+        try {
+            const pending = elements.audio.bgm.play();
+            if (pending && typeof pending.catch === 'function') pending.catch(() => {});
+        } catch {
+            // Audio may be blocked until a user gesture (especially on iOS).
+        }
+    }
+
+    function playEffect(audio) {
+        if (document.hidden) return;
+        try {
+            audio.currentTime = 0;
+            audio.volume = state.volumes.voice;
+            const pending = audio.play();
+            if (pending && typeof pending.catch === 'function') pending.catch(() => {});
+        } catch {
+            // Missing audio hardware / autoplay restrictions should never block the game.
+        }
+    }
+
+    function updateRoleCues() {
+        const speaker = state.round % 2 === 1 ? 'A' : 'B';
+        const listener = speaker === 'A' ? 'B' : 'A';
+        elements.roles.memory.textContent = `Player ${speaker}: 写真を記憶 ／ Player ${listener}: 画面を見ない`;
+        elements.roles.explain.textContent = `Player ${speaker}: 英語で説明 ／ Player ${listener}: 聞くだけ`;
+        elements.roles.choice.textContent = `Player ${listener}: 写真を選ぶ ／ Player ${speaker}: 答えを指ささない`;
+        elements.roles.result.textContent = `次はPlayer ${listener}が説明役！ 2人で英語の違いを言ってみよう。`;
+        elements.text.nextRole.textContent = `Next: Player ${listener} speaks`;
     }
 
     function openSettings() {
@@ -424,31 +473,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function stopSpeech() {
+        // Invalidate callbacks from previous utterances before cancelling them.
+        state.speechToken++;
+        state.isSpeaking = false;
+        try {
+            if (window.speechSynthesis && typeof window.speechSynthesis.cancel === 'function') {
+                window.speechSynthesis.cancel();
+            }
+        } catch {
+            // Some WebKit versions throw during tab/background transitions.
+        }
+    }
+
     function speak(text) {
-        if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
-        speechSynthesis.cancel();
-        state.isSpeaking = true;
-        if (state.isBgmEnabled) {
-            elements.audio.bgm.pause();
+        if (state.phase !== 'result' || !text) return false;
+        const synth = window.speechSynthesis;
+        const Utterance = window.SpeechSynthesisUtterance;
+        if (!synth || typeof synth.speak !== 'function' || typeof Utterance !== 'function') {
+            elements.text.audioStatus.textContent = 'このブラウザでは読み上げを利用できません。英文を見て発音してください。';
+            return false;
         }
 
-        const uttr = new SpeechSynthesisUtterance(text);
-        uttr.lang = 'en-US';
-        uttr.volume = state.volumes.voice;
-
-        uttr.onend = () => {
+        stopSpeech();
+        const token = state.speechToken;
+        const finish = (failed) => {
+            if (token !== state.speechToken) return;
             state.isSpeaking = false;
-            if (state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) {
-                playBgm();
-            }
+            if (state.phase !== 'result') return;
+            elements.text.audioStatus.textContent = failed
+                ? '音声を再生できませんでした。Listenで再試行できます。'
+                : 'もう一度聞くにはListenを押してください。';
+            playBgm();
         };
-        
-        uttr.onerror = () => {
-            state.isSpeaking = false;
-            if (state.isBgmEnabled && elements.views.tutorial.classList.contains('hidden')) playBgm();
-        };
-
-        speechSynthesis.speak(uttr);
+        try {
+            const uttr = new Utterance(text);
+            uttr.lang = 'en-US';
+            uttr.volume = state.volumes.voice;
+            uttr.rate = 0.9;
+            uttr.onend = () => finish(false);
+            uttr.onerror = () => finish(true);
+            state.isSpeaking = true;
+            elements.audio.bgm.pause();
+            elements.text.audioStatus.textContent = '英文を読み上げています…';
+            synth.speak(uttr);
+            return true;
+        } catch {
+            finish(true);
+            return false;
+        }
     }
 
     // === Game Logic ===
@@ -460,30 +533,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         elements.views[viewName].classList.remove('hidden');
 
-        if (viewName === 'landing') {
-            state.isPlaying = false;
-            if (state.isBgmEnabled) {
-                elements.audio.bgm.volume = state.volumes.menu;
-                elements.audio.bgm.play().catch(()=>{});
-            }
-        } else {
-            state.isPlaying = true;
-            if (state.isBgmEnabled) {
-                elements.audio.bgm.volume = state.volumes.game;
-                elements.audio.bgm.play().catch(()=>{});
-            }
-        }
+        state.isPlaying = viewName !== 'landing';
+        playBgm();
     }
 
     async function startMemoryPhase() {
         if (!['landing', 'result'].includes(state.phase) || elements.btns.start.disabled) return;
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
-        if ('speechSynthesis' in window) speechSynthesis.cancel();
-        state.isSpeaking = false;
+        stopSpeech();
         if (!prepareQuizData()) return;
         state.attempts = 0;
         state.round++;
+        updateRoleCues();
         document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
         const generation = ++state.generation;
         showView('memory');
@@ -569,17 +631,13 @@ document.addEventListener('DOMContentLoaded', () => {
             state.phase = 'feedback';
             if (state.attempts === 1) state.firstCorrect++;
             elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
-            elements.audio.correct.currentTime = 0;
-            elements.audio.correct.volume = state.volumes.voice;
-            elements.audio.correct.play().catch(() => {});
+            playEffect(elements.audio.correct);
             
             btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
             triggerConfetti();
             state.resultTimeout = setTimeout(showResultPhase, 1500);
         } else {
-            elements.audio.wrong.currentTime = 0;
-            elements.audio.wrong.volume = state.volumes.voice;
-            elements.audio.wrong.play().catch(() => {});
+            playEffect(elements.audio.wrong);
             btn.classList.add('opacity-40', 'grayscale');
         }
     }
@@ -595,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.text.resultTrans.textContent = state.correctItem.translation;
         
         document.getElementById('result-trans').classList.add('hidden');
-        
+        elements.text.audioStatus.textContent = '';
         speak(state.correctItem.key_phrase);
     }
 
@@ -603,8 +661,8 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
         state.generation++;
-        if ('speechSynthesis' in window) speechSynthesis.cancel();
-        state.isSpeaking = false;
+        stopSpeech();
+        elements.text.audioStatus.textContent = '';
         showView('landing');
     }
 
