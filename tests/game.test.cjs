@@ -96,3 +96,20 @@ test('mobile layout has scrollable gameplay and avoids shrunken landscape canvas
   assert.match(html,new RegExp('id="'+id+'"'));
  }
 });
+
+test('silent mobile speech stalls are recovered and do not leak timers', async () => {
+ const synth={speak(){},cancel(){}};
+ const h=harness(data,{window:{speechSynthesis:synth,SpeechSynthesisUtterance:class {}}});
+ await h.flush();await h.api.startMemoryPhase();
+ h.api.startExplainPhase();h.api.startChoicePhase();h.api.state.phase='feedback';
+ h.api.showResultPhase();
+ assert.equal(h.api.state.isSpeaking,true);
+ const watchdog=h.api.state.speechTimeout;
+ assert.ok(h.timers.has(watchdog),'watchdog must be scheduled for stalled speech');
+ h.timers.get(watchdog)();
+ assert.equal(h.api.state.isSpeaking,false);
+ assert.equal(h.api.state.speechTimeout,null);
+ assert.match(h.nodes.get('audio-status').textContent,/再試行/);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0,'all speech and round timers must be cleared');
+});
