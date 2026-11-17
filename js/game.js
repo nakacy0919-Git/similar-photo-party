@@ -1,6 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
     const MEMORY_TIME_OPTIONS = [5, 10, 15];
+    const SPEAKING_MISSIONS = [
+        {
+            title: '1 · Name it / 何がある？',
+            task: 'Name the main person or object clearly.',
+            support: 'I can see ... / There is ...',
+            question: 'What is the main thing in the picture?'
+        },
+        {
+            title: '2 · Place it / どこにある？',
+            task: 'Explain exactly where the person or object is.',
+            support: 'It is next to ... / behind ... / between ...',
+            question: 'Could you tell me exactly where it is?'
+        },
+        {
+            title: '3 · Make it unique / 何が違う？',
+            task: 'Describe a detail that helps your partner recognize the right photo.',
+            support: 'Look at its color, number, shape, or action.',
+            question: 'What special detail should I look for?'
+        }
+    ];
+    const REVIEW_CRITERIA = ['subject', 'location', 'detail'];
     
     // チュートリアル用のデータ (英語/日本語)
     const TUTORIAL_DATA = {
@@ -47,6 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
         isSpeaking: false,
         speechToken: 0,
         speechTimeout: null,
+        activeCountdown: null,
+        clueUsed: false,
+        missionIndex: 0,
+        reviewSelection: {subject: false, location: false, detail: false},
+        peerReviews: new Map(),
         volumes: {
             menu: 0.1,
             game: 0.05,
@@ -97,7 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // 時間選択ボタン
             timeSelectors: document.querySelectorAll('.time-select-btn'),
             memorySelectors: document.querySelectorAll('.memory-time-select-btn'),
-            hintSelectors: document.querySelectorAll('.hint-mode-btn')
+            hintSelectors: document.querySelectorAll('.hint-mode-btn'),
+            clueRequest: document.getElementById('clue-request-btn'),
+            feedbackChecks: document.querySelectorAll('.feedback-check')
         },
         tutElements: {
             header: document.getElementById('tut-header'),
@@ -121,6 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
             explainHint: document.getElementById('explain-hint'),
             audioStatus: document.getElementById('audio-status'),
             nextRole: document.getElementById('next-role'),
+            memoryMission: document.getElementById('memory-mission'),
+            explainMission: document.getElementById('explain-mission'),
+            clueRequestNote: document.getElementById('clue-request-note'),
+            feedbackProgress: document.getElementById('feedback-progress'),
+            feedbackSession: document.getElementById('feedback-session'),
             resultTitle: document.getElementById('result-title'),
             resultPhrase: document.getElementById('result-phrase'),
             resultTrans: document.getElementById('result-trans')
@@ -222,6 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
     elements.btns.next.addEventListener('click', startMemoryPhase);
     elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
+    elements.btns.clueRequest.addEventListener('click', askForOneMoreClue);
+    elements.btns.feedbackChecks.forEach(input => {
+        input.addEventListener('change', () => setPeerFeedback(input.getAttribute('data-criterion'), input.checked));
+    });
 
     // Settings & Controls
     elements.btns.settings.addEventListener('click', openSettings);
@@ -282,6 +319,62 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateExplainHint() {
         if (state.hintMode === 'free') elements.text.explainHint.classList.add('hidden');
         else elements.text.explainHint.classList.remove('hidden');
+        updateMissionPrompts();
+    }
+
+    function updateMissionPrompts() {
+        const mission = SPEAKING_MISSIONS[state.missionIndex];
+        elements.text.memoryMission.textContent = `${mission.title} · ${mission.task}`;
+        elements.text.explainMission.textContent = state.hintMode === 'guided'
+            ? `${mission.title}: ${mission.task} ${mission.support}`
+            : `${mission.title}: ${mission.task}`;
+    }
+
+    function askForOneMoreClue() {
+        if (state.phase !== 'explain' || state.clueUsed || !state.activeCountdown) return false;
+        state.clueUsed = true;
+        state.activeCountdown.remainingMs += 10000;
+        state.activeCountdown.totalMs += 10000;
+        elements.timers.explain.textContent = Math.ceil(state.activeCountdown.remainingMs / 1000);
+        elements.btns.clueRequest.disabled = true;
+        elements.text.clueRequestNote.textContent = `Listener: "${SPEAKING_MISSIONS[state.missionIndex].question}" (+10s)`;
+        return true;
+    }
+
+    function setPeerFeedback(criterion, checked) {
+        if (state.phase !== 'result' || !REVIEW_CRITERIA.includes(criterion)) return false;
+        state.reviewSelection[criterion] = checked === true;
+        const values = REVIEW_CRITERIA.map(key => state.reviewSelection[key]);
+        if (values.some(Boolean)) {
+            state.peerReviews.set(state.round, {
+                speaker: state.round % 2 === 1 ? 'A' : 'B',
+                count: values.filter(Boolean).length
+            });
+        } else {
+            state.peerReviews.delete(state.round);
+        }
+        updatePeerReviewSummary();
+        return true;
+    }
+
+    function updatePeerReviewSummary() {
+        const count = REVIEW_CRITERIA.filter(key => state.reviewSelection[key]).length;
+        elements.text.feedbackProgress.textContent = `説明できた項目：${count}/3（ペアによる確認）`;
+        const stats = {A: {rounds: 0, points: 0}, B: {rounds: 0, points: 0}};
+        for (const record of state.peerReviews.values()) {
+            stats[record.speaker].rounds++;
+            stats[record.speaker].points += record.count;
+        }
+        const line = speaker => stats[speaker].rounds
+            ? `Player ${speaker}: ${stats[speaker].points}/${stats[speaker].rounds * 3}（${stats[speaker].rounds}回）`
+            : `Player ${speaker}: 未確認`;
+        elements.text.feedbackSession.textContent = `${line('A')} · ${line('B')}`;
+    }
+
+    function resetPeerFeedback() {
+        state.reviewSelection = {subject: false, location: false, detail: false};
+        elements.btns.feedbackChecks.forEach(input => { input.checked = false; });
+        updatePeerReviewSummary();
     }
 
     function setHintMode(value) {
@@ -564,6 +657,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!prepareQuizData()) return;
         state.attempts = 0;
         state.round++;
+        state.missionIndex = (state.round - 1) % SPEAKING_MISSIONS.length;
+        state.clueUsed = false;
+        state.activeCountdown = null;
+        elements.btns.clueRequest.disabled = false;
+        elements.text.clueRequestNote.textContent = '';
+        resetPeerFeedback();
+        updateMissionPrompts();
         updateRoleCues();
         document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
         const generation = ++state.generation;
@@ -593,18 +693,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pause countdowns while settings are open or the page is in the background.
     function runTimer(seconds, display, done, progress) {
         clearInterval(state.timerInterval);
-        let remaining = seconds * 1000;
-        let last = performance.now();
+        const clock = {
+            remainingMs: seconds * 1000,
+            totalMs: seconds * 1000,
+            last: performance.now()
+        };
+        state.activeCountdown = clock;
         display.textContent = seconds;
         state.timerInterval = setInterval(() => {
+            if (state.activeCountdown !== clock) return;
             const now = performance.now();
             if (!document.hidden && elements.views.settings.classList.contains('hidden')) {
-                remaining = Math.max(0, remaining - (now - last));
+                clock.remainingMs = Math.max(0, clock.remainingMs - (now - clock.last));
             }
-            last = now;
-            display.textContent = Math.ceil(remaining / 1000);
-            if (progress) progress.style.strokeDashoffset = 283 * (1 - remaining / (seconds * 1000));
-            if (!remaining) { clearInterval(state.timerInterval); done(); }
+            clock.last = now;
+            display.textContent = Math.ceil(clock.remainingMs / 1000);
+            if (progress) {
+                progress.style.strokeDashoffset = 283 * (1 - clock.remainingMs / clock.totalMs);
+            }
+            if (!clock.remainingMs) {
+                clearInterval(state.timerInterval);
+                state.activeCountdown = null;
+                done();
+            }
         }, 100);
     }
 
@@ -619,6 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startChoicePhase() {
         if (state.phase !== 'explain') return;
         clearInterval(state.timerInterval);
+        state.activeCountdown = null;
         showView('choice');
         renderGrid();
     }
@@ -673,11 +785,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.getElementById('result-trans').classList.add('hidden');
         elements.text.audioStatus.textContent = '';
+        resetPeerFeedback();
         speak(state.correctItem.key_phrase);
     }
 
     function backToLanding() {
         clearInterval(state.timerInterval);
+        state.activeCountdown = null;
         clearTimeout(state.resultTimeout);
         state.generation++;
         stopSpeech();
