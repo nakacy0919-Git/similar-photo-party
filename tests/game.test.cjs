@@ -5,7 +5,7 @@ function harness(payload=data, options={}){
  function el(key=''){if(nodes.has(key))return nodes.get(key);const classes=new Set(key.startsWith('view-')&&key!=='view-landing'?['hidden']:[]);const e={id:key,style:{},disabled:false,textContent:'',children:[],classList:{add(...v){v.forEach(x=>classes.add(x))},remove(...v){v.forEach(x=>classes.delete(x))},contains(v){return classes.has(v)}},addEventListener(){},setAttribute(){},appendChild(e){this.children.push(e)},querySelector(){return el('icon')},querySelectorAll(){return this.children},pause(){},play(){return Promise.resolve()}};nodes.set(key,e);return e;}
  const document={hidden:false,getElementById:el,createElement:()=>el('new'+id++),querySelectorAll:()=>[],body:el('body'),addEventListener:(n,f)=>{if(n==='DOMContentLoaded')start=f;else events.set(n,f)}};
  const ctx={document,console:{error(){}},fetch:async()=>({ok:true,json:async()=>payload}),performance:{now:()=>0},Image:class{set src(v){this.onload()}},setInterval:f=>{timers.set(++id,f);return id},clearInterval:i=>timers.delete(i),setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),alert(){},window:{matchMedia:()=>({matches:false}),...(options.window||{})}};
- const src=fs.readFileSync('js/game.js','utf8').replace(/\n\}\);\s*$/, '\n globalThis.api={state,startMemoryPhase,startExplainPhase,startChoicePhase,checkAnswer,showResultPhase,backToLanding,prepareQuizData,openSettings,closeSettings,setMemoryTime,setHintMode,speak,stopSpeech};\n});');
+ const src=fs.readFileSync('js/game.js','utf8').replace(/\n\}\);\s*$/, '\n globalThis.api={state,startMemoryPhase,startExplainPhase,startChoicePhase,checkAnswer,showResultPhase,backToLanding,prepareQuizData,openSettings,closeSettings,setMemoryTime,setHintMode,speak,stopSpeech,askForOneMoreClue,setPeerFeedback};\n});');
  vm.createContext(ctx);vm.runInContext(src,ctx);start();return {ctx,nodes,timers,events,api:ctx.api,flush:()=>new Promise(r=>setImmediate(r))};
 }
 test('all 168 records have unique IDs, images and complete groups',()=>{assert.equal(data.length,168);assert.equal(new Set(data.map(x=>x.id)).size,168);const groups={};for(const x of data){assert.ok(fs.existsSync('assets/images/'+x.filename));groups[x.group]=(groups[x.group]||0)+1;}assert.equal(Object.keys(groups).length,42);assert.ok(Object.values(groups).every(n=>n===4));});
@@ -112,4 +112,95 @@ test('silent mobile speech stalls are recovered and do not leak timers', async (
  assert.match(h.nodes.get('audio-status').textContent,/再試行/);
  h.api.backToLanding();
  assert.equal(h.timers.size,0,'all speech and round timers must be cleared');
+});
+
+test('speaking missions rotate across rounds and Guided/Free change only the scaffolds', async () => {
+ const h=harness(); await h.flush();
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.missionIndex,0);
+ assert.match(h.nodes.get('memory-mission').textContent,/Name it/);
+ assert.doesNotMatch(h.nodes.get('memory-mission').textContent,/\.webp/);
+ assert.doesNotMatch(h.nodes.get('memory-mission').textContent,/\b(?:kitchen|door)_[1-4]\b/);
+ h.api.startExplainPhase();
+ assert.match(h.nodes.get('explain-mission').textContent,/I can see/);
+ h.api.setHintMode('free');
+ assert.match(h.nodes.get('explain-mission').textContent,/Name it/);
+ assert.doesNotMatch(h.nodes.get('explain-mission').textContent,/I can see/);
+ h.api.startChoicePhase();h.api.state.phase='feedback';h.api.showResultPhase();
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.missionIndex,1);
+ assert.match(h.nodes.get('memory-mission').textContent,/Place it/);
+ h.api.startExplainPhase();h.api.startChoicePhase();h.api.state.phase='feedback';h.api.showResultPhase();
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.missionIndex,2);
+ assert.match(h.nodes.get('memory-mission').textContent,/Make it unique/);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
+test('listener can ask one clarification question and gain exactly ten seconds once', async () => {
+ const h=harness();await h.flush();
+ assert.equal(h.api.askForOneMoreClue(),false);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.askForOneMoreClue(),false);
+ h.api.startExplainPhase();
+ const original=h.api.state.activeCountdown.remainingMs;
+ assert.equal(h.api.askForOneMoreClue(),true);
+ assert.equal(h.api.state.activeCountdown.remainingMs,original+10000);
+ assert.equal(h.nodes.get('explain-timer').textContent,Math.ceil((original+10000)/1000));
+ assert.match(h.nodes.get('clue-request-note').textContent,/Listener:/);
+ assert.equal(h.nodes.get('clue-request-btn').disabled,true);
+ assert.equal(h.api.askForOneMoreClue(),false);
+ assert.equal(h.api.state.activeCountdown.remainingMs,original+10000);
+ h.api.startChoicePhase();
+ assert.equal(h.api.askForOneMoreClue(),false);
+ assert.equal(h.api.state.activeCountdown,null);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
+test('peer feedback is optional, editable and tracked by speaker without automatic speech claims', async () => {
+ const h=harness(); await h.flush();await h.api.startMemoryPhase();
+ assert.equal(h.api.setPeerFeedback('subject',true),false,'cannot pre-score speech');
+ h.api.startExplainPhase();h.api.startChoicePhase();h.api.state.phase='feedback';h.api.showResultPhase();
+ assert.equal(h.api.state.peerReviews.size,0,'no rating if listener skips feedback');
+ assert.equal(h.api.setPeerFeedback('invalid',true),false);
+ assert.equal(h.api.setPeerFeedback('subject',true),true);
+ assert.equal(h.api.setPeerFeedback('detail',true),true);
+ assert.equal(h.api.state.peerReviews.get(1).speaker,'A');
+ assert.equal(h.api.state.peerReviews.get(1).count,2);
+ assert.match(h.nodes.get('feedback-progress').textContent,/2\/3/);
+ assert.match(h.nodes.get('feedback-session').textContent,/Player A: 2\/3/);
+ h.api.setPeerFeedback('detail',false);
+ assert.equal(h.api.state.peerReviews.get(1).count,1);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.peerReviews.get(1).count,1);
+ assert.equal(h.api.state.reviewSelection.subject,false);
+ assert.match(h.nodes.get('feedback-progress').textContent,/0\/3/);
+ h.api.startExplainPhase();h.api.startChoicePhase();h.api.state.phase='feedback';h.api.showResultPhase();
+ h.api.setPeerFeedback('subject',true);
+ h.api.setPeerFeedback('location',true);
+ h.api.setPeerFeedback('detail',true);
+ assert.equal(h.api.state.peerReviews.get(2).speaker,'B');
+ assert.equal(h.api.state.peerReviews.get(2).count,3);
+ assert.match(h.nodes.get('feedback-session').textContent,/Player A: 1\/3/);
+ assert.match(h.nodes.get('feedback-session').textContent,/Player B: 3\/3/);
+ h.api.setPeerFeedback('subject',false);
+ h.api.setPeerFeedback('location',false);
+ h.api.setPeerFeedback('detail',false);
+ assert.equal(h.api.state.peerReviews.size,1,'clearing all choices removes the round rating');
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
+test('all speaking mission controls exist with accessible labels and mobile layout', () => {
+ const html=fs.readFileSync('index.html','utf8');
+ const css=fs.readFileSync('css/style.css','utf8');
+ for(const id of ['memory-mission','explain-mission','clue-request-btn','clue-request-note','feedback-progress','feedback-session']){
+  assert.match(html,new RegExp('id="'+id+'"'));
+ }
+ for(const criterion of ['subject','location','detail']){
+  assert.match(html,new RegExp('data-criterion="'+criterion+'"'));
+ }
+ assert.match(html,/自動音声採点ではありません/);
+ assert.match(css,/\.peer-feedback-items/);
+ assert.match(css,/\.mission-cue/);
+ assert.match(css,/min-height:\s*44px/);
 });
