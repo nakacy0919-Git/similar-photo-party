@@ -51,3 +51,14 @@ Implemented in PR #1, not merged:
 - Verify on **real devices** (iPhone Safari, Android Chrome, iPad Safari, desktop Chrome): portrait and short-height landscape layout; 2×2 touch targets; scroll-to-next / settings overlay; memorize → explain → choose → result → role switch; optional English TTS, repeated Listen taps, BGM mute, and tab/background return.
 - The automated tests validate code and state logic; they do not establish that an actual phone speaker outputs audio or that a browser looks correct. No live-browser or hardware verification was performed here.
 - Do not merge or deploy until these device checks are complete.
+
+## Speaking-focused gameplay follow-up — 2026-11-18
+
+Added to the review branch; no merge or production deployment:
+- **Speaking Mission**: each round cycles through three generic communication targets: identify the main subject, describe its location, and give a distinguishing detail. Prompts deliberately do **not** reveal a specific correct answer before the listener chooses. In Guided mode the active goal has an English sentence frame; in Free mode only the goal remains.
+- **Listener clarification**: during the explanation stage, the listener may press *Ask for one more clue*, revealing a question in English and extending the **current** explanation timer by 10 seconds. Available once per round; not available during memory, selection, or result; timer continues respecting existing background/settings pausing.
+- **Peer feedback**: after the answer, the listener can check up to three observation categories (who/what, where, distinguishing detail). Optional, editable within the round and kept as per-player session totals for A/B. Blank feedback is **not** counted as an assessed round. This is a partner observation—not a speech-recognition score, automated grading, or teacher-verifiable record.
+- **Responsive UI**: compressed, wrapped feedback checkboxes and focus prompts on small screens, with touch-friendly clarification control.
+- **Regression coverage**: 14 Node tests for content, game flow, speech, mobile styling, rotating speaking missions, once-only time bonus, empty/edited feedback, and speaker-specific totals.
+
+The repository remains a static front-end game: no account, microphone capture, speech scoring, database, or persistent analytics was added. Session feedback resets on page reload. Test automation does not substitute for an actual Safari/Chrome mobile/device inspection.
