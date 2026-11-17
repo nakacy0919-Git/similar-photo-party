@@ -37,3 +37,17 @@ Headless Chromium could not launch in this execution environment (socket permiss
 - Added a fifth Node regression test for valid/invalid time settings, guided/free hints and cleanup.
 - Added a read-only GitHub Actions workflow to run the JavaScript syntax check and Node tests on pull requests. A successful workflow run must be checked on GitHub; authoring the workflow does not prove tests passed.
 - No merge to main or intentional production deployment was performed.
+
+## Follow-up improvements — 2026-11-18 (mobile / audio / pair roles)
+
+Implemented in PR #1, not merged:
+- Mobile portrait/landscape: removed the previous 75%-scale / 133vw landscape workaround. Small viewports now keep the game in the viewport and allow vertical scrolling for memorization, explanation, 2×2 answers and results without forcing the images/buttons to shrink offscreen. Result panels stack vertically, while large screens keep the original wide layout.
+- Visual role guidance: each game phase now clearly displays which player remembers/describes/chooses, tells the listener not to look at the memory image, and identifies the next speaker when roles switch.
+- Speaking follow-up: the results phase explicitly prompts pairs to compare incorrect pictures aloud in English. This does not pretend to measure or score spoken proficiency.
+- Speech synthesis: cancel stale utterances, ignore outdated end/error callbacks, handle missing APIs and exceptions, pause voice/BGM on background transitions, offer user-visible replay/error information, and recover with a watchdog if a mobile speech engine silently stalls. BGM playback is guarded against background or simultaneous speech; sound effects no longer interrupt a round if audio playback fails.
+- Regression tests: role rotation, mobile CSS rules, missing browser speech, repeated/stale voice callbacks, tab background behaviour and hung speech recovery. Existing content integrity and scoring tests are preserved.
+
+### Before classroom/public rollout
+- Verify on **real devices** (iPhone Safari, Android Chrome, iPad Safari, desktop Chrome): portrait and short-height landscape layout; 2×2 touch targets; scroll-to-next / settings overlay; memorize → explain → choose → result → role switch; optional English TTS, repeated Listen taps, BGM mute, and tab/background return.
+- The automated tests validate code and state logic; they do not establish that an actual phone speaker outputs audio or that a browser looks correct. No live-browser or hardware verification was performed here.
+- Do not merge or deploy until these device checks are complete.
