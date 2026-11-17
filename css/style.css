@@ -203,3 +203,112 @@ main > section { min-height: 0; min-width: 0; }
         border-radius: .55rem;
     }
 }
+
+/* Speaking missions — always visible, never give away the target image. */
+.mission-cue {
+    width: min(100%, 55rem);
+    flex: 0 0 auto;
+    padding: .4rem .8rem;
+    color: #4338ca;
+    font-size: clamp(.85rem, 1.9vw, 1.05rem);
+    line-height: 1.45;
+    text-align: center;
+    font-weight: 700;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: .85rem;
+}
+.clue-row {
+    width: min(100%, 48rem);
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .2rem;
+}
+.clue-btn {
+    min-height: 44px;
+    padding: .55rem 1rem;
+    border-radius: 1rem;
+    background: #ede9fe;
+    border: 2px solid #c4b5fd;
+    color: #5b21b6;
+    font-size: clamp(.85rem, 2vw, 1rem);
+    font-weight: 800;
+    touch-action: manipulation;
+}
+.clue-btn:not(:disabled):hover { background: #ddd6fe; }
+.clue-btn:disabled { opacity: .55; }
+.clue-note {
+    font-size: clamp(.75rem, 1.8vw, .95rem);
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.4;
+    text-align: center;
+    min-height: 1em;
+}
+.peer-feedback {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    width: min(100%, 80rem);
+    background: rgba(255,255,255,.97);
+    border: 1px solid #ddd6fe;
+    box-shadow: 0 2px 12px rgba(67,56,202,.06);
+    border-radius: 1.2rem;
+    padding: .55rem .8rem;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+.peer-feedback-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .3rem .75rem;
+}
+.peer-feedback-heading h3 { color: #4338ca; font-weight: 800; font-size: 1rem; }
+#feedback-progress { color: #334155; font-size: .9rem; font-weight: 700; }
+.peer-feedback-items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .4rem;
+}
+.peer-feedback-items label {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+    min-width: 0;
+    padding: .4rem .5rem;
+    border-radius: .6rem;
+    background: #f8fafc;
+    font-size: .83rem;
+    line-height: 1.35;
+    font-weight: 650;
+    color: #334155;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+.peer-feedback-items input {
+    accent-color: #4f46e5;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: 0 0 auto;
+}
+.feedback-session { font-size: .78rem; font-weight: 700; color: #475569; }
+.feedback-note { font-size: .7rem; color: #64748b; }
+@media (max-width: 767px), (max-height: 620px) {
+    #view-memory .mission-cue, #view-explain .mission-cue {
+        padding: .3rem .5rem;
+        font-size: .85rem;
+    }
+    #view-explain { gap: .45rem; }
+    #view-explain .clue-row { gap: .1rem; }
+    #view-explain .clue-btn { padding: .45rem .75rem; font-size: .8rem; }
+    #view-result .peer-feedback { padding: .5rem .6rem; gap: .2rem; border-radius: .9rem; }
+    .peer-feedback-items { grid-template-columns: 1fr; gap: .2rem; }
+    .peer-feedback-items label { padding: .25rem .45rem; font-size: .78rem; }
+    .peer-feedback-heading h3 { font-size: .9rem; }
+    #feedback-progress { font-size: .8rem; }
+    #view-result #next-btn { position: sticky; bottom: .15rem; z-index: 5; }
+}
