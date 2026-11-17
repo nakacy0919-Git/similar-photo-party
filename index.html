@@ -116,6 +116,7 @@
             <div class="bg-white px-8 py-2 rounded-full shadow-lg text-blue-600 font-black text-2xl flex items-center gap-3 border border-blue-100 shrink-0 relative z-10">
                 <i class="fa-solid fa-stopwatch"></i> <span>Time</span>: <span id="memory-timer" class="text-3xl">10</span>s
             </div>
+            <p id="memory-mission" class="mission-cue" role="status">Speaking Mission: What should your partner notice?</p>
             <div class="relative w-full h-full flex-1 flex items-center justify-center overflow-hidden">
                 <img id="memory-img" src="" alt="説明役が記憶する写真" class="w-full h-full object-contain rounded-xl drop-shadow-2xl">
             </div>
@@ -141,7 +142,14 @@
                     <span id="explain-timer">15</span>
                 </div>
             </div>
+            <p id="explain-mission" class="mission-cue" role="status">Speaking Mission: Describe one detail clearly.</p>
             <p id="explain-hint" class="text-xl text-slate-500 font-bold">色・数・位置・動作を英語で伝えよう。<br><span class="text-base">It is … / There are … / next to … / under …</span></p>
+            <div class="clue-row">
+                <button type="button" id="clue-request-btn" class="clue-btn" aria-describedby="clue-request-note">
+                    <i class="fa-solid fa-comments"></i> Ask for one more clue (+10s)
+                </button>
+                <p id="clue-request-note" role="status" aria-live="polite" class="clue-note"></p>
+            </div>
             <button id="explain-skip-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95">
                 I'm Ready! <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
@@ -188,6 +196,19 @@
                     <p class="text-sm text-slate-600 font-bold">Talk together: What is different in the other photos?</p>
                 </div>
             </div>
+            <section class="peer-feedback" aria-labelledby="peer-feedback-title">
+                <div class="peer-feedback-heading">
+                    <h3 id="peer-feedback-title">Partner Feedback · ペアで確認</h3>
+                    <p id="feedback-progress" role="status">説明できた項目：0/3（ペアによる確認）</p>
+                </div>
+                <div class="peer-feedback-items" role="group" aria-label="話す活動の振り返り">
+                    <label><input class="feedback-check" type="checkbox" data-criterion="subject"> Who / What（主なもの）</label>
+                    <label><input class="feedback-check" type="checkbox" data-criterion="location"> Where（位置や場所）</label>
+                    <label><input class="feedback-check" type="checkbox" data-criterion="detail"> Key detail（区別する特徴）</label>
+                </div>
+                <p id="feedback-session" class="feedback-session" aria-live="polite">Player A: 未確認 · Player B: 未確認</p>
+                <p class="feedback-note">聞き手が、実際に伝わった内容を確認してください。自動音声採点ではありません。</p>
+            </section>
             <button id="next-btn" class="heartbeat-btn shrink-0 bg-slate-800 hover:bg-slate-900 text-white text-2xl font-black py-4 px-16 rounded-full shadow-2xl transition-transform hover:scale-105 hover:shadow-slate-500/50 mt-2">
                 <span class="block">Next Game <i class="fa-solid fa-forward ml-3"></i></span>
                 <span id="next-role" class="block text-sm font-semibold mt-1">Switch roles</span>
