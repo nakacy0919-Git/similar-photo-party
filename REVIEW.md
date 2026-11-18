@@ -72,8 +72,35 @@ The repository remains a static front-end game: no account, microphone capture, 
 - No production merges, GitHub Pages publishing operations, hosting changes, or Vercel deployments were performed.
 
 ### Remaining technical limitations — do not describe as production-secure
-- The vendored Tailwind browser runtime is still in use. Removing it safely requires generating and reviewing a **static CSS build** that includes all utilities (including dynamic classes), and checking visual parity on phone/iPad/desktop.
-- CSP currently needs `style-src 'unsafe-inline'` because the Tailwind runtime injects styles and the app retains an inline `flex-basis` style. Stronger restrictions need the static-CSS migration first.
+- The runtime Tailwind compiler has now been replaced with a pinned static stylesheet (details below). Visual parity on real phone/iPad/desktop browsers remains **unverified** and is a pre-release requirement.
+- The CSP `style-src 'unsafe-inline'` exemption has been removed. Browser-level CSP enforcement and JS/CSSOM behavior still need real-browser testing.
 - A meta-delivered CSP **cannot set `frame-ancestors` or HTTP security headers**; these require hosting-layer configuration when supported. It also does not establish an actual-browser security test result.
 - Font Awesome is still loaded from an external CDN (though version pinned and integrity checked); its font files remain third-party network requests.
 - No real device / browser visual + audio testing or penetration testing was run.
+
+## Static CSS migration — 2026-11-18 (PR review branch only)
+
+**Implemented, but not deployed:**
+- Generated `css/tailwind-static.css` (~45 KB) from Tailwind CSS **4.1.10** with **281 explicit utility candidates** in `tools/tailwind-candidates.txt`. All 281 candidate selectors are present, including media-query, hover/active, color opacity and arbitrary value classes.
+- Updated both `index.html` and `privacy.html` to load the local static CSS before `css/style.css`. Removed the browser-side `js/vendor/tailwind.js` compiler (~400 KB), so the browser no longer compiles Tailwind on every load.
+- Moved the inline result image flex-basis value to `css/style.css`. Removed the `style-src 'unsafe-inline'` CSP exception on both pages, while retaining explicitly permitted CDN icon CSS with SHA-512 SRI.
+- Introduced `tools/build-static-css.cjs` as a reproducible build script. It pins the compiler to Tailwind **4.1.10**, accepts the explicit class list, checks core utilities and writes the frozen CSS.
+- Used a temporary **review-branch-only** GitHub Actions workflow to create the static CSS file once; then deleted that workflow, including its temporary write permissions. No automatic CSS compiler or deployment workflow remains in the repository. `gameplay-checks.yml` retains **contents: read** and only runs checks.
+- Security regression tests now verify static CSS presence, script/CSP restrictions, full safelist coverage, source class inventory and read-only CI. **26 automated tests** (16 game + 10 security) passed on the review branch.
+
+### Maintenance
+
+When UI classes change, edit `tools/tailwind-candidates.txt` and rebuild offline with Node 22:
+```sh
+npm install --no-save --ignore-scripts --no-audit --no-fund tailwindcss@4.1.10
+node tools/build-static-css.cjs
+node --test tests/*.test.cjs
+```
+Commit the updated `css/tailwind-static.css` on the development branch. The CI verifies the safelist and fails if UI code gains a class that is not represented.
+
+### Still to check manually
+
+- **Visual regression**: compare results on iPhone Safari, Android Chrome, iPad Safari and desktop Chrome. Tailwind 4 static CSS may differ in defaults from the previous Tailwind runtime; examine landing, settings, timer, image grid, Japanese text, feedback and result. Static CI cannot prove visual parity.
+- **Browser security**: test CSP enforcement, image/audio/speech playback, confetti and background/foreground transitions in browsers. External icon assets still load through cdnjs.
+- **Hosting policy**: HTTP response headers such as `frame-ancestors` are not set by a CSP meta tag and may need separate hosting support. Publishing from the review branch was not attempted.
+- **Passwords**: `lock.js` is absent only from this PR branch; main and historical public commits are untouched. Rotate any reused password.
