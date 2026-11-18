@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             explainSkip: document.getElementById('explain-skip-btn'),
             next: document.getElementById('next-btn'),
             speak: document.getElementById('speak-btn'),
+            translationToggle: document.getElementById('translation-toggle-btn'),
             settings: document.getElementById('settingsBtn'),
             closeSettings: document.getElementById('closeSettingsBtn'),
             backHome: document.getElementById('backHomeBtn'),
@@ -255,6 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
     elements.btns.next.addEventListener('click', startMemoryPhase);
     elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
+    elements.btns.translationToggle.addEventListener('click', () => {
+        if (state.phase !== 'result') return;
+        const translation = elements.text.resultTrans;
+        const show = translation.classList.contains('hidden');
+        translation.classList.toggle('hidden', !show);
+        elements.btns.translationToggle.setAttribute('aria-expanded', String(show));
+    });
     elements.btns.clueRequest.addEventListener('click', askForOneMoreClue);
     elements.btns.feedbackChecks.forEach(input => {
         input.addEventListener('change', () => setPeerFeedback(input.getAttribute('data-criterion'), input.checked));
@@ -429,6 +437,22 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTutorialView();
     }
 
+    function setTutorialButton(button, label, iconClass, iconFirst) {
+        // Never interpret labels as HTML, even if localized labels change later.
+        button.textContent = '';
+        const icon = document.createElement('i');
+        icon.className = iconClass;
+        const textLabel = document.createElement('span');
+        textLabel.textContent = label;
+        if (iconFirst) {
+            button.appendChild(icon);
+            button.appendChild(textLabel);
+        } else {
+            button.appendChild(textLabel);
+            button.appendChild(icon);
+        }
+    }
+
     function updateTutorialView() {
         const data = TUTORIAL_DATA[state.tutLang];
         const stepData = data.steps[state.tutStep];
@@ -450,15 +474,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             elements.btns.tutPrev.disabled = false;
             elements.btns.tutPrev.classList.remove('opacity-30', 'pointer-events-none');
-            elements.btns.tutPrev.innerHTML = `<i class="fa-solid fa-chevron-left"></i> ${data.btnPrev}`;
+            setTutorialButton(elements.btns.tutPrev, data.btnPrev, 'fa-solid fa-chevron-left', true);
         }
 
         if (state.tutStep === 2) {
-            elements.btns.tutNext.innerHTML = `${data.btnStart} <i class="fa-solid fa-play ml-2"></i>`;
+            setTutorialButton(elements.btns.tutNext, data.btnStart, 'fa-solid fa-play ml-2', false);
             elements.btns.tutNext.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
             elements.btns.tutNext.classList.add('bg-pink-500', 'hover:bg-pink-600');
         } else {
-            elements.btns.tutNext.innerHTML = `${data.btnNext} <i class="fa-solid fa-chevron-right ml-2"></i>`;
+            setTutorialButton(elements.btns.tutNext, data.btnNext, 'fa-solid fa-chevron-right ml-2', false);
             elements.btns.tutNext.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
             elements.btns.tutNext.classList.remove('bg-pink-500', 'hover:bg-pink-600');
         }
@@ -784,6 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.text.resultTrans.textContent = state.correctItem.translation;
         
         document.getElementById('result-trans').classList.add('hidden');
+        elements.btns.translationToggle.setAttribute('aria-expanded', 'false');
         elements.text.audioStatus.textContent = '';
         resetPeerFeedback();
         speak(state.correctItem.key_phrase);
