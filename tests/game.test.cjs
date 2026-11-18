@@ -204,3 +204,33 @@ test('all speaking mission controls exist with accessible labels and mobile layo
  assert.match(css,/\.mission-cue/);
  assert.match(css,/min-height:\s*44px/);
 });
+
+test('hostile-looking lesson text is displayed literally without HTML interpretation', async () => {
+ const probe='<img src=x onerror=alert(1)><script>alert(2)</script>';
+ const content=data.map((item,index)=>index===0?{...item,title:probe,key_phrase:probe,translation:probe}:item);
+ const h=harness(content);await h.flush();
+ assert.equal(h.nodes.get('start-btn').disabled,false);
+ await h.api.startMemoryPhase();
+ h.api.state.correctItem=content[0];
+ h.api.startExplainPhase();h.api.startChoicePhase();
+ h.api.state.phase='feedback';h.api.showResultPhase();
+ assert.equal(h.nodes.get('result-title').textContent,probe);
+ assert.equal(h.nodes.get('result-phrase').textContent,probe);
+ assert.equal(h.nodes.get('result-trans').textContent,probe);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
+test('app disallows unsafe image paths and does not interpolate remote text into HTML', async () => {
+ for (const name of ['https://host.test/x.webp','javascript:alert(1)','data:image/svg+xml,abc','a/../b.webp','a.svg']) {
+  const payload=data.map((x,i)=>i===0?{...x,filename:name}:x);
+  const h=harness(payload);await h.flush();
+  assert.equal(h.nodes.get('start-btn').disabled,true,name);
+ }
+ const app=fs.readFileSync('js/game.js','utf8');
+ const html=fs.readFileSync('index.html','utf8');
+ assert.doesNotMatch(html,/\bonclick\s*=/i,'inline JS handlers should be absent');
+ assert.doesNotMatch(app,/innerHTML\s*=\s*`/,'template literals must not reach HTML parser');
+ assert.match(app,/function setTutorialButton/);
+ assert.match(app,/textLabel\.textContent\s*=\s*label/);
+ assert.match(html,/id="translation-toggle-btn"/);
+});
