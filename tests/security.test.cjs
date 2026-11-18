@@ -74,3 +74,14 @@ test('external navigation prevents new-window access to the game', () => {
         }
     }
 });
+
+test('third-party icon CSS uses pinned integrity and does not leak referrer', () => {
+    const html = read('index.html');
+    const link = html.match(/<link\s+[^>]*href="https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/6\.4\.0\/css\/all\.min\.css"[^>]*>/i);
+    assert.ok(link, 'known pinned icon stylesheet expected');
+    const digest = link[0].match(/integrity="sha512-([A-Za-z0-9+/=]+)"/);
+    assert.ok(digest, 'SRI sha512 digest required');
+    assert.equal(Buffer.from(digest[1], 'base64').length, 64, 'SHA-512 digest length must be 64 bytes');
+    assert.match(link[0], /crossorigin="anonymous"/);
+    assert.match(link[0], /referrerpolicy="no-referrer"/);
+});
