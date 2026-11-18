@@ -112,7 +112,7 @@ test('precompiled stylesheet covers every safelisted utility class, including mo
     const candidates = candidateText.split(/\r?\n/).map(x => x.trim()).filter(x => x && !x.startsWith('#'));
     assert.ok(candidates.length >= 250, 'incomplete candidate list');
     assert.equal(new Set(candidates).size, candidates.length, 'duplicate candidate classes');
-    const escapeCss = value => value.replace(/[^A-Za-z0-9_-]/g, char => '\\\\' + char);
+    const escapeCss = value => value.replace(/[^A-Za-z0-9_-]/g, char => '\\' + char);
     const missing = candidates.filter(value => !stylesheet.includes('.' + escapeCss(value)));
     assert.deepEqual(missing, [], 'static CSS must include all utility selectors');
     for (const critical of ['grid-cols-2', 'md:flex-row', 'hover:bg-indigo-700', 'bg-gradient-to-r', 'ring-yellow-200']) {
