@@ -119,3 +119,35 @@ test('precompiled stylesheet covers every safelisted utility class, including mo
         assert.ok(candidates.includes(critical), 'missing critical interactive utility ' + critical);
     }
 });
+
+test('all static source utility classes are explicitly safelisted or owned by local styles', () => {
+    const utilities = new Set(read('tools/tailwind-candidates.txt').split(/\r?\n/).map(x => x.trim()).filter(x => x && !x.startsWith('#')));
+    const custom = new Set([...read('css/style.css').matchAll(/\.([a-z][a-z0-9_-]*)/gi)].map(x => x[1]));
+    const hookOnly = new Set(['no-scrollbar', 'feedback-check', 'memory-time-select-btn', 'time-select-btn', 'hint-mode-btn']);
+    const sourceClasses = new Set();
+    const addClasses = words => words.split(/\s+/).filter(Boolean).forEach(word => sourceClasses.add(word));
+
+    for (const page of pages) {
+        for (const match of read(page).matchAll(/\bclass=["']([^"']+)["']/g)) addClasses(match[1]);
+    }
+    const game = read('js/game.js');
+    for (const match of game.matchAll(/\.className\s*(?:\+?=)\s*(['"])(.*?)\1/g)) addClasses(match[2]);
+    for (const call of game.matchAll(/\.classList\.(?:add|remove|toggle)\(([^)]*)\)/g)) {
+        for (const quoted of call[1].matchAll(/['"]([^'"]+)['"]/g)) addClasses(quoted[1]);
+    }
+    const missing = [...sourceClasses].filter(name => !utilities.has(name) && !custom.has(name) &&
+        !hookOnly.has(name) && !name.startsWith('fa-') && !name.startsWith('$' + '{'));
+    assert.deepEqual(missing, [], 'new utility classes must be added to tools/tailwind-candidates.txt');
+});
+
+test('remaining GitHub Actions workflows have read-only permissions and no deployment steps', () => {
+    const names = fs.readdirSync('.github/workflows').filter(name => /\.ya?ml$/.test(name));
+    assert.ok(names.includes('gameplay-checks.yml'));
+    assert.equal(names.includes('static-css-build.yml'), false, 'one-time compiler workflow must be removed');
+    for (const name of names) {
+        const workflow = read('.github/workflows/' + name);
+        assert.match(workflow, /contents:\s*read/);
+        assert.doesNotMatch(workflow, /contents:\s*write|pages:\s*write|deployments:\s*write|id-token:\s*write/i);
+        assert.doesNotMatch(workflow, /\bvercel\b|\bgh-pages\b|actions\/deploy-pages/i);
+    }
+});
