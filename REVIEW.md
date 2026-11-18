@@ -62,3 +62,18 @@ Added to the review branch; no merge or production deployment:
 - **Regression coverage**: 14 Node tests for content, game flow, speech, mobile styling, rotating speaking missions, once-only time bonus, empty/edited feedback, and speaker-specific totals.
 
 The repository remains a static front-end game: no account, microphone capture, speech scoring, database, or persistent analytics was added. Session feedback resets on page reload. Test automation does not substitute for an actual Safari/Chrome mobile/device inspection.
+
+## Security hardening round — 2026-11-18 (review branch only)
+
+- Confirmed `lock.js` is removed from this branch. The file (including its hard-coded password) **still exists on `main` and in repository history** until the user explicitly authorizes merging/updating the production branch. If the password is reused anywhere else, rotate it; deleting a commit/file does not revoke an exposed secret.
+- Both `index.html` and `privacy.html` now have a restrictive **CSP meta policy**. Executable scripts must be same-origin, network `connect-src` is same-origin, object/frame embedding and form submission are disabled, and media/image sources are restricted. `worker-src blob:` is retained for the vendored confetti library.
+- Removed Google Fonts links and CSS import, replacing them with system-font fallbacks. The icon stylesheet remains a known, fixed version from cdnjs, now pinned to an SHA-512 SRI digest with `crossorigin=anonymous` and `referrerpolicy=no-referrer`.
+- Added `tests/security.test.cjs` and included all `tests/*.test.cjs` in the read-only GitHub Actions workflow. The tests prohibit reintroducing a public password gate, external scripts, executable inline HTML handlers and permissive CSP, and require SRI on the remaining external icon CSS.
+- No production merges, GitHub Pages publishing operations, hosting changes, or Vercel deployments were performed.
+
+### Remaining technical limitations — do not describe as production-secure
+- The vendored Tailwind browser runtime is still in use. Removing it safely requires generating and reviewing a **static CSS build** that includes all utilities (including dynamic classes), and checking visual parity on phone/iPad/desktop.
+- CSP currently needs `style-src 'unsafe-inline'` because the Tailwind runtime injects styles and the app retains an inline `flex-basis` style. Stronger restrictions need the static-CSS migration first.
+- A meta-delivered CSP **cannot set `frame-ancestors` or HTTP security headers**; these require hosting-layer configuration when supported. It also does not establish an actual-browser security test result.
+- Font Awesome is still loaded from an external CDN (though version pinned and integrity checked); its font files remain third-party network requests.
+- No real device / browser visual + audio testing or penetration testing was run.
