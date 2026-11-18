@@ -60,7 +60,7 @@ test('all third-party CSS is explicitly allowed and duplicate font requests are 
     for (const body of [html, privacy, css]) {
         assert.doesNotMatch(body, /fonts\.googleapis\.com|fonts\.gstatic\.com/i);
     }
-    assert.match(csp(html), /style-src 'self' 'unsafe-inline' https:\/\/cdnjs\.cloudflare\.com/);
+    assert.match(csp(html), /style-src 'self' https:\/\/cdnjs\.cloudflare\.com/);
     assert.match(csp(html), /font-src 'self' https:\/\/cdnjs\.cloudflare\.com/);
     assert.match(html, /href="https:\/\/cdnjs\.cloudflare\.com\/ajax\/libs\/font-awesome\/6\.4\.0\/css\/all\.min\.css"/);
     assert.doesNotMatch(privacy, /<style\b/i, 'privacy page CSS should be declarative');
@@ -84,4 +84,38 @@ test('third-party icon CSS uses pinned integrity and does not leak referrer', ()
     assert.equal(Buffer.from(digest[1], 'base64').length, 64, 'SHA-512 digest length must be 64 bytes');
     assert.match(link[0], /crossorigin="anonymous"/);
     assert.match(link[0], /referrerpolicy="no-referrer"/);
+});
+
+test('static CSS replaces browser-side Tailwind and forbids inline styling', () => {
+    const staticCss = read('css/tailwind-static.css');
+    const customCss = read('css/style.css');
+    assert.equal(fs.existsSync('js/vendor/tailwind.js'), false, 'do not re-ship runtime CSS compiler');
+    for (const page of pages) {
+        const html = read(page);
+        assert.match(html, /href="css\/tailwind-static\.css"/);
+        assert.doesNotMatch(html, /<script[^>]+tailwind/i);
+        assert.doesNotMatch(html, /\bstyle=["']/i, 'CSP prohibits inline style attributes');
+        assert.doesNotMatch(html, /<style\b/i, 'CSP prohibits inline style blocks');
+        const policy = csp(html);
+        assert.match(policy, /style-src 'self' https:\/\/cdnjs\.cloudflare\.com/);
+        assert.doesNotMatch(policy, /'unsafe-inline'|'unsafe-eval'/i);
+    }
+    assert.match(customCss, /#result-layout-img\s*\{\s*flex-basis:\s*60%/);
+    assert.ok(staticCss.length > 30000 && staticCss.length < 160000);
+    assert.match(staticCss, /tailwindcss v4\.1\.10/i);
+    assert.doesNotMatch(staticCss, /@import\b|url\(["']?https?:\/\//i);
+});
+
+test('precompiled stylesheet covers every safelisted utility class, including mobile and interactive variants', () => {
+    const stylesheet = read('css/tailwind-static.css');
+    const candidateText = read('tools/tailwind-candidates.txt');
+    const candidates = candidateText.split(/\r?\n/).map(x => x.trim()).filter(x => x && !x.startsWith('#'));
+    assert.ok(candidates.length >= 250, 'incomplete candidate list');
+    assert.equal(new Set(candidates).size, candidates.length, 'duplicate candidate classes');
+    const escapeCss = value => value.replace(/[^A-Za-z0-9_-]/g, char => '\\\\' + char);
+    const missing = candidates.filter(value => !stylesheet.includes('.' + escapeCss(value)));
+    assert.deepEqual(missing, [], 'static CSS must include all utility selectors');
+    for (const critical of ['grid-cols-2', 'md:flex-row', 'hover:bg-indigo-700', 'bg-gradient-to-r', 'ring-yellow-200']) {
+        assert.ok(candidates.includes(critical), 'missing critical interactive utility ' + critical);
+    }
 });
