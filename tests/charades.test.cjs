@@ -28,7 +28,10 @@ test('category filters return only the requested deck and the selected language'
   for (const [lang] of catalog.languages) {
     assert.equal(core.availableWords(catalog, 'animals', lang).length, 200);
     assert.ok(core.availableWords(catalog, 'animals', lang).every(item => item.deckId === 'animals'));
-    assert.ok(core.availableWords(catalog, 'all', lang).length >= 11000);
+    const unique = new Set(catalog.decks.flatMap(deck =>
+      deck.words.map(word => word[lang].trim().toLocaleLowerCase())));
+    assert.equal(core.availableWords(catalog, 'all', lang).length, unique.size,
+      'All categories must not repeat a phrase already shown in another deck');
   }
   assert.equal(core.availableWords(catalog, 'not-a-deck', 'en').length, 0);
   assert.equal(core.availableWords(catalog, 'animals', 'missing').length, 0);
