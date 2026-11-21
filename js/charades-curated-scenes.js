@@ -228,11 +228,11 @@ family('activity', `
 Someone is trying %s for the first time|初めて%sに挑戦する|Alguien prueba %s por primera vez|Alguém experimenta %s pela primeira vez|Quelqu'un essaie %s pour la première fois|Jemand versucht %s zum ersten Mal|처음으로 %s 도전하기|第一次尝试%s
 Someone is practicing %s very seriously|真剣に%sを練習する|Alguien practica %s muy seriamente|Alguém pratica %s com muita seriedade|Quelqu'un pratique %s très sérieusement|Jemand übt %s ganz ernsthaft|진지하게 %s 연습하기|非常认真地练习%s
 Someone is teaching %s to a friend|友達に%sを教える|Alguien enseña %s a un amigo|Alguém ensina %s a um amigo|Quelqu'un enseigne %s à un ami|Jemand bringt einem Freund %s bei|친구에게 %s 가르치기|教朋友%s
-Someone is getting ready for the %s|%sの準備をする|Alguien se prepara para %s|Alguém se prepara para %s|Quelqu'un se prépare pour %s|Jemand bereitet sich auf %s vor|%s 준비하기|为%s做准备
+Someone is getting ready for %s|%sの準備をする|Alguien se prepara para %s|Alguém se prepara para %s|Quelqu'un se prépare pour %s|Jemand bereitet sich auf %s vor|%s 준비하기|为%s做准备
 Someone is feeling nervous before %s|%sの前に緊張している|Alguien se pone nervioso antes de %s|Alguém fica nervoso antes de %s|Quelqu'un est nerveux avant %s|Jemand ist vor %s nervös|%s 전에 긴장하기|在%s之前感到紧张
 Someone is celebrating after %s|%sが終わって喜ぶ|Alguien celebra después de %s|Alguém comemora depois de %s|Quelqu'un fête la fin de %s|Jemand feiert nach %s|%s 끝나고 축하하기|在%s之后庆祝
 Someone is making a mistake during %s|%sをしていて失敗する|Alguien comete un error durante %s|Alguém erra durante %s|Quelqu'un se trompe pendant %s|Jemand macht bei %s einen Fehler|%s 도중 실수하기|在%s时出错
-Someone is asking for help with the %s|%sについて助けを求める|Alguien pide ayuda con %s|Alguém pede ajuda com %s|Quelqu'un demande de l'aide pour %s|Jemand bittet bei %s um Hilfe|%s 도움 요청하기|请求别人帮助完成%s
+Someone is asking for help with %s|%sについて助けを求める|Alguien pide ayuda con %s|Alguém pede ajuda com %s|Quelqu'un demande de l'aide pour %s|Jemand bittet bei %s um Hilfe|%s 도움 요청하기|请求别人帮助完成%s
 Someone is demonstrating %s to an audience|みんなの前で%sを実演する|Alguien demuestra %s ante un público|Alguém demonstra %s para uma plateia|Quelqu'un fait une démonstration de %s|Jemand führt %s vor Publikum vor|사람들 앞에서 %s 시범 보이기|当众演示%s
 Someone is making a surprising discovery while doing %s|%sの最中に思わぬ発見をする|Alguien descubre algo sorprendente durante %s|Alguém descobre algo surpreendente durante %s|Quelqu'un fait une découverte pendant %s|Jemand entdeckt bei %s etwas Überraschendes|%s 하다가 놀라운 것 발견하기|在进行%s时发现惊喜
 Someone is inviting a friend to join %s|友達を%sに誘う|Alguien invita a un amigo a %s|Alguém convida um amigo para %s|Quelqu'un invite un ami à faire %s|Jemand lädt einen Freund zu %s ein|친구에게 %s 같이 하자고 하기|邀请朋友一起参加%s
@@ -286,8 +286,8 @@ Someone is trying to learn how to use the %s|%sの使い方を習っている|Al
 Someone is searching for the %s|%sを一生懸命探している|Alguien busca %s|Alguém procura %s|Quelqu'un cherche %s|Jemand sucht nach %s|%s 열심히 찾기|努力寻找%s
 Someone is explaining how the %s works|%sの仕組みを説明する|Alguien explica cómo funciona %s|Alguém explica como funciona %s|Quelqu'un explique comment fonctionne %s|Jemand erklärt wie %s funktioniert|%s 작동 원리 설명하기|解释%s的工作原理
 Someone is showing the %s to a friend|友達に%sを見せている|Alguien muestra %s a un amigo|Alguém mostra %s a um amigo|Quelqu'un montre %s à un ami|Jemand zeigt einem Freund %s|친구에게 %s 보여주기|向朋友展示%s
-Someone is asking for help with %s|%sについて助けを求める|Alguien pide ayuda con %s|Alguém pede ajuda com %s|Quelqu'un demande de l'aide avec %s|Jemand bittet um Hilfe bei %s|%s 사용 도와달라고 하기|请求别人帮忙处理%s
-Someone is taking a photo of %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
+Someone is asking for help with the %s|%sについて助けを求める|Alguien pide ayuda con %s|Alguém pede ajuda com %s|Quelqu'un demande de l'aide avec %s|Jemand bittet um Hilfe bei %s|%s 사용 도와달라고 하기|请求别人帮忙处理%s
+Someone is taking a photo of the %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
 Someone is shopping for the %s|買い物で%sを選ぶ|Alguien compra %s|Alguém compra %s|Quelqu'un achète %s|Jemand kauft %s|%s 쇼핑하기|购买%s
 Someone is explaining why the %s is useful|%sが便利な理由を説明する|Alguien explica por qué sirve %s|Alguém explica por que %s é útil|Quelqu'un explique pourquoi %s est utile|Jemand erklärt warum %s nützlich ist|%s 유용한 이유 설명하기|解释%s为什么有用
 Someone is presenting a new version of the %s|新しい%sを紹介する|Alguien presenta una versión nueva de %s|Alguém apresenta uma nova versão de %s|Quelqu'un présente une nouvelle version de %s|Jemand stellt eine neue Version von %s vor|새로운 %s 소개하기|介绍新版%s
@@ -343,7 +343,7 @@ Someone is learning to travel by %s|%sで移動する方法を学ぶ|Alguien apr
 Someone is waiting for the %s|%sが来るのを待つ|Alguien espera %s|Alguém espera %s|Quelqu'un attend %s|Jemand wartet auf %s|%s 기다리기|等待%s
 Someone is watching the %s arrive|%sが到着するのを見る|Alguien observa llegar %s|Alguém observa %s chegar|Quelqu'un regarde arriver %s|Jemand beobachtet die Ankunft von %s|%s 도착하는 모습 보기|看着%s抵达
 Someone is fixing a problem with the %s|%sの故障を直そうとする|Alguien arregla un problema con %s|Alguém conserta um problema em %s|Quelqu'un répare un problème de %s|Jemand repariert einen Defekt an %s|%s 고장 고치기|修理出了故障的%s
-Someone is taking a photo of %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
+Someone is taking a photo of the %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
 Someone is planning a journey with the %s|%sで行く旅行を計画する|Alguien planea viajar en %s|Alguém planeja viajar de %s|Quelqu'un prévoit de voyager en %s|Jemand plant eine Reise mit %s|%s 여행 계획하기|计划乘坐%s旅行
 Someone is explaining the safety rules for the %s|%sの安全ルールを説明する|Alguien explica las normas de seguridad de %s|Alguém explica as regras de segurança de %s|Quelqu'un explique les règles de sécurité de %s|Jemand erklärt die Sicherheitsregeln für %s|%s 안전수칙 설명하기|解释乘坐%s的安全规则
 Someone is hurrying to get on the %s|%sに乗り遅れないよう急ぐ|Alguien corre para alcanzar %s|Alguém corre para pegar %s|Quelqu'un se dépêche d'attraper %s|Jemand beeilt sich um %s zu erreichen|%s 놓치지 않으려고 서두르기|赶着去搭乘%s
@@ -396,22 +396,22 @@ Someone is noticing a change in %s|%sの変化に気づく|Alguien nota un cambi
 `);
 
 family('travel', `
-Someone is getting ready for %s|%sの準備をする|Alguien se prepara para %s|Alguém se prepara para %s|Quelqu'un se prépare pour %s|Jemand bereitet sich auf %s vor|%s 준비하기|为%s做准备
-Someone is searching for %s on a trip|旅行中に%sを探す|Alguien busca %s durante un viaje|Alguém procura %s durante uma viagem|Quelqu'un cherche %s pendant un voyage|Jemand sucht unterwegs nach %s|여행 중 %s 찾기|旅途中寻找%s
-Someone is worried about %s while traveling|旅行中に%sのことで心配する|Alguien se preocupa por %s mientras viaja|Alguém se preocupa com %s numa viagem|Quelqu'un s'inquiète à propos de %s en voyage|Jemand macht sich unterwegs Sorgen um %s|여행 중 %s 걱정하기|旅行中担心%s
-Someone is asking a question about %s|%sについて質問する|Alguien pregunta por %s|Alguém pergunta sobre %s|Quelqu'un pose une question sur %s|Jemand fragt nach %s|%s에 관해 질문하기|询问%s的情况
-Someone is checking information about %s|%sについて情報を確認する|Alguien consulta información sobre %s|Alguém consulta informações sobre %s|Quelqu'un vérifie les informations sur %s|Jemand prüft Informationen zu %s|%s 정보 확인하기|查看关于%s的信息
-Someone is showing a picture of %s|%sの写真を見せる|Alguien muestra una foto de %s|Alguém mostra uma foto de %s|Quelqu'un montre une photo de %s|Jemand zeigt ein Foto von %s|%s 사진 보여주기|展示%s的照片
-Someone is explaining %s to a travel partner|旅の仲間に%sを説明する|Alguien explica %s a su compañero de viaje|Alguém explica %s ao companheiro de viagem|Quelqu'un explique %s à son compagnon de voyage|Jemand erklärt seinem Reisepartner %s|여행 동반자에게 %s 설명하기|向旅伴解释%s
-Someone is excited about %s|%sが楽しみでわくわくする|Alguien está entusiasmado con %s|Alguém está animado com %s|Quelqu'un est enthousiaste à propos de %s|Jemand freut sich auf %s|%s 기대하며 설레기|为%s感到兴奋
-Someone is comparing two options for %s|%sについて二つの選択肢を比べる|Alguien compara dos opciones para %s|Alguém compara duas opções para %s|Quelqu'un compare deux options pour %s|Jemand vergleicht zwei Möglichkeiten für %s|%s 두 가지 선택지 비교하기|比较%s的两种选择
-Someone is confused about %s|%sのことで混乱している|Alguien está confundido por %s|Alguém está confuso sobre %s|Quelqu'un est perdu à propos de %s|Jemand ist wegen %s verwirrt|%s 때문에 혼란스러워하기|对%s感到困惑
-Someone is discussing %s with a travel agent|旅行会社の人と%sについて話す|Alguien habla de %s con un agente de viajes|Alguém conversa sobre %s com um agente de viagens|Quelqu'un parle de %s à une agence de voyages|Jemand bespricht %s mit einem Reisebüro|여행사 직원과 %s 상담하기|和旅行社讨论%s
-Someone is pointing to %s in a brochure|パンフレットで%sを指さす|Alguien señala %s en un folleto|Alguém aponta para %s num folheto|Quelqu'un montre %s sur une brochure|Jemand zeigt auf %s in einem Prospekt|안내 책자에서 %s 가리키기|指着宣传册上的%s
-Someone is making a travel checklist about %s|%sについて旅行用チェックリストを作る|Alguien hace una lista de viaje sobre %s|Alguém faz uma lista de viagem para %s|Quelqu'un fait une liste de voyage concernant %s|Jemand erstellt eine Reiseliste für %s|%s 여행 체크리스트 만들기|制作关于%s的旅行清单
-Someone is remembering %s from a previous trip|前の旅行での%sを思い出す|Alguien recuerda %s de un viaje anterior|Alguém lembra de %s numa viagem passada|Quelqu'un se souvient de %s lors d'un ancien voyage|Jemand erinnert sich an %s von einer früheren Reise|지난 여행의 %s 기억하기|回忆上次旅行中的%s
-Someone is telling a funny travel story about %s|%sについて面白い旅行話をする|Alguien cuenta una historia divertida de viaje sobre %s|Alguém conta uma história engraçada de viagem sobre %s|Quelqu'un raconte une anecdote drôle de voyage sur %s|Jemand erzählt eine lustige Reisegeschichte über %s|%s 재미있는 여행 이야기 들려주기|讲关于%s的有趣旅行故事
-Someone is trying to explain %s without speaking|声を出さずに%sを説明しようとする|Alguien explica %s sin hablar|Alguém explica %s sem falar|Quelqu'un explique %s sans parler|Jemand erklärt %s ohne zu sprechen|말없이 %s 설명하기|不说话解释%s
+Someone is getting ready for the %s|%sの準備をする|Alguien se prepara para %s|Alguém se prepara para %s|Quelqu'un se prépare pour %s|Jemand bereitet sich auf %s vor|%s 준비하기|为%s做准备
+Someone is searching for the %s on a trip|旅行中に%sを探す|Alguien busca %s durante un viaje|Alguém procura %s durante uma viagem|Quelqu'un cherche %s pendant un voyage|Jemand sucht unterwegs nach %s|여행 중 %s 찾기|旅途中寻找%s
+Someone is worried about the %s while traveling|旅行中に%sのことで心配する|Alguien se preocupa por %s mientras viaja|Alguém se preocupa com %s numa viagem|Quelqu'un s'inquiète à propos de %s en voyage|Jemand macht sich unterwegs Sorgen um %s|여행 중 %s 걱정하기|旅行中担心%s
+Someone is asking a question about the %s|%sについて質問する|Alguien pregunta por %s|Alguém pergunta sobre %s|Quelqu'un pose une question sur %s|Jemand fragt nach %s|%s에 관해 질문하기|询问%s的情况
+Someone is checking information about the %s|%sについて情報を確認する|Alguien consulta información sobre %s|Alguém consulta informações sobre %s|Quelqu'un vérifie les informations sur %s|Jemand prüft Informationen zu %s|%s 정보 확인하기|查看关于%s的信息
+Someone is showing a picture of the %s|%sの写真を見せる|Alguien muestra una foto de %s|Alguém mostra uma foto de %s|Quelqu'un montre une photo de %s|Jemand zeigt ein Foto von %s|%s 사진 보여주기|展示%s的照片
+Someone is explaining the %s to a travel partner|旅の仲間に%sを説明する|Alguien explica %s a su compañero de viaje|Alguém explica %s ao companheiro de viagem|Quelqu'un explique %s à son compagnon de voyage|Jemand erklärt seinem Reisepartner %s|여행 동반자에게 %s 설명하기|向旅伴解释%s
+Someone is excited about the %s|%sが楽しみでわくわくする|Alguien está entusiasmado con %s|Alguém está animado com %s|Quelqu'un est enthousiaste à propos de %s|Jemand freut sich auf %s|%s 기대하며 설레기|为%s感到兴奋
+Someone is comparing two options for the %s|%sについて二つの選択肢を比べる|Alguien compara dos opciones para %s|Alguém compara duas opções para %s|Quelqu'un compare deux options pour %s|Jemand vergleicht zwei Möglichkeiten für %s|%s 두 가지 선택지 비교하기|比较%s的两种选择
+Someone is confused about the %s|%sのことで混乱している|Alguien está confundido por %s|Alguém está confuso sobre %s|Quelqu'un est perdu à propos de %s|Jemand ist wegen %s verwirrt|%s 때문에 혼란스러워하기|对%s感到困惑
+Someone is discussing the %s with a travel agent|旅行会社の人と%sについて話す|Alguien habla de %s con un agente de viajes|Alguém conversa sobre %s com um agente de viagens|Quelqu'un parle de %s à une agence de voyages|Jemand bespricht %s mit einem Reisebüro|여행사 직원과 %s 상담하기|和旅行社讨论%s
+Someone is pointing to the %s in a brochure|パンフレットで%sを指さす|Alguien señala %s en un folleto|Alguém aponta para %s num folheto|Quelqu'un montre %s sur une brochure|Jemand zeigt auf %s in einem Prospekt|안내 책자에서 %s 가리키기|指着宣传册上的%s
+Someone is making a travel checklist about the %s|%sについて旅行用チェックリストを作る|Alguien hace una lista de viaje sobre %s|Alguém faz uma lista de viagem para %s|Quelqu'un fait une liste de voyage concernant %s|Jemand erstellt eine Reiseliste für %s|%s 여행 체크리스트 만들기|制作关于%s的旅行清单
+Someone is remembering the %s from a previous trip|前の旅行での%sを思い出す|Alguien recuerda %s de un viaje anterior|Alguém lembra de %s numa viagem passada|Quelqu'un se souvient de %s lors d'un ancien voyage|Jemand erinnert sich an %s von einer früheren Reise|지난 여행의 %s 기억하기|回忆上次旅行中的%s
+Someone is telling a funny travel story about the %s|%sについて面白い旅行話をする|Alguien cuenta una historia divertida de viaje sobre %s|Alguém conta uma história engraçada de viagem sobre %s|Quelqu'un raconte une anecdote drôle de voyage sur %s|Jemand erzählt eine lustige Reisegeschichte über %s|%s 재미있는 여행 이야기 들려주기|讲关于%s的有趣旅行故事
+Someone is trying to explain the %s without speaking|声を出さずに%sを説明しようとする|Alguien explica %s sin hablar|Alguém explica %s sem falar|Quelqu'un explique %s sans parler|Jemand erklärt %s ohne zu sprechen|말없이 %s 설명하기|不说话解释%s
 `);
 
 family('action', `
