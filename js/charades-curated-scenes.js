@@ -61,7 +61,7 @@
     movies:['fantasy','history','jobs'],
     fantasy:['movies','history'],
     history:['movies'],
-    sports:['sports_moves'],
+    sports:[],
     games:['sports'],
     hobbies:['sports','games'],
     holidays:['school_events'],
