@@ -787,7 +787,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.id === state.correctItem.id) {
             state.phase = 'feedback';
             if (state.attempts === 1) state.firstCorrect++;
-            state.lastPoints = window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts);
+            state.lastPoints = window.CHARADES_CORE
+                ? window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts)
+                : ([100, 60, 30][state.attempts - 1] || 10);
             state.score += state.lastPoints;
             elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
             playEffect(elements.audio.correct);
