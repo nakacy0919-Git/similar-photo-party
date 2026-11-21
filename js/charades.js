@@ -56,6 +56,7 @@
   }
   function renderDecks() {
     const target = $('decks');
+    const previousScroll = target.scrollTop;
     target.replaceChildren();
     const all = { id: 'all', emoji: '🎲', names: { en: 'All categories', ja: 'すべて' }, words: CORE.availableWords(DATA, 'all', state.language) };
     for (const item of [all, ...DATA.decks]) {
@@ -76,6 +77,7 @@
       });
       target.append(button);
     }
+    target.scrollTop = previousScroll;
     $('deckCount').textContent = DATA.decks.length + ' categories · ' + DATA.decks.reduce((sum, item) => sum + item.words.length, 0) + ' prompts';
   }
   function show(stage) {
@@ -246,7 +248,7 @@
   $('tiltEnable').addEventListener('click', enableTilt);
   window.addEventListener('deviceorientation', handleOrientation);
   document.addEventListener('keydown', event => {
-    if (state.stage !== 'play' || event.repeat || ['INPUT','SELECT','TEXTAREA','BUTTON'].includes(document.activeElement?.tagName)) return;
+    if (state.stage !== 'play' || event.repeat || ['INPUT','SELECT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
     if (event.key === 'ArrowRight') { event.preventDefault(); answer(true); }
     if (event.key === 'ArrowLeft') { event.preventDefault(); answer(false); }
   });
