@@ -312,3 +312,21 @@ main > section { min-height: 0; min-width: 0; }
     #feedback-progress { font-size: .8rem; }
     #view-result #next-btn { position: sticky; bottom: .15rem; z-index: 5; }
 }
+
+/* Charades is a separate game mode; the existing photo game keeps its layout. */
+.charades-entry {
+    display: flex; align-items: center; gap: 1rem;
+    width: min(100%, 490px); min-height: 88px; padding: .95rem 1.25rem;
+    border-radius: 1.5rem; color: white; text-decoration: none;
+    background: linear-gradient(110deg,#6d46c8,#4331a5);
+    border: 3px solid #cab9ff;
+    box-shadow: 0 12px 30px rgba(76,45,157,.32);
+    transition: transform .18s, box-shadow .18s;
+}
+.charades-entry:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(76,45,157,.42); }
+.charades-entry:focus-visible { outline: 3px solid #f7c44f; outline-offset: 3px; }
+.charades-entry-icon { font-size: 2.2rem; }
+.charades-entry strong { display: block; font-size: clamp(1.15rem,3vw,1.6rem); font-weight: 900; }
+.charades-entry small { display: block; font-size: .72rem; color: #ece6ff; margin-top: .2rem; }
+.charades-entry-arrow { font-size: 1.5rem; font-weight: 900; margin-left: auto; }
+@media (max-width: 520px) { .charades-entry { min-height: 73px; padding: .65rem .9rem; } }
