@@ -140,7 +140,7 @@ test('result screen and next team use a new ready screen without keeping old tim
   game.get('endRound').click();
   assert.equal(game.get('result').hidden, false);
   assert.equal(game.intervals.size, 0);
-  assert.equal(game.get('roundScore').textContent, '+1');
+  assert.equal(game.get('roundScore').textContent, '1');
   game.get('nextRound').click();
   assert.equal(game.get('ready').hidden, false);
   assert.equal(game.get('readyTeam').textContent, 'TEAM B');
