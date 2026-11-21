@@ -30,7 +30,8 @@
     occasions: ['holidays','school_events','culture'],
     belongings: ['objects','home','clothes','music','technology'],
     education: ['school','science','school_subjects'],
-    locations: ['places','community','travel'],
+    locations: ['places','community'],
+    travel: ['travel'],
     vehicles: ['transport'],
     outdoors: ['weather','nature','space'],
     body: ['body'],
@@ -309,3 +310,51 @@ Someone is learning the name of %s|%sの名前を覚える|Alguien aprende el no
 Someone is testing how %s moves|%sがどう動くか試す|Alguien prueba cómo se mueve %s|Alguém testa como %s se move|Quelqu'un teste le mouvement de %s|Jemand testet wie sich %s bewegt|%s 움직임 시험하기|测试%s如何活动
 Someone is noticing a change in %s|%sの変化に気づく|Alguien nota un cambio en %s|Alguém percebe uma mudança em %s|Quelqu'un remarque un changement de %s|Jemand bemerkt eine Veränderung an %s|%s 변화 알아채기|察觉%s的变化
 `);
+
+family('travel', `
+Someone is getting ready for %s|%sの準備をする|Alguien se prepara para %s|Alguém se prepara para %s|Quelqu'un se prépare pour %s|Jemand bereitet sich auf %s vor|%s 준비하기|为%s做准备
+Someone is searching for %s on a trip|旅行中に%sを探す|Alguien busca %s durante un viaje|Alguém procura %s durante uma viagem|Quelqu'un cherche %s pendant un voyage|Jemand sucht unterwegs nach %s|여행 중 %s 찾기|旅途中寻找%s
+Someone is worried about %s while traveling|旅行中に%sのことで心配する|Alguien se preocupa por %s mientras viaja|Alguém se preocupa com %s numa viagem|Quelqu'un s'inquiète à propos de %s en voyage|Jemand macht sich unterwegs Sorgen um %s|여행 중 %s 걱정하기|旅行中担心%s
+Someone is asking a question about %s|%sについて質問する|Alguien pregunta por %s|Alguém pergunta sobre %s|Quelqu'un pose une question sur %s|Jemand fragt nach %s|%s에 관해 질문하기|询问%s的情况
+Someone is checking information about %s|%sについて情報を確認する|Alguien consulta información sobre %s|Alguém consulta informações sobre %s|Quelqu'un vérifie les informations sur %s|Jemand prüft Informationen zu %s|%s 정보 확인하기|查看关于%s的信息
+Someone is showing a picture of %s|%sの写真を見せる|Alguien muestra una foto de %s|Alguém mostra uma foto de %s|Quelqu'un montre une photo de %s|Jemand zeigt ein Foto von %s|%s 사진 보여주기|展示%s的照片
+Someone is explaining %s to a travel partner|旅の仲間に%sを説明する|Alguien explica %s a su compañero de viaje|Alguém explica %s ao companheiro de viagem|Quelqu'un explique %s à son compagnon de voyage|Jemand erklärt seinem Reisepartner %s|여행 동반자에게 %s 설명하기|向旅伴解释%s
+Someone is excited about %s|%sが楽しみでわくわくする|Alguien está entusiasmado con %s|Alguém está animado com %s|Quelqu'un est enthousiaste à propos de %s|Jemand freut sich auf %s|%s 기대하며 설레기|为%s感到兴奋
+Someone is comparing two options for %s|%sについて二つの選択肢を比べる|Alguien compara dos opciones para %s|Alguém compara duas opções para %s|Quelqu'un compare deux options pour %s|Jemand vergleicht zwei Möglichkeiten für %s|%s 두 가지 선택지 비교하기|比较%s的两种选择
+Someone is confused about %s|%sのことで混乱している|Alguien está confundido por %s|Alguém está confuso sobre %s|Quelqu'un est perdu à propos de %s|Jemand ist wegen %s verwirrt|%s 때문에 혼란스러워하기|对%s感到困惑
+Someone is discussing %s with a travel agent|旅行会社の人と%sについて話す|Alguien habla de %s con un agente de viajes|Alguém conversa sobre %s com um agente de viagens|Quelqu'un parle de %s à une agence de voyages|Jemand bespricht %s mit einem Reisebüro|여행사 직원과 %s 상담하기|和旅行社讨论%s
+Someone is pointing to %s in a brochure|パンフレットで%sを指さす|Alguien señala %s en un folleto|Alguém aponta para %s num folheto|Quelqu'un montre %s sur une brochure|Jemand zeigt auf %s in einem Prospekt|안내 책자에서 %s 가리키기|指着宣传册上的%s
+Someone is making a travel checklist about %s|%sについて旅行用チェックリストを作る|Alguien hace una lista de viaje sobre %s|Alguém faz uma lista de viagem para %s|Quelqu'un fait une liste de voyage concernant %s|Jemand erstellt eine Reiseliste für %s|%s 여행 체크리스트 만들기|制作关于%s的旅行清单
+Someone is remembering %s from a previous trip|前の旅行での%sを思い出す|Alguien recuerda %s de un viaje anterior|Alguém lembra de %s numa viagem passada|Quelqu'un se souvient de %s lors d'un ancien voyage|Jemand erinnert sich an %s von einer früheren Reise|지난 여행의 %s 기억하기|回忆上次旅行中的%s
+Someone is telling a funny travel story about %s|%sについて面白い旅行話をする|Alguien cuenta una historia divertida de viaje sobre %s|Alguém conta uma história engraçada de viagem sobre %s|Quelqu'un raconte une anecdote drôle de voyage sur %s|Jemand erzählt eine lustige Reisegeschichte über %s|%s 재미있는 여행 이야기 들려주기|讲关于%s的有趣旅行故事
+Someone is trying to explain %s without speaking|声を出さずに%sを説明しようとする|Alguien explica %s sin hablar|Alguém explica %s sem falar|Quelqu'un explique %s sans parler|Jemand erklärt %s ohne zu sprechen|말없이 %s 설명하기|不说话解释%s
+`);
+
+family('action', `
+Slowly %s|ゆっくり%s|%s lentamente|%s lentamente|%s lentement|Langsam %s|천천히 %s|慢慢地%s
+Quickly %s|急いで%s|%s rápidamente|%s rapidamente|%s rapidement|Schnell %s|빨리 %s|快速地%s
+Carefully %s|慎重に%s|%s con cuidado|%s com cuidado|%s avec soin|Vorsichtig %s|조심스럽게 %s|小心地%s
+Silently %s|声を出さずに%s|%s en silencio|%s em silêncio|%s en silence|Leise %s|조용히 %s|悄悄地%s
+Confidently %s|自信満々に%s|%s con confianza|%s com confiança|%s avec confiance|Selbstbewusst %s|자신 있게 %s|自信满满地%s
+Nervously %s|緊張しながら%s|%s nerviosamente|%s nervosamente|%s nerveusement|Nervös %s|긴장하면서 %s|紧张地%s
+Dramatically %s|大げさに%s|%s de forma dramática|%s de forma dramática|%s de façon théâtrale|Dramatisch %s|과장되게 %s|夸张地%s
+%s in slow motion|%sをスローモーションでやってみる|%s a cámara lenta|%s em câmera lenta|%s au ralenti|%s in Zeitlupe|%s 슬로모션으로 하기|用慢动作%s
+%s with a friend|友達と一緒に%s|%s con un amigo|%s com um amigo|%s avec un ami|%s mit einem Freund|친구와 함께 %s|和朋友一起%s
+%s while everyone watches|みんなに見られながら%s|%s mientras todos miran|%s enquanto todos olham|%s sous les regards de tous|%s während alle zusehen|모두가 지켜보는 가운데 %s|在大家注视下%s
+%s while trying not to laugh|笑いをこらえながら%s|%s intentando no reír|%s tentando não rir|%s en essayant de ne pas rire|%s ohne zu lachen|웃음을 참으면서 %s|一边憋笑一边%s
+%s as if floating in zero gravity|無重力で浮いているつもりで%s|%s como si no hubiera gravedad|%s como se não houvesse gravidade|%s comme en apesanteur|%s wie in Schwerelosigkeit|무중력 상태인 듯 %s|仿佛失重般%s
+%s while feeling very sleepy|とても眠そうに%s|%s con mucho sueño|%s com muito sono|%s en ayant très sommeil|%s während man sehr müde ist|졸린 듯이 %s|困倦地%s
+%s as if a strong wind is blowing|強い風が吹いているつもりで%s|%s como si soplara un viento fuerte|%s como se ventasse muito|%s comme si un vent fort soufflait|%s wie bei starkem Wind|강한 바람 속에서 %s|仿佛刮着大风般%s
+%s as if it is the first attempt|初めて挑戦するつもりで%s|%s como si fuera la primera vez|%s como se fosse a primeira vez|%s comme pour la première fois|%s wie beim ersten Versuch|처음 하는 듯이 %s|仿佛第一次尝试般%s
+%s with a look of total surprise|とても驚いた顔で%s|%s con cara de gran sorpresa|%s com uma cara de espanto|%s avec un air très étonné|%s mit völlig überraschter Miene|깜짝 놀란 얼굴로 %s|带着十分惊讶的表情%s
+`);
+
+  // Verify every family was explicitly authored and every category assigned.
+  const EXPECTED_FAMILIES = Object.keys(ASSIGNMENTS);
+  if (Object.keys(FAMILIES).length !== EXPECTED_FAMILIES.length ||
+      EXPECTED_FAMILIES.some(id => !FAMILIES[id])) {
+    throw new Error('Incomplete Charades semantic-scene catalog');
+  }
+  root.CHARADES_SCENES = Object.freeze({ families:FAMILIES, assignments:ASSIGNMENTS, expand });
+  if (typeof module !== 'undefined' && module.exports) module.exports = root.CHARADES_SCENES;
+})(typeof window !== 'undefined' ? window : globalThis);
