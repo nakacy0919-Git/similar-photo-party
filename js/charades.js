@@ -330,7 +330,7 @@
     if (state.stage !== 'play') return;
     const oldLanguage = state.language;
     const newLanguage = oldLanguage === 'ja' ? 'en' : 'ja';
-    // Build a one-to-one translation index for the curated prompt catalog.
+    // Build a one-to-one translation index for the localized scenario catalog.
     const byDeck = new Map(DATA.decks.map(deck => [
       deck.id, new Map(deck.words.map(word => [word[oldLanguage], word[newLanguage]]))
     ]));
