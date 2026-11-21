@@ -72,14 +72,24 @@
     pt:'🔎 Buscar categorias…', fr:'🔎 Rechercher une catégorie…',
     de:'🔎 Kategorien suchen…', ko:'🔎 카테고리 검색…', zh:'🔎 搜索类别…'
   };
+  const MOBILE_LABELS = {
+    ja:{readyTitle:'準備はいい？',readyMessage:'端末を持つ人を確認して、準備ができたらスタート！',readyActing:'演技する人だけがお題を見て、ほかの人には見せないでください。',readyForehead:'答える人は画面を見ず、額に端末を当てます。周りの人がヒントを出します。',begin:'▶ お題スタート！',readyNote:'タイマーはこのボタンを押してから始まります。',pause:'⏸ 一時停止',resume:'▶ 再開する',pausedMessage:'一時停止中 · お題は非表示です'},
+    en:{readyTitle:'Ready to play?',readyMessage:'Make sure everyone is in position.',readyActing:'Only the actor should see the prompt. Others look away.',readyForehead:'The guesser faces away from the screen, with the device on their forehead. Others give clues.',begin:'▶ START ROUND',readyNote:'The clock starts only when you tap Start.',pause:'⏸ Pause',resume:'▶ Resume',pausedMessage:'Paused · Prompt hidden'},
+    es:{readyTitle:'¿Preparados?',readyMessage:'Prepara a los jugadores.',readyActing:'Solo quien actúa mira la palabra.',readyForehead:'Quien adivina no mira la pantalla. Los demás dan pistas.',begin:'▶ EMPEZAR',readyNote:'El reloj comienza al pulsar.',pause:'⏸ Pausa',resume:'▶ Continuar',pausedMessage:'En pausa · Palabra oculta'},
+    pt:{readyTitle:'Tudo pronto?',readyMessage:'Prepare os jogadores.',readyActing:'Só quem faz mímica vê a palavra.',readyForehead:'Quem adivinha não olha a tela. Os colegas dão dicas.',begin:'▶ COMEÇAR',readyNote:'O relógio começa ao tocar.',pause:'⏸ Pausar',resume:'▶ Continuar',pausedMessage:'Pausado · Palavra oculta'},
+    fr:{readyTitle:'Prêts à jouer ?',readyMessage:'Préparez les joueurs.',readyActing:'Seule la personne qui mime voit le mot.',readyForehead:'La personne qui devine ne regarde pas l’écran. Les autres donnent des indices.',begin:'▶ COMMENCER',readyNote:'Le temps commence au toucher.',pause:'⏸ Pause',resume:'▶ Reprendre',pausedMessage:'Pause · Mot masqué'},
+    de:{readyTitle:'Bereit?',readyMessage:'Alle bereit machen.',readyActing:'Nur die darstellende Person sieht den Begriff.',readyForehead:'Die ratende Person schaut nicht auf den Bildschirm. Andere geben Hinweise.',begin:'▶ STARTEN',readyNote:'Die Zeit beginnt erst beim Tippen.',pause:'⏸ Pause',resume:'▶ Weiter',pausedMessage:'Pause · Begriff verborgen'},
+    ko:{readyTitle:'준비됐나요?',readyMessage:'모두 준비해 주세요.',readyActing:'표현하는 사람만 문제를 봅니다.',readyForehead:'맞히는 사람은 화면을 보지 않고 이마에 기기를 댑니다. 다른 사람들이 힌트를 줍니다.',begin:'▶ 라운드 시작',readyNote:'시작 버튼을 누르면 시간이 흐릅니다.',pause:'⏸ 일시정지',resume:'▶ 계속하기',pausedMessage:'일시정지 · 문제가 숨겨졌습니다'},
+    zh:{readyTitle:'准备好了吗？',readyMessage:'请做好准备。',readyActing:'只有表演者看题目，其他人不要看。',readyForehead:'猜题者不看屏幕，把设备放在额头。其他人提供提示。',begin:'▶ 开始本轮',readyNote:'点击开始后才开始计时。',pause:'⏸ 暂停',resume:'▶ 继续',pausedMessage:'已暂停 · 题目已隐藏'}
+  };
   const state = {
     language: 'ja', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair',
     duration: 60, teams: ['TEAM A','TEAM B'], scores: [0, 0], turn: 0, correct: 0, passed: 0,
     streak: 0, maxStreak: 0, shown: 0, current: null, remainingWords: [],
-    remainingMs: 60000, lastTick: 0, interval: null, tiltActive: false,
+    remainingMs: 60000, lastTick: 0, interval: null, paused: false, wakeLock: null, tiltActive: false,
     tiltBaseline: null, tiltNeutral: true, lastTiltAt: 0
   };
-  const t = key => (UI[state.language] || UI.en)[key] || UI.en[key] || key;
+  const t = key => (MOBILE_LABELS[state.language] || MOBILE_LABELS.en)[key] || (UI[state.language] || UI.en)[key] || UI.en[key] || key;
   function categoryLabel(deck) {
     if (state.language === 'ja' || state.language === 'en') return deck.names[state.language];
     const index = EXTRA_LANGS.indexOf(state.language);
@@ -127,7 +137,8 @@
   }
   function show(stage) {
     state.stage = stage;
-    for (const name of ['setup','play','result']) $(name).hidden = name !== stage;
+    for (const name of ['setup','ready','play','result']) $(name).hidden = name !== stage;
+    $('language').disabled = stage !== 'setup';
   }
   function updatePlayerInputs() {
     $('teamNames').hidden = document.querySelector('input[name="players"]:checked').value !== 'teams';
@@ -135,6 +146,58 @@
   function stopTimer() {
     if (state.interval) clearInterval(state.interval);
     state.interval = null;
+  }
+  async function requestWakeLock() {
+    if (typeof navigator === 'undefined' || !navigator.wakeLock || state.stage !== 'play' || state.paused || state.wakeLock) return;
+    try {
+      const sentinel = await navigator.wakeLock.request('screen');
+      if (state.stage !== 'play' || state.paused || document.hidden) {
+        await sentinel.release();
+      } else {
+        state.wakeLock = sentinel;
+        sentinel.addEventListener('release', () => {
+          if (state.wakeLock === sentinel) state.wakeLock = null;
+        });
+      }
+    } catch {
+      // Unsupported/denied wake locks must never interrupt play.
+    }
+  }
+  function releaseWakeLock() {
+    const sentinel = state.wakeLock;
+    state.wakeLock = null;
+    if (sentinel) Promise.resolve(sentinel.release()).catch(() => {});
+  }
+  function setPaused(paused) {
+    if (state.stage !== 'play' || state.paused === paused) return;
+    state.paused = paused;
+    state.lastTick = performance.now();
+    $('pauseShield').hidden = !paused;
+    $('prompt').hidden = paused;
+    $('hint').hidden = paused;
+    $('pauseResume').textContent = t(paused ? 'resume' : 'pause');
+    $('pauseResume').setAttribute('aria-pressed', String(paused));
+    $('pass').disabled = paused;
+    $('correct').disabled = paused;
+    if (paused) releaseWakeLock();
+    else requestWakeLock();
+  }
+  function beginRound() {
+    if (state.stage !== 'ready') return;
+    show('play');
+    state.paused = false;
+    $('pauseShield').hidden = true;
+    $('prompt').hidden = false;
+    $('hint').hidden = false;
+    $('pauseResume').textContent = t('pause');
+    $('pauseResume').setAttribute('aria-pressed', 'false');
+    $('pass').disabled = false;
+    $('correct').disabled = false;
+    showNext();
+    state.lastTick = performance.now();
+    state.interval = window.setInterval(tick, 100);
+    renderTimer();
+    requestWakeLock();
   }
   function newSession() {
     stopTimer();
@@ -151,6 +214,8 @@
   function startRound() {
     stopTimer();
     state.correct = 0; state.passed = 0; state.streak = 0; state.maxStreak = 0; state.shown = 0;
+    state.paused = false;
+    releaseWakeLock();
     state.remainingMs = state.duration * 1000;
     state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language));
     if (!state.remainingWords.length) {
@@ -165,11 +230,11 @@
     $('categoryName').textContent = state.deck === 'all' ? t('all') : categoryLabel(DATA.decks.find(deck => deck.id === state.deck));
     $('playInstruction').textContent = state.playStyle === 'acting' ? t('actingHint') : t('foreheadHint');
     $('hint').textContent = t('tapHint');
-    show('play');
-    showNext();
-    state.lastTick = performance.now();
-    state.interval = window.setInterval(tick, 100);
+    $('readyTeam').textContent = state.mode === 'teams' ? state.teams[state.turn] : 'PAIR / GROUP';
+    $('readyInstruction').textContent = t(state.playStyle === 'acting' ? 'readyActing' : 'readyForehead');
+    $('pauseShield').hidden = true;
     renderTimer();
+    show('ready');
   }
   function showNext() {
     if (state.stage !== 'play') return;
@@ -185,7 +250,7 @@
     $('streak').textContent = state.streak > 1 ? '🔥 ' + state.streak + ' ' + t('streak') : '';
   }
   function answer(isCorrect) {
-    if (state.stage !== 'play' || !state.current) return;
+    if (state.stage !== 'play' || !state.current || state.paused) return;
     tick();
     if (state.stage !== 'play') return;
     if (isCorrect) {
@@ -208,13 +273,14 @@
     const now = performance.now();
     const elapsed = Math.max(0, now - state.lastTick);
     state.lastTick = now;
-    if (!document.hidden) state.remainingMs = Math.max(0, state.remainingMs - elapsed);
+    if (!document.hidden && !state.paused) state.remainingMs = Math.max(0, state.remainingMs - elapsed);
     renderTimer();
     if (state.remainingMs === 0) finishRound();
   }
   function finishRound() {
     if (state.stage !== 'play') return;
     stopTimer();
+    releaseWakeLock();
     state.tiltActive = false;
     show('result');
     $('resultTeam').textContent = state.mode === 'teams' ? state.teams[state.turn] : 'PAIR / GROUP';
@@ -261,7 +327,7 @@
     return ((angle - baseline + 540) % 360) - 180;
   }
   function handleOrientation(event) {
-    if (!state.tiltActive || state.stage !== 'play' || document.hidden ||
+    if (!state.tiltActive || state.stage !== 'play' || state.paused || document.hidden ||
         typeof event.beta !== 'number' || typeof event.gamma !== 'number') return;
     if (!state.tiltBaseline) {
       state.tiltBaseline = { beta: event.beta, gamma: event.gamma };
@@ -289,11 +355,14 @@
   });
   document.querySelectorAll('input[name="players"]').forEach(input => input.addEventListener('change', updatePlayerInputs));
   $('start').addEventListener('click', newSession);
+  $('mobileStart').addEventListener('click', newSession);
+  $('beginRound').addEventListener('click', beginRound);
+  $('pauseResume').addEventListener('click', () => setPaused(!state.paused));
   $('correct').addEventListener('click', () => answer(true));
   $('pass').addEventListener('click', () => answer(false));
   $('endRound').addEventListener('click', finishRound);
   $('nextRound').addEventListener('click', nextRound);
-  $('newGame').addEventListener('click', () => { stopTimer(); state.tiltActive = false; show('setup'); });
+  $('newGame').addEventListener('click', () => { stopTimer(); releaseWakeLock(); state.tiltActive = false; show('setup'); });
   $('tiltEnable').addEventListener('click', enableTilt);
   window.addEventListener('deviceorientation', handleOrientation);
   document.addEventListener('keydown', event => {
@@ -301,7 +370,16 @@
     if (event.key === 'ArrowRight') { event.preventDefault(); answer(true); }
     if (event.key === 'ArrowLeft') { event.preventDefault(); answer(false); }
   });
-  document.addEventListener('visibilitychange', () => { state.lastTick = performance.now(); });
-  window.addEventListener('pagehide', stopTimer);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (state.stage === 'play') setPaused(true);
+      releaseWakeLock();
+    }
+    state.lastTick = performance.now();
+  });
+  window.addEventListener('pagehide', () => {
+    stopTimer();
+    releaseWakeLock();
+  });
   localize();
 })();
