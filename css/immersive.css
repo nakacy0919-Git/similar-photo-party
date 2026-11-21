@@ -89,7 +89,7 @@ body:has(#play:not([hidden])) .app{max-width:none!important;padding:0!important;
 #play #pauseShield{position:absolute!important;inset:0!important;z-index:10!important;border-radius:0!important}
 #play:has(#pauseShield:not([hidden])) .answer-btn{pointer-events:none!important}
 @media (orientation:landscape){
-  #play .prompt{font-size:clamp(3.6rem,13.3vw,13.5rem)!important}
+  #play #prompt{font-size:clamp(3.6rem,13.3vw,13.5rem)!important}
   #play #prompt.long-prompt{font-size:clamp(2.3rem,7.5vw,7rem)!important}
   #play #prompt.very-long-prompt{font-size:clamp(1.8rem,5.5vw,5.2rem)!important}
   #play .answer-btn{width:clamp(115px,19vw,270px)!important;height:clamp(52px,17dvh,110px)!important}
@@ -132,6 +132,9 @@ body:has(#view-memory:not(.hidden)) #settingsBtn,
 body:has(#view-explain:not(.hidden)) #settingsBtn,
 body:has(#view-choice:not(.hidden)) #settingsBtn,
 body:has(#view-result:not(.hidden)) #settingsBtn{width:40px;height:40px;min-width:40px;min-height:40px}
+body:has(#view-memory:not(.hidden)) #settingsBtn,
+body:has(#view-explain:not(.hidden)) #settingsBtn,
+body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
 #view-memory:not(.hidden),#view-explain:not(.hidden),#view-choice:not(.hidden),#view-result:not(.hidden){
   position:fixed!important;inset:0!important;z-index:20!important;
   width:100vw!important;height:100vh!important;height:100dvh!important;
