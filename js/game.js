@@ -57,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
         phase: "landing",
         round: 0,
         firstCorrect: 0,
+        score: 0,
+        lastPoints: 0,
         attempts: 0,
         remaining: [],
         resultTimeout: null,
@@ -88,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tutLang: 'en',
         // 時間と英語ヒントの設定（初期値）
         memoryTime: 10,
-        explainTime: 15,
+        explainTime: 30,
         hintMode: 'guided'
     };
 
@@ -209,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             state.quizData = [...groups.values()].filter(group => group.length >= 4).flat();
             if (state.quizData.length < 4) throw new Error('No complete image groups');
-            loadStatus.textContent = '2人で遊びます。記憶中は聞き手に画面を見せないでください。';
+            loadStatus.textContent = 'ペアやグループで遊べます。説明役だけが写真を見て、回答役が4枚から選びます。';
             elements.btns.start.disabled = false;
         })
         .catch(err => {
@@ -689,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetPeerFeedback();
         updateMissionPrompts();
         updateRoleCues();
-        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
+        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · SCORE ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
         const generation = ++state.generation;
         showView('memory');
         elements.btns.memorySkip.disabled = true;
@@ -785,6 +787,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.id === state.correctItem.id) {
             state.phase = 'feedback';
             if (state.attempts === 1) state.firstCorrect++;
+            state.lastPoints = window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts);
+            state.score += state.lastPoints;
             elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
             playEffect(elements.audio.correct);
             
@@ -799,8 +803,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showResultPhase() {
         if (state.phase !== 'feedback') return;
-        document.getElementById('result-feedback').textContent = state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。違いを表す英語を確認しよう。`;
-        document.getElementById('round-status').textContent = `Round ${state.round} · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
+        document.getElementById('result-feedback').textContent = `+${state.lastPoints} pts! ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。違いを表す英語を確認しよう。`);
+        document.getElementById('round-status').textContent = `Round ${state.round} · TOTAL ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
         showView('result');
         elements.imgs.result.src = `assets/images/${state.correctItem.filename}`;
         elements.text.resultTitle.textContent = state.correctItem.title;
