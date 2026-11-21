@@ -587,6 +587,89 @@ ein Taxi heranwinken|am Zebrastreifen überqueren|an der Ampel warten|ein U-Bahn
 招手打车|过人行横道|等红绿灯|买地铁票|问路|找路牌|乘扶梯|等电梯|看公交时刻表|坐市内公交|仰望摩天楼|找公共厕所
 `);
 
+
+  // Expansion pack D: environment, modern life, creative play and performance.
+  deck('eco_actions','🌱','Eco Actions','エコ活動', `
+sort recyclables|pick up litter|plant a tree|turn off the lights|reuse a shopping bag|ride a bicycle to school|save water|collect plastic bottles|repair a broken toy|carry a reusable bottle|compost food scraps|clean a beach
+資源ごみを分別する|ごみを拾う|木を植える|電気を消す|買い物袋を再利用する|自転車で通学する|節水する|ペットボトルを集める|壊れたおもちゃを直す|マイボトルを持つ|生ごみを堆肥にする|浜辺を掃除する
+separar reciclables|recoger basura|plantar un árbol|apagar las luces|reutilizar una bolsa|ir en bici a clase|ahorrar agua|recoger botellas de plástico|arreglar un juguete|llevar botella reutilizable|hacer compost|limpiar una playa
+separar recicláveis|recolher lixo|plantar uma árvore|apagar as luzes|reutilizar sacola|ir de bicicleta à escola|economizar água|recolher garrafas plásticas|consertar brinquedo quebrado|levar garrafa reutilizável|fazer compostagem|limpar uma praia
+trier les déchets|ramasser les déchets|planter un arbre|éteindre les lumières|réutiliser un sac|aller à vélo à l'école|économiser l'eau|ramasser des bouteilles en plastique|réparer un jouet cassé|porter une gourde réutilisable|faire du compost|nettoyer une plage
+Müll trennen|Abfall aufsammeln|einen Baum pflanzen|Licht ausschalten|Einkaufstasche wiederverwenden|mit dem Fahrrad zur Schule fahren|Wasser sparen|Plastikflaschen sammeln|kaputtes Spielzeug reparieren|Mehrwegflasche mitnehmen|kompostieren|einen Strand säubern
+재활용 쓰레기 분리하기|쓰레기 줍기|나무 심기|불 끄기|장바구니 다시 쓰기|자전거로 등교하기|물 아끼기|페트병 모으기|고장 난 장난감 고치기|다회용 물병 들고 다니기|음식물 퇴비 만들기|해변 청소하기
+垃圾分类|捡垃圾|种树|关灯|重复使用购物袋|骑自行车上学|节约用水|收集塑料瓶|修理坏玩具|带可重复使用的水瓶|堆肥|清理海滩
+`);
+  deck('healthy_habits','🧘','Healthy Habits','健康習慣', `
+stretch after waking|wash your hands|eat vegetables|go for a walk|drink water|breathe deeply|take a nap|brush your teeth|wear sunscreen|check your heartbeat|rest your eyes|sleep early
+起きたらストレッチする|手を洗う|野菜を食べる|散歩する|水を飲む|深呼吸する|昼寝する|歯を磨く|日焼け止めを塗る|脈を測る|目を休める|早寝する
+estirarse al despertar|lavarse las manos|comer verduras|salir a caminar|beber agua|respirar profundamente|echarse una siesta|cepillarse los dientes|ponerse protector solar|tomarse el pulso|descansar la vista|dormir temprano
+alongar ao acordar|lavar as mãos|comer legumes|fazer caminhada|beber água|respirar fundo|tirar uma soneca|escovar os dentes|passar protetor solar|medir o pulso|descansar os olhos|dormir cedo
+s'étirer au réveil|se laver les mains|manger des légumes|faire une promenade|boire de l'eau|respirer profondément|faire une sieste|se brosser les dents|mettre de la crème solaire|prendre son pouls|reposer ses yeux|se coucher tôt
+sich morgens dehnen|Hände waschen|Gemüse essen|spazieren gehen|Wasser trinken|tief atmen|Mittagsschlaf machen|Zähne putzen|Sonnencreme auftragen|Puls messen|Augen ausruhen|früh schlafen gehen
+일어나서 스트레칭하기|손 씻기|채소 먹기|산책하기|물 마시기|깊게 숨쉬기|낮잠 자기|양치하기|선크림 바르기|맥박 재기|눈 쉬게 하기|일찍 잠들기
+起床后伸展|洗手|吃蔬菜|散步|喝水|深呼吸|午睡|刷牙|涂防晒霜|测脉搏|让眼睛休息|早睡
+`);
+  deck('digital_actions','📱','Digital Life','デジタル生活', `
+take a selfie|scan a QR code|type a password|plug in a charger|join a video call|mute a microphone|scroll a screen|send an emoji|unlock a phone|take a screenshot|record a voice message|use face recognition
+自撮りをする|QRコードを読み取る|パスワードを打つ|充電器を挿す|ビデオ通話に参加する|マイクをミュートにする|画面をスクロールする|絵文字を送る|スマホのロックを解除する|スクリーンショットを撮る|音声メッセージを録る|顔認証を使う
+hacerse un selfi|escanear un código QR|escribir una contraseña|enchufar el cargador|entrar en videollamada|silenciar el micrófono|deslizar la pantalla|enviar un emoji|desbloquear el móvil|hacer una captura de pantalla|grabar un mensaje de voz|usar reconocimiento facial
+tirar selfie|ler um código QR|digitar senha|conectar carregador|entrar em videochamada|silenciar microfone|rolar a tela|enviar emoji|desbloquear celular|tirar captura de tela|gravar mensagem de voz|usar reconhecimento facial
+prendre un selfie|scanner un QR code|saisir un mot de passe|brancher un chargeur|rejoindre un appel vidéo|couper le micro|faire défiler l'écran|envoyer un emoji|déverrouiller un téléphone|faire une capture d'écran|enregistrer un message vocal|utiliser la reconnaissance faciale
+Selfie machen|QR-Code scannen|Passwort eingeben|Ladegerät anschließen|an einem Videoanruf teilnehmen|Mikrofon stummschalten|auf dem Bildschirm scrollen|Emoji senden|Handy entsperren|Screenshot machen|Sprachnachricht aufnehmen|Gesichtserkennung nutzen
+셀카 찍기|QR 코드 스캔하기|비밀번호 입력하기|충전기 꽂기|영상 통화 참여하기|마이크 음소거하기|화면 스크롤하기|이모지 보내기|휴대폰 잠금 해제하기|스크린샷 찍기|음성 메시지 녹음하기|얼굴 인식 사용하기
+自拍|扫描二维码|输入密码|插充电器|加入视频通话|静音麦克风|滑动屏幕|发送表情符号|解锁手机|截屏|录语音消息|使用人脸识别
+`);
+  deck('social_situations','🤝','Social Situations','人とのやり取り', `
+introduce yourself|shake hands|give a high five|apologize to a friend|make a new friend|give someone directions|hold a door open|say thank you|cheer for a teammate|lend a pen|invite someone to a party|congratulate a friend
+自己紹介する|握手する|ハイタッチする|友達に謝る|新しい友達を作る|道を教える|ドアを開けて待つ|ありがとうと言う|チームメイトを応援する|ペンを貸す|パーティーに招待する|友達を祝う
+presentarse|dar la mano|chocar los cinco|pedir perdón a un amigo|hacer un nuevo amigo|indicar el camino|sujetar la puerta|dar las gracias|animar a un compañero|prestar un bolígrafo|invitar a una fiesta|felicitar a un amigo
+apresentar-se|apertar as mãos|dar um toque de mãos|pedir desculpas a um amigo|fazer um novo amigo|indicar o caminho|segurar a porta|agradecer|torcer por colega|emprestar caneta|convidar para uma festa|parabenizar um amigo
+se présenter|serrer la main|taper dans la main|s'excuser auprès d'un ami|se faire un nouvel ami|indiquer le chemin|tenir la porte|dire merci|encourager un coéquipier|prêter un stylo|inviter à une fête|féliciter un ami
+sich vorstellen|Hände schütteln|High Five geben|sich bei einem Freund entschuldigen|einen neuen Freund finden|den Weg erklären|die Tür aufhalten|Danke sagen|einen Teamkollegen anfeuern|einen Stift verleihen|zu einer Party einladen|einem Freund gratulieren
+자기소개하기|악수하기|하이파이브하기|친구에게 사과하기|새 친구 사귀기|길 알려 주기|문 잡아 주기|고맙다고 말하기|팀원 응원하기|펜 빌려주기|파티에 초대하기|친구 축하하기
+自我介绍|握手|击掌|向朋友道歉|交新朋友|给别人指路|帮人扶门|说谢谢|为队友加油|借笔给别人|邀请参加派对|祝贺朋友
+`);
+  deck('art_actions','🎨','Art Studio','アートの動作', `
+paint a portrait|draw a cartoon|mix paint colors|cut paper shapes|make origami|sculpt with clay|use a paintbrush|erase a drawing|make a collage|take a photo|frame a painting|sketch a landscape
+肖像画を描く|漫画を描く|絵の具を混ぜる|紙を形に切る|折り紙を折る|粘土で形を作る|筆を使う|絵を消す|コラージュを作る|写真を撮る|絵を額縁に入れる|風景をスケッチする
+pintar un retrato|dibujar un cómic|mezclar pinturas|recortar figuras de papel|hacer origami|modelar arcilla|usar un pincel|borrar un dibujo|hacer un collage|sacar una foto|enmarcar un cuadro|dibujar un paisaje
+pintar retrato|desenhar quadrinhos|misturar tintas|recortar formas de papel|fazer origami|modelar argila|usar pincel|apagar desenho|fazer colagem|tirar foto|emoldurar pintura|desenhar paisagem
+peindre un portrait|dessiner une BD|mélanger des couleurs|découper des formes|faire de l'origami|sculpter de l'argile|utiliser un pinceau|gommer un dessin|faire un collage|prendre une photo|encadrer un tableau|dessiner un paysage
+ein Porträt malen|Comic zeichnen|Farben mischen|Papierformen ausschneiden|Origami falten|Ton formen|Pinsel benutzen|Zeichnung radieren|Collage gestalten|Foto machen|Bild einrahmen|Landschaft skizzieren
+초상화 그리기|만화 그리기|물감 섞기|종이 모양 오리기|종이접기하기|찰흙 조각하기|붓 사용하기|그림 지우기|콜라주 만들기|사진 찍기|그림 액자에 넣기|풍경 스케치하기
+画肖像画|画漫画|调颜料|剪纸形状|折纸|用黏土塑形|用画笔|擦掉画|做拼贴画|拍照片|给画装框|画风景速写
+`);
+  deck('magic_actions','🪄','Magic Tricks','魔法と手品', `
+pull a rabbit from a hat|wave a magic wand|disappear in smoke|cast a spell|levitate a book|turn invisible|transform into a frog|open a secret door|ride a broomstick|mix a magic potion|make a coin vanish|predict a playing card
+帽子からウサギを出す|魔法の杖を振る|煙の中で消える|呪文を唱える|本を浮かせる|透明になる|カエルに変身する|隠し扉を開ける|ほうきに乗って飛ぶ|魔法の薬を混ぜる|コインを消す|トランプを予言する
+sacar un conejo del sombrero|agitar la varita mágica|desaparecer entre humo|lanzar un hechizo|hacer flotar un libro|volverse invisible|convertirse en rana|abrir una puerta secreta|volar en escoba|mezclar una poción mágica|hacer desaparecer una moneda|adivinar una carta
+tirar coelho da cartola|agitar varinha mágica|sumir na fumaça|lançar feitiço|fazer livro flutuar|ficar invisível|virar sapo|abrir porta secreta|voar de vassoura|misturar poção mágica|fazer moeda sumir|adivinhar uma carta
+sortir un lapin du chapeau|agiter une baguette magique|disparaître dans la fumée|lancer un sort|faire léviter un livre|devenir invisible|se transformer en grenouille|ouvrir une porte secrète|voler sur un balai|préparer une potion|faire disparaître une pièce|deviner une carte
+Kaninchen aus dem Hut zaubern|Zauberstab schwingen|im Rauch verschwinden|einen Zauber sprechen|Buch schweben lassen|unsichtbar werden|sich in einen Frosch verwandeln|Geheimtür öffnen|auf einem Besen fliegen|Zaubertrank mischen|Münze verschwinden lassen|eine Spielkarte vorhersagen
+모자에서 토끼 꺼내기|마법 지팡이 흔들기|연기 속으로 사라지기|주문 외우기|책 공중에 띄우기|투명 인간 되기|개구리로 변신하기|비밀 문 열기|빗자루 타고 날기|마법 물약 섞기|동전 사라지게 하기|카드 맞히기
+从帽子里变出兔子|挥魔杖|在烟雾中消失|念咒语|让书漂浮|变透明|变成青蛙|打开密门|骑扫帚飞|调魔法药水|让硬币消失|猜扑克牌
+`);
+  deck('superhero_actions','🦸','Superhero Moves','ヒーローの動き', `
+fly over a city|stop a speeding train|lift a car|shoot laser beams|climb a wall|rescue a kitten|stop a giant robot|protect with a shield|run at super speed|freeze a waterfall|jump over a building|make a superhero landing
+街の上を飛ぶ|暴走列車を止める|車を持ち上げる|レーザーを放つ|壁を登る|子猫を助ける|巨大ロボットを止める|盾で守る|超高速で走る|滝を凍らせる|建物を飛び越える|ヒーロー着地をする
+volar sobre una ciudad|parar un tren veloz|levantar un coche|disparar láseres|escalar una pared|rescatar un gatito|detener un robot gigante|protegerse con escudo|correr a supervelocidad|congelar una cascada|saltar un edificio|aterrizar como superhéroe
+voar sobre a cidade|parar trem veloz|levantar um carro|disparar lasers|escalar parede|salvar gatinho|parar robô gigante|proteger com escudo|correr super-rápido|congelar cachoeira|pular prédio|pousar como super-herói
+voler au-dessus d'une ville|arrêter un train rapide|soulever une voiture|tirer des lasers|grimper au mur|sauver un chaton|arrêter un robot géant|se protéger avec un bouclier|courir très vite|geler une cascade|sauter par-dessus un bâtiment|atterrir en super-héros
+über eine Stadt fliegen|einen schnellen Zug stoppen|ein Auto hochheben|Laser schießen|eine Wand hochklettern|Kätzchen retten|einen Riesenroboter stoppen|mit Schild schützen|superschnell rennen|Wasserfall einfrieren|über ein Haus springen|wie ein Superheld landen
+도시 위를 날기|폭주 기차 멈추기|자동차 들어 올리기|레이저 쏘기|벽 타기|아기 고양이 구하기|거대 로봇 멈추기|방패로 막기|초고속으로 달리기|폭포 얼리기|건물 뛰어넘기|슈퍼히어로 착지하기
+飞越城市|拦住飞驰的火车|举起汽车|发射激光|爬墙|救小猫|阻止巨型机器人|用盾牌防御|超高速奔跑|冻住瀑布|跳过大楼|超级英雄式落地
+`);
+  deck('comedy_situations','😂','Comedy Scenes','おもしろシーン', `
+walk on an invisible tightrope|fight an invisible mosquito|carry a giant balloon|eat an extremely sour lemon|pretend the floor is lava|open a very heavy door|run from a tiny spider|talk to a sleepy robot|balance a tower of books|sneak past a sleeping dragon|dance with a broom|find a surprise in your shoe
+見えない綱渡りをする|見えない蚊と戦う|巨大な風船を運ぶ|とても酸っぱいレモンを食べる|床が溶岩のふりをする|すごく重い扉を開ける|小さなクモから逃げる|眠そうなロボットに話す|本を高く積んでバランスを取る|寝ているドラゴンの前を忍び足で通る|ほうきと踊る|靴の中の思わぬ物を見つける
+caminar por una cuerda invisible|luchar contra un mosquito invisible|llevar un globo gigante|comer un limón muy ácido|fingir que el suelo es lava|abrir una puerta muy pesada|huir de una araña diminuta|hablar con un robot dormilón|equilibrar una torre de libros|pasar a hurtadillas junto a un dragón dormido|bailar con una escoba|encontrar una sorpresa en el zapato
+andar na corda invisível|lutar com mosquito invisível|carregar balão gigante|comer limão muito azedo|fingir que o chão é lava|abrir porta muito pesada|fugir de aranha minúscula|conversar com robô sonolento|equilibrar pilha de livros|passar escondido por dragão dormindo|dançar com vassoura|achar surpresa no sapato
+marcher sur une corde invisible|combattre un moustique invisible|porter un ballon géant|manger un citron très acide|faire semblant que le sol est en lave|ouvrir une porte très lourde|fuir une petite araignée|parler à un robot endormi|équilibrer une pile de livres|passer devant un dragon endormi|danser avec un balai|trouver une surprise dans sa chaussure
+auf einem unsichtbaren Seil balancieren|gegen eine unsichtbare Mücke kämpfen|einen Riesenballon tragen|eine sehr saure Zitrone essen|so tun als wäre der Boden Lava|eine schwere Tür öffnen|vor einer winzigen Spinne fliehen|mit einem schläfrigen Roboter reden|einen Bücherstapel balancieren|an einem schlafenden Drachen vorbeischleichen|mit einem Besen tanzen|eine Überraschung im Schuh finden
+보이지 않는 줄 위 걷기|보이지 않는 모기와 싸우기|거대한 풍선 옮기기|아주 신 레몬 먹기|바닥이 용암인 척하기|아주 무거운 문 열기|작은 거미 피해서 도망가기|졸린 로봇과 대화하기|책 탑 균형 잡기|잠든 용 옆을 살금살금 지나가기|빗자루와 춤추기|신발 속의 뜻밖의 물건 찾기
+走隐形钢丝|和看不见的蚊子搏斗|搬巨大气球|吃特别酸的柠檬|假装地板是岩浆|打开很重的门|躲避小蜘蛛|和犯困的机器人说话|平衡一摞书|悄悄走过睡着的龙|和扫帚跳舞|在鞋里发现意外之物
+`);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
