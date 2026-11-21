@@ -61,7 +61,7 @@ function createHarness() {
     setInterval(fn) { const id = ++sequence; intervals.set(id, fn); return id; },
     clearInterval(id) { intervals.delete(id); }
   };
-  const context = { window: win, document, performance: { now: () => clock },
+  const context = { window: win, document, clearInterval: win.clearInterval, performance: { now: () => clock },
     DeviceOrientationEvent: undefined, navigator: undefined, Promise };
   const src = fs.readFileSync('js/charades.js', 'utf8');
   vm.runInNewContext(src, context);
