@@ -1,12 +1,12 @@
 const {test}=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
 const data=JSON.parse(fs.readFileSync('data/content.json'));
 function harness(payload=data, options={}){
- const nodes=new Map();let start;let timers=new Map();let id=0;const events=new Map();
+ const nodes=new Map();let start;let timers=new Map();let id=0;let clock=0;const events=new Map();
  function el(key=''){if(nodes.has(key))return nodes.get(key);const classes=new Set(key.startsWith('view-')&&key!=='view-landing'?['hidden']:[]);const e={id:key,style:{},disabled:false,textContent:'',children:[],classList:{add(...v){v.forEach(x=>classes.add(x))},remove(...v){v.forEach(x=>classes.delete(x))},contains(v){return classes.has(v)}},addEventListener(){},setAttribute(){},appendChild(e){this.children.push(e)},querySelector(){return el('icon')},querySelectorAll(){return this.children},pause(){},play(){return Promise.resolve()}};nodes.set(key,e);return e;}
  const document={hidden:false,getElementById:el,createElement:()=>el('new'+id++),querySelectorAll:()=>[],body:el('body'),addEventListener:(n,f)=>{if(n==='DOMContentLoaded')start=f;else events.set(n,f)}};
- const ctx={document,console:{error(){}},fetch:async()=>({ok:true,json:async()=>payload}),performance:{now:()=>0},Image:class{set src(v){this.onload()}},setInterval:f=>{timers.set(++id,f);return id},clearInterval:i=>timers.delete(i),setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),alert(){},window:{matchMedia:()=>({matches:false}),...(options.window||{})}};
+ const ctx={document,console:{error(){}},fetch:async()=>({ok:true,json:async()=>payload}),performance:{now:()=>clock},Image:class{set src(v){this.onload()}},setInterval:f=>{timers.set(++id,f);return id},clearInterval:i=>timers.delete(i),setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),alert(){},window:{matchMedia:()=>({matches:false}),...(options.window||{})}};
  const src=fs.readFileSync('js/game.js','utf8').replace(/\n\}\);\s*$/, '\n globalThis.api={state,startMemoryPhase,startExplainPhase,startChoicePhase,checkAnswer,showResultPhase,backToLanding,prepareQuizData,openSettings,closeSettings,setMemoryTime,setHintMode,speak,stopSpeech,askForOneMoreClue,setPeerFeedback};\n});');
- vm.createContext(ctx);vm.runInContext(src,ctx);start();return {ctx,nodes,timers,events,api:ctx.api,flush:()=>new Promise(r=>setImmediate(r))};
+ vm.createContext(ctx);vm.runInContext(src,ctx);start();return {ctx,nodes,timers,events,api:ctx.api,advance:ms=>{clock+=ms;},flush:()=>new Promise(r=>setImmediate(r))};
 }
 test('all 168 records have unique IDs, images and complete groups',()=>{assert.equal(data.length,168);assert.equal(new Set(data.map(x=>x.id)).size,168);const groups={};for(const x of data){assert.ok(fs.existsSync('assets/images/'+x.filename));groups[x.group]=(groups[x.group]||0)+1;}assert.equal(Object.keys(groups).length,42);assert.ok(Object.values(groups).every(n=>n===4));});
 test('each cycle uses all questions once; options stay in the same group',async()=>{const h=harness();await h.flush();let seen=new Set();for(let i=0;i<data.length;i++){assert.ok(h.api.prepareQuizData());let {correctItem,currentSet}=h.api.state;assert.ok(!seen.has(correctItem.id));seen.add(correctItem.id);assert.equal(currentSet.length,4);assert.ok(currentSet.every(x=>x.group===correctItem.group));assert.ok(currentSet.includes(correctItem));}});
@@ -15,13 +15,13 @@ test('invalid paths, duplicate IDs and failed schemas disable play',async()=>{fo
 
 test('memory time and guided/free support are configurable without affecting scoring', async () => {
  const h=harness(); await h.flush();
- assert.equal(h.api.state.memoryTime,10);
+ assert.equal(h.api.state.memoryTime,30);
  assert.equal(h.api.state.hintMode,'guided');
- assert.equal(h.api.setMemoryTime(15),true);
+ assert.equal(h.api.setMemoryTime(40),true);
  assert.equal(h.api.setMemoryTime(999),false);
- assert.equal(h.api.state.memoryTime,15);
+ assert.equal(h.api.state.memoryTime,40);
  await h.api.startMemoryPhase();
- assert.equal(h.nodes.get('memory-timer').textContent,15);
+ assert.equal(h.nodes.get('memory-timer').textContent,40);
  h.api.startExplainPhase();
  assert.equal(h.nodes.get('explain-hint').classList.contains('hidden'),false);
  assert.equal(h.api.setHintMode('free'),true);
@@ -38,7 +38,7 @@ test('memory time and guided/free support are configurable without affecting sco
 test('role cues are clearly assigned to both players and rotate every round', async () => {
  const h=harness(); await h.flush();
  await h.api.startMemoryPhase();
- assert.match(h.nodes.get('role-memory').textContent, /Player A: 写真を記憶/);
+ assert.match(h.nodes.get('role-memory').textContent, /Player A: 写真を見ながら説明/);
  assert.match(h.nodes.get('role-memory').textContent, /Player B: 画面を見ない/);
  assert.match(h.nodes.get('role-explain').textContent, /Player A: 英語で説明/);
  assert.match(h.nodes.get('role-choice').textContent, /Player B: 写真を選ぶ/);
@@ -46,7 +46,7 @@ test('role cues are clearly assigned to both players and rotate every round', as
  h.api.state.phase='feedback';h.api.showResultPhase();
  assert.match(h.nodes.get('next-role').textContent, /Player B speaks/);
  await h.api.startMemoryPhase();
- assert.match(h.nodes.get('role-memory').textContent, /Player B: 写真を記憶/);
+ assert.match(h.nodes.get('role-memory').textContent, /Player B: 写真を見ながら説明/);
  assert.match(h.nodes.get('role-choice').textContent, /Player A: 写真を選ぶ/);
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
@@ -137,26 +137,29 @@ test('speaking missions rotate across rounds and Guided/Free change only the sca
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
-test('listener can ask one clarification question and gain exactly ten seconds once', async () => {
- const h=harness();await h.flush();
- assert.equal(h.api.askForOneMoreClue(),false);
+test('photo explanation is a single configurable 20–50-second stage, then automatic four-choice', async () => {
+ const h=harness(); await h.flush();
+ assert.equal(h.api.setMemoryTime(20),true);
+ assert.equal(h.api.setMemoryTime(50),true);
+ assert.equal(h.api.setMemoryTime(25),false);
  await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.nodes.get('memory-timer').textContent,50);
  assert.equal(h.api.askForOneMoreClue(),false);
- h.api.startExplainPhase();
- const original=h.api.state.activeCountdown.remainingMs;
- assert.equal(h.api.askForOneMoreClue(),true);
- assert.equal(h.api.state.activeCountdown.remainingMs,original+10000);
- assert.equal(h.nodes.get('explain-timer').textContent,Math.ceil((original+10000)/1000));
- assert.match(h.nodes.get('clue-request-note').textContent,/Listener:/);
- assert.equal(h.nodes.get('clue-request-btn').disabled,true);
- assert.equal(h.api.askForOneMoreClue(),false);
- assert.equal(h.api.state.activeCountdown.remainingMs,original+10000);
- h.api.startChoicePhase();
- assert.equal(h.api.askForOneMoreClue(),false);
+ const oldTimer=h.api.state.timerInterval;
+ const tick=h.timers.get(oldTimer);
+ assert.equal(typeof tick,'function');
+ h.advance(49900);tick();
+ assert.equal(h.api.state.phase,'memory');
+ h.advance(100);tick();
+ assert.equal(h.api.state.phase,'choice');
  assert.equal(h.api.state.activeCountdown,null);
+ assert.equal(h.nodes.get('handoff-announcement').hidden,false);
+ assert.equal(h.nodes.get('choice-grid').children.length,4);
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
+
 test('peer feedback is optional, editable and tracked by speaker without automatic speech claims', async () => {
  const h=harness(); await h.flush();await h.api.startMemoryPhase();
  assert.equal(h.api.setPeerFeedback('subject',true),false,'cannot pre-score speech');
