@@ -300,3 +300,15 @@ test('Charades displays correct-answer counts, not point totals, in eight langua
   assert.match(page,/id="soundEnabled"/);
   assert.match(page,/data-i18n="correctAnswerLabel"/);
 });
+
+test('Charades and Similar Photo share a prominent circular centered READY control', () => {
+  const charadesCss=fs.readFileSync('css/charades.css','utf8');
+  const photoCss=fs.readFileSync('css/photo-flow.css','utf8');
+  const photoHtml=fs.readFileSync('index.html','utf8');
+  assert.match(charadesCss,/#ready #beginRound\.ready-start/);
+  assert.match(charadesCss,/border-radius:50%!important/);
+  assert.match(photoCss,/\.photo-orb-start/);
+  assert.match(photoCss,/border-radius:50%/);
+  assert.match(photoHtml,/id="photo-ready-start"/);
+  assert.match(photoHtml,/id="photo-ready-back"/);
+});
