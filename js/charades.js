@@ -67,6 +67,11 @@
 
   };
   const EXTRA_LANGS = ['es','pt','fr','de','ko','zh'];
+  const SEARCH_PLACEHOLDERS = {
+    ja:'🔎 カテゴリーを検索…', en:'🔎 Search categories…', es:'🔎 Buscar categorías…',
+    pt:'🔎 Buscar categorias…', fr:'🔎 Rechercher une catégorie…',
+    de:'🔎 Kategorien suchen…', ko:'🔎 카테고리 검색…', zh:'🔎 搜索类别…'
+  };
   const state = {
     language: 'ja', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair',
     duration: 60, teams: ['TEAM A','TEAM B'], scores: [0, 0], turn: 0, correct: 0, passed: 0,
@@ -82,6 +87,8 @@
   }
   function localize() {
     document.documentElement.lang = state.language;
+    $('deckSearch').placeholder = SEARCH_PLACEHOLDERS[state.language];
+    $('deckSearch').setAttribute('aria-label', SEARCH_PLACEHOLDERS[state.language]);
     document.querySelectorAll('[data-i18n]').forEach(node => {
       node.textContent = t(node.dataset.i18n);
     });
@@ -90,9 +97,14 @@
   function renderDecks() {
     const target = $('decks');
     const previousScroll = target.scrollTop;
+    const search = $('deckSearch').value.trim().toLocaleLowerCase();
     target.replaceChildren();
     const all = { id: 'all', emoji: '🎲', names: { en: 'All categories', ja: 'すべて' }, words: CORE.availableWords(DATA, 'all', state.language) };
     for (const item of [all, ...DATA.decks]) {
+      const searchable = [item.id, item.names.en, item.names.ja,
+        item.id === 'all' ? t('all') : categoryLabel(item)
+      ].join(' ').toLocaleLowerCase();
+      if (search && !searchable.includes(search)) continue;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'deck' + (state.deck === item.id ? ' selected' : '');
@@ -267,6 +279,10 @@
     $('setup').replaceChildren(document.createTextNode('Could not load the charades catalog.'));
     return;
   }
+  $('deckSearch').addEventListener('input', () => {
+    $('decks').scrollTop = 0;
+    renderDecks();
+  });
   $('language').addEventListener('change', event => {
     state.language = event.target.value;
     localize();
