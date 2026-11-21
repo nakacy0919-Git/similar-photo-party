@@ -165,3 +165,60 @@ test('mobile and tablet CSS includes safe areas, landscape layouts and touch tar
   }
   assert.match(photoCss, /\.choice-index/);
 });
+
+
+test('Charades defaults to English and can switch prompts to Japanese during play', () => {
+  const html = fs.readFileSync('charades.html', 'utf8');
+  assert.match(html, /<html lang="en">/);
+  assert.match(html, /<option value="en" selected>English<\/option>/);
+  const game = createHarness();
+  game.get('language').value = 'en';
+  game.get('start').click();
+  assert.match(game.get('readyInstruction').textContent, /actor/);
+  game.get('beginRound').click();
+  const promptEn = game.get('prompt').textContent;
+  const category = catalog.decks.find(deck => deck.id === 'animals');
+  assert.ok(game.get('playLanguage').textContent.includes('日本語'));
+  const beforeTime = game.get('timeLeft').textContent;
+  game.get('playLanguage').click();
+  const promptJa = game.get('prompt').textContent;
+  assert.notEqual(promptEn, promptJa, 'selected prompt must be translated, not only the button');
+  assert.equal(game.get('playLanguage').textContent, 'English');
+  assert.equal(game.get('timeLeft').textContent, beforeTime, 'language must not reset timer');
+  game.get('playLanguage').click();
+  assert.equal(game.get('prompt').textContent, promptEn, 'switching back preserves current prompt identity');
+  game.get('correct').click();
+  assert.equal(Number(game.get('score').textContent), 1);
+  assert.ok(category.words.length >= 12);
+});
+
+test('Charades and Similar Photo use fixed full visual-viewport game surfaces and visible bottom corners', () => {
+  const css = fs.readFileSync('css/immersive.css', 'utf8');
+  const charadeHtml = fs.readFileSync('charades.html', 'utf8');
+  const photoHtml = fs.readFileSync('index.html', 'utf8');
+  assert.match(css, /#play\.play-panel:not\(\[hidden\]\)/);
+  assert.match(css, /position:fixed!important/);
+  assert.match(css, /height:100dvh!important/);
+  assert.match(css, /#play \.answer-controls/);
+  assert.match(css, /inset:auto 0 0 0!important/);
+  assert.match(css, /#play \.pass-btn/);
+  assert.match(css, /#play \.correct-btn/);
+  assert.match(css, /@media \(orientation:landscape\)/);
+  assert.match(css, /#view-memory #memory-img/);
+  assert.match(css, /#view-choice #choice-grid/);
+  assert.match(css, /grid-template-rows:repeat\(2,minmax\(0,1fr\)\)!important/);
+  assert.match(css, /object-fit:contain!important/);
+  assert.match(css, /overflow:hidden!important/);
+  assert.match(charadeHtml, /css\/immersive\.css/);
+  assert.match(photoHtml, /css\/immersive\.css/);
+  assert.doesNotMatch(photoHtml, /\\n\s+<button id="tutorial-btn"/, 'home screen must not render literal backslash n');
+});
+
+test('Immersive play supports native fullscreen where available without requiring it on Safari', () => {
+  const charades = fs.readFileSync('js/charades.js', 'utf8');
+  const photo = fs.readFileSync('js/game.js', 'utf8');
+  assert.match(charades, /document\.documentElement\?\.requestFullscreen/);
+  assert.match(photo, /document\.documentElement\?\.requestFullscreen/);
+  assert.match(charades, /if \(!document\.fullscreenElement/);
+  assert.match(photo, /if \(!document\.fullscreenElement/);
+});
