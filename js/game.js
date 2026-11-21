@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === 初期化 ===
     elements.btns.start.disabled = true;
+    elements.btns.photoSetupNext.disabled = true;
     const loadStatus = document.getElementById('load-status');
     fetch('data/content.json')
         .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -233,6 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (state.quizData.length < 4) throw new Error('No complete image groups');
             loadStatus.textContent = 'ペアやグループで遊べます。説明役だけが写真を見て、回答役が4枚から選びます。';
             elements.btns.start.disabled = false;
+            elements.btns.photoSetupNext.disabled = false;
         })
         .catch(err => {
             loadStatus.textContent = '教材を読み込めませんでした。ページを再読み込みしてください。';
@@ -706,7 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const title = document.createElement('strong');
             title.textContent = genre.ja;
             const subtitle = document.createElement('small');
-            subtitle.textContent = genre.groups.length * 4 + '枚 · ' + genre.en;
+            subtitle.textContent = PHOTO_GENRES.pool(state.quizData, genre.id).length + '枚 · ' + genre.en;
             label.appendChild(title);
             label.appendChild(subtitle);
             button.appendChild(emoji);
