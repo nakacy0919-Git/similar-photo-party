@@ -338,6 +338,89 @@ Fisch|Hai|Krake|Wal|Delfin|Meeresschildkröte|Krabbe|Qualle|Seepferdchen|Seester
 鱼|鲨鱼|章鱼|鲸鱼|海豚|海龟|螃蟹|水母|海马|海星|海豹|企鹅
 `);
 
+
+  // Expansion pack A: animals and food, with every prompt translated into all eight languages.
+  deck('birds','🦜','Birds','鳥', `
+parrot|owl|eagle|flamingo|peacock|swan|duck|goose|seagull|woodpecker|crow|sparrow
+オウム|フクロウ|ワシ|フラミンゴ|クジャク|白鳥|アヒル|ガチョウ|カモメ|キツツキ|カラス|スズメ
+loro|búho|águila|flamenco|pavo real|cisne|pato|ganso|gaviota|pájaro carpintero|cuervo|gorrión
+papagaio|coruja|águia|flamingo|pavão|cisne|pato|ganso|gaivota|pica-pau|corvo|pardal
+perroquet|hibou|aigle|flamant rose|paon|cygne|canard|oie|mouette|pic-vert|corbeau|moineau
+Papagei|Eule|Adler|Flamingo|Pfau|Schwan|Ente|Gans|Möwe|Specht|Krähe|Spatz
+앵무새|부엉이|독수리|플라밍고|공작|백조|오리|거위|갈매기|딱따구리|까마귀|참새
+鹦鹉|猫头鹰|老鹰|火烈鸟|孔雀|天鹅|鸭子|鹅|海鸥|啄木鸟|乌鸦|麻雀
+`);
+  deck('insects','🐝','Insects','昆虫', `
+ant|bee|mosquito|grasshopper|dragonfly|ladybug|beetle|moth|caterpillar|firefly|praying mantis|cricket
+アリ|ハチ|蚊|バッタ|トンボ|テントウムシ|カブトムシ|ガ|イモムシ|ホタル|カマキリ|コオロギ
+hormiga|abeja|mosquito|saltamontes|libélula|mariquita|escarabajo|polilla|oruga|luciérnaga|mantis religiosa|grillo
+formiga|abelha|mosquito|gafanhoto|libélula|joaninha|besouro|mariposa|lagarta|vaga-lume|louva-a-deus|grilo
+fourmi|abeille|moustique|sauterelle|libellule|coccinelle|scarabée|papillon de nuit|chenille|luciole|mante religieuse|grillon
+Ameise|Biene|Mücke|Heuschrecke|Libelle|Marienkäfer|Käfer|Motte|Raupe|Glühwürmchen|Gottesanbeterin|Grille
+개미|벌|모기|메뚜기|잠자리|무당벌레|딱정벌레|나방|애벌레|반딧불이|사마귀|귀뚜라미
+蚂蚁|蜜蜂|蚊子|蚱蜢|蜻蜓|瓢虫|甲虫|飞蛾|毛毛虫|萤火虫|螳螂|蟋蟀
+`);
+  deck('farm_actions','🚜','On the Farm','農場の動き', `
+milk a cow|feed chickens|drive a tractor|collect eggs|plant seeds|pick apples|ride a horse|water crops|shear a sheep|harvest corn|carry hay|chase a goat
+牛の乳を搾る|鶏に餌をやる|トラクターを運転する|卵を集める|種をまく|りんごを収穫する|馬に乗る|作物に水をやる|羊の毛を刈る|トウモロコシを収穫する|干し草を運ぶ|ヤギを追いかける
+ordeñar una vaca|alimentar gallinas|conducir un tractor|recoger huevos|sembrar semillas|recoger manzanas|montar a caballo|regar cultivos|esquilar una oveja|cosechar maíz|cargar heno|perseguir una cabra
+ordenhar uma vaca|alimentar galinhas|dirigir um trator|recolher ovos|plantar sementes|colher maçãs|andar a cavalo|regar plantações|tosquiar uma ovelha|colher milho|carregar feno|perseguir uma cabra
+traire une vache|nourrir des poules|conduire un tracteur|ramasser des œufs|semer des graines|cueillir des pommes|monter à cheval|arroser les cultures|tondre un mouton|récolter du maïs|porter du foin|poursuivre une chèvre
+eine Kuh melken|Hühner füttern|Traktor fahren|Eier sammeln|Samen säen|Äpfel pflücken|reiten|Felder bewässern|ein Schaf scheren|Mais ernten|Heu tragen|eine Ziege jagen
+젖소 젖 짜기|닭에게 모이 주기|트랙터 운전하기|달걀 모으기|씨앗 심기|사과 따기|말 타기|농작물에 물 주기|양털 깎기|옥수수 수확하기|건초 나르기|염소 쫓아가기
+挤牛奶|喂鸡|开拖拉机|捡鸡蛋|播种|摘苹果|骑马|给农作物浇水|剪羊毛|收玉米|搬干草|追山羊
+`);
+  deck('wildlife','🦒','Wild Animals','野生動物', `
+giraffe|zebra|hippopotamus|rhinoceros|crocodile|cheetah|gorilla|kangaroo|koala|panda|camel|bear
+キリン|シマウマ|カバ|サイ|ワニ|チーター|ゴリラ|カンガルー|コアラ|パンダ|ラクダ|クマ
+jirafa|cebra|hipopótamo|rinoceronte|cocodrilo|guepardo|gorila|canguro|koala|panda|camello|oso
+girafa|zebra|hipopótamo|rinoceronte|crocodilo|guepardo|gorila|canguru|coala|panda|camelo|urso
+girafe|zèbre|hippopotame|rhinocéros|crocodile|guépard|gorille|kangourou|koala|panda|chameau|ours
+Giraffe|Zebra|Nilpferd|Nashorn|Krokodil|Gepard|Gorilla|Känguru|Koala|Panda|Kamel|Bär
+기린|얼룩말|하마|코뿔소|악어|치타|고릴라|캥거루|코알라|판다|낙타|곰
+长颈鹿|斑马|河马|犀牛|鳄鱼|猎豹|大猩猩|袋鼠|考拉|熊猫|骆驼|熊
+`);
+  deck('desserts','🍩','Desserts','スイーツ', `
+donut|chocolate pudding|cupcake|macaron|cheesecake|apple pie|waffle|pancake|brownie|chocolate fountain|crepe|parfait
+ドーナツ|チョコプリン|カップケーキ|マカロン|チーズケーキ|アップルパイ|ワッフル|パンケーキ|ブラウニー|チョコレートファウンテン|クレープ|パフェ
+dona|pudín de chocolate|magdalena|macarrón dulce|tarta de queso|tarta de manzana|gofre|panqueque|brownie|fuente de chocolate|crepe|parfait
+rosquinha|pudim de chocolate|bolinho|macaron|cheesecake|torta de maçã|waffle|panqueca|brownie|fonte de chocolate|crepe|parfait
+beignet|pudding au chocolat|cupcake|macaron|cheesecake|tarte aux pommes|gaufre|pancake|brownie|fontaine de chocolat|crêpe|parfait
+Donut|Schokoladenpudding|Cupcake|Macaron|Käsekuchen|Apfelkuchen|Waffel|Pfannkuchen|Brownie|Schokoladenbrunnen|Crêpe|Parfait
+도넛|초콜릿 푸딩|컵케이크|마카롱|치즈케이크|사과 파이|와플|팬케이크|브라우니|초콜릿 분수|크레페|파르페
+甜甜圈|巧克力布丁|纸杯蛋糕|马卡龙|芝士蛋糕|苹果派|华夫饼|煎饼|布朗尼|巧克力喷泉|可丽饼|芭菲
+`);
+  deck('drinks','🥤','Drinks','飲み物', `
+bubble tea|lemonade|orange juice|smoothie|milkshake|hot chocolate|green tea|iced coffee|coconut water|strawberry juice|sparkling water|herbal tea
+タピオカミルクティー|レモネード|オレンジジュース|スムージー|ミルクシェイク|ホットチョコレート|緑茶|アイスコーヒー|ココナッツウォーター|イチゴジュース|炭酸水|ハーブティー
+té de burbujas|limonada|zumo de naranja|batido de frutas|batido de leche|chocolate caliente|té verde|café helado|agua de coco|zumo de fresa|agua con gas|infusión
+chá de bolhas|limonada|suco de laranja|vitamina de frutas|milk-shake|chocolate quente|chá verde|café gelado|água de coco|suco de morango|água com gás|chá de ervas
+thé aux perles|limonade|jus d'orange|smoothie|milk-shake|chocolat chaud|thé vert|café glacé|eau de coco|jus de fraise|eau gazeuse|tisane
+Bubble Tea|Limonade|Orangensaft|Smoothie|Milchshake|heiße Schokolade|grüner Tee|Eiskaffee|Kokoswasser|Erdbeersaft|Sprudelwasser|Kräutertee
+버블티|레모네이드|오렌지 주스|스무디|밀크셰이크|핫초코|녹차|아이스커피|코코넛 워터|딸기 주스|탄산수|허브차
+珍珠奶茶|柠檬水|橙汁|冰沙|奶昔|热巧克力|绿茶|冰咖啡|椰子水|草莓汁|气泡水|花草茶
+`);
+  deck('breakfast','🥞','Breakfast','朝ごはん', `
+fried egg|scrambled eggs|toast with jam|cereal with milk|oatmeal|breakfast sandwich|boiled egg|grilled sausage|yogurt bowl|buttered toast|fruit salad|rice porridge
+目玉焼き|スクランブルエッグ|ジャムトースト|牛乳入りシリアル|オートミール|朝食サンド|ゆで卵|焼きソーセージ|ヨーグルトボウル|バタートースト|フルーツサラダ|おかゆ
+huevo frito|huevos revueltos|tostada con mermelada|cereales con leche|avena cocida|sándwich de desayuno|huevo cocido|salchicha a la parrilla|bol de yogur|tostada con mantequilla|ensalada de frutas|gachas de arroz
+ovo frito|ovos mexidos|torrada com geleia|cereal com leite|mingau de aveia|sanduíche de café da manhã|ovo cozido|salsicha grelhada|tigela de iogurte|torrada com manteiga|salada de frutas|mingau de arroz
+œuf au plat|œufs brouillés|toast à la confiture|céréales au lait|porridge|sandwich du matin|œuf dur|saucisse grillée|bol de yaourt|toast beurré|salade de fruits|bouillie de riz
+Spiegelei|Rührei|Toast mit Marmelade|Müsli mit Milch|Haferbrei|Frühstückssandwich|gekochtes Ei|gegrillte Wurst|Joghurtschale|Buttertoast|Obstsalat|Reisbrei
+달걀프라이|스크램블에그|잼 바른 토스트|우유에 말아 먹는 시리얼|오트밀|아침 샌드위치|삶은 달걀|구운 소시지|요거트 볼|버터 토스트|과일 샐러드|쌀죽
+煎蛋|炒鸡蛋|果酱吐司|牛奶麦片|燕麦粥|早餐三明治|水煮蛋|烤香肠|酸奶碗|黄油吐司|水果沙拉|米粥
+`);
+  deck('japanese_food','🍱','Japanese Food','日本料理', `
+ramen|tempura|udon|soba|onigiri|takoyaki|okonomiyaki|miso soup|yakitori|mochi|bento box|taiyaki
+ラーメン|天ぷら|うどん|そば|おにぎり|たこ焼き|お好み焼き|味噌汁|焼き鳥|餅|お弁当|たい焼き
+ramen|tempura|udon|soba|onigiri|takoyaki|okonomiyaki|sopa de miso|yakitori|mochi|caja bento|taiyaki
+ramen|tempurá|udon|soba|onigiri|takoyaki|okonomiyaki|sopa de missô|yakitori|mochi|marmita bento|taiyaki
+ramen|tempura|udon|soba|onigiri|takoyaki|okonomiyaki|soupe miso|yakitori|mochi|boîte bento|taiyaki
+Ramen|Tempura|Udon|Soba|Onigiri|Takoyaki|Okonomiyaki|Misosuppe|Yakitori|Mochi|Bento-Box|Taiyaki
+라멘|튀김|우동|소바|주먹밥|타코야키|오코노미야키|미소된장국|야키토리|모치|도시락|타이야키
+拉面|天妇罗|乌冬面|荞麦面|饭团|章鱼烧|大阪烧|味噌汤|烤鸡串|麻糬|便当盒|鲷鱼烧
+`);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
