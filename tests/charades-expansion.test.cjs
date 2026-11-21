@@ -66,9 +66,9 @@ test('scenario prompts stay natural within different thematic groups', () => {
   const emotions=catalog.decks.find(x=>x.id==='emotions').words;
   assert.ok(emotions.some(x=>x.en==='Someone suddenly feels happy'));
   const places=catalog.decks.find(x=>x.id==='places').words;
-  assert.ok(places.some(x=>x.en==='Someone is looking for hospital'));
+  assert.ok(places.some(x=>x.en==='Someone is looking for the hospital'));
   const travel=catalog.decks.find(x=>x.id==='travel').words;
-  assert.ok(travel.some(x=>x.en==='Someone is getting ready for passport'));
+  assert.ok(travel.some(x=>x.en==='Someone is getting ready for the passport'));
   for(const deck of catalog.decks) {
     assert.ok(deck.words.some(x=>x.en.includes(' ')),deck.id+' needs real scene variation');
   }
