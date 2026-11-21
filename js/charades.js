@@ -265,18 +265,21 @@
     if (length > 32) prompt.classList.add('very-long-prompt');
     else if (length > 18) prompt.classList.add('long-prompt');
   }
-  function translatePrompt(item, from, to) {
-    if (!item) return item;
-    const deck = DATA.decks.find(deck => deck.id === item.deckId);
-    const match = deck?.words.find(word => word[from] === item.text);
-    return match ? { text: match[to], deckId: item.deckId } : item;
-  }
   function switchPlayLanguage() {
     if (state.stage !== 'play') return;
     const oldLanguage = state.language;
     const newLanguage = oldLanguage === 'ja' ? 'en' : 'ja';
-    state.current = translatePrompt(state.current, oldLanguage, newLanguage);
-    state.remainingWords = state.remainingWords.map(word => translatePrompt(word, oldLanguage, newLanguage));
+    // Build a single translation index instead of searching up to 200 items
+    // for each of the 12,800 prompts when 'All categories' is selected.
+    const byDeck = new Map(DATA.decks.map(deck => [
+      deck.id, new Map(deck.words.map(word => [word[oldLanguage], word[newLanguage]]))
+    ]));
+    const translate = item => !item ? item : ({
+      text: byDeck.get(item.deckId)?.get(item.text) || item.text,
+      deckId: item.deckId
+    });
+    state.current = translate(state.current);
+    state.remainingWords = state.remainingWords.map(translate);
     state.language = newLanguage;
     $('language').value = newLanguage;
     localize();
