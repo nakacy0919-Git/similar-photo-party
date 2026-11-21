@@ -364,7 +364,8 @@ body > div.fixed.top-4.right-4 button { min-height: 44px; min-width: 44px; }
   -webkit-tap-highlight-color: transparent;
 }
 #choice-grid > button:focus-visible { outline: 4px solid #4338ca; outline-offset: -4px; }
-#choice-grid > button:disabled { opacity: .92; }
+#choice-grid > button:disabled:not(.opacity-40) { opacity: 1; }
+#choice-grid > button.opacity-40 { opacity: .4; }
 #choice-grid > button img {
   width: 100%; height: 100%; object-fit: contain; display: block;
 }
