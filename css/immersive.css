@@ -212,7 +212,7 @@ body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
 #view-result .role-cue{display:none!important}
 #view-result .result-badge{flex:0 0 auto!important;font-size:clamp(1.1rem,3vw,1.65rem)!important;
   padding:.25rem 1.2rem!important;margin:0!important;transform:none!important}
-#view-result>div:nth-of-type(2){flex:1 1 0!important;width:100%!important;min-height:0!important;
+#view-result #photo-result-main{flex:1 1 0!important;width:100%!important;min-height:0!important;
   max-width:none!important;margin:0!important;padding:clamp(.4rem,1vw,1rem)!important;gap:.5rem!important;overflow:hidden!important}
 #view-result #result-layout-img{height:auto!important;min-height:0!important;
   max-height:100%!important;flex:1 1 0!important;width:100%!important}
@@ -224,7 +224,7 @@ body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
   font-size:clamp(1rem,2.5vw,1.3rem)!important}
 #view-result #next-btn .block:nth-child(2){font-size:.65rem}
 @media (max-width:767px){
-  #view-result>div:nth-of-type(2){flex-direction:column!important}
+  #view-result #photo-result-main{flex-direction:column!important}
   #view-result #result-layout-img{flex:1 1 0!important;min-height:0!important;max-height:30dvh!important}
   #view-result #result-layout-text{flex:1 1 auto!important}
   #view-result .peer-feedback-items{grid-template-columns:repeat(3,minmax(0,1fr))!important}
