@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
-    const MEMORY_TIME_OPTIONS = [5, 10, 15];
+    const MEMORY_TIME_OPTIONS = [20, 30, 40, 50];
     const SPEAKING_MISSIONS = [
         {
             title: '1 · Name it / 何がある？',
@@ -21,16 +21,16 @@ document.addEventListener('DOMContentLoaded', () => {
             question: 'What special detail should I look for?'
         }
     ];
-    const REVIEW_CRITERIA = ['subject', 'location', 'detail'];
+    const PHOTO_GENRES = window.PHOTO_CATEGORIES;
     
     // チュートリアル用のデータ (英語/日本語)
     const TUTORIAL_DATA = {
         en: {
             title: 'HOW TO PLAY',
             steps: [
-                { badge: 'STEP 1', title: 'Memorize', desc: 'Player A looks at the image for 10s. Memorize the details!', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'STEP 2', title: 'Explain', desc: 'Player A describes the image in English. Player B listens.', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'STEP 3', title: 'Choose', desc: 'Player B picks the correct image from 4 choices. Good luck!', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'STEP 1', title: 'Memorize', desc: 'Player A describes the photo while looking at it. The others listen without seeing it.', img: 'assets/images/tutorial_1.webp' },
+                { badge: 'STEP 2', title: 'Explain', desc: 'When the timer rings, pass the device to Player B.', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'STEP 3', title: 'Choose', desc: 'Player B chooses one of four photos. Switch roles next round!', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: 'Next',
             btnStart: 'Start Game!',
@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ja: {
             title: '遊び方',
             steps: [
-                { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは画像を10秒間見て、詳細まで覚えます。', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'ステップ 2', title: '説明する', desc: 'Aさんは英語で画像の特徴を説明します。Bさんは聞きます。', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんは説明を聞いて、4枚の中から正解を選びます！', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは写真を見ながら説明します。Bさんはまだ写真を見ません。', img: 'assets/images/tutorial_1.webp' },
+                { badge: 'ステップ 2', title: '説明する', desc: '時間になったら合図が鳴ります。端末をBさんに渡します。', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんが4枚から写真を選びます。次は役割交代！', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: '次へ',
             btnStart: 'ゲーム開始！',
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         round: 0,
         firstCorrect: 0,
         score: 0,
+        correctCount: 0,
         lastPoints: 0,
         attempts: 0,
         remaining: [],
@@ -73,8 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
         activeCountdown: null,
         clueUsed: false,
         missionIndex: 0,
-        reviewSelection: {subject: false, location: false, detail: false},
-        peerReviews: new Map(),
+        selectedGenre: 'all',
+        activePool: [],
+        paused: false,
         volumes: {
             menu: 0.1,
             game: 0.05,
@@ -89,8 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tutStep: 0,
         tutLang: 'en',
         // 時間と英語ヒントの設定（初期値）
-        memoryTime: 10,
+        memoryTime: 30,
         explainTime: 30,
+        handoffAlert: 'sound',
+        handoffAudio: null,
+        handoffTimer: null,
         hintMode: 'guided'
     };
 
@@ -98,6 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = {
         views: {
             landing: document.getElementById('view-landing'),
+            photoSetup: document.getElementById('view-photo-setup'),
+            photoReady: document.getElementById('view-photo-ready'),
+            photoSummary: document.getElementById('view-photo-summary'),
             tutorial: document.getElementById('view-tutorial'),
             memory: document.getElementById('view-memory'),
             explain: document.getElementById('view-explain'),
@@ -107,6 +115,18 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         btns: {
             start: document.getElementById('start-btn'),
+            photoSetupHome: document.getElementById('photo-setup-home'),
+            photoSetupNext: document.getElementById('photo-setup-next'),
+            photoReadyStart: document.getElementById('photo-ready-start'),
+            photoReadyBack: document.getElementById('photo-ready-back'),
+            photoEnd: document.getElementById('photo-end'),
+            photoBack: document.getElementById('photo-back'),
+            photoPause: document.getElementById('photo-pause'),
+            photoResume: document.getElementById('photo-resume'),
+            photoPauseEnd: document.getElementById('photo-pause-end'),
+            photoSummaryReplay: document.getElementById('photo-summary-replay'),
+            photoSummaryChange: document.getElementById('photo-summary-change'),
+            photoSummaryHome: document.getElementById('photo-summary-home'),
             tutorial: document.getElementById('tutorial-btn'),
             tutClose: document.getElementById('tut-close-btn'),
             tutNext: document.getElementById('tut-next-btn'),
@@ -128,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             memorySelectors: document.querySelectorAll('.memory-time-select-btn'),
             hintSelectors: document.querySelectorAll('.hint-mode-btn'),
             clueRequest: document.getElementById('clue-request-btn'),
-            feedbackChecks: document.querySelectorAll('.feedback-check')
+            photoDuration: document.querySelectorAll('.photo-duration-btn')
         },
         tutElements: {
             header: document.getElementById('tut-header'),
@@ -155,8 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
             memoryMission: document.getElementById('memory-mission'),
             explainMission: document.getElementById('explain-mission'),
             clueRequestNote: document.getElementById('clue-request-note'),
-            feedbackProgress: document.getElementById('feedback-progress'),
-            feedbackSession: document.getElementById('feedback-session'),
             resultTitle: document.getElementById('result-title'),
             resultPhrase: document.getElementById('result-phrase'),
             resultTrans: document.getElementById('result-trans')
@@ -165,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             menuVol: document.getElementById('vol-menu'),
             gameVol: document.getElementById('vol-game'),
             voiceVol: document.getElementById('vol-voice'),
+            handoffAlert: document.getElementById('handoffAlert'),
             menuVal: document.getElementById('vol-menu-val'),
             gameVal: document.getElementById('vol-game-val'),
             voiceVal: document.getElementById('vol-voice-val'),
@@ -192,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === 初期化 ===
     elements.btns.start.disabled = true;
+    elements.btns.photoSetupNext.disabled = true;
     const loadStatus = document.getElementById('load-status');
     fetch('data/content.json')
         .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
@@ -210,9 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 groups.get(item.group).push(item);
             }
             state.quizData = [...groups.values()].filter(group => group.length >= 4).flat();
+            state.activePool = state.quizData;
+            renderPhotoCategories();
             if (state.quizData.length < 4) throw new Error('No complete image groups');
             loadStatus.textContent = 'ペアやグループで遊べます。説明役だけが写真を見て、回答役が4枚から選びます。';
             elements.btns.start.disabled = false;
+            elements.btns.photoSetupNext.disabled = false;
         })
         .catch(err => {
             loadStatus.textContent = '教材を読み込めませんでした。ページを再読み込みしてください。';
@@ -222,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', initAudio, { once: true });
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
+            if (['memory', 'choice'].includes(state.phase)) setPhotoPaused(true);
             elements.audio.bgm.pause();
             if (state.isSpeaking) {
                 stopSpeech();
@@ -239,7 +263,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === イベントリスナー ===
-    elements.btns.start.addEventListener('click', startMemoryPhase);
+    elements.btns.start.addEventListener('click', openPhotoSetup);
+    elements.btns.photoSetupHome.addEventListener('click', backToLanding);
+    elements.btns.photoSetupNext.addEventListener('click', preparePhotoReady);
+    elements.btns.photoReadyStart.addEventListener('click', startMemoryPhase);
+    elements.btns.photoReadyBack.addEventListener('click', openPhotoSetup);
+    elements.btns.photoEnd.addEventListener('click', finishPhotoGame);
+    elements.btns.photoBack.addEventListener('click', returnPhotoToSetup);
+    elements.btns.photoPause.addEventListener('click', () => setPhotoPaused(!state.paused));
+    elements.btns.photoResume.addEventListener('click', () => setPhotoPaused(false));
+    elements.btns.photoPauseEnd.addEventListener('click', finishPhotoGame);
+    elements.btns.photoSummaryReplay.addEventListener('click', preparePhotoReady);
+    elements.btns.photoSummaryChange.addEventListener('click', openPhotoSetup);
+    elements.btns.photoSummaryHome.addEventListener('click', backToLanding);
+    elements.btns.photoDuration.forEach(button => button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-photo-duration'))));
     
     // Tutorial Events
     elements.btns.tutorial.addEventListener('click', openTutorial);
@@ -254,9 +291,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Game Flow Events
-    elements.btns.memorySkip.addEventListener('click', startExplainPhase);
+    elements.btns.memorySkip.addEventListener('click', startChoicePhase);
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
-    elements.btns.next.addEventListener('click', startMemoryPhase);
+    elements.btns.next.addEventListener('click', preparePhotoReady);
     elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
     elements.btns.translationToggle.addEventListener('click', () => {
         if (state.phase !== 'result') return;
@@ -266,9 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.btns.translationToggle.setAttribute('aria-expanded', String(show));
     });
     elements.btns.clueRequest.addEventListener('click', askForOneMoreClue);
-    elements.btns.feedbackChecks.forEach(input => {
-        input.addEventListener('change', () => setPeerFeedback(input.getAttribute('data-criterion'), input.checked));
-    });
 
     // Settings & Controls
     elements.btns.settings.addEventListener('click', openSettings);
@@ -283,27 +317,15 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.inputs.menuVol.addEventListener('input', (e) => updateVolume('menu', e.target.value));
     elements.inputs.gameVol.addEventListener('input', (e) => updateVolume('game', e.target.value));
     elements.inputs.voiceVol.addEventListener('input', (e) => updateVolume('voice', e.target.value));
+    elements.inputs.handoffAlert.addEventListener('change', e => { state.handoffAlert = e.target.value; });
 
     elements.inputs.ratio.addEventListener('input', (e) => updateLayout('ratio', e.target.value));
     elements.inputs.textSize.addEventListener('input', (e) => updateLayout('text', e.target.value));
 
-    // 時間選択ボタンのイベント
-    elements.btns.timeSelectors.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // 全てのボタンのデザインをリセット
-            elements.btns.timeSelectors.forEach(b => {
-                b.classList.remove('bg-indigo-500', 'text-white', 'border-indigo-500');
-                b.classList.add('border-slate-200', 'text-slate-500');
-            });
-            // 選択されたボタンのデザインを変更
-            e.target.classList.remove('border-slate-200', 'text-slate-500');
-            e.target.classList.add('bg-indigo-500', 'text-white', 'border-indigo-500');
-            
-            // 状態を更新
-            state.explainTime = parseInt(e.target.getAttribute('data-time'));
-        });
+    // One visible round duration controls both the photo display and speaking time.
+    elements.btns.timeSelectors.forEach(button => {
+        button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-time')));
     });
-
 
     // Selected classroom options are applied to the next round; current scoring is unchanged.
     function markSelectedButtons(buttons, attribute, selectedValue) {
@@ -319,7 +341,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const seconds = Number(value);
         if (!MEMORY_TIME_OPTIONS.includes(seconds)) return false;
         state.memoryTime = seconds;
-        markSelectedButtons(elements.btns.memorySelectors, 'data-memory-time', seconds);
+        state.explainTime = seconds;
+        markSelectedButtons(elements.btns.timeSelectors, 'data-time', seconds);
+        markSelectedButtons(elements.btns.photoDuration, 'data-photo-duration', seconds);
         if (!elements.views.tutorial.classList.contains('hidden') && state.tutStep === 0) {
             updateTutorialView();
         }
@@ -349,42 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.btns.clueRequest.disabled = true;
         elements.text.clueRequestNote.textContent = `Listener: "${SPEAKING_MISSIONS[state.missionIndex].question}" (+10s)`;
         return true;
-    }
-
-    function setPeerFeedback(criterion, checked) {
-        if (state.phase !== 'result' || !REVIEW_CRITERIA.includes(criterion)) return false;
-        state.reviewSelection[criterion] = checked === true;
-        const values = REVIEW_CRITERIA.map(key => state.reviewSelection[key]);
-        if (values.some(Boolean)) {
-            state.peerReviews.set(state.round, {
-                speaker: state.round % 2 === 1 ? 'A' : 'B',
-                count: values.filter(Boolean).length
-            });
-        } else {
-            state.peerReviews.delete(state.round);
-        }
-        updatePeerReviewSummary();
-        return true;
-    }
-
-    function updatePeerReviewSummary() {
-        const count = REVIEW_CRITERIA.filter(key => state.reviewSelection[key]).length;
-        elements.text.feedbackProgress.textContent = `説明できた項目：${count}/3（ペアによる確認）`;
-        const stats = {A: {rounds: 0, points: 0}, B: {rounds: 0, points: 0}};
-        for (const record of state.peerReviews.values()) {
-            stats[record.speaker].rounds++;
-            stats[record.speaker].points += record.count;
-        }
-        const line = speaker => stats[speaker].rounds
-            ? `Player ${speaker}: ${stats[speaker].points}/${stats[speaker].rounds * 3}（${stats[speaker].rounds}回）`
-            : `Player ${speaker}: 未確認`;
-        elements.text.feedbackSession.textContent = `${line('A')} · ${line('B')}`;
-    }
-
-    function resetPeerFeedback() {
-        state.reviewSelection = {subject: false, location: false, detail: false};
-        elements.btns.feedbackChecks.forEach(input => { input.checked = false; });
-        updatePeerReviewSummary();
     }
 
     function setHintMode(value) {
@@ -423,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTutorialView();
         } else {
             closeTutorial();
-            startMemoryPhase();
+            openPhotoSetup();
         }
     }
 
@@ -464,8 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tutElements.title.textContent = stepData.title;
         elements.tutElements.desc.textContent = state.tutStep === 0
             ? (state.tutLang === 'en'
-                ? `Player A looks at the image for ${state.memoryTime}s. Memorize the details!`
-                : `Aさんは画像を${state.memoryTime}秒間見て、詳細まで覚えます。`)
+                ? `Player A describes the photo while looking at it for ${state.memoryTime}s. Player B listens without seeing.`
+                : `Aさんは写真を見ながら${state.memoryTime}秒間説明します。Bさんはまだ見ません。`)
             : stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
         elements.tutElements.img.src = stepData.img;
@@ -523,6 +511,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function unlockHandoffSound() {
+        if (state.handoffAlert !== 'sound' && state.handoffAlert !== 'both') return;
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        try {
+            if (!state.handoffAudio) state.handoffAudio = new AudioContextClass();
+            if (state.handoffAudio.state === 'suspended') {
+                const result = state.handoffAudio.resume();
+                if (result && typeof result.catch === 'function') result.catch(() => {});
+            }
+        } catch { /* Unsupported audio should never interrupt a classroom round. */ }
+    }
+
+    function playHandoffCue() {
+        if (document.hidden) return;
+        if (state.handoffAlert === 'vibrate' || state.handoffAlert === 'both') {
+            try { window.navigator?.vibrate?.([100, 60, 120]); } catch {}
+        }
+        if (state.handoffAlert !== 'sound' && state.handoffAlert !== 'both') return;
+        const context = state.handoffAudio;
+        if (!context) return;
+        try {
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            const start = context.currentTime;
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, start);
+            oscillator.frequency.exponentialRampToValueAtTime(1320, start + .11);
+            gain.gain.setValueAtTime(.0001, start);
+            gain.gain.exponentialRampToValueAtTime(.08, start + .018);
+            gain.gain.exponentialRampToValueAtTime(.0001, start + .28);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start(start);
+            oscillator.stop(start + .29);
+        } catch { /* Unavailable Web Audio is not a game blocker. */ }
+    }
+
     function playEffect(audio) {
         if (document.hidden) return;
         try {
@@ -538,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateRoleCues() {
         const speaker = state.round % 2 === 1 ? 'A' : 'B';
         const listener = speaker === 'A' ? 'B' : 'A';
-        elements.roles.memory.textContent = `Player ${speaker}: 写真を記憶 ／ Player ${listener}: 画面を見ない`;
+        elements.roles.memory.textContent = `Player ${speaker}: 写真を見ながら説明 ／ Player ${listener}: 画面を見ない`;
         elements.roles.explain.textContent = `Player ${speaker}: 英語で説明 ／ Player ${listener}: 聞くだけ`;
         elements.roles.choice.textContent = `Player ${listener}: 写真を選ぶ ／ Player ${speaker}: 答えを指ささない`;
         elements.roles.result.textContent = `次はPlayer ${listener}が説明役！ 2人で英語の違いを言ってみよう。`;
@@ -662,6 +688,135 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // === Similar Photo genre selection and classroom handoff ===
+
+    function renderPhotoCategories() {
+        const list = document.getElementById('photo-category-list');
+        list.innerHTML = '';
+        if (!PHOTO_GENRES || !state.quizData.length) return;
+        const genres = PHOTO_GENRES.options(state.quizData);
+        if (!genres.some(genre => genre.id === state.selectedGenre)) state.selectedGenre = 'all';
+        for (const genre of genres) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'photo-genre-card';
+            button.setAttribute('aria-pressed', String(genre.id === state.selectedGenre));
+            const emoji = document.createElement('span');
+            emoji.className = 'photo-genre-emoji';
+            emoji.textContent = genre.emoji;
+            emoji.setAttribute('aria-hidden', 'true');
+            const label = document.createElement('span');
+            label.className = 'photo-genre-copy';
+            const title = document.createElement('strong');
+            title.textContent = genre.ja;
+            const subtitle = document.createElement('small');
+            subtitle.textContent = PHOTO_GENRES.pool(state.quizData, genre.id).length + '枚 · ' + genre.en;
+            label.appendChild(title);
+            label.appendChild(subtitle);
+            button.appendChild(emoji);
+            button.appendChild(label);
+            button.addEventListener('click', () => selectPhotoGenre(genre.id));
+            list.appendChild(button);
+        }
+        document.getElementById('photo-genre-count').textContent = state.quizData.length + '枚の写真';
+    }
+
+    function selectPhotoGenre(id) {
+        const selected = PHOTO_GENRES.options(state.quizData).find(genre => genre.id === id);
+        if (!selected) return false;
+        if (state.selectedGenre !== id) state.remaining = [];
+        state.selectedGenre = id;
+        state.activePool = PHOTO_GENRES.pool(state.quizData, id);
+        renderPhotoCategories();
+        return true;
+    }
+
+    function openPhotoSetup() {
+        stopSpeech();
+        state.paused = false;
+        document.getElementById('photo-pause-overlay').hidden = true;
+        showView('photoSetup');
+        renderPhotoCategories();
+    }
+
+    function preparePhotoReady() {
+        if (!['photoSetup', 'result', 'photoSummary'].includes(state.phase)) return;
+        if (state.phase !== 'result') {
+            state.round = 0;
+            state.correctCount = 0;
+            state.firstCorrect = 0;
+            state.score = 0;
+            state.remaining = [];
+        }
+        state.activePool = PHOTO_GENRES.pool(state.quizData, state.selectedGenre);
+        if (state.activePool.length < 4) {
+            openPhotoSetup();
+            return;
+        }
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        stopSpeech();
+        state.paused = false;
+        document.getElementById('photo-pause-overlay').hidden = true;
+        const nextRound = state.round + 1;
+        const speaker = nextRound % 2 ? 'A' : 'B';
+        const listener = speaker === 'A' ? 'B' : 'A';
+        const chosen = PHOTO_GENRES.options(state.quizData).find(item => item.id === state.selectedGenre);
+        document.getElementById('photo-ready-round').textContent = 'ROUND ' + nextRound;
+        document.getElementById('photo-ready-roles').textContent =
+            'Player ' + speaker + ' が説明 ／ Player ' + listener + ' は画面を見ない';
+        document.getElementById('photo-ready-summary').textContent =
+            (chosen ? chosen.ja : 'すべて') + ' · ' + state.memoryTime + '秒 · 正解 ' + state.correctCount + '問';
+        showView('photoReady');
+    }
+
+    function setPhotoPaused(paused) {
+        if (!['memory', 'choice'].includes(state.phase)) return;
+        state.paused = !!paused;
+        if (state.activeCountdown) state.activeCountdown.last = performance.now();
+        document.getElementById('photo-pause-overlay').hidden = !state.paused;
+        elements.btns.photoPause.textContent = state.paused ? '▶ 再開' : '⏸ 一時停止';
+        elements.btns.photoPause.setAttribute('aria-pressed', String(state.paused));
+    }
+
+    function returnPhotoToSetup() {
+        if (!['photoReady','memory','choice','feedback','result'].includes(state.phase)) return;
+        clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        state.generation++;
+        state.activeCountdown = null;
+        state.paused = false;
+        stopSpeech();
+        document.getElementById('photo-pause-overlay').hidden = true;
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        if (document.fullscreenElement && document.exitFullscreen) {
+            Promise.resolve(document.exitFullscreen()).catch(() => {});
+        }
+        openPhotoSetup();
+    }
+
+    function finishPhotoGame() {
+        if (!['photoReady', 'memory', 'choice', 'feedback', 'result'].includes(state.phase)) return;
+        clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        state.generation++;
+        state.activeCountdown = null;
+        state.paused = false;
+        stopSpeech();
+        document.getElementById('photo-pause-overlay').hidden = true;
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        document.getElementById('photo-summary-correct').textContent = String(state.correctCount);
+        document.getElementById('photo-summary-rounds').textContent = state.round + ' ラウンド';
+        if (document.fullscreenElement && document.exitFullscreen) {
+            Promise.resolve(document.exitFullscreen()).catch(() => {});
+        }
+        showView('photoSummary');
+    }
+
     // === Game Logic ===
 
     function showView(viewName) {
@@ -672,17 +827,28 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.views[viewName].classList.remove('hidden');
 
         state.isPlaying = viewName !== 'landing';
+        const active = ['photoReady','memory','choice','result'].includes(viewName);
+        document.getElementById('photo-game-tools').hidden = !active;
+        elements.btns.photoPause.hidden = !['memory','choice'].includes(viewName);
+        if (viewName !== 'memory' && viewName !== 'choice') {
+            state.paused = false;
+            document.getElementById('photo-pause-overlay').hidden = true;
+        }
         playBgm();
     }
 
     async function startMemoryPhase() {
-        if (!['landing', 'result'].includes(state.phase) || elements.btns.start.disabled) return;
+        if (!['landing', 'result', 'photoReady'].includes(state.phase) || elements.btns.start.disabled) return;
         // Try native fullscreen on browsers that support it; fixed-viewport CSS is the Safari fallback.
         if (!document.fullscreenElement && document.documentElement?.requestFullscreen) {
             try { Promise.resolve(document.documentElement.requestFullscreen()).catch(() => {}); } catch { /* unsupported or blocked */ }
         }
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        unlockHandoffSound();
         stopSpeech();
         if (!prepareQuizData()) return;
         state.attempts = 0;
@@ -692,10 +858,9 @@ document.addEventListener('DOMContentLoaded', () => {
         state.activeCountdown = null;
         elements.btns.clueRequest.disabled = false;
         elements.text.clueRequestNote.textContent = '';
-        resetPeerFeedback();
         updateMissionPrompts();
         updateRoleCues();
-        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · SCORE ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
+        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 正解 ${state.correctCount}問`;
         const generation = ++state.generation;
         showView('memory');
         elements.btns.memorySkip.disabled = true;
@@ -717,7 +882,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generation !== state.generation || state.phase !== 'memory') return;
         elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
         elements.btns.memorySkip.disabled = false;
-        runTimer(state.memoryTime, elements.timers.memory, startExplainPhase);
+        runTimer(state.memoryTime, elements.timers.memory, startChoicePhase);
     }
 
     // Pause countdowns while settings are open or the page is in the background.
@@ -733,7 +898,7 @@ document.addEventListener('DOMContentLoaded', () => {
         state.timerInterval = setInterval(() => {
             if (state.activeCountdown !== clock) return;
             const now = performance.now();
-            if (!document.hidden && elements.views.settings.classList.contains('hidden')) {
+            if (!document.hidden && !state.paused && elements.views.settings.classList.contains('hidden')) {
                 clock.remainingMs = Math.max(0, clock.remainingMs - (now - clock.last));
             }
             clock.last = now;
@@ -749,20 +914,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
+    // Legacy entry point kept for existing integrations; there is no longer a
+    // separate, photo-less explanation screen.
     function startExplainPhase() {
-        if (state.phase !== 'memory' || elements.btns.memorySkip.disabled) return;
-        showView('explain');
-        updateExplainHint();
-        elements.timers.explainProgress.style.strokeDashoffset = 0;
-        runTimer(state.explainTime, elements.timers.explain, startChoicePhase, elements.timers.explainProgress);
+        startChoicePhase();
     }
 
     function startChoicePhase() {
-        if (state.phase !== 'explain') return;
+        if (state.phase !== 'memory' || state.paused) return;
         clearInterval(state.timerInterval);
         state.activeCountdown = null;
+        playHandoffCue();
         showView('choice');
         renderGrid();
+        const banner = document.getElementById('handoff-announcement');
+        banner.hidden = false;
+        clearTimeout(state.handoffTimer);
+        state.handoffTimer = setTimeout(() => { banner.hidden = true; state.handoffTimer = null; }, 1400);
     }
 
     function renderGrid() {
@@ -790,7 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkAnswer(item, btn) {
-        if (state.phase !== 'choice' || btn.disabled) return;
+        if (state.phase !== 'choice' || btn.disabled || state.paused) return;
         state.attempts++;
         btn.disabled = true;
         if (item.id === state.correctItem.id) {
@@ -799,23 +967,30 @@ document.addEventListener('DOMContentLoaded', () => {
             state.lastPoints = window.CHARADES_CORE
                 ? window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts)
                 : ([100, 60, 30][state.attempts - 1] || 10);
-            state.score += state.lastPoints;
+            state.score += state.lastPoints; // Legacy internal metric: not shown to players.
+            state.correctCount++;
             elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
             playEffect(elements.audio.correct);
+            document.getElementById('handoff-announcement').hidden = true;
+            document.getElementById('choice-success-overlay').hidden = false;
+            elements.btns.photoPause.hidden = true;
             
             btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
             triggerConfetti();
-            state.resultTimeout = setTimeout(showResultPhase, 1500);
+            state.resultTimeout = setTimeout(showResultPhase, 1150);
         } else {
             playEffect(elements.audio.wrong);
-            btn.classList.add('opacity-40', 'grayscale');
+            btn.classList.add('opacity-40', 'grayscale', 'shake-wrong');
         }
     }
 
     function showResultPhase() {
         if (state.phase !== 'feedback') return;
-        document.getElementById('result-feedback').textContent = `+${state.lastPoints} pts! ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。違いを表す英語を確認しよう。`);
-        document.getElementById('round-status').textContent = `Round ${state.round} · TOTAL ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('result-feedback').textContent =
+            `正解！ 合計${state.correctCount}問 ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。`);
+        document.getElementById('round-status').textContent =
+            `Round ${state.round} · 正解 ${state.correctCount}問 · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
         showView('result');
         elements.imgs.result.src = `assets/images/${state.correctItem.filename}`;
         elements.text.resultTitle.textContent = state.correctItem.title;
@@ -825,14 +1000,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('result-trans').classList.add('hidden');
         elements.btns.translationToggle.setAttribute('aria-expanded', 'false');
         elements.text.audioStatus.textContent = '';
-        resetPeerFeedback();
         speak(state.correctItem.key_phrase);
     }
 
     function backToLanding() {
         clearInterval(state.timerInterval);
+        state.paused = false;
+        document.getElementById('photo-pause-overlay').hidden = true;
         state.activeCountdown = null;
         clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
         state.generation++;
         stopSpeech();
         if (document.fullscreenElement && document.exitFullscreen) {
@@ -843,13 +1022,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function prepareQuizData() {
-        if (!state.quizData || state.quizData.length < 4) {
+        const pool = state.activePool.length >= 4 ? state.activePool : state.quizData;
+        if (!pool || pool.length < 4) {
             alert("Data not loaded or insufficient (need 4 images).");
             return false;
         }
-        if (!state.remaining.length) state.remaining = shuffle([...state.quizData]);
+        if (!state.remaining.length) state.remaining = shuffle([...pool]);
         state.correctItem = state.remaining.pop();
-        const alternatives = shuffle(state.quizData.filter(item => item.group === state.correctItem.group && item.id !== state.correctItem.id));
+        const alternatives = shuffle(pool.filter(item => item.group === state.correctItem.group && item.id !== state.correctItem.id));
         state.currentSet = shuffle([state.correctItem, ...alternatives.slice(0, 3)]);
         return true;
     }

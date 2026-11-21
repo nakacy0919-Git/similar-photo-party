@@ -5,11 +5,12 @@ const vm = require('node:vm');
 const catalog = require('../js/charades-data.js');
 const core = require('../js/charades-core.js');
 
-function createHarness() {
+function createHarness(options = {}) {
   const nodes = new Map();
   const windowEvents = new Map();
   const documentEvents = new Map();
   const intervals = new Map();
+  const timeouts = new Map();
   let clock = 1000;
   let sequence = 0;
   function element(id = '') {
@@ -41,6 +42,7 @@ function createHarness() {
   element('deckSearch').value = '';
   element('teamA').value = 'TEAM A';
   element('teamB').value = 'TEAM B';
+  element('soundEnabled').checked = true;
   const document = {
     hidden: false, documentElement: { lang: 'ja' }, activeElement: { tagName: 'BODY' },
     getElementById: element,
@@ -59,14 +61,18 @@ function createHarness() {
     alert() {},
     addEventListener(type, fn) { windowEvents.set(type, fn); },
     setInterval(fn) { const id = ++sequence; intervals.set(id, fn); return id; },
-    clearInterval(id) { intervals.delete(id); }
+    clearInterval(id) { intervals.delete(id); },
+    setTimeout(fn) { const id = ++sequence; timeouts.set(id, fn); return id; },
+    clearTimeout(id) { timeouts.delete(id); },
+    AudioContext: options.AudioContext
   };
   const context = { window: win, document, clearInterval: win.clearInterval, performance: { now: () => clock },
     DeviceOrientationEvent: undefined, navigator: undefined, Promise };
   const src = fs.readFileSync('js/charades.js', 'utf8');
   vm.runInNewContext(src, context);
   return {
-    get: element, document, controls, pairs, styles, intervals, documentEvents, windowEvents,
+    get: element, document, controls, pairs, styles, intervals, timeouts, documentEvents, windowEvents,
+    fireTimeouts() { for (const [id, fn] of Array.from(timeouts)) { timeouts.delete(id); fn(); } },
     now(ms) { clock += ms; }, tick() { for (const fn of Array.from(intervals.values())) fn(); }
   };
 }
@@ -140,7 +146,7 @@ test('result screen and next team use a new ready screen without keeping old tim
   game.get('endRound').click();
   assert.equal(game.get('result').hidden, false);
   assert.equal(game.intervals.size, 0);
-  assert.equal(game.get('roundScore').textContent, '+1');
+  assert.equal(game.get('roundScore').textContent, '1');
   game.get('nextRound').click();
   assert.equal(game.get('ready').hidden, false);
   assert.equal(game.get('readyTeam').textContent, 'TEAM B');
@@ -234,4 +240,75 @@ test('both games support standalone landscape/portrait home-screen launch', () =
     assert.match(html, /apple-mobile-web-app-capable/);
     assert.match(html, /viewport-fit=cover/);
   }
+});
+
+test('Charades celebrates a correct answer once with a visual burst and an audio chord', () => {
+  let played = 0;
+  class FakeAudioContext {
+    constructor() { this.state = 'running'; this.currentTime = 1; this.destination = {}; }
+    createOscillator() { return {
+      frequency: { setValueAtTime() {} },
+      connect() {}, start() { played++; }, stop() {}
+    }; }
+    createGain() { return { gain: {
+      setValueAtTime() {}, exponentialRampToValueAtTime() {}
+    }, connect() {} }; }
+  }
+  const game = createHarness({ AudioContext: FakeAudioContext });
+  game.get('start').click();
+  game.get('beginRound').click();
+  game.get('correct').click();
+  assert.equal(game.get('correctBurst').hidden, false);
+  assert.equal(game.get('score').textContent, 1);
+  assert.equal(played, 3, 'three-tone chime plays on each correct answer');
+  game.get('correct').click();
+  assert.equal(game.get('score').textContent, 1, 'success animation blocks accidental double taps');
+  game.fireTimeouts();
+  assert.equal(game.get('correctBurst').hidden, true);
+  game.get('correct').click();
+  assert.equal(game.get('score').textContent, 2);
+  assert.equal(played, 6);
+  game.get('endRound').click();
+  assert.equal(game.get('roundScore').textContent, '2');
+  assert.equal(game.get('correctBurst').hidden, true);
+});
+
+test('Charades sound effects can be disabled without suppressing the correct count', () => {
+  let played = 0;
+  class FakeAudioContext {
+    constructor() { this.state='running'; this.currentTime=0; this.destination={}; }
+    createOscillator() { return {frequency:{setValueAtTime(){}},connect(){},start(){played++},stop(){}}; }
+    createGain(){return{gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){}};}
+  }
+  const game=createHarness({AudioContext:FakeAudioContext});
+  game.get('soundEnabled').checked=false;
+  game.get('start').click(); game.get('beginRound').click(); game.get('correct').click();
+  assert.equal(played,0);
+  assert.equal(game.get('score').textContent,1);
+  game.fireTimeouts();game.get('endRound').click();
+  assert.equal(game.get('roundScore').textContent,'1');
+});
+
+test('Charades displays correct-answer counts, not point totals, in eight languages', () => {
+  const source=fs.readFileSync('js/charades.js','utf8');
+  const page=fs.readFileSync('charades.html','utf8');
+  assert.doesNotMatch(source,/state\.scores\[index\] \+ ' pts'/);
+  assert.match(source,/score:'Correct'/);
+  assert.match(source,/score:'正解数'/);
+  assert.match(source,/correctAnswerLabel/);
+  assert.match(page,/id="correctBurst"/);
+  assert.match(page,/id="soundEnabled"/);
+  assert.match(page,/data-i18n="correctAnswerLabel"/);
+});
+
+test('Charades and Similar Photo share a prominent circular centered READY control', () => {
+  const charadesCss=fs.readFileSync('css/charades.css','utf8');
+  const photoCss=fs.readFileSync('css/photo-flow.css','utf8');
+  const photoHtml=fs.readFileSync('index.html','utf8');
+  assert.match(charadesCss,/#ready #beginRound\.ready-start/);
+  assert.match(charadesCss,/border-radius:50%!important/);
+  assert.match(photoCss,/\.photo-orb-start/);
+  assert.match(photoCss,/border-radius:50%/);
+  assert.match(photoHtml,/id="photo-ready-start"/);
+  assert.match(photoHtml,/id="photo-ready-back"/);
 });

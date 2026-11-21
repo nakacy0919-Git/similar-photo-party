@@ -178,3 +178,35 @@ button, a, select, input { touch-action: manipulation; }
   .decks { max-height: 58dvh; }
   .mobile-start { display: none; }
 }
+
+
+/* Both modes use the same unmistakable centered round START gesture. */
+#ready #beginRound.ready-start {
+  flex:0 0 auto;
+  display:grid;place-items:center;
+  width:clamp(164px,29vmin,220px)!important;
+  height:clamp(164px,29vmin,220px)!important;
+  min-height:0!important;max-width:none!important;
+  margin:clamp(10px,2dvh,24px) auto!important;padding:1.5rem!important;
+  border:4px solid #bfefff!important;border-radius:50%!important;
+  color:#fff!important;background:radial-gradient(circle at 28% 22%,#d5a5ff,#9859eb 48%,#5244b7 100%)!important;
+  box-shadow:inset 0 4px 20px #ffffff3f,0 0 0 13px #9d7cff20,0 0 45px #916aff98,0 19px 42px #05052eac!important;
+  font-size:clamp(1rem,2.7vmin,1.32rem)!important;
+  font-weight:1000!important;line-height:1.4!important;text-align:center!important;
+  letter-spacing:.06em!important;white-space:normal!important;
+  touch-action:manipulation;
+  transition:transform .18s,box-shadow .18s!important;
+}
+#ready #beginRound.ready-start:active{transform:scale(.96)!important}
+#ready #beginRound.ready-start:focus-visible{outline:4px solid #d8fff6!important;outline-offset:5px}
+@media(orientation:landscape) and (max-height:540px){
+  #ready #beginRound.ready-start{
+    width:clamp(112px,31dvh,158px)!important;
+    height:clamp(112px,31dvh,158px)!important;
+    font-size:.8rem!important;
+    margin:4px auto!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #ready #beginRound.ready-start{transition:none!important}
+}

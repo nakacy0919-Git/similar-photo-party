@@ -4,14 +4,14 @@
   const CORE = window.CHARADES_CORE;
   const $ = id => document.getElementById(id);
   const UI = {
-    ja: {back:'Photo Party',language:'言語',hero:'世界中の言葉でシャレード！',tagline:'お題を見て、伝えて、当てよう！ペアでもチームでも楽しめます。',choose:'カテゴリーを選ぼう',settings:'ゲーム設定',roundLength:'1ラウンドの時間',playStyle:'遊び方',acting:'身ぶりで伝える（クラシック）',forehead:'額に当てて当てる（ヒントあり）',players:'参加方法',pair:'ペア／みんなで協力',teams:'2チーム対抗',teamA:'チームA',teamB:'チームB',start:'▶ ゲームスタート',how:'正解は右、パスは左をタップ。キーボードの ← / → にも対応。',time:'残り時間',score:'得点',pass:'パス',correct:'正解！',finish:'ラウンド終了',roundComplete:'ラウンド終了！',next:'次のラウンドへ',newGame:'設定に戻る',tilt:'傾き操作を有効にする',all:'全カテゴリーをミックス',words:'題',actingHint:'お題を見て、ジェスチャーで伝えよう！',foreheadHint:'額に当てて、仲間のヒントを聞こう！',streak:'連続正解',correctCount:'正解',passed:'パス',tiltEnabled:'傾き操作を有効化。端末を水平に戻してから傾けてください。',tiltUnavailable:'傾き操作は利用できません。画面のボタンで遊べます。',tiltDenied:'傾き操作の許可がありません。画面のボタンで遊べます。',noContent:'問題の読み込みに失敗しました。',teamTurn:'次のチームへ',pairTurn:'もう1ラウンド',tapHint:'タップまたは ← / → で操作'},
-    en: {back:'Photo Party',language:'Language',hero:'Charades in eight languages!',tagline:'See it. Act it. Guess it. Play in pairs or teams!',choose:'Choose a category',settings:'Game settings',roundLength:'Round length',playStyle:'How to play',acting:'Act it out (classic)',forehead:'Phone on forehead (clues)',players:'Play with',pair:'Pairs / cooperative',teams:'Two teams',teamA:'Team A',teamB:'Team B',start:'▶ START GAME',how:'Tap right for correct and left to pass, or use ← / →.',time:'Time left',score:'Score',pass:'PASS',correct:'CORRECT!',finish:'End round',roundComplete:'Round complete!',next:'Next round',newGame:'Back to setup',tilt:'Enable tilt control',all:'Mix all categories',words:'prompts',actingHint:'Read the prompt and act it out!',foreheadHint:'Hold the phone up and listen to clues!',streak:'Streak',correctCount:'Correct',passed:'Passes',tiltEnabled:'Tilt enabled. Return to level between tilts.',tiltUnavailable:'Motion controls unavailable. Use the buttons.',tiltDenied:'Motion permission denied. Use the buttons.',noContent:'Could not load the prompt catalog.',teamTurn:'Next team',pairTurn:'Play again',tapHint:'Tap or use ← / →'},
-    es: {back:'Fotos',language:'Idioma',hero:'¡Mímica en ocho idiomas!',tagline:'Mira, representa y adivina. ¡En parejas o equipos!',choose:'Elige una categoría',settings:'Ajustes',roundLength:'Duración',playStyle:'Cómo jugar',acting:'Hacer mímica',forehead:'Teléfono en la frente',players:'Participantes',pair:'Parejas / cooperativo',teams:'Dos equipos',teamA:'Equipo A',teamB:'Equipo B',start:'▶ EMPEZAR',how:'Derecha para acertar, izquierda para pasar. También ← / →.',time:'Tiempo',score:'Puntos',pass:'PASAR',correct:'¡BIEN!',finish:'Terminar ronda',roundComplete:'¡Fin de ronda!',next:'Siguiente ronda',newGame:'Configuración',tilt:'Activar inclinación',all:'Mezclar todas',words:'palabras',actingHint:'¡Representa la palabra!',foreheadHint:'¡Escucha las pistas de tus amigos!',streak:'Racha',correctCount:'Aciertos',passed:'Pasadas',tiltEnabled:'Inclinación activada. Vuelve al centro.',tiltUnavailable:'Usa los botones.',tiltDenied:'Permiso denegado. Usa los botones.',noContent:'No se pudieron cargar las palabras.',teamTurn:'Siguiente equipo',pairTurn:'Otra ronda',tapHint:'Toca o usa ← / →'},
-    pt: {back:'Fotos',language:'Idioma',hero:'Mímica em oito idiomas!',tagline:'Veja, represente e adivinhe. Em duplas ou equipes!',choose:'Escolha uma categoria',settings:'Configurações',roundLength:'Duração da rodada',playStyle:'Como jogar',acting:'Mímica clássica',forehead:'Celular na testa',players:'Jogadores',pair:'Duplas / cooperativo',teams:'Duas equipes',teamA:'Equipe A',teamB:'Equipe B',start:'▶ COMEÇAR',how:'Direita para acertar, esquerda para passar. Ou ← / →.',time:'Tempo',score:'Pontos',pass:'PULAR',correct:'ACERTOU!',finish:'Encerrar rodada',roundComplete:'Rodada concluída!',next:'Próxima rodada',newGame:'Configurações',tilt:'Ativar inclinação',all:'Misturar tudo',words:'palavras',actingHint:'Faça mímica do desafio!',foreheadHint:'Ouça as dicas dos colegas!',streak:'Sequência',correctCount:'Acertos',passed:'Puladas',tiltEnabled:'Inclinação ativada. Volte ao centro.',tiltUnavailable:'Use os botões.',tiltDenied:'Sem permissão. Use os botões.',noContent:'Não foi possível carregar as palavras.',teamTurn:'Próxima equipe',pairTurn:'Jogar de novo',tapHint:'Toque ou use ← / →'},
-    fr: {back:'Photos',language:'Langue',hero:'Mime en huit langues !',tagline:'Regardez, mimez et devinez, en duo ou en équipe !',choose:'Choisissez une catégorie',settings:'Paramètres',roundLength:'Durée de la manche',playStyle:'Comment jouer',acting:'Mime classique',forehead:'Téléphone sur le front',players:'Joueurs',pair:'Duo / coopératif',teams:'Deux équipes',teamA:'Équipe A',teamB:'Équipe B',start:'▶ COMMENCER',how:'Droite pour réussir, gauche pour passer. Ou ← / →.',time:'Temps',score:'Points',pass:'PASSER',correct:'BRAVO !',finish:'Terminer',roundComplete:'Manche terminée !',next:'Manche suivante',newGame:'Paramètres',tilt:'Activer inclinaison',all:'Mélanger tout',words:'mots',actingHint:'Mimez le mot !',foreheadHint:'Écoutez les indices de vos amis !',streak:'Série',correctCount:'Réussites',passed:'Passés',tiltEnabled:'Inclinaison activée. Revenez au centre.',tiltUnavailable:'Utilisez les boutons.',tiltDenied:'Permission refusée. Utilisez les boutons.',noContent:'Impossible de charger les mots.',teamTurn:'Équipe suivante',pairTurn:'Rejouer',tapHint:'Toucher ou ← / →'},
-    de: {back:'Fotos',language:'Sprache',hero:'Scharade in acht Sprachen!',tagline:'Sehen, darstellen, raten – zu zweit oder im Team!',choose:'Kategorie wählen',settings:'Einstellungen',roundLength:'Rundenzeit',playStyle:'Spielweise',acting:'Pantomime',forehead:'Handy an die Stirn',players:'Spieler',pair:'Paare / gemeinsam',teams:'Zwei Teams',teamA:'Team A',teamB:'Team B',start:'▶ STARTEN',how:'Rechts für richtig, links zum Überspringen. Oder ← / →.',time:'Zeit',score:'Punkte',pass:'WEITER',correct:'RICHTIG!',finish:'Runde beenden',roundComplete:'Runde beendet!',next:'Nächste Runde',newGame:'Einstellungen',tilt:'Neigung aktivieren',all:'Alle Kategorien mischen',words:'Begriffe',actingHint:'Stelle den Begriff pantomimisch dar!',foreheadHint:'Höre auf die Hinweise!',streak:'Serie',correctCount:'Richtig',passed:'Übersprungen',tiltEnabled:'Neigung aktiv. Zur Mitte zurückkehren.',tiltUnavailable:'Bitte Tasten verwenden.',tiltDenied:'Kein Zugriff. Bitte Tasten verwenden.',noContent:'Die Begriffe konnten nicht geladen werden.',teamTurn:'Nächstes Team',pairTurn:'Nochmal spielen',tapHint:'Tippen oder ← / →'},
-    ko: {back:'사진 게임',language:'언어',hero:'8개 언어로 즐기는 몸짓 퀴즈!',tagline:'보고, 표현하고, 맞혀 보세요! 짝이나 팀으로 즐길 수 있어요.',choose:'카테고리 선택',settings:'게임 설정',roundLength:'라운드 시간',playStyle:'플레이 방법',acting:'몸짓으로 설명하기',forehead:'이마에 휴대폰 대기',players:'참여 방법',pair:'짝 / 협동',teams:'두 팀 대결',teamA:'팀 A',teamB:'팀 B',start:'▶ 게임 시작',how:'정답은 오른쪽, 패스는 왼쪽. ← / → 키도 가능',time:'남은 시간',score:'점수',pass:'패스',correct:'정답!',finish:'라운드 종료',roundComplete:'라운드 완료!',next:'다음 라운드',newGame:'설정으로',tilt:'기울이기 사용',all:'전체 카테고리 섞기',words:'문제',actingHint:'몸짓으로 표현해 보세요!',foreheadHint:'친구들의 힌트를 들어 보세요!',streak:'연속 정답',correctCount:'정답',passed:'패스',tiltEnabled:'기울이기 준비 완료. 중앙으로 되돌려 주세요.',tiltUnavailable:'버튼을 사용하세요.',tiltDenied:'권한이 없습니다. 버튼을 사용하세요.',noContent:'문제를 불러오지 못했습니다.',teamTurn:'다음 팀',pairTurn:'다시 하기',tapHint:'터치 또는 ← / →'},
-    zh: {back:'照片游戏',language:'语言',hero:'用八种语言玩猜词游戏！',tagline:'看一看，演一演，猜一猜！双人和团队都能玩。',choose:'选择类别',settings:'游戏设置',roundLength:'每轮时长',playStyle:'玩法',acting:'动作表演',forehead:'手机放在额头',players:'参与方式',pair:'双人 / 合作',teams:'双队对抗',teamA:'A队',teamB:'B队',start:'▶ 开始游戏',how:'答对点右侧，跳过点左侧，也可按 ← / →。',time:'剩余时间',score:'得分',pass:'跳过',correct:'答对了！',finish:'结束本轮',roundComplete:'本轮结束！',next:'下一轮',newGame:'返回设置',tilt:'启用倾斜操作',all:'混合全部类别',words:'道题',actingHint:'用动作表演这个词！',foreheadHint:'听同伴的提示来猜！',streak:'连续答对',correctCount:'答对',passed:'跳过',tiltEnabled:'倾斜操作已开启，请回到水平位置。',tiltUnavailable:'请使用屏幕按钮。',tiltDenied:'无权限，请使用屏幕按钮。',noContent:'无法加载题目。',teamTurn:'下一队',pairTurn:'再玩一次',tapHint:'点击或按 ← / →'}
+    ja: {soundEffects:'正解の効果音',correctAnswerLabel:'正解した問題数',back:'Photo Party',language:'言語',hero:'世界中の言葉でシャレード！',tagline:'お題を見て、伝えて、当てよう！ペアでもチームでも楽しめます。',choose:'カテゴリーを選ぼう',settings:'ゲーム設定',roundLength:'1ラウンドの時間',playStyle:'遊び方',acting:'身ぶりで伝える（クラシック）',forehead:'額に当てて当てる（ヒントあり）',players:'参加方法',pair:'ペア／みんなで協力',teams:'2チーム対抗',teamA:'チームA',teamB:'チームB',start:'▶ ゲームスタート',how:'正解は右、パスは左をタップ。キーボードの ← / → にも対応。',time:'残り時間',score:'正解数',pass:'パス',correct:'正解！',finish:'ラウンド終了',roundComplete:'ラウンド終了！',next:'次のラウンドへ',newGame:'設定に戻る',tilt:'傾き操作を有効にする',all:'全カテゴリーをミックス',words:'題',actingHint:'お題を見て、ジェスチャーで伝えよう！',foreheadHint:'額に当てて、仲間のヒントを聞こう！',streak:'連続正解',correctCount:'正解',passed:'パス',tiltEnabled:'傾き操作を有効化。端末を水平に戻してから傾けてください。',tiltUnavailable:'傾き操作は利用できません。画面のボタンで遊べます。',tiltDenied:'傾き操作の許可がありません。画面のボタンで遊べます。',noContent:'問題の読み込みに失敗しました。',teamTurn:'次のチームへ',pairTurn:'もう1ラウンド',tapHint:'タップまたは ← / → で操作'},
+    en: {soundEffects:'Correct-answer sound',correctAnswerLabel:'Correct answers',back:'Photo Party',language:'Language',hero:'Charades in eight languages!',tagline:'See it. Act it. Guess it. Play in pairs or teams!',choose:'Choose a category',settings:'Game settings',roundLength:'Round length',playStyle:'How to play',acting:'Act it out (classic)',forehead:'Phone on forehead (clues)',players:'Play with',pair:'Pairs / cooperative',teams:'Two teams',teamA:'Team A',teamB:'Team B',start:'▶ START GAME',how:'Tap right for correct and left to pass, or use ← / →.',time:'Time left',score:'Correct',pass:'PASS',correct:'CORRECT!',finish:'End round',roundComplete:'Round complete!',next:'Next round',newGame:'Back to setup',tilt:'Enable tilt control',all:'Mix all categories',words:'prompts',actingHint:'Read the prompt and act it out!',foreheadHint:'Hold the phone up and listen to clues!',streak:'Streak',correctCount:'Correct',passed:'Passes',tiltEnabled:'Tilt enabled. Return to level between tilts.',tiltUnavailable:'Motion controls unavailable. Use the buttons.',tiltDenied:'Motion permission denied. Use the buttons.',noContent:'Could not load the prompt catalog.',teamTurn:'Next team',pairTurn:'Play again',tapHint:'Tap or use ← / →'},
+    es: {soundEffects:'Sonido de acierto',correctAnswerLabel:'Respuestas correctas',back:'Fotos',language:'Idioma',hero:'¡Mímica en ocho idiomas!',tagline:'Mira, representa y adivina. ¡En parejas o equipos!',choose:'Elige una categoría',settings:'Ajustes',roundLength:'Duración',playStyle:'Cómo jugar',acting:'Hacer mímica',forehead:'Teléfono en la frente',players:'Participantes',pair:'Parejas / cooperativo',teams:'Dos equipos',teamA:'Equipo A',teamB:'Equipo B',start:'▶ EMPEZAR',how:'Derecha para acertar, izquierda para pasar. También ← / →.',time:'Tiempo',score:'Aciertos',pass:'PASAR',correct:'¡BIEN!',finish:'Terminar ronda',roundComplete:'¡Fin de ronda!',next:'Siguiente ronda',newGame:'Configuración',tilt:'Activar inclinación',all:'Mezclar todas',words:'palabras',actingHint:'¡Representa la palabra!',foreheadHint:'¡Escucha las pistas de tus amigos!',streak:'Racha',correctCount:'Aciertos',passed:'Pasadas',tiltEnabled:'Inclinación activada. Vuelve al centro.',tiltUnavailable:'Usa los botones.',tiltDenied:'Permiso denegado. Usa los botones.',noContent:'No se pudieron cargar las palabras.',teamTurn:'Siguiente equipo',pairTurn:'Otra ronda',tapHint:'Toca o usa ← / →'},
+    pt: {soundEffects:'Som de acerto',correctAnswerLabel:'Respostas certas',back:'Fotos',language:'Idioma',hero:'Mímica em oito idiomas!',tagline:'Veja, represente e adivinhe. Em duplas ou equipes!',choose:'Escolha uma categoria',settings:'Configurações',roundLength:'Duração da rodada',playStyle:'Como jogar',acting:'Mímica clássica',forehead:'Celular na testa',players:'Jogadores',pair:'Duplas / cooperativo',teams:'Duas equipes',teamA:'Equipe A',teamB:'Equipe B',start:'▶ COMEÇAR',how:'Direita para acertar, esquerda para passar. Ou ← / →.',time:'Tempo',score:'Acertos',pass:'PULAR',correct:'ACERTOU!',finish:'Encerrar rodada',roundComplete:'Rodada concluída!',next:'Próxima rodada',newGame:'Configurações',tilt:'Ativar inclinação',all:'Misturar tudo',words:'palavras',actingHint:'Faça mímica do desafio!',foreheadHint:'Ouça as dicas dos colegas!',streak:'Sequência',correctCount:'Acertos',passed:'Puladas',tiltEnabled:'Inclinação ativada. Volte ao centro.',tiltUnavailable:'Use os botões.',tiltDenied:'Sem permissão. Use os botões.',noContent:'Não foi possível carregar as palavras.',teamTurn:'Próxima equipe',pairTurn:'Jogar de novo',tapHint:'Toque ou use ← / →'},
+    fr: {soundEffects:'Son de réussite',correctAnswerLabel:'Bonnes réponses',back:'Photos',language:'Langue',hero:'Mime en huit langues !',tagline:'Regardez, mimez et devinez, en duo ou en équipe !',choose:'Choisissez une catégorie',settings:'Paramètres',roundLength:'Durée de la manche',playStyle:'Comment jouer',acting:'Mime classique',forehead:'Téléphone sur le front',players:'Joueurs',pair:'Duo / coopératif',teams:'Deux équipes',teamA:'Équipe A',teamB:'Équipe B',start:'▶ COMMENCER',how:'Droite pour réussir, gauche pour passer. Ou ← / →.',time:'Temps',score:'Réussites',pass:'PASSER',correct:'BRAVO !',finish:'Terminer',roundComplete:'Manche terminée !',next:'Manche suivante',newGame:'Paramètres',tilt:'Activer inclinaison',all:'Mélanger tout',words:'mots',actingHint:'Mimez le mot !',foreheadHint:'Écoutez les indices de vos amis !',streak:'Série',correctCount:'Réussites',passed:'Passés',tiltEnabled:'Inclinaison activée. Revenez au centre.',tiltUnavailable:'Utilisez les boutons.',tiltDenied:'Permission refusée. Utilisez les boutons.',noContent:'Impossible de charger les mots.',teamTurn:'Équipe suivante',pairTurn:'Rejouer',tapHint:'Toucher ou ← / →'},
+    de: {soundEffects:'Ton bei richtiger Antwort',correctAnswerLabel:'Richtige Antworten',back:'Fotos',language:'Sprache',hero:'Scharade in acht Sprachen!',tagline:'Sehen, darstellen, raten – zu zweit oder im Team!',choose:'Kategorie wählen',settings:'Einstellungen',roundLength:'Rundenzeit',playStyle:'Spielweise',acting:'Pantomime',forehead:'Handy an die Stirn',players:'Spieler',pair:'Paare / gemeinsam',teams:'Zwei Teams',teamA:'Team A',teamB:'Team B',start:'▶ STARTEN',how:'Rechts für richtig, links zum Überspringen. Oder ← / →.',time:'Zeit',score:'Richtig',pass:'WEITER',correct:'RICHTIG!',finish:'Runde beenden',roundComplete:'Runde beendet!',next:'Nächste Runde',newGame:'Einstellungen',tilt:'Neigung aktivieren',all:'Alle Kategorien mischen',words:'Begriffe',actingHint:'Stelle den Begriff pantomimisch dar!',foreheadHint:'Höre auf die Hinweise!',streak:'Serie',correctCount:'Richtig',passed:'Übersprungen',tiltEnabled:'Neigung aktiv. Zur Mitte zurückkehren.',tiltUnavailable:'Bitte Tasten verwenden.',tiltDenied:'Kein Zugriff. Bitte Tasten verwenden.',noContent:'Die Begriffe konnten nicht geladen werden.',teamTurn:'Nächstes Team',pairTurn:'Nochmal spielen',tapHint:'Tippen oder ← / →'},
+    ko: {soundEffects:'정답 효과음',correctAnswerLabel:'맞힌 문제 수',back:'사진 게임',language:'언어',hero:'8개 언어로 즐기는 몸짓 퀴즈!',tagline:'보고, 표현하고, 맞혀 보세요! 짝이나 팀으로 즐길 수 있어요.',choose:'카테고리 선택',settings:'게임 설정',roundLength:'라운드 시간',playStyle:'플레이 방법',acting:'몸짓으로 설명하기',forehead:'이마에 휴대폰 대기',players:'참여 방법',pair:'짝 / 협동',teams:'두 팀 대결',teamA:'팀 A',teamB:'팀 B',start:'▶ 게임 시작',how:'정답은 오른쪽, 패스는 왼쪽. ← / → 키도 가능',time:'남은 시간',score:'정답 수',pass:'패스',correct:'정답!',finish:'라운드 종료',roundComplete:'라운드 완료!',next:'다음 라운드',newGame:'설정으로',tilt:'기울이기 사용',all:'전체 카테고리 섞기',words:'문제',actingHint:'몸짓으로 표현해 보세요!',foreheadHint:'친구들의 힌트를 들어 보세요!',streak:'연속 정답',correctCount:'정답',passed:'패스',tiltEnabled:'기울이기 준비 완료. 중앙으로 되돌려 주세요.',tiltUnavailable:'버튼을 사용하세요.',tiltDenied:'권한이 없습니다. 버튼을 사용하세요.',noContent:'문제를 불러오지 못했습니다.',teamTurn:'다음 팀',pairTurn:'다시 하기',tapHint:'터치 또는 ← / →'},
+    zh: {soundEffects:'答对提示音',correctAnswerLabel:'答对题数',back:'照片游戏',language:'语言',hero:'用八种语言玩猜词游戏！',tagline:'看一看，演一演，猜一猜！双人和团队都能玩。',choose:'选择类别',settings:'游戏设置',roundLength:'每轮时长',playStyle:'玩法',acting:'动作表演',forehead:'手机放在额头',players:'参与方式',pair:'双人 / 合作',teams:'双队对抗',teamA:'A队',teamB:'B队',start:'▶ 开始游戏',how:'答对点右侧，跳过点左侧，也可按 ← / →。',time:'剩余时间',score:'答对数',pass:'跳过',correct:'答对了！',finish:'结束本轮',roundComplete:'本轮结束！',next:'下一轮',newGame:'返回设置',tilt:'启用倾斜操作',all:'混合全部类别',words:'道题',actingHint:'用动作表演这个词！',foreheadHint:'听同伴的提示来猜！',streak:'连续答对',correctCount:'答对',passed:'跳过',tiltEnabled:'倾斜操作已开启，请回到水平位置。',tiltUnavailable:'请使用屏幕按钮。',tiltDenied:'无权限，请使用屏幕按钮。',noContent:'无法加载题目。',teamTurn:'下一队',pairTurn:'再玩一次',tapHint:'点击或按 ← / →'}
   };
   const CAT_LABELS = {
     animals:['Animales','Animais','Animaux','Tiere','동물','动物'],food:['Comida','Comida','Nourriture','Essen','음식','食物'],
@@ -87,8 +87,10 @@
     duration: 60, teams: ['TEAM A','TEAM B'], scores: [0, 0], turn: 0, correct: 0, passed: 0,
     streak: 0, maxStreak: 0, shown: 0, current: null, remainingWords: [],
     remainingMs: 60000, lastTick: 0, interval: null, paused: false, wakeLock: null, tiltActive: false,
-    tiltBaseline: null, tiltNeutral: true, lastTiltAt: 0
+    tiltBaseline: null, tiltNeutral: true, lastTiltAt: 0,
+    celebrationTimeout: null, celebrating: false
   };
+  let correctAudio = null;
   const t = key => (MOBILE_LABELS[state.language] || MOBILE_LABELS.en)[key] || (UI[state.language] || UI.en)[key] || UI.en[key] || key;
   function categoryLabel(deck) {
     if (state.language === 'ja' || state.language === 'en') return deck.names[state.language];
@@ -170,6 +172,7 @@
   }
   function setPaused(paused) {
     if (state.stage !== 'play' || state.paused === paused) return;
+    if (paused) clearCorrectFeedback();
     state.paused = paused;
     state.lastTick = performance.now();
     $('pauseShield').hidden = !paused;
@@ -182,6 +185,62 @@
     if (paused) releaseWakeLock();
     else requestWakeLock();
   }
+  function unlockCorrectAudio() {
+    if (!$('soundEnabled').checked) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    try {
+      if (!correctAudio) correctAudio = new AudioContextClass();
+      if (correctAudio.state === 'suspended') {
+        const resume = correctAudio.resume();
+        if (resume && typeof resume.catch === 'function') resume.catch(() => {});
+      }
+    } catch { /* The game remains usable without Web Audio support. */ }
+  }
+
+  function playCorrectChime() {
+    if (!$('soundEnabled').checked || document.hidden || !correctAudio) return;
+    try {
+      const start = correctAudio.currentTime;
+      [523.25, 659.25, 783.99].forEach((frequency, index) => {
+        const oscillator = correctAudio.createOscillator();
+        const gain = correctAudio.createGain();
+        const begin = start + index * .085;
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(frequency, begin);
+        gain.gain.setValueAtTime(.0001, begin);
+        gain.gain.exponentialRampToValueAtTime(.045, begin + .014);
+        gain.gain.exponentialRampToValueAtTime(.0001, begin + .2);
+        oscillator.connect(gain);
+        gain.connect(correctAudio.destination);
+        oscillator.start(begin);
+        oscillator.stop(begin + .21);
+      });
+    } catch { /* Audio playback must not block the correct-answer action. */ }
+  }
+
+  function clearCorrectFeedback() {
+    if (state.celebrationTimeout !== null && typeof window.clearTimeout === 'function') {
+      window.clearTimeout(state.celebrationTimeout);
+    }
+    state.celebrationTimeout = null;
+    state.celebrating = false;
+    $('correctBurst').hidden = true;
+  }
+
+  function showCorrectFeedback() {
+    clearCorrectFeedback();
+    state.celebrating = true;
+    $('correctBurst').hidden = false;
+    playCorrectChime();
+    if (typeof window.setTimeout === 'function') {
+      state.celebrationTimeout = window.setTimeout(clearCorrectFeedback, 650);
+    } else {
+      // Non-browser test harnesses without timers must not become stuck.
+      clearCorrectFeedback();
+    }
+  }
+
   function beginRound() {
     if (state.stage !== 'ready') return;
     // Fullscreen can only be requested directly from a user gesture where supported.
@@ -189,6 +248,7 @@
       try { Promise.resolve(document.documentElement.requestFullscreen()).catch(() => {}); } catch { /* iOS Safari may not support Fullscreen API */ }
     }
     show('play');
+    unlockCorrectAudio();
     state.paused = false;
     $('pauseShield').hidden = true;
     $('prompt').hidden = false;
@@ -219,6 +279,7 @@
     stopTimer();
     state.correct = 0; state.passed = 0; state.streak = 0; state.maxStreak = 0; state.shown = 0;
     state.paused = false;
+    clearCorrectFeedback();
     releaseWakeLock();
     state.remainingMs = state.duration * 1000;
     $('playLanguage').textContent = state.language === 'ja' ? 'English' : '日本語';
@@ -265,18 +326,20 @@
     if (length > 32) prompt.classList.add('very-long-prompt');
     else if (length > 18) prompt.classList.add('long-prompt');
   }
-  function translatePrompt(item, from, to) {
-    if (!item) return item;
-    const deck = DATA.decks.find(deck => deck.id === item.deckId);
-    const match = deck?.words.find(word => word[from] === item.text);
-    return match ? { text: match[to], deckId: item.deckId } : item;
-  }
   function switchPlayLanguage() {
     if (state.stage !== 'play') return;
     const oldLanguage = state.language;
     const newLanguage = oldLanguage === 'ja' ? 'en' : 'ja';
-    state.current = translatePrompt(state.current, oldLanguage, newLanguage);
-    state.remainingWords = state.remainingWords.map(word => translatePrompt(word, oldLanguage, newLanguage));
+    // Build a one-to-one translation index for the localized scenario catalog.
+    const byDeck = new Map(DATA.decks.map(deck => [
+      deck.id, new Map(deck.words.map(word => [word[oldLanguage], word[newLanguage]]))
+    ]));
+    const translate = item => !item ? item : ({
+      text: byDeck.get(item.deckId)?.get(item.text) || item.text,
+      deckId: item.deckId
+    });
+    state.current = translate(state.current);
+    state.remainingWords = state.remainingWords.map(translate);
     state.language = newLanguage;
     $('language').value = newLanguage;
     localize();
@@ -289,7 +352,7 @@
     renderPrompt();
   }
   function answer(isCorrect) {
-    if (state.stage !== 'play' || !state.current || state.paused) return;
+    if (state.stage !== 'play' || !state.current || state.paused || state.celebrating) return;
     tick();
     if (state.stage !== 'play') return;
     if (isCorrect) {
@@ -297,6 +360,7 @@
       state.streak++;
       state.maxStreak = Math.max(state.maxStreak, state.streak);
       state.scores[state.turn]++;
+      showCorrectFeedback();
     } else {
       state.passed++;
       state.streak = 0;
@@ -319,11 +383,12 @@
   function finishRound() {
     if (state.stage !== 'play') return;
     stopTimer();
+    clearCorrectFeedback();
     releaseWakeLock();
     state.tiltActive = false;
     show('result');
     $('resultTeam').textContent = state.mode === 'teams' ? state.teams[state.turn] : 'PAIR / GROUP';
-    $('roundScore').textContent = '+' + state.correct;
+    $('roundScore').textContent = String(state.correct);
     $('roundStats').textContent = t('correctCount') + ': ' + state.correct + ' · ' + t('passed') + ': ' + state.passed + ' · ' + t('streak') + ': ' + state.maxStreak;
     const board = $('leaderboard');
     board.replaceChildren();
@@ -332,7 +397,7 @@
         const row = document.createElement('div');
         row.className = 'team-score';
         const label = document.createElement('span'); label.textContent = team;
-        const score = document.createElement('strong'); score.textContent = state.scores[index] + ' pts';
+        const score = document.createElement('strong'); score.textContent = state.scores[index] + ' ' + t('correctCount');
         row.append(label, score);
         board.append(row);
       });

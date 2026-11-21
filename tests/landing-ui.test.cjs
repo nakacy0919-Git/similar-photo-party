@@ -31,7 +31,7 @@ test('Photo card retains existing game and tutorial hooks and avoids external im
     assert.ok(fs.existsSync(path.join(__dirname,'../assets/images',file)));
   }
   const game = fs.readFileSync(path.join(__dirname,'../js/game.js'),'utf8');
-  assert.match(game,/elements\.btns\.start\.addEventListener\('click', startMemoryPhase\)/);
+  assert.match(game,/elements\.btns\.start\.addEventListener\('click', openPhotoSetup\)/);
   assert.match(game,/loadStatus\.textContent =/);
   assert.match(html,/id="tutorial-btn"/);
   assert.match(html,/rel="stylesheet" href="css\/landing\.css"/);

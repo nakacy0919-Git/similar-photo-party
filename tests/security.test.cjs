@@ -122,7 +122,7 @@ test('precompiled stylesheet covers every safelisted utility class, including mo
 
 test('all static source utility classes are explicitly safelisted or owned by local styles', () => {
     const utilities = new Set(read('tools/tailwind-candidates.txt').split(/\r?\n/).map(x => x.trim()).filter(x => x && !x.startsWith('#')));
-    const ownedStyles = ['css/style.css', 'css/immersive.css', 'css/landing.css', 'css/charades.css'];
+    const ownedStyles = ['css/style.css', 'css/immersive.css', 'css/landing.css', 'css/photo-flow.css', 'css/charades.css'];
     const custom = new Set(ownedStyles.flatMap(file => [...read(file).matchAll(/\.([a-z][a-z0-9_-]*)/gi)].map(x => x[1])));
     const hookOnly = new Set(['no-scrollbar', 'feedback-check', 'memory-time-select-btn', 'time-select-btn', 'hint-mode-btn']);
     const sourceClasses = new Set();
