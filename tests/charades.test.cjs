@@ -1,0 +1,67 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const catalog = require('../js/charades-data.js');
+const core = require('../js/charades-core.js');
+
+test('32 independent decks contain 384 original prompts in eight complete languages', () => {
+  assert.equal(catalog.languages.length, 8);
+  assert.equal(catalog.decks.length, 32);
+  assert.equal(catalog.decks.reduce((sum, deck) => sum + deck.words.length, 0), 384);
+  assert.equal(core.validateCatalog(catalog), true);
+  for (const deck of catalog.decks) {
+    assert.equal(deck.words.length, 12, deck.id);
+    for (const item of deck.words) {
+      for (const [language] of catalog.languages) {
+        assert.ok(item[language].trim().length > 0, deck.id + ':' + language);
+      }
+    }
+  }
+});
+
+test('category filters return only the requested deck and the selected language', () => {
+  for (const [lang] of catalog.languages) {
+    assert.equal(core.availableWords(catalog, 'animals', lang).length, 12);
+    assert.ok(core.availableWords(catalog, 'animals', lang).every(item => item.deckId === 'animals'));
+    assert.ok(core.availableWords(catalog, 'all', lang).length >= 300);
+  }
+  assert.equal(core.availableWords(catalog, 'not-a-deck', 'en').length, 0);
+  assert.equal(core.availableWords(catalog, 'animals', 'missing').length, 0);
+});
+
+test('shuffle does not change source data', () => {
+  const source = [1, 2, 3, 4];
+  const shuffled = core.shuffle(source, () => 0);
+  assert.deepEqual(source, [1, 2, 3, 4]);
+  assert.deepEqual([...shuffled].sort(), source);
+});
+
+test('photo guess automatically gives fewer points after additional attempts', () => {
+  assert.equal(core.pointsForPhotoAttempt(1), 100);
+  assert.equal(core.pointsForPhotoAttempt(2), 60);
+  assert.equal(core.pointsForPhotoAttempt(3), 30);
+  assert.equal(core.pointsForPhotoAttempt(4), 10);
+  assert.equal(core.pointsForPhotoAttempt(0), 0);
+  assert.equal(core.pointsForPhotoAttempt(-1), 0);
+});
+
+test('charades page has local scripts, CSP and accessible answer controls', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../charades.html'), 'utf8');
+  assert.match(html, /Content-Security-Policy/);
+  assert.match(html, /js\/charades-data\.js/);
+  assert.match(html, /js\/charades-core\.js/);
+  assert.match(html, /js\/charades\.js/);
+  for (const id of ['decks', 'language', 'start', 'prompt', 'pass', 'correct', 'score', 'nextRound']) {
+    assert.match(html, new RegExp('id="' + id + '"'));
+  }
+  assert.doesNotMatch(html, /<script(?![^>]*src=)[^>]*>/);
+});
+
+test('original photo game still has automatic photo phases and scoring', () => {
+  const source = fs.readFileSync(path.join(__dirname, '../js/game.js'), 'utf8');
+  assert.match(source, /runTimer\(state\.memoryTime, elements\.timers\.memory, startExplainPhase\)/);
+  assert.match(source, /runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
+  assert.match(source, /state\.score \+= state\.lastPoints/);
+  assert.match(source, /pointsForPhotoAttempt\(state\.attempts\)/);
+});
