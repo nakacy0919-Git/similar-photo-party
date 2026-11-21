@@ -75,8 +75,8 @@ test('all 64 categories have translated selection labels and search control', ()
 
 test('original photo game still has automatic photo phases and scoring', () => {
   const source = fs.readFileSync(path.join(__dirname, '../js/game.js'), 'utf8');
-  assert.match(source, /runTimer\(state\.memoryTime, elements\.timers\.memory, startExplainPhase\)/);
-  assert.match(source, /runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
+  assert.match(source, /runTimer\(state\.memoryTime, elements\.timers\.memory, startChoicePhase\)/);
+  assert.doesNotMatch(source, /runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
   assert.match(source, /state\.score \+= state\.lastPoints/);
   assert.match(source, /pointsForPhotoAttempt\(state\.attempts\)/);
 });

@@ -411,3 +411,7 @@ body:has(#view-landing:not(.hidden)) #settingsBtn:hover {background:rgba(93,76,1
   }
   .landing-mode-card,.mode-card-action i{transition:none!important;transform:none!important}
 }
+
+
+/* A prior display:block!important kept the landing page visible during rounds. */
+#view-landing.landing-screen.hidden { display:none!important; }
