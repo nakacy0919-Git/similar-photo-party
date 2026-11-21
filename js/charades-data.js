@@ -421,6 +421,89 @@ Ramen|Tempura|Udon|Soba|Onigiri|Takoyaki|Okonomiyaki|Misosuppe|Yakitori|Mochi|Be
 拉面|天妇罗|乌冬面|荞麦面|饭团|章鱼烧|大阪烧|味噌汤|烤鸡串|麻糬|便当盒|鲷鱼烧
 `);
 
+
+  // Expansion pack B: school and movement.
+  deck('school_subjects','📚','School Subjects','教科', `
+mathematics|English class|science class|history class|geography|art class|music class|physical education|computer science|chemistry|biology|literature
+数学|英語の授業|理科の授業|歴史の授業|地理|美術の授業|音楽の授業|体育|情報科学|化学|生物|文学
+matemáticas|clase de inglés|clase de ciencias|clase de historia|geografía|clase de arte|clase de música|educación física|informática|química|biología|literatura
+matemática|aula de inglês|aula de ciências|aula de história|geografia|aula de arte|aula de música|educação física|informática|química|biologia|literatura
+mathématiques|cours d'anglais|cours de sciences|cours d'histoire|géographie|cours d'arts plastiques|cours de musique|éducation physique|informatique|chimie|biologie|littérature
+Mathematik|Englischunterricht|Naturwissenschaften|Geschichtsunterricht|Geografie|Kunstunterricht|Musikunterricht|Sportunterricht|Informatik|Chemie|Biologie|Literatur
+수학|영어 수업|과학 수업|역사 수업|지리|미술 수업|음악 수업|체육|컴퓨터 과학|화학|생물학|문학
+数学|英语课|科学课|历史课|地理|美术课|音乐课|体育课|计算机科学|化学|生物学|文学
+`);
+  deck('school_events','🏫','School Events','学校行事', `
+sports day|school festival|graduation ceremony|entrance ceremony|field trip|class presentation|school play|music contest|science fair|debate contest|school assembly|career day
+運動会|文化祭|卒業式|入学式|遠足|クラス発表|学芸会|音楽コンクール|科学発表会|ディベート大会|全校集会|職業体験の日
+día deportivo|festival escolar|graduación|ceremonia de bienvenida|excursión escolar|presentación de clase|obra escolar|concurso de música|feria científica|torneo de debate|asamblea escolar|día de las profesiones
+dia esportivo|festival escolar|formatura|cerimônia de entrada|excursão escolar|apresentação de turma|peça escolar|concurso de música|feira de ciências|torneio de debate|assembleia escolar|dia das profissões
+journée sportive|fête de l'école|remise des diplômes|cérémonie de rentrée|sortie scolaire|présentation de classe|pièce de théâtre scolaire|concours de musique|foire scientifique|concours de débat|assemblée scolaire|journée des métiers
+Sportfest|Schulfest|Abschlussfeier|Einschulungsfeier|Schulausflug|Klassenvortrag|Schultheater|Musikwettbewerb|Wissenschaftsmesse|Debattierwettbewerb|Schulversammlung|Berufsinformationstag
+체육대회|학교 축제|졸업식|입학식|현장 학습|학급 발표|학교 연극|음악 경연 대회|과학 발표회|토론 대회|전교 조회|진로 체험의 날
+运动会|校园文化节|毕业典礼|入学典礼|郊游|班级展示|校园话剧|音乐比赛|科学展览|辩论比赛|全校大会|职业体验日
+`);
+  deck('classroom_actions','🧑‍🏫','Classroom Actions','教室の動作', `
+raise your hand|open your textbook|erase the board|sharpen a pencil|hand in homework|ask a question|take notes|work in pairs|give a speech|turn the page|pack your bag|borrow an eraser
+手を挙げる|教科書を開く|黒板を消す|鉛筆を削る|宿題を提出する|質問する|メモを取る|ペアで活動する|スピーチをする|ページをめくる|かばんを詰める|消しゴムを借りる
+levantar la mano|abrir el libro de texto|borrar la pizarra|afilar un lápiz|entregar la tarea|hacer una pregunta|tomar apuntes|trabajar en parejas|dar un discurso|pasar la página|preparar la mochila|pedir una goma
+levantar a mão|abrir o livro didático|apagar o quadro|apontar um lápis|entregar a lição|fazer uma pergunta|anotar|trabalhar em duplas|fazer um discurso|virar a página|arrumar a mochila|pedir uma borracha
+lever la main|ouvrir le manuel|effacer le tableau|tailler un crayon|rendre les devoirs|poser une question|prendre des notes|travailler en binôme|faire un discours|tourner la page|préparer son sac|emprunter une gomme
+die Hand heben|das Lehrbuch öffnen|die Tafel wischen|einen Bleistift spitzen|Hausaufgaben abgeben|eine Frage stellen|Notizen machen|zu zweit arbeiten|eine Rede halten|umblättern|die Tasche packen|einen Radiergummi leihen
+손 들기|교과서 펴기|칠판 지우기|연필 깎기|숙제 제출하기|질문하기|필기하기|짝 활동하기|발표하기|책장 넘기기|가방 싸기|지우개 빌리기
+举手|打开课本|擦黑板|削铅笔|交作业|提问|记笔记|两人合作|发表演讲|翻页|整理书包|借橡皮
+`);
+  deck('sports_moves','🏅','Sports Moves','スポーツの動作', `
+kick a ball|shoot a basket|serve a tennis ball|swing a bat|spike a volleyball|dive into a pool|jump over a hurdle|throw a javelin|catch a frisbee|do a handstand|skate backwards|hit a golf ball
+ボールを蹴る|シュートを決める|テニスのサーブを打つ|バットを振る|バレーボールをスパイクする|プールに飛び込む|ハードルを跳ぶ|やりを投げる|フリスビーをキャッチする|逆立ちする|後ろ向きに滑る|ゴルフボールを打つ
+patear una pelota|encestar|sacar en tenis|batear|rematar en voleibol|tirarse a la piscina|saltar una valla|lanzar una jabalina|atrapar un frisbee|hacer el pino|patinar hacia atrás|golpear una pelota de golf
+chutar uma bola|acertar uma cesta|sacar no tênis|rebater com taco|cortar no vôlei|mergulhar na piscina|saltar uma barreira|lançar um dardo|pegar um frisbee|plantar bananeira|patinar para trás|bater numa bola de golfe
+tirer dans un ballon|marquer un panier|servir au tennis|frapper à la batte|smasher au volley|plonger dans une piscine|franchir une haie|lancer un javelot|attraper un frisbee|faire le poirier|patiner en arrière|frapper une balle de golf
+einen Ball kicken|einen Korb werfen|beim Tennis aufschlagen|einen Schläger schwingen|beim Volleyball schmettern|ins Becken springen|über eine Hürde springen|einen Speer werfen|eine Frisbee fangen|Handstand machen|rückwärts Schlittschuh laufen|einen Golfball schlagen
+공 차기|농구 슛 넣기|테니스 서브 넣기|방망이 휘두르기|배구 스파이크 하기|수영장으로 다이빙하기|허들 넘기|창 던지기|프리스비 잡기|물구나무서기|뒤로 스케이트 타기|골프공 치기
+踢球|投篮|网球发球|挥球棒|排球扣球|跳进泳池|跨栏|投标枪|接飞盘|倒立|倒着滑冰|打高尔夫球
+`);
+  deck('fitness_moves','💪','Fitness Moves','フィットネス', `
+push-up|sit-up|squat|lunge|stretch arms|jumping jack|plank|lift dumbbells|run in place|touch your toes|do yoga|jump rope
+腕立て伏せ|腹筋運動|スクワット|ランジ|腕を伸ばす|ジャンピングジャック|プランク|ダンベルを持ち上げる|その場で走る|つま先に触る|ヨガをする|縄跳びをする
+flexiones|abdominales|sentadillas|zancadas|estirar los brazos|saltos de tijera|plancha|levantar pesas|correr en el sitio|tocarse los dedos de los pies|hacer yoga|saltar a la cuerda
+flexão|abdominal|agachamento|avanço|alongar os braços|polichinelo|prancha|levantar halteres|correr no lugar|tocar os pés|fazer ioga|pular corda
+pompes|abdominaux|squats|fentes|étirer les bras|sauts écartés|gainage|soulever des haltères|courir sur place|toucher ses orteils|faire du yoga|sauter à la corde
+Liegestütze|Sit-ups|Kniebeugen|Ausfallschritte|Arme dehnen|Hampelmänner|Unterarmstütz|Hanteln heben|auf der Stelle laufen|Zehen berühren|Yoga machen|Seilspringen
+팔굽혀펴기|윗몸 일으키기|스쿼트|런지|팔 스트레칭|팔 벌려 뛰기|플랭크|아령 들기|제자리 뛰기|발끝 만지기|요가 하기|줄넘기
+俯卧撑|仰卧起坐|深蹲|弓步|伸展双臂|开合跳|平板支撑|举哑铃|原地跑|摸脚尖|做瑜伽|跳绳
+`);
+  deck('outdoor_fun','🏕️','Outdoor Activities','アウトドア', `
+fly a kite|climb a hill|walk a dog|watch birds|skip stones|collect shells|build a sandcastle|pick wildflowers|ride a scooter|have a picnic|feed ducks|look at the stars
+凧を揚げる|丘を登る|犬を散歩させる|野鳥を観察する|水切りをする|貝殻を集める|砂の城を作る|野花を摘む|キックボードに乗る|ピクニックをする|アヒルに餌をやる|星を眺める
+volar una cometa|subir una colina|pasear al perro|observar aves|hacer rebotar piedras en el agua|recoger conchas|construir un castillo de arena|recoger flores silvestres|montar en patinete|hacer un pícnic|dar de comer a los patos|mirar las estrellas
+empinar pipa|subir uma colina|passear com o cachorro|observar pássaros|quicar pedras na água|coletar conchas|construir castelo de areia|colher flores silvestres|andar de patinete|fazer piquenique|alimentar patos|observar estrelas
+faire voler un cerf-volant|monter une colline|promener un chien|observer les oiseaux|faire des ricochets|ramasser des coquillages|construire un château de sable|cueillir des fleurs sauvages|faire de la trottinette|faire un pique-nique|nourrir les canards|regarder les étoiles
+einen Drachen steigen lassen|einen Hügel besteigen|einen Hund ausführen|Vögel beobachten|Steine übers Wasser springen lassen|Muscheln sammeln|eine Sandburg bauen|Wildblumen pflücken|Roller fahren|picknicken|Enten füttern|Sterne beobachten
+연날리기|언덕 오르기|개 산책시키기|새 관찰하기|물수제비 뜨기|조개껍데기 모으기|모래성 만들기|야생화 따기|킥보드 타기|소풍 가기|오리에게 먹이 주기|별 보기
+放风筝|爬山坡|遛狗|观鸟|打水漂|捡贝壳|堆沙堡|摘野花|骑滑板车|野餐|喂鸭子|看星星
+`);
+  deck('camping_actions','🔥','Camping','キャンプ', `
+pitch a tent|light a campfire|roast marshmallows|unroll a sleeping bag|read a compass|use a flashlight|cook over a fire|fill a water bottle|walk with a backpack|cross a stream|look for firewood|pack a tent
+テントを張る|キャンプファイヤーを起こす|マシュマロを焼く|寝袋を広げる|コンパスを読む|懐中電灯を使う|たき火で料理する|水筒に水を入れる|リュックを背負って歩く|小川を渡る|薪を探す|テントを片付ける
+montar una tienda|encender una fogata|asar malvaviscos|desenrollar un saco de dormir|leer una brújula|usar una linterna|cocinar al fuego|llenar una botella de agua|caminar con mochila|cruzar un arroyo|buscar leña|guardar una tienda
+montar uma barraca|acender uma fogueira|assar marshmallows|abrir um saco de dormir|ler uma bússola|usar uma lanterna|cozinhar na fogueira|encher uma garrafa de água|caminhar com mochila|atravessar um riacho|procurar lenha|guardar uma barraca
+monter une tente|allumer un feu de camp|griller des guimauves|dérouler un sac de couchage|lire une boussole|utiliser une lampe de poche|cuisiner sur le feu|remplir une gourde|marcher avec un sac à dos|traverser un ruisseau|chercher du bois|ranger une tente
+ein Zelt aufbauen|ein Lagerfeuer anzünden|Marshmallows rösten|einen Schlafsack ausrollen|einen Kompass ablesen|eine Taschenlampe benutzen|am Feuer kochen|eine Wasserflasche füllen|mit Rucksack wandern|einen Bach überqueren|Feuerholz suchen|ein Zelt einpacken
+텐트 치기|모닥불 피우기|마시멜로 굽기|침낭 펼치기|나침반 읽기|손전등 사용하기|불에 요리하기|물병 채우기|배낭 메고 걷기|시냇물 건너기|땔감 찾기|텐트 접기
+搭帐篷|生篝火|烤棉花糖|展开睡袋|看指南针|使用手电筒|篝火做饭|装满水瓶|背包徒步|过小溪|找柴火|收帐篷
+`);
+  deck('playground','🛝','Playground Fun','公園の遊び', `
+slide down a slide|swing high|climb monkey bars|jump in a puddle|play hopscotch|ride a seesaw|spin on a merry-go-round|play tag|race to the tree|balance on a beam|dig in a sandbox|skip with a rope
+滑り台を滑る|ブランコを高くこぐ|うんていを渡る|水たまりに飛び込む|けんけんぱをする|シーソーに乗る|回転遊具で回る|鬼ごっこをする|木まで競走する|平均台でバランスを取る|砂場を掘る|縄跳びで跳ぶ
+bajar por un tobogán|columpiarse alto|cruzar barras de juego|saltar en un charco|jugar a la rayuela|montar en un balancín|girar en el tiovivo|jugar a pillar|correr hasta el árbol|equilibrarse en una barra|cavar en el arenero|saltar a la comba
+descer no escorregador|balançar alto|atravessar barras suspensas|pular numa poça|brincar de amarelinha|brincar na gangorra|girar no gira-gira|brincar de pega-pega|correr até a árvore|equilibrar-se numa barra|cavar na caixa de areia|pular corda
+descendre un toboggan|se balancer très haut|traverser une échelle horizontale|sauter dans une flaque|jouer à la marelle|faire de la balançoire à bascule|tourner sur un manège|jouer à chat|courir jusqu'à l'arbre|marcher en équilibre|creuser dans le bac à sable|sauter à la corde
+rutschen|hoch schaukeln|am Klettergerüst hangeln|in eine Pfütze springen|Himmel und Hölle spielen|Wippe fahren|Karussell fahren|Fangen spielen|zum Baum rennen|auf einem Balken balancieren|im Sandkasten graben|Seilspringen
+미끄럼틀 타기|그네 높이 타기|구름사다리 건너기|물웅덩이에 뛰어들기|사방치기|시소 타기|회전 놀이기구 타기|술래잡기|나무까지 달리기|평균대 위 걷기|모래 놀이터 파기|줄넘기
+滑滑梯|荡高秋千|爬猴架|跳进水坑|跳房子|玩跷跷板|坐旋转木马|玩抓人游戏|跑到树边|走平衡木|挖沙坑|跳绳
+`);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
