@@ -109,8 +109,8 @@ button, a, select, input { touch-action: manipulation; }
   .topbar { padding: max(.5rem,env(safe-area-inset-top)) max(.6rem,env(safe-area-inset-right)) .5rem max(.6rem,env(safe-area-inset-left)); }
   .topbar .brand { font-size: clamp(.82rem,3.5vw,1.2rem); }
   .language-control select { max-width: 120px; padding:.55rem .3rem; }
-  .app { padding-bottom: max(7rem,calc(env(safe-area-inset-bottom) + 5.5rem)); }
-  .setup-panel { padding: 1rem .75rem; }
+  .app { padding-bottom: max(.6rem,env(safe-area-inset-bottom)); }
+  .setup-panel { padding: 1rem .75rem max(7rem,calc(env(safe-area-inset-bottom) + 5.5rem)); }
   .hero { margin-bottom: 1rem; }
   .hero .eyebrow { letter-spacing: .08em; }
   .hero h1 { font-size: clamp(1.55rem,6vw,2.25rem); }
