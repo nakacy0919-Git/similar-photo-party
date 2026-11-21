@@ -17,8 +17,8 @@ test('home clearly presents exactly two distinct primary games with real links',
   assert.match(html, /MODE 02/);
   assert.match(html, /写真を見て、伝えて、4枚から当てる/);
   assert.match(html, /ジェスチャーで伝えて、みんなで当てる/);
-  assert.equal((html.match(/class="landing-mode-card/g) || []).length, 1,
-    'photo button may carry both the shared and mode classes');
+  assert.equal((html.match(/class="landing-mode-card/g) || []).length, 2,
+    'the two mode cards should have the same primary hierarchy');
   assert.match(html, /class="landing-mode-card charades-mode"/);
 });
 
