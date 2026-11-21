@@ -103,6 +103,11 @@
         <div class="prompt-top"><span id="questionNo">#1</span><span id="playInstruction"></span></div>
         <div id="prompt" class="prompt" lang="en" role="status" aria-live="polite">READY?</div>
         <p id="hint" class="prompt-hint"></p>
+        <div id="correctBurst" class="charades-correct-burst" aria-live="polite" aria-atomic="true" hidden>
+          <span class="burst-ring" aria-hidden="true"></span>
+          <span class="burst-check" aria-hidden="true">✓</span>
+          <strong id="burstLabel">CORRECT!</strong>
+        </div>
         <div id="pauseShield" class="pause-shield" hidden role="status" data-i18n="pausedMessage">一時停止中 · 再開してお題を見る</div>
       </div>
       <div class="answer-controls">
@@ -122,6 +127,7 @@
       <h1 data-i18n="roundComplete">ラウンド終了！</h1>
       <p id="resultTeam"></p>
       <strong class="big-score" id="roundScore">0</strong>
+      <p class="correct-answer-label" data-i18n="correctAnswerLabel">Correct answers</p>
       <p id="roundStats"></p>
       <div id="leaderboard" class="leaderboard"></div>
       <div class="result-buttons">
