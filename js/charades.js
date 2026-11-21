@@ -330,8 +330,7 @@
     if (state.stage !== 'play') return;
     const oldLanguage = state.language;
     const newLanguage = oldLanguage === 'ja' ? 'en' : 'ja';
-    // Build a single translation index instead of searching up to 200 items
-    // for each of the 12,800 prompts when 'All categories' is selected.
+    // Build a one-to-one translation index for the curated prompt catalog.
     const byDeck = new Map(DATA.decks.map(deck => [
       deck.id, new Map(deck.words.map(word => [word[oldLanguage], word[newLanguage]]))
     ]));
