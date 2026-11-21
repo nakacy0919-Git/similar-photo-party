@@ -670,10 +670,11 @@ auf einem unsichtbaren Seil balancieren|gegen eine unsichtbare Mücke kämpfen|e
 走隐形钢丝|和看不见的蚊子搏斗|搬巨大气球|吃特别酸的柠檬|假装地板是岩浆|打开很重的门|躲避小蜘蛛|和犯困的机器人说话|平衡一摞书|悄悄走过睡着的龙|和扫帚跳舞|在鞋里发现意外之物
 `);
 
-  const expandDecks = root.CHARADES_EXPANSION ||
+  // Validate curated prompts only; never generate random two-concept combinations.
+  const validateStandaloneDecks = root.CHARADES_EXPANSION ||
     (typeof module !== 'undefined' && module.exports ? require('./charades-expansion.js') : null);
-  if (typeof expandDecks !== 'function') throw new Error('Missing original Charades expansion catalog');
-  expandDecks(decks);
+  if (typeof validateStandaloneDecks !== 'function') throw new Error('Missing Charades prompt validator');
+  validateStandaloneDecks(decks);
 
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
