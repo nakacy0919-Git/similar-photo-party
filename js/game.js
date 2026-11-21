@@ -774,7 +774,12 @@ document.addEventListener('DOMContentLoaded', () => {
             img.alt = `選択肢 ${index + 1}`;
             btn.setAttribute('aria-label', `選択肢 ${index + 1}`);
             
+            const number = document.createElement('span');
+            number.className = 'choice-index';
+            number.textContent = String(index + 1);
+            number.setAttribute('aria-hidden', 'true');
             btn.appendChild(img);
+            btn.appendChild(number);
             btn.onclick = () => checkAnswer(item, btn);
             grid.appendChild(btn);
         });
