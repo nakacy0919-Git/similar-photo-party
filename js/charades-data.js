@@ -676,6 +676,16 @@ auf einem unsichtbaren Seil balancieren|gegen eine unsichtbare Mücke kämpfen|e
   if (typeof validateStandaloneDecks !== 'function') throw new Error('Missing Charades prompt validator');
   validateStandaloneDecks(decks);
 
+  // Every additional task is a cohesive, family-appropriate scene. Unrelated
+  // keyword-pairs are never composed or displayed.
+  const sceneCatalog = root.CHARADES_SCENES ||
+    (typeof module !== 'undefined' && module.exports ? require('./charades-curated-scenes.js') : null);
+  if (!sceneCatalog || typeof sceneCatalog.expand !== 'function') {
+    throw new Error('Missing quality-screened Charades scenario pack');
+  }
+  sceneCatalog.expand(decks);
+  validateStandaloneDecks(decks);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
