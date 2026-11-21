@@ -130,17 +130,12 @@
 .photo-pause-box p{color:#cad3ec;font-size:1rem;line-height:1.5}
 .photo-pause-box .photo-next-btn{max-width:330px}
 .photo-pause-box .photo-outline-btn{width:min(100%,330px)}
-#view-result .photo-result-count{display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:.6rem;
-  padding:.4rem 1rem;max-width:96vw;color:#164c43;border:1px solid #8cddbb;
-  border-radius:999px;background:#d5fff0e8;
-  font-size:clamp(.8rem,1.7vw,1.12rem);font-weight:880}
-#view-result #photo-result-count{font-size:clamp(1.5rem,4vw,2.25rem);color:#056946;font-weight:1000}
 #view-result #result-layout-text{text-align:left!important;align-items:stretch!important}
 #view-result #result-phrase,#view-result #result-trans{text-align:left!important}
 #view-result #result-layout-text>div{text-align:left!important}
 #view-result #result-title{text-align:left!important}
 #view-result #result-layout-text button#speak-btn{margin-left:0!important;margin-right:0!important}
-#view-result .photo-result-count+.bg-white\/95{margin-top:0!important}
+#view-result #photo-result-main{margin-top:0!important}
 #view-result #next-btn{margin-top:0!important}
 body:has(#view-photo-setup:not(.hidden)),body:has(#view-photo-ready:not(.hidden)),
 body:has(#view-photo-summary:not(.hidden)){overflow:hidden!important;height:100dvh!important}
@@ -168,7 +163,7 @@ body:has(#view-photo-summary:not(.hidden)) #bgmBtn{display:none!important}
   #view-result #result-layout-text{gap:.4rem!important}
   #view-result #result-phrase{font-size:clamp(.98rem,3.4vw,1.5rem)!important}
   #view-result #result-layout-img{max-height:38dvh!important}
-  #view-result .photo-result-count{font-size:.8rem;padding:.2rem .7rem}
+
 }
 @media(orientation:landscape) and (max-height:540px){
   .photo-setup-intro{margin:0 0 8px}
@@ -187,7 +182,7 @@ body:has(#view-photo-summary:not(.hidden)) #bgmBtn{display:none!important}
     height:clamp(125px,32dvh,190px)}
   .photo-summary-number{grid-column:1;font-size:5rem}
   .photo-summary-buttons{grid-column:2;grid-row:2/7;max-width:250px}
-  #view-result .photo-result-count{padding:.2rem .65rem}
+
 }
 @media(prefers-reduced-motion:reduce){
   .photo-orb-start,.photo-next-btn,.photo-genre-card{transition:none!important}
