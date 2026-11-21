@@ -334,3 +334,8 @@ body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
   #view-choice #choice-success-overlay *{animation:none!important}
   #view-choice #choice-success-overlay:not([hidden]){background:#124d3deb}
 }
+
+
+/* Owned selectors used in HTML; retain them in the static security safelist. */
+.handoff-announcement,.choice-success-overlay,.charades-correct-burst{pointer-events:none}
+.sound-toggle{padding:.4rem .65rem;background:#27254d;border:1px solid #575188;border-radius:12px}
