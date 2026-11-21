@@ -987,7 +987,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function showResultPhase() {
         if (state.phase !== 'feedback') return;
         document.getElementById('choice-success-overlay').hidden = true;
-        document.getElementById('photo-result-count').textContent = String(state.correctCount);
         document.getElementById('result-feedback').textContent =
             `正解！ 合計${state.correctCount}問 ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。`);
         document.getElementById('round-status').textContent =
