@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#151438">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
+  <title>Charades Party | Similar Photo Party</title>
+  <link rel="stylesheet" href="css/charades.css">
+  <script src="js/charades-data.js" defer></script>
+  <script src="js/charades-core.js" defer></script>
+  <script src="js/charades.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="back-link" href="index.html" id="backHome" aria-label="Similar Photo Party">
+      <span aria-hidden="true">←</span><span data-i18n="back">Photo Party</span>
+    </a>
+    <span class="brand">🎭 CHARADES <span>PARTY</span></span>
+    <label class="language-control"><span data-i18n="language">言語</span>
+      <select id="language" aria-label="Game language">
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="pt">Português</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="ko">한국어</option>
+        <option value="zh">中文</option>
+      </select>
+    </label>
+  </header>
+  <main class="app">
+    <section id="setup" class="panel setup-panel">
+      <div class="hero">
+        <span class="eyebrow">SIMILAR PHOTO PARTY PRESENTS</span>
+        <h1 data-i18n="hero">世界中の言葉でシャレード！</h1>
+        <p data-i18n="tagline">お題を見て、伝えて、当てよう！ペアでもチームでも楽しめます。</p>
+      </div>
+      <div class="setup-grid">
+        <div class="decks-panel">
+          <div class="heading-row">
+            <h2 data-i18n="choose">カテゴリーを選ぼう</h2>
+            <span class="count-label" id="deckCount"></span>
+          </div>
+          <div id="decks" class="decks" role="group" aria-label="Categories"></div>
+        </div>
+        <div class="options-panel">
+          <h2 data-i18n="settings">ゲーム設定</h2>
+          <div class="setting-block">
+            <label for="duration" data-i18n="roundLength">1ラウンドの時間</label>
+            <select id="duration">
+              <option value="30">30s</option><option value="60" selected>60s</option>
+              <option value="90">90s</option><option value="120">120s</option>
+            </select>
+          </div>
+          <fieldset class="setting-block">
+            <legend data-i18n="playStyle">遊び方</legend>
+            <label class="choice-line"><input type="radio" name="style" value="acting" checked><span data-i18n="acting">身ぶりで伝える（クラシック）</span></label>
+            <label class="choice-line"><input type="radio" name="style" value="forehead"><span data-i18n="forehead">額に当てて当てる（ヒントあり）</span></label>
+          </fieldset>
+          <fieldset class="setting-block">
+            <legend data-i18n="players">参加方法</legend>
+            <label class="choice-line"><input type="radio" name="players" value="pair" checked><span data-i18n="pair">ペア／みんなで協力</span></label>
+            <label class="choice-line"><input type="radio" name="players" value="teams"><span data-i18n="teams">2チーム対抗</span></label>
+          </fieldset>
+          <div id="teamNames" class="team-names" hidden>
+            <label><span data-i18n="teamA">チームA</span><input id="teamA" maxlength="24" value="TEAM A"></label>
+            <label><span data-i18n="teamB">チームB</span><input id="teamB" maxlength="24" value="TEAM B"></label>
+          </div>
+          <button id="start" class="primary-btn" type="button" data-i18n="start">▶ ゲームスタート</button>
+          <p class="micro-note" data-i18n="how">正解は右、パスは左をタップ。キーボードの ← / → にも対応。</p>
+        </div>
+      </div>
+    </section>
+    <section id="play" class="play-panel" hidden aria-label="Playing charades">
+      <div class="play-hud">
+        <div class="hud-item"><small data-i18n="time">残り時間</small><strong id="timeLeft" class="timer">60</strong></div>
+        <div class="hud-item middle-hud"><small id="activeTeam">TEAM</small><strong id="categoryName">CHARADES</strong></div>
+        <div class="hud-item"><small data-i18n="score">得点</small><strong id="score">0</strong></div>
+      </div>
+      <div class="timer-track"><div id="timeBar" class="timer-bar"></div></div>
+      <div class="prompt-board">
+        <div class="prompt-top"><span id="questionNo">#1</span><span id="playInstruction"></span></div>
+        <div id="prompt" class="prompt" role="status" aria-live="polite">READY?</div>
+        <p id="hint" class="prompt-hint"></p>
+      </div>
+      <div class="answer-controls">
+        <button id="pass" class="answer-btn pass-btn" type="button"><span aria-hidden="true">↶</span><span data-i18n="pass">PASS</span><small>←</small></button>
+        <button id="correct" class="answer-btn correct-btn" type="button"><span aria-hidden="true">✓</span><span data-i18n="correct">CORRECT!</span><small>→</small></button>
+      </div>
+      <div class="play-footer">
+        <span id="streak" aria-live="polite"></span>
+        <button id="tiltEnable" class="tilt-btn" type="button" hidden data-i18n="tilt">端末を傾けて操作する</button>
+        <button id="endRound" class="ghost-btn" type="button" data-i18n="finish">ラウンド終了</button>
+      </div>
+      <p id="tiltFeedback" class="micro-note" role="status"></p>
+    </section>
+    <section id="result" class="result-panel panel" hidden>
+      <div class="result-emoji" aria-hidden="true">🏆</div>
+      <h1 data-i18n="roundComplete">ラウンド終了！</h1>
+      <p id="resultTeam"></p>
+      <strong class="big-score" id="roundScore">0</strong>
+      <p id="roundStats"></p>
+      <div id="leaderboard" class="leaderboard"></div>
+      <div class="result-buttons">
+        <button id="nextRound" class="primary-btn" type="button" data-i18n="next">次のラウンドへ</button>
+        <button id="newGame" class="secondary-btn" type="button" data-i18n="newGame">設定に戻る</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
