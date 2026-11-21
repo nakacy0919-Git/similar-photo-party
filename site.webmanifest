@@ -1,0 +1,24 @@
+{
+  "name": "Similar Photo Party — Photo & Charades",
+  "short_name": "Photo Party",
+  "description": "Photo guessing and multilingual charades for phones and tablets.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#201b48",
+  "theme_color": "#201b48",
+  "orientation": "any",
+  "lang": "en",
+  "shortcuts": [
+    {
+      "name": "Play Charades",
+      "short_name": "Charades",
+      "url": "./charades.html"
+    },
+    {
+      "name": "Play Similar Photo",
+      "short_name": "Similar Photo",
+      "url": "./index.html"
+    }
+  ]
+}
