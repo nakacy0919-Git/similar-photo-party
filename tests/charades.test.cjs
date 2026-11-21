@@ -5,13 +5,13 @@ const path = require('node:path');
 const catalog = require('../js/charades-data.js');
 const core = require('../js/charades-core.js');
 
-test('64 decks contain 12,800 distinct scene and combination prompts in eight complete languages', () => {
+test('64 decks contain 768 curated single-concept prompts in eight complete languages', () => {
   assert.equal(catalog.languages.length, 8);
   assert.equal(catalog.decks.length, 64);
-  assert.equal(catalog.decks.reduce((sum, deck) => sum + deck.words.length, 0), 12800);
+  assert.equal(catalog.decks.reduce((sum, deck) => sum + deck.words.length, 0), 768);
   assert.equal(core.validateCatalog(catalog), true);
   for (const deck of catalog.decks) {
-    assert.equal(deck.words.length, 200, deck.id);
+    assert.equal(deck.words.length, 12, deck.id);
     for (const [lang] of catalog.languages) {
       const normalized = deck.words.map(item => item[lang].trim().toLocaleLowerCase());
       assert.equal(new Set(normalized).size, normalized.length, deck.id + ' duplicate in ' + lang);
@@ -26,9 +26,9 @@ test('64 decks contain 12,800 distinct scene and combination prompts in eight co
 
 test('category filters return only the requested deck and the selected language', () => {
   for (const [lang] of catalog.languages) {
-    assert.equal(core.availableWords(catalog, 'animals', lang).length, 200);
+    assert.equal(core.availableWords(catalog, 'animals', lang).length, 12);
     assert.ok(core.availableWords(catalog, 'animals', lang).every(item => item.deckId === 'animals'));
-    assert.ok(core.availableWords(catalog, 'all', lang).length >= 11000);
+    assert.ok(core.availableWords(catalog, 'all', lang).length >= 650);
   }
   assert.equal(core.availableWords(catalog, 'not-a-deck', 'en').length, 0);
   assert.equal(core.availableWords(catalog, 'animals', 'missing').length, 0);
