@@ -339,9 +339,9 @@ Someone is leaving %s in a hurry|急いで%sを立ち去る|Alguien sale de %s c
 `);
 
 family('vehicles', `
-Someone is learning to use %s|%sの乗り方を練習する|Alguien aprende a usar %s|Alguém aprende a usar %s|Quelqu'un apprend à utiliser %s|Jemand lernt mit %s zu fahren|%s 타는 법 배우기|学习乘坐%s
+Someone is learning to travel by %s|%sで移動する方法を学ぶ|Alguien aprende a viajar en %s|Alguém aprende a viajar de %s|Quelqu'un apprend à voyager en %s|Jemand lernt mit %s zu reisen|%s 이용해 이동하는 법 배우기|学习乘坐%s出行
 Someone is waiting for %s|%sが来るのを待つ|Alguien espera %s|Alguém espera %s|Quelqu'un attend %s|Jemand wartet auf %s|%s 기다리기|等待%s
-Someone is watching %s arrive|%sが到着するのを見る|Alguien observa llegar %s|Alguém observa %s chegar|Quelqu'un regarde arriver %s|Jemand beobachtet die Ankunft von %s|%s 도착하는 모습 보기|看着%s抵达
+Someone is watching the %s arrive|%sが到着するのを見る|Alguien observa llegar %s|Alguém observa %s chegar|Quelqu'un regarde arriver %s|Jemand beobachtet die Ankunft von %s|%s 도착하는 모습 보기|看着%s抵达
 Someone is fixing a problem with %s|%sの故障を直そうとする|Alguien arregla un problema con %s|Alguém conserta um problema em %s|Quelqu'un répare un problème de %s|Jemand repariert einen Defekt an %s|%s 고장 고치기|修理出了故障的%s
 Someone is taking a photo of %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
 Someone is planning a journey with %s|%sで行く旅行を計画する|Alguien planea viajar en %s|Alguém planeja viajar de %s|Quelqu'un prévoit de voyager en %s|Jemand plant eine Reise mit %s|%s 여행 계획하기|计划乘坐%s旅行
@@ -422,7 +422,7 @@ Silently %s|声を出さずに%s|%s en silencio|%s em silêncio|%s en silence|Le
 Confidently %s|自信満々に%s|%s con confianza|%s com confiança|%s avec confiance|Selbstbewusst %s|자신 있게 %s|自信满满地%s
 Nervously %s|緊張しながら%s|%s nerviosamente|%s nervosamente|%s nerveusement|Nervös %s|긴장하면서 %s|紧张地%s
 Dramatically %s|大げさに%s|%s de forma dramática|%s de forma dramática|%s de façon théâtrale|Dramatisch %s|과장되게 %s|夸张地%s
-%s in slow motion|%sをスローモーションでやってみる|%s a cámara lenta|%s em câmera lenta|%s au ralenti|%s in Zeitlupe|%s 슬로모션으로 하기|用慢动作%s
+%s in front of a mirror|鏡を見ながら%s|%s frente a un espejo|%s diante de um espelho|%s devant un miroir|%s vor einem Spiegel|거울 앞에서 %s|对着镜子%s
 %s with a friend|友達と一緒に%s|%s con un amigo|%s com um amigo|%s avec un ami|%s mit einem Freund|친구와 함께 %s|和朋友一起%s
 %s while everyone watches|みんなに見られながら%s|%s mientras todos miran|%s enquanto todos olham|%s sous les regards de tous|%s während alle zusehen|모두가 지켜보는 가운데 %s|在大家注视下%s
 %s while trying not to laugh|笑いをこらえながら%s|%s intentando no reír|%s tentando não rir|%s en essayant de ne pas rire|%s ohne zu lachen|웃음을 참으면서 %s|一边憋笑一边%s
