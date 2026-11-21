@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             photoReadyStart: document.getElementById('photo-ready-start'),
             photoReadyBack: document.getElementById('photo-ready-back'),
             photoEnd: document.getElementById('photo-end'),
+            photoBack: document.getElementById('photo-back'),
             photoPause: document.getElementById('photo-pause'),
             photoResume: document.getElementById('photo-resume'),
             photoPauseEnd: document.getElementById('photo-pause-end'),
@@ -268,6 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.photoReadyStart.addEventListener('click', startMemoryPhase);
     elements.btns.photoReadyBack.addEventListener('click', openPhotoSetup);
     elements.btns.photoEnd.addEventListener('click', finishPhotoGame);
+    elements.btns.photoBack.addEventListener('click', returnPhotoToSetup);
     elements.btns.photoPause.addEventListener('click', () => setPhotoPaused(!state.paused));
     elements.btns.photoResume.addEventListener('click', () => setPhotoPaused(false));
     elements.btns.photoPauseEnd.addEventListener('click', finishPhotoGame);
@@ -775,6 +777,24 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('photo-pause-overlay').hidden = !state.paused;
         elements.btns.photoPause.textContent = state.paused ? '▶ 再開' : '⏸ 一時停止';
         elements.btns.photoPause.setAttribute('aria-pressed', String(state.paused));
+    }
+
+    function returnPhotoToSetup() {
+        if (!['photoReady','memory','choice','feedback','result'].includes(state.phase)) return;
+        clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        state.generation++;
+        state.activeCountdown = null;
+        state.paused = false;
+        stopSpeech();
+        document.getElementById('photo-pause-overlay').hidden = true;
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        if (document.fullscreenElement && document.exitFullscreen) {
+            Promise.resolve(document.exitFullscreen()).catch(() => {});
+        }
+        openPhotoSetup();
     }
 
     function finishPhotoGame() {
