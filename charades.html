@@ -63,6 +63,7 @@
               <option value="90">90s</option><option value="120">120s</option>
             </select>
           </div>
+          <label class="choice-line sound-toggle"><input type="checkbox" id="soundEnabled" checked><span data-i18n="soundEffects">Correct-answer sound</span></label>
           <fieldset class="setting-block">
             <legend data-i18n="playStyle">遊び方</legend>
             <label class="choice-line"><input type="radio" name="style" value="acting" checked><span data-i18n="acting">身ぶりで伝える（クラシック）</span></label>
@@ -106,7 +107,7 @@
         <div id="correctBurst" class="charades-correct-burst" aria-live="polite" aria-atomic="true" hidden>
           <span class="burst-ring" aria-hidden="true"></span>
           <span class="burst-check" aria-hidden="true">✓</span>
-          <strong id="burstLabel">CORRECT!</strong>
+          <strong id="burstLabel" data-i18n="correct">CORRECT!</strong>
         </div>
         <div id="pauseShield" class="pause-shield" hidden role="status" data-i18n="pausedMessage">一時停止中 · 再開してお題を見る</div>
       </div>
