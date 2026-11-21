@@ -312,3 +312,148 @@ main > section { min-height: 0; min-width: 0; }
     #feedback-progress { font-size: .8rem; }
     #view-result #next-btn { position: sticky; bottom: .15rem; z-index: 5; }
 }
+
+/* Charades is a separate game mode; the existing photo game keeps its layout. */
+.charades-entry {
+    display: flex; align-items: center; gap: 1rem;
+    width: min(100%, 490px); min-height: 88px; padding: .95rem 1.25rem;
+    border-radius: 1.5rem; color: white; text-decoration: none;
+    background: linear-gradient(110deg,#6d46c8,#4331a5);
+    border: 3px solid #cab9ff;
+    box-shadow: 0 12px 30px rgba(76,45,157,.32);
+    transition: transform .18s, box-shadow .18s;
+}
+.charades-entry:hover { transform: translateY(-3px); box-shadow: 0 16px 38px rgba(76,45,157,.42); }
+.charades-entry:focus-visible { outline: 3px solid #f7c44f; outline-offset: 3px; }
+.charades-entry-icon { font-size: 2.2rem; }
+.charades-entry strong { display: block; font-size: clamp(1.15rem,3vw,1.6rem); font-weight: 900; }
+.charades-entry small { display: block; font-size: .72rem; color: #ece6ff; margin-top: .2rem; }
+.charades-entry-arrow { font-size: 1.5rem; font-weight: 900; margin-left: auto; }
+@media (max-width: 520px) { .charades-entry { min-height: 73px; padding: .65rem .9rem; } }
+
+
+/* Phone and tablet polish for the existing Photo Guess flow. */
+html { -webkit-text-size-adjust: 100%; }
+body { overscroll-behavior: none; }
+button, select, input, a { touch-action: manipulation; }
+#reviewLink {
+  top: max(.75rem,env(safe-area-inset-top));
+  left: max(.7rem,env(safe-area-inset-left));
+  min-height: 44px;
+}
+body > div.fixed.top-4.right-4 {
+  top: max(.75rem,env(safe-area-inset-top));
+  right: max(.7rem,env(safe-area-inset-right));
+}
+body > div.fixed.top-4.right-4 button { min-height: 44px; min-width: 44px; }
+.round-status {
+  top: calc(max(.75rem,env(safe-area-inset-top)) + 2.9rem);
+  padding-inline: max(.65rem,env(safe-area-inset-left));
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+#view-landing { overscroll-behavior: contain; }
+#view-landing > div:first-child { gap: clamp(1rem,3dvh,2rem); }
+#view-landing #start-btn { min-height: 60px; max-width: calc(100vw - 2rem); white-space: normal; }
+#view-landing #tutorial-btn { min-height: 48px; }
+#view-landing .charades-entry { flex-shrink: 0; max-width: calc(100vw - 2rem); }
+#choice-grid > button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+#choice-grid > button:focus-visible { outline: 4px solid #4338ca; outline-offset: -4px; }
+#choice-grid > button:disabled:not(.opacity-40) { opacity: 1; }
+#choice-grid > button.opacity-40 { opacity: .4; }
+#choice-grid > button img {
+  width: 100%; height: 100%; object-fit: contain; display: block;
+}
+.choice-index {
+  position: absolute; top: .45rem; left: .45rem; z-index: 2;
+  display: inline-flex; justify-content: center; align-items: center;
+  width: clamp(1.65rem,4vw,2.2rem); height: clamp(1.65rem,4vw,2.2rem);
+  border-radius: 50%; color: white; background: #3730a3;
+  font-size: clamp(.95rem,2vw,1.2rem); font-weight: 900;
+  box-shadow: 0 2px 8px #100f3860; pointer-events: none;
+}
+#view-memory,#view-explain,#view-choice,#view-result { overscroll-behavior: contain; }
+#view-memory #memory-skip-btn,#view-explain #explain-skip-btn,#view-result #next-btn {
+  min-height: 52px;
+  -webkit-tap-highlight-color: transparent;
+}
+#view-settings {
+  padding: max(.5rem,env(safe-area-inset-top)) max(.5rem,env(safe-area-inset-right))
+    max(.5rem,env(safe-area-inset-bottom)) max(.5rem,env(safe-area-inset-left));
+}
+#view-settings > div {
+  max-height: calc(100dvh - max(1rem,env(safe-area-inset-top)) - max(1rem,env(safe-area-inset-bottom)));
+  overscroll-behavior: contain;
+}
+#view-settings button { min-height: 44px; }
+#view-settings input[type="range"] { min-height: 40px; }
+#view-result #speak-btn { min-height: 48px; }
+#view-result .peer-feedback-items label { min-height: 42px; }
+#view-result .peer-feedback-items input { min-width: 1.25rem; min-height: 1.25rem; }
+@media (max-width:767px) {
+  .round-status { top: calc(max(.75rem,env(safe-area-inset-top)) + 2.85rem); }
+  main.landscape-fit { padding-inline: max(.45rem,env(safe-area-inset-left)) max(.45rem,env(safe-area-inset-right)); }
+  #view-landing { padding-top: calc(max(3.8rem,env(safe-area-inset-top) + 3.25rem)); }
+  #view-landing > div:first-child { gap: clamp(.7rem,2.2dvh,1.3rem); padding-block: .5rem; }
+  #view-landing h1 { font-size: clamp(1.9rem,7.8vw,3rem); line-height: 1.13; }
+  #view-landing #start-btn { width: min(100%,460px); padding: .9rem 1.2rem; font-size: clamp(1.13rem,4.8vw,1.65rem); border-radius: 1.25rem; }
+  #view-landing .charades-entry { width: min(100%,460px); min-height: 74px; }
+  #view-landing #tutorial-btn { padding: .6rem 1.25rem; font-size: 1rem; }
+  main > section:not(#view-landing):not(#view-settings) {
+    padding-top: calc(max(5.7rem,env(safe-area-inset-top) + 5rem));
+    padding-bottom: max(.75rem,env(safe-area-inset-bottom));
+  }
+  #view-memory > div:nth-of-type(2) { max-height: 45dvh; }
+  #view-memory #memory-skip-btn,#view-explain #explain-skip-btn {
+    position: sticky; bottom: 0; z-index: 12;
+    width: min(100%,430px); border-radius: 1rem;
+    box-shadow: 0 5px 20px #1e1b4b33;
+  }
+  #view-explain > div:nth-of-type(2) {
+    width: clamp(110px,30dvh,190px); height: clamp(110px,30dvh,190px);
+    min-width: 110px; min-height: 110px;
+  }
+  #view-choice { gap: .4rem; }
+  #view-choice > div:nth-of-type(1) { margin-bottom: 0; }
+  #view-choice h2 { font-size: clamp(1.12rem,4.5vw,1.5rem); }
+  #choice-grid { width:100%; gap: clamp(.35rem,1.5vw,.65rem); }
+  #choice-grid > button { aspect-ratio: 4 / 3; min-height: 94px; border-width: 2px; border-radius: .85rem; }
+  .choice-index { top: .28rem; left: .28rem; }
+  #view-result > div:nth-of-type(2) { overflow: visible; }
+  #view-result .peer-feedback-items label { padding: .4rem .6rem; }
+  #view-result #next-btn { bottom: max(.2rem,env(safe-area-inset-bottom)); }
+  #view-settings > div { margin: 0; max-width:100%; }
+}
+@media (min-width:768px) and (max-width:1199px) {
+  #view-landing > div:first-child { gap: 1.3rem; }
+  #view-landing h1 { font-size: clamp(3rem,6.2vw,5rem); }
+  #view-landing #start-btn { padding: 1.15rem 2.6rem; font-size: 1.85rem; }
+  #view-memory #memory-img { max-height: 52dvh; }
+  #view-memory #memory-skip-btn { margin-bottom: 1.25rem; }
+  #view-explain > div:nth-of-type(2) { width: min(27dvh,275px); height:min(27dvh,275px); }
+  #view-explain { gap: clamp(.75rem,2dvh,1.75rem); }
+  #view-choice { padding-top: 4.5rem; }
+  #choice-grid { gap:.75rem; }
+  #choice-grid > button { min-height: 0; }
+  #view-result { padding-top: 5.3rem; gap: .45rem; }
+  #view-result .result-badge { font-size: 1.45rem; }
+  #view-result #next-btn { padding-block: .65rem; font-size: 1.4rem; margin-top: 0; }
+}
+@media (orientation:landscape) and (max-height:550px) {
+  .round-status { top: calc(max(.4rem,env(safe-area-inset-top)) + 2.5rem); }
+  main > section:not(#view-landing):not(#view-settings) {
+    padding-top: calc(max(4.2rem,env(safe-area-inset-top) + 3.6rem));
+    gap: .35rem;
+  }
+  #view-memory > div:nth-of-type(2) { min-height: 95px; max-height: 42dvh; }
+  #view-memory #memory-skip-btn,#view-explain #explain-skip-btn { min-height: 44px; padding-block: .45rem; }
+  #view-explain > div:nth-of-type(2) { width: clamp(90px,23dvh,150px); height: clamp(90px,23dvh,150px); min-width: 90px; min-height: 90px; }
+  #choice-grid { gap: .3rem; }
+  #choice-grid > button { aspect-ratio: 16/9; min-height: 80px; }
+  #view-result #result-layout-img { height: min(28dvh,140px); min-height: 90px; }
+}

@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: "22"
       - name: Check JavaScript syntax
-        run: node --check js/game.js
+        run: |
+          node --check js/game.js
+          node --check js/charades-data.js
+          node --check js/charades-core.js
+          node --check js/charades.js
       - name: Verify content and gameplay
         run: node --test tests/*.test.cjs
