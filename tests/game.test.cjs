@@ -237,3 +237,65 @@ test('app disallows unsafe image paths and does not interpolate remote text into
  assert.match(app,/textLabel\.textContent\s*=\s*label/);
  assert.match(html,/id="translation-toggle-btn"/);
 });
+
+test('photo mode plays a handoff chime and switches straight from visible photo to choices', async () => {
+ let plays=0;
+ class FakeAudioContext {
+   constructor(){this.state='running';this.currentTime=1;this.destination={};}
+   createOscillator(){return{frequency:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},start(){plays++},stop(){}};}
+   createGain(){return{gain:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){}};}
+ }
+ const h=harness(data,{window:{AudioContext:FakeAudioContext}});
+ await h.flush();
+ assert.equal(h.api.setMemoryTime(20),true);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'memory');
+ const tick=h.timers.get(h.api.state.timerInterval);
+ h.advance(20000);tick();
+ assert.equal(h.api.state.phase,'choice');
+ assert.equal(plays,1,'a short sound marks the handoff');
+ assert.equal(h.nodes.get('handoff-announcement').hidden,false);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
+
+test('photo mode correct-answer feedback is visual, audible and shows correct count rather than pts',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ const correct=h.api.state.correctItem;
+ h.api.checkAnswer(correct,{disabled:false,classList:{add(){}}});
+ assert.equal(h.nodes.get('choice-success-overlay').hidden,false);
+ assert.equal(h.api.state.correctCount,1);
+ h.api.showResultPhase();
+ assert.equal(h.nodes.get('choice-success-overlay').hidden,true);
+ assert.match(h.nodes.get('result-feedback').textContent,/合計1問/);
+ assert.doesNotMatch(h.nodes.get('result-feedback').textContent,/pts|points/i);
+ await h.api.startMemoryPhase();h.api.startChoicePhase();
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showResultPhase();
+ assert.equal(h.api.state.correctCount,2);
+ assert.match(h.nodes.get('result-feedback').textContent,/合計2問/);
+ h.api.backToLanding();
+});
+
+test('photo handoff supports optional vibration-only setting without Web Audio',async()=>{
+ let vibrations=0;
+ const h=harness(data,{window:{navigator:{vibrate(pattern){assert.ok(pattern.length>0);vibrations++;return true;}}}});
+ await h.flush();
+ h.api.state.handoffAlert='vibrate';
+ await h.api.startMemoryPhase();h.api.startChoicePhase();
+ assert.equal(h.api.state.phase,'choice');
+ assert.equal(vibrations,1);
+ h.api.backToLanding();
+});
+
+test('photo settings simplify to one 20/30/40/50 second round timer and hide landing during play',()=>{
+ const html=fs.readFileSync('index.html','utf8');
+ const js=fs.readFileSync('js/game.js','utf8');
+ const css=fs.readFileSync('css/landing.css','utf8');
+ for (const seconds of [20,30,40,50]) assert.match(html,new RegExp('data-time="'+seconds+'"'));
+ assert.doesNotMatch(html,/data-memory-time=/);
+ assert.match(html,/id="handoffAlert"/);
+ assert.match(js,/runTimer\(state\.memoryTime, elements\.timers\.memory, startChoicePhase\)/);
+ assert.doesNotMatch(js,/runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
+ assert.match(css,/#view-landing\.landing-screen\.hidden\s*\{\s*display:none!important/);
+});
