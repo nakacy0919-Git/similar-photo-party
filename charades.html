@@ -1,13 +1,19 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Photo Party">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#151438">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
   <title>Charades Party | Similar Photo Party</title>
   <link rel="stylesheet" href="css/charades.css">
+  <link rel="stylesheet" href="css/immersive.css">
   <script src="js/charades-data.js" defer></script>
   <script src="js/charades-core.js" defer></script>
   <script src="js/charades.js" defer></script>
@@ -20,8 +26,8 @@
     <span class="brand">🎭 CHARADES <span>PARTY</span></span>
     <label class="language-control"><span data-i18n="language">言語</span>
       <select id="language" aria-label="Game language">
+        <option value="en" selected>English</option>
         <option value="ja">日本語</option>
-        <option value="en">English</option>
         <option value="es">Español</option>
         <option value="pt">Português</option>
         <option value="fr">Français</option>
@@ -91,9 +97,10 @@
         <div class="hud-item"><small data-i18n="score">得点</small><strong id="score">0</strong></div>
       </div>
       <div class="timer-track"><div id="timeBar" class="timer-bar"></div></div>
+      <button id="playLanguage" type="button" aria-label="Switch prompt language to Japanese">日本語</button>
       <div id="promptBoard" class="prompt-board">
         <div class="prompt-top"><span id="questionNo">#1</span><span id="playInstruction"></span></div>
-        <div id="prompt" class="prompt" role="status" aria-live="polite">READY?</div>
+        <div id="prompt" class="prompt" lang="en" role="status" aria-live="polite">READY?</div>
         <p id="hint" class="prompt-hint"></p>
         <div id="pauseShield" class="pause-shield" hidden role="status" data-i18n="pausedMessage">一時停止中 · 再開してお題を見る</div>
       </div>

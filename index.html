@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#f4f0ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Photo Party">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#11132c">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; upgrade-insecure-requests">
     <title>Similar Photo Party | Photo & Charades</title>
@@ -11,6 +16,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="js/vendor/confetti.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/immersive.css">
+    <link rel="stylesheet" href="css/landing.css">
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
 
@@ -30,42 +37,100 @@
     <p id="round-status" role="status" class="round-status"></p>
     <main class="flex-1 w-full h-full relative flex flex-col items-center justify-center p-2 md:p-4 landscape-fit">
 
-        <section id="view-landing" class="w-full h-full overflow-y-auto flex flex-col items-center justify-center relative no-scrollbar">
-            
-            <div class="flex-1 flex flex-col items-center justify-center gap-8 w-full max-w-4xl py-10">
-                
-                <div class="text-center relative shrink-0">
-                    <h1 class="sparkling-title text-5xl md:text-7xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 filter drop-shadow-md">
-                        Similar Photo Party
-                    </h1>
-                    <p class="text-slate-500 font-bold tracking-[0.2em] uppercase text-sm md:text-base">Photo Guessing &amp; Charades Game</p>
+        <section id="view-landing" class="landing-screen" aria-labelledby="landing-title">
+            <div class="landing-cosmos" aria-hidden="true">
+                <span class="cosmos-orb orb-violet"></span>
+                <span class="cosmos-orb orb-cyan"></span>
+                <span class="cosmos-orb orb-rose"></span>
+                <span class="cosmos-wave wave-one"></span>
+                <span class="cosmos-wave wave-two"></span>
+                <span class="shooting-star star-one"></span>
+                <span class="shooting-star star-two"></span>
+                <span class="shooting-star star-three"></span>
+                <span class="shooting-star star-four"></span>
+                <span class="shooting-star star-five"></span>
+                <span class="shooting-star star-six"></span>
+                <span class="shooting-star star-seven"></span>
+                <span class="cosmos-spark spark-one"></span>
+                <span class="cosmos-spark spark-two"></span>
+                <span class="cosmos-spark spark-three"></span>
+            </div>
+            <div class="landing-shell">
+                <header class="landing-brandbar">
+                    <div class="landing-brandmark" aria-hidden="true">
+                        <span class="brandmark-a"></span><span class="brandmark-b"></span>
+                        <span class="brandmark-star">✦</span>
+                    </div>
+                    <div class="landing-brandwords">
+                        <strong>SIMILAR PHOTO <span>PARTY</span></strong>
+                        <small>PLAY · GUESS · CONNECT</small>
+                    </div>
+                </header>
+
+                <div class="landing-intro">
+                    <div class="landing-eyebrow"><span class="eyebrow-line"></span> ONE APP. TWO WAYS TO PLAY. <span class="eyebrow-line"></span></div>
+                    <h1 id="landing-title">Play together.<br><span>Think differently.</span></h1>
+                    <p class="landing-lead">写真で伝える？ ジェスチャーで当てる？<br class="lead-mobile-break"> 好きなゲームを選んでスタート。</p>
                 </div>
 
-                <div class="flex flex-col items-center gap-6 shrink-0">
-                    <p id="load-status" role="status" class="text-center text-slate-600">教材を読み込み中…</p>
-                    <button disabled id="start-btn" class="heartbeat-btn relative group bg-gradient-to-r from-pink-500 to-rose-500 text-white text-3xl md:text-4xl font-black py-6 px-16 rounded-full shadow-2xl hover:shadow-pink-500/50 transition-all transform hover:-translate-y-1">
-                        <span class="relative z-10 flex items-center gap-3">
-                            <i class="fa-solid fa-images"></i> PLAY SIMILAR PHOTO
+                <div class="landing-mode-label" aria-hidden="true"><span>CHOOSE YOUR GAME</span><span class="mode-label-line"></span><span class="mode-label-aside">SELECT A MODE</span></div>
+                <div class="landing-mode-grid">
+                    <button disabled id="start-btn" type="button" class="landing-mode-card photo-mode" aria-label="Play Similar Photo. Look at a photo, describe it and choose the correct image from four choices.">
+                        <span class="mode-card-glow" aria-hidden="true"></span>
+                        <span class="mode-art photo-art" aria-hidden="true">
+                            <span class="photo-art-grid">
+                                <img loading="lazy" decoding="async" src="assets/images/ball_1.webp" alt="">
+                                <img loading="lazy" decoding="async" src="assets/images/ball_2.webp" alt="">
+                                <img loading="lazy" decoding="async" src="assets/images/ball_3.webp" alt="">
+                                <img loading="lazy" decoding="async" src="assets/images/ball_4.webp" alt="">
+                            </span>
+                            <span class="photo-art-target"><i class="fa-solid fa-crosshairs"></i></span>
                         </span>
-                        <div class="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        <span class="mode-card-copy">
+                            <span class="mode-card-kicker"><span class="mode-card-dot"></span> MODE 01 <span class="mode-card-divider">/</span> PHOTO GUESSING</span>
+                            <strong class="mode-card-title">SIMILAR<br>PHOTO</strong>
+                            <span class="mode-card-description">写真を見て、伝えて、4枚から当てる。</span>
+                            <span class="mode-card-bottom"><span class="mode-card-action">PLAY THIS GAME <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">PAIR / GROUP</span></span>
+                        </span>
                     </button>
 
-                    <a class="charades-entry" href="charades.html" aria-label="Play Charades Party in eight languages"><span class="charades-entry-icon" aria-hidden="true">🎭</span><span><strong>PLAY CHARADES</strong><small>64 categories · 768 prompts · 8 languages</small></span><span class="charades-entry-arrow" aria-hidden="true">→</span></a>
-\n                     <button id="tutorial-btn" class="bg-white text-indigo-500 border-2 border-indigo-100 text-xl font-bold py-3 px-10 rounded-full shadow-lg hover:bg-indigo-50 transition transform hover:scale-105 flex items-center gap-2">
-                        <i class="fa-solid fa-book-open"></i> HOW TO PLAY
-                    </button>
+                    <a class="landing-mode-card charades-mode" href="charades.html" aria-label="Play Charades. Act out prompts or give clues and guess together.">
+                        <span class="mode-card-glow" aria-hidden="true"></span>
+                        <span class="mode-art charades-art" aria-hidden="true">
+                            <span class="charades-art-ring ring-outer"></span>
+                            <span class="charades-art-ring ring-inner"></span>
+                            <span class="charades-art-symbol"><i class="fa-solid fa-masks-theater"></i></span>
+                            <span class="charades-art-tag tag-left">ACT</span>
+                            <span class="charades-art-tag tag-right">GUESS</span>
+                            <span class="charades-art-spark">✦</span>
+                        </span>
+                        <span class="mode-card-copy">
+                            <span class="mode-card-kicker"><span class="mode-card-dot"></span> MODE 02 <span class="mode-card-divider">/</span> ACT &amp; GUESS</span>
+                            <strong class="mode-card-title">CHARADES<br>PARTY</strong>
+                            <span class="mode-card-description">ジェスチャーで伝えて、みんなで当てる。</span>
+                            <span class="mode-card-bottom"><span class="mode-card-action">PLAY THIS GAME <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">8 LANGUAGES</span></span>
+                        </span>
+                    </a>
                 </div>
 
-                <div class="mt-auto md:mt-8 pb-2 flex flex-col items-center gap-2 relative z-[101]">
-                    <div class="flex gap-4 text-sm font-bold text-slate-500">
-                        <a href="privacy.html" class="hover:text-indigo-600 transition underline">Privacy Policy</a>
-                        <span>|</span>
-                        <a href="https://forms.gle/FezNSW6J2JRjBzeQ7" target="_blank" rel="noopener noreferrer" class="hover:text-indigo-600 transition underline">Contact</a>
-                    </div>
-                    <div class="text-[10px] md:text-xs text-slate-400 font-bold opacity-60 font-sans text-center">
-                        &copy; Similar Photo Party by <a href="https://sites.google.com/view/koheinakashima/bio" target="_blank" rel="noopener noreferrer" class="underline hover:text-indigo-500 cursor-pointer">Kohei Nakashima</a>. All Rights Reserved.
-                    </div>
+                <div class="landing-below-cards">
+                    <button id="tutorial-btn" type="button" class="landing-guide">
+                        <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+                        HOW TO PLAY <span class="guide-aside">/ Similar Photo</span>
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                    <span class="landing-library-note"><i class="fa-solid fa-globe" aria-hidden="true"></i> 64 categories · 768 prompts · 8 languages</span>
+                    <p id="load-status" role="status" class="landing-load-status">写真教材を読み込み中…</p>
                 </div>
+
+                <footer class="landing-footer">
+                    <span>© Similar Photo Party</span>
+                    <nav aria-label="Website information">
+                        <a href="privacy.html">Privacy Policy</a>
+                        <a href="https://forms.gle/FezNSW6J2JRjBzeQ7" target="_blank" rel="noopener noreferrer">Contact</a>
+                        <a href="https://sites.google.com/view/koheinakashima/bio" target="_blank" rel="noopener noreferrer">Creator</a>
+                    </nav>
+                </footer>
             </div>
         </section>
 

@@ -677,6 +677,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function startMemoryPhase() {
         if (!['landing', 'result'].includes(state.phase) || elements.btns.start.disabled) return;
+        // Try native fullscreen on browsers that support it; fixed-viewport CSS is the Safari fallback.
+        if (!document.fullscreenElement && document.documentElement?.requestFullscreen) {
+            try { Promise.resolve(document.documentElement.requestFullscreen()).catch(() => {}); } catch { /* unsupported or blocked */ }
+        }
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
         stopSpeech();
@@ -831,6 +835,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(state.resultTimeout);
         state.generation++;
         stopSpeech();
+        if (document.fullscreenElement && document.exitFullscreen) {
+            Promise.resolve(document.exitFullscreen()).catch(() => {});
+        }
         elements.text.audioStatus.textContent = '';
         showView('landing');
     }

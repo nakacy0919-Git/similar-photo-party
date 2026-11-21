@@ -83,7 +83,7 @@
     zh:{readyTitle:'准备好了吗？',readyMessage:'请做好准备。',readyActing:'只有表演者看题目，其他人不要看。',readyForehead:'猜题者不看屏幕，把设备放在额头。其他人提供提示。',begin:'▶ 开始本轮',readyNote:'点击开始后才开始计时。',pause:'⏸ 暂停',resume:'▶ 继续',pausedMessage:'已暂停 · 题目已隐藏'}
   };
   const state = {
-    language: 'ja', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair',
+    language: 'en', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair',
     duration: 60, teams: ['TEAM A','TEAM B'], scores: [0, 0], turn: 0, correct: 0, passed: 0,
     streak: 0, maxStreak: 0, shown: 0, current: null, remainingWords: [],
     remainingMs: 60000, lastTick: 0, interval: null, paused: false, wakeLock: null, tiltActive: false,
@@ -184,6 +184,10 @@
   }
   function beginRound() {
     if (state.stage !== 'ready') return;
+    // Fullscreen can only be requested directly from a user gesture where supported.
+    if (!document.fullscreenElement && document.documentElement?.requestFullscreen) {
+      try { Promise.resolve(document.documentElement.requestFullscreen()).catch(() => {}); } catch { /* iOS Safari may not support Fullscreen API */ }
+    }
     show('play');
     state.paused = false;
     $('pauseShield').hidden = true;
@@ -217,6 +221,8 @@
     state.paused = false;
     releaseWakeLock();
     state.remainingMs = state.duration * 1000;
+    $('playLanguage').textContent = state.language === 'ja' ? 'English' : '日本語';
+    $('playLanguage').setAttribute('aria-label', state.language === 'ja' ? 'Switch prompt language to English' : 'Switch prompt language to Japanese');
     state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language));
     if (!state.remainingWords.length) {
       window.alert(t('noContent'));
@@ -245,9 +251,42 @@
     state.current = state.remainingWords.pop();
     state.shown++;
     $('questionNo').textContent = '#' + state.shown;
-    $('prompt').textContent = state.current.text;
+    renderPrompt();
     $('score').textContent = state.correct;
     $('streak').textContent = state.streak > 1 ? '🔥 ' + state.streak + ' ' + t('streak') : '';
+  }
+  function renderPrompt() {
+    if (!state.current) return;
+    const prompt = $('prompt');
+    const length = Array.from(state.current.text).length;
+    prompt.textContent = state.current.text;
+    prompt.lang = state.language;
+    prompt.classList.remove('long-prompt', 'very-long-prompt');
+    if (length > 32) prompt.classList.add('very-long-prompt');
+    else if (length > 18) prompt.classList.add('long-prompt');
+  }
+  function translatePrompt(item, from, to) {
+    if (!item) return item;
+    const deck = DATA.decks.find(deck => deck.id === item.deckId);
+    const match = deck?.words.find(word => word[from] === item.text);
+    return match ? { text: match[to], deckId: item.deckId } : item;
+  }
+  function switchPlayLanguage() {
+    if (state.stage !== 'play') return;
+    const oldLanguage = state.language;
+    const newLanguage = oldLanguage === 'ja' ? 'en' : 'ja';
+    state.current = translatePrompt(state.current, oldLanguage, newLanguage);
+    state.remainingWords = state.remainingWords.map(word => translatePrompt(word, oldLanguage, newLanguage));
+    state.language = newLanguage;
+    $('language').value = newLanguage;
+    localize();
+    $('categoryName').textContent = state.deck === 'all' ? t('all') : categoryLabel(DATA.decks.find(deck => deck.id === state.deck));
+    $('playInstruction').textContent = state.playStyle === 'acting' ? t('actingHint') : t('foreheadHint');
+    $('hint').textContent = t('tapHint');
+    $('pauseResume').textContent = t(state.paused ? 'resume' : 'pause');
+    $('playLanguage').textContent = newLanguage === 'ja' ? 'English' : '日本語';
+    $('playLanguage').setAttribute('aria-label', newLanguage === 'ja' ? 'Switch prompt language to English' : 'Switch prompt language to Japanese');
+    renderPrompt();
   }
   function answer(isCorrect) {
     if (state.stage !== 'play' || !state.current || state.paused) return;
@@ -358,11 +397,18 @@
   $('mobileStart').addEventListener('click', newSession);
   $('beginRound').addEventListener('click', beginRound);
   $('pauseResume').addEventListener('click', () => setPaused(!state.paused));
+  $('playLanguage').addEventListener('click', switchPlayLanguage);
   $('correct').addEventListener('click', () => answer(true));
   $('pass').addEventListener('click', () => answer(false));
   $('endRound').addEventListener('click', finishRound);
   $('nextRound').addEventListener('click', nextRound);
-  $('newGame').addEventListener('click', () => { stopTimer(); releaseWakeLock(); state.tiltActive = false; show('setup'); });
+  $('newGame').addEventListener('click', () => {
+    stopTimer(); releaseWakeLock(); state.tiltActive = false;
+    if (document.fullscreenElement && document.exitFullscreen) {
+      Promise.resolve(document.exitFullscreen()).catch(() => {});
+    }
+    show('setup');
+  });
   $('tiltEnable').addEventListener('click', enableTilt);
   window.addEventListener('deviceorientation', handleOrientation);
   document.addEventListener('keydown', event => {
