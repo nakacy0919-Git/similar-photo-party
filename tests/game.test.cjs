@@ -368,3 +368,20 @@ test('photo categories cover every existing group while supporting future groups
  const mapped=new Set(genres.flatMap(item=>item.groups));
  for(const group of groups) assert.ok(mapped.has(group),group);
 });
+
+test('Photo Back cancels running timers and returns directly to category setup',async()=>{
+ const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ await h.api.startMemoryPhase();
+ const oldTick=h.timers.get(h.api.state.timerInterval);
+ assert.ok(oldTick);
+ h.nodes.get('photo-back').click();
+ assert.equal(h.api.state.phase,'photoSetup');
+ assert.equal(h.timers.size,0);
+ oldTick();
+ assert.equal(h.api.state.phase,'photoSetup');
+ assert.equal(h.nodes.get('photo-pause-overlay').hidden,true);
+ h.api.preparePhotoReady();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ h.nodes.get('photo-back').click();
+ assert.equal(h.api.state.phase,'photoSetup');
+ assert.equal(h.timers.size,0);
+});
