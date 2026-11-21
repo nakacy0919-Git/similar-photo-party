@@ -953,6 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playEffect(elements.audio.correct);
             document.getElementById('handoff-announcement').hidden = true;
             document.getElementById('choice-success-overlay').hidden = false;
+            elements.btns.photoPause.hidden = true;
             
             btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
             triggerConfetti();
@@ -966,6 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showResultPhase() {
         if (state.phase !== 'feedback') return;
         document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('photo-result-count').textContent = String(state.correctCount);
         document.getElementById('result-feedback').textContent =
             `正解！ 合計${state.correctCount}問 ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。`);
         document.getElementById('round-status').textContent =
@@ -984,6 +986,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function backToLanding() {
         clearInterval(state.timerInterval);
+        state.paused = false;
+        document.getElementById('photo-pause-overlay').hidden = true;
         state.activeCountdown = null;
         clearTimeout(state.resultTimeout);
         clearTimeout(state.handoffTimer);
