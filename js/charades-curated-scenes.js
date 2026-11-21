@@ -43,6 +43,88 @@
       'superhero_actions','comedy_situations']
   });
 
+  // Editorially reviewed source associations. Import complete, independently
+  // authored cards from closely related categories BEFORE creating scene
+  // variants, so a deck does not repeat the same twelve nouns all the time.
+  // Relations must be semantic, not random keyword matches.
+  const RELATED = Object.freeze({
+    animals:['wildlife','birds','insects','sea'],
+    wildlife:['animals','birds','insects','sea'],
+    birds:['animals'],
+    insects:['animals'],
+    sea:['animals'],
+    food:['fruits','desserts','drinks','breakfast','japanese_food'],
+    desserts:['food','fruits','breakfast','japanese_food'],
+    drinks:['breakfast'],
+    breakfast:['food','drinks','japanese_food'],
+    japanese_food:['food','breakfast'],
+    movies:['fantasy','history','jobs'],
+    fantasy:['movies','history'],
+    history:['movies'],
+    sports:['games','hobbies'],
+    games:['sports','hobbies'],
+    hobbies:['sports','games'],
+    holidays:['school_events','culture'],
+    school_events:['holidays','culture'],
+    culture:['holidays','school_events'],
+    objects:['home','clothes','music','technology'],
+    home:['objects','clothes','technology'],
+    clothes:['objects','home'],
+    music:['objects','technology'],
+    technology:['objects','science'],
+    school:['science','school_subjects'],
+    science:['school','school_subjects','technology'],
+    school_subjects:['school','science'],
+    places:['community'],
+    community:['places'],
+    weather:['nature','space'],
+    nature:['weather','space'],
+    space:['nature','science'],
+    actions:['daily','classroom_actions','sports_moves','fitness_moves','funny'],
+    daily:['household_chores','healthy_habits','digital_actions','social_situations','cooking_actions'],
+    funny:['comedy_situations','magic_actions','travel_problems'],
+    farm_actions:['eco_actions','healthy_habits','outdoor_fun'],
+    classroom_actions:['social_situations','school_events','art_actions'],
+    sports_moves:['fitness_moves','outdoor_fun','playground'],
+    fitness_moves:['sports_moves','healthy_habits','playground'],
+    outdoor_fun:['camping_actions','playground','sports_moves','eco_actions'],
+    camping_actions:['outdoor_fun','eco_actions','travel_problems'],
+    playground:['outdoor_fun','sports_moves','fitness_moves'],
+    household_chores:['cooking_actions','eco_actions','healthy_habits'],
+    cooking_actions:['restaurant_actions','household_chores','shopping_actions'],
+    shopping_actions:['restaurant_actions','city_adventures','digital_actions'],
+    restaurant_actions:['cooking_actions','shopping_actions','hotel_actions'],
+    airport_actions:['hotel_actions','travel_problems','city_adventures'],
+    hotel_actions:['airport_actions','restaurant_actions','travel_problems'],
+    travel_problems:['airport_actions','hotel_actions','city_adventures','comedy_situations'],
+    city_adventures:['shopping_actions','travel_problems','airport_actions'],
+    eco_actions:['farm_actions','household_chores','healthy_habits','outdoor_fun'],
+    healthy_habits:['fitness_moves','eco_actions','household_chores','daily'],
+    digital_actions:['social_situations','shopping_actions','classroom_actions'],
+    social_situations:['classroom_actions','digital_actions','comedy_situations'],
+    art_actions:['classroom_actions','magic_actions','digital_actions'],
+    magic_actions:['superhero_actions','comedy_situations','art_actions'],
+    superhero_actions:['magic_actions','comedy_situations','sports_moves'],
+    comedy_situations:['funny','magic_actions','superhero_actions','travel_problems']
+  });
+
+  function curatedBasePool(deck, sourceDecks) {
+    const candidates = [deck.id,...(RELATED[deck.id] || [])];
+    const selected = [];
+    const used = Object.fromEntries(LANGUAGES.map(lang => [lang,new Set()]));
+    for(const id of candidates) {
+      const source = sourceDecks.get(id);
+      if(!source)throw new Error('Unknown related Charades source '+id);
+      for(const card of source){
+        const normalized=Object.fromEntries(LANGUAGES.map(lang=>[lang,card[lang].toLocaleLowerCase()]));
+        if(LANGUAGES.some(lang=>used[lang].has(normalized[lang])))continue;
+        selected.push({...card});
+        for(const lang of LANGUAGES)used[lang].add(normalized[lang]);
+      }
+    }
+    return selected;
+  }
+
   function apply(template,subject){
     return template.replace('%s',subject);
   }
@@ -57,11 +139,12 @@
       }
     }
     const output=[];
+    const sourceDecks=new Map(decks.map(deck=>[deck.id,deck.words.map(word=>({...word}))]));
     for(const deck of decks){
       if(!matched.has(deck.id))throw new Error('Unmapped category '+deck.id);
       if(deck.words.length!==12)throw new Error('Expected 12 curated original items in '+deck.id);
       const familyId=Object.keys(ASSIGNMENTS).find(id=>ASSIGNMENTS[id].includes(deck.id));
-      const original=deck.words.map(word=>({...word}));
+      const original=curatedBasePool(deck,sourceDecks);
       const generated=[];
       for(let sceneIndex=0;sceneIndex<16;sceneIndex++){
         const templates=FAMILIES[familyId][sceneIndex];
@@ -70,8 +153,9 @@
           generated.push(card);
         }
       }
-      // 12 original prompts + 188 coherent situational prompts = 200.
-      deck.words=original.concat(generated.slice(0,188));
+      // Target 200 tasks: original standalone concepts from closely related
+      // decks, then meaningful category-aware scenes as needed.
+      deck.words=original.concat(generated.slice(0,200-original.length)).slice(0,200);
       if(deck.words.length!==200)throw new Error('Expected 200 Charades prompts for '+deck.id);
       for(const lang of LANGUAGES){
         const seen=new Set(deck.words.map(word=>word[lang].toLocaleLowerCase()));
