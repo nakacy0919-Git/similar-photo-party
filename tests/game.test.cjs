@@ -299,7 +299,7 @@ test('Next Player uses a round-specific central READY screen before the next pho
  h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
  h.api.showResultPhase();
  assert.equal(h.api.state.correctCount,1);
- assert.equal(h.nodes.get('photo-result-count').textContent,'1');
+ assert.match(h.nodes.get('result-feedback').textContent,/合計1問/);
  h.nodes.get('next-btn').click();
  assert.equal(h.api.state.phase,'photoReady');
  assert.match(h.nodes.get('photo-ready-roles').textContent,/Player B が説明/);
@@ -384,4 +384,19 @@ test('Photo Back cancels running timers and returns directly to category setup',
  h.nodes.get('photo-back').click();
  assert.equal(h.api.state.phase,'photoSetup');
  assert.equal(h.timers.size,0);
+});
+
+
+test('photo result has no oversized green count and gives image/English panel available height',()=>{
+ const html=fs.readFileSync('index.html','utf8');
+ const immersive=fs.readFileSync('css/immersive.css','utf8');
+ const photo=fs.readFileSync('css/photo-flow.css','utf8');
+ const source=fs.readFileSync('js/game.js','utf8');
+ assert.match(html,/id="photo-result-main"/);
+ assert.doesNotMatch(html,/class="photo-result-count"|id="photo-result-count"/);
+ assert.match(immersive,/#view-result #photo-result-main\s*\{/);
+ assert.doesNotMatch(immersive,/#view-result>div:nth-of-type\(2\)/);
+ assert.doesNotMatch(photo,/#view-result \.photo-result-count/);
+ assert.doesNotMatch(source,/getElementById\('photo-result-count'\)/);
+ assert.match(source,/合計\$\{state\.correctCount\}問/);
 });
