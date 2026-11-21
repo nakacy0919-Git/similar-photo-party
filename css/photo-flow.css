@@ -192,3 +192,8 @@ body:has(#view-photo-summary:not(.hidden)) #bgmBtn{display:none!important}
 @media(prefers-reduced-motion:reduce){
   .photo-orb-start,.photo-next-btn,.photo-genre-card{transition:none!important}
 }
+
+/* HTML hook classes are explicit first-party selectors, not Tailwind utilities. */
+.photo-setup-screen,.photo-ready-screen,.photo-summary-screen{box-sizing:border-box}
+.photo-game-tools{user-select:none;-webkit-user-select:none}
+.photo-pause-overlay{overscroll-behavior:none}
