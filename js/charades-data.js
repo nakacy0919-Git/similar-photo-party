@@ -177,7 +177,167 @@ Mikroskop|Teleskop|Magnet|Batterie|Labor|Experiment|Dinosaurier|Fossil|Planet|At
 현미경|망원경|자석|배터리|실험실|실험|공룡|화석|행성|원자|화산|해골
 显微镜|望远镜|磁铁|电池|实验室|实验|恐龙|化石|行星|原子|火山|骨架
 `);
-  // INSERT_MORE_DECKS_HERE
+  deck('space','🪐','Space','宇宙', `
+sun|moon|earth|Mars|Jupiter|Saturn|star|galaxy|comet|astronaut|spaceship|black hole
+太陽|月|地球|火星|木星|土星|星|銀河|彗星|宇宙飛行士|宇宙船|ブラックホール
+sol|luna|Tierra|Marte|Júpiter|Saturno|estrella|galaxia|cometa|astronauta|nave espacial|agujero negro
+sol|lua|Terra|Marte|Júpiter|Saturno|estrela|galáxia|cometa|astronauta|nave espacial|buraco negro
+soleil|lune|Terre|Mars|Jupiter|Saturne|étoile|galaxie|comète|astronaute|vaisseau spatial|trou noir
+Sonne|Mond|Erde|Mars|Jupiter|Saturn|Stern|Galaxie|Komet|Astronaut|Raumschiff|Schwarzes Loch
+태양|달|지구|화성|목성|토성|별|은하|혜성|우주비행사|우주선|블랙홀
+太阳|月亮|地球|火星|木星|土星|星星|银河系|彗星|宇航员|宇宙飞船|黑洞
+`);
+  deck('fantasy','🧙','Fantasy','ファンタジー', `
+dragon|unicorn|fairy|mermaid|wizard|witch|castle|treasure|magic wand|giant|ghost|elf
+ドラゴン|ユニコーン|妖精|人魚|魔法使い|魔女|城|宝物|魔法の杖|巨人|幽霊|エルフ
+dragón|unicornio|hada|sirena|mago|bruja|castillo|tesoro|varita mágica|gigante|fantasma|elfo
+dragão|unicórnio|fada|sereia|mago|bruxa|castelo|tesouro|varinha mágica|gigante|fantasma|elfo
+dragon|licorne|fée|sirène|sorcier|sorcière|château|trésor|baguette magique|géant|fantôme|elfe
+Drache|Einhorn|Fee|Meerjungfrau|Zauberer|Hexe|Schloss|Schatz|Zauberstab|Riese|Geist|Elf
+용|유니콘|요정|인어|마법사|마녀|성|보물|마법 지팡이|거인|유령|엘프
+龙|独角兽|仙女|美人鱼|巫师|女巫|城堡|宝藏|魔杖|巨人|幽灵|精灵
+`);
+  deck('holidays','🎉','Celebrations','お祝い', `
+birthday|Christmas|Halloween|New Year|wedding|fireworks|gift|party|cake|candle|balloon|costume
+誕生日|クリスマス|ハロウィーン|新年|結婚式|花火|プレゼント|パーティー|ケーキ|ろうそく|風船|仮装
+cumpleaños|Navidad|Halloween|Año Nuevo|boda|fuegos artificiales|regalo|fiesta|pastel|vela|globo|disfraz
+aniversário|Natal|Halloween|Ano Novo|casamento|fogos de artifício|presente|festa|bolo|vela|balão|fantasia
+anniversaire|Noël|Halloween|Nouvel An|mariage|feu d'artifice|cadeau|fête|gâteau|bougie|ballon|déguisement
+Geburtstag|Weihnachten|Halloween|Neujahr|Hochzeit|Feuerwerk|Geschenk|Party|Kuchen|Kerze|Luftballon|Kostüm
+생일|크리스마스|핼러윈|새해|결혼식|불꽃놀이|선물|파티|케이크|양초|풍선|의상
+生日|圣诞节|万圣节|新年|婚礼|烟花|礼物|派对|蛋糕|蜡烛|气球|服装
+`);
+  deck('clothes','👗','Clothes','服装', `
+hat|shoes|jacket|shirt|dress|socks|gloves|scarf|sunglasses|boots|uniform|pajamas
+帽子|靴|ジャケット|シャツ|ドレス|靴下|手袋|マフラー|サングラス|ブーツ|制服|パジャマ
+sombrero|zapatos|chaqueta|camisa|vestido|calcetines|guantes|bufanda|gafas de sol|botas|uniforme|pijama
+chapéu|sapatos|jaqueta|camisa|vestido|meias|luvas|cachecol|óculos de sol|botas|uniforme|pijama
+chapeau|chaussures|veste|chemise|robe|chaussettes|gants|écharpe|lunettes de soleil|bottes|uniforme|pyjama
+Hut|Schuhe|Jacke|Hemd|Kleid|Socken|Handschuhe|Schal|Sonnenbrille|Stiefel|Uniform|Schlafanzug
+모자|신발|재킷|셔츠|드레스|양말|장갑|목도리|선글라스|부츠|교복|잠옷
+帽子|鞋子|夹克|衬衫|连衣裙|袜子|手套|围巾|太阳镜|靴子|制服|睡衣
+`);
+  deck('hobbies','🎨','Hobbies','趣味', `
+drawing|painting|fishing|gardening|knitting|photography|hiking|reading|dancing|cooking|chess|video games
+絵を描く|絵の具で描く|釣り|園芸|編み物|写真撮影|ハイキング|読書|ダンス|料理|チェス|テレビゲーム
+dibujar|pintar|pescar|jardinería|tejer|fotografía|senderismo|leer|bailar|cocinar|ajedrez|videojuegos
+desenhar|pintar|pescar|jardinagem|tricô|fotografia|caminhada|leitura|dança|culinária|xadrez|videogames
+dessin|peinture|pêche|jardinage|tricot|photographie|randonnée|lecture|danse|cuisine|échecs|jeux vidéo
+Zeichnen|Malen|Angeln|Gärtnern|Stricken|Fotografieren|Wandern|Lesen|Tanzen|Kochen|Schach|Videospiele
+그림 그리기|그림 물감으로 그리기|낚시|정원 가꾸기|뜨개질|사진 촬영|등산|독서|춤추기|요리|체스|비디오 게임
+画画|绘画|钓鱼|园艺|编织|摄影|徒步旅行|阅读|跳舞|烹饪|国际象棋|电子游戏
+`);
+  deck('places','🏙️','Places','場所', `
+hospital|school|park|restaurant|supermarket|zoo|stadium|theater|airport|library|museum|bakery
+病院|学校|公園|レストラン|スーパー|動物園|スタジアム|劇場|空港|図書館|博物館|パン屋
+hospital|escuela|parque|restaurante|supermercado|zoológico|estadio|teatro|aeropuerto|biblioteca|museo|panadería
+hospital|escola|parque|restaurante|supermercado|zoológico|estádio|teatro|aeroporto|biblioteca|museu|padaria
+hôpital|école|parc|restaurant|supermarché|zoo|stade|théâtre|aéroport|bibliothèque|musée|boulangerie
+Krankenhaus|Schule|Park|Restaurant|Supermarkt|Zoo|Stadion|Theater|Flughafen|Bibliothek|Museum|Bäckerei
+병원|학교|공원|식당|슈퍼마켓|동물원|경기장|극장|공항|도서관|박물관|빵집
+医院|学校|公园|餐厅|超市|动物园|体育场|剧院|机场|图书馆|博物馆|面包店
+`);
+  deck('body','🖐️','Body Parts','体', `
+head|eyes|ears|nose|mouth|hands|legs|feet|shoulders|knees|fingers|heart
+頭|目|耳|鼻|口|手|脚|足|肩|膝|指|心臓
+cabeza|ojos|orejas|nariz|boca|manos|piernas|pies|hombros|rodillas|dedos|corazón
+cabeça|olhos|orelhas|nariz|boca|mãos|pernas|pés|ombros|joelhos|dedos|coração
+tête|yeux|oreilles|nez|bouche|mains|jambes|pieds|épaules|genoux|doigts|cœur
+Kopf|Augen|Ohren|Nase|Mund|Hände|Beine|Füße|Schultern|Knie|Finger|Herz
+머리|눈|귀|코|입|손|다리|발|어깨|무릎|손가락|심장
+头|眼睛|耳朵|鼻子|嘴巴|手|腿|脚|肩膀|膝盖|手指|心脏
+`);
+  deck('daily','☀️','Daily Life','日常生活', `
+wake up|brush teeth|wash hands|take a shower|eat breakfast|catch a bus|study|clean a room|go shopping|watch TV|do laundry|go to bed
+起きる|歯を磨く|手を洗う|シャワーを浴びる|朝食を食べる|バスに乗る|勉強する|部屋を掃除する|買い物に行く|テレビを見る|洗濯する|寝る
+despertarse|cepillarse los dientes|lavarse las manos|ducharse|desayunar|tomar el autobús|estudiar|limpiar la habitación|ir de compras|ver la televisión|lavar la ropa|acostarse
+acordar|escovar os dentes|lavar as mãos|tomar banho|tomar café da manhã|pegar o ônibus|estudar|limpar o quarto|fazer compras|assistir TV|lavar roupa|ir dormir
+se réveiller|se brosser les dents|se laver les mains|se doucher|prendre le petit-déjeuner|prendre le bus|étudier|nettoyer sa chambre|faire les courses|regarder la télé|faire la lessive|se coucher
+aufwachen|Zähne putzen|Hände waschen|duschen|frühstücken|Bus fahren|lernen|Zimmer aufräumen|einkaufen gehen|fernsehen|Wäsche waschen|schlafen gehen
+일어나기|양치하기|손 씻기|샤워하기|아침 먹기|버스 타기|공부하기|방 청소하기|쇼핑하기|TV 보기|빨래하기|잠자리에 들기
+起床|刷牙|洗手|洗澡|吃早餐|乘公交车|学习|打扫房间|去购物|看电视|洗衣服|上床睡觉
+`);
+  deck('funny','🤣','Funny Acting','おもしろ演技', `
+walk like a penguin|act like a robot|dance like a chicken|pretend to sneeze|fake a yawn|hop on one foot|pretend to fly|touch an invisible wall|pretend to slip|pretend to sleep|make a silly face|walk in slow motion
+ペンギンのように歩く|ロボットのまね|ニワトリダンス|くしゃみのふり|あくびのふり|片足跳び|飛ぶふり|見えない壁に触る|滑るふり|寝たふり|変顔をする|スローモーションで歩く
+caminar como pingüino|actuar como robot|bailar como gallina|fingir un estornudo|fingir un bostezo|saltar en un pie|fingir que vuelas|tocar una pared invisible|fingir que resbalas|fingir que duermes|poner cara graciosa|caminar a cámara lenta
+andar como pinguim|imitar um robô|dançar como galinha|fingir espirrar|fingir bocejar|pular com um pé|fingir voar|tocar uma parede invisível|fingir escorregar|fingir dormir|fazer careta|andar em câmera lenta
+marcher comme un pingouin|imiter un robot|danser comme une poule|faire semblant d'éternuer|faire semblant de bâiller|sauter à cloche-pied|faire semblant de voler|toucher un mur invisible|faire semblant de glisser|faire semblant de dormir|faire une grimace|marcher au ralenti
+wie ein Pinguin laufen|Roboter spielen|wie ein Huhn tanzen|Niesen vortäuschen|Gähnen vortäuschen|auf einem Bein hüpfen|Fliegen spielen|eine unsichtbare Wand berühren|Ausrutschen spielen|Schlafen spielen|eine Grimasse schneiden|in Zeitlupe gehen
+펭귄처럼 걷기|로봇 흉내 내기|닭처럼 춤추기|재채기하는 척하기|하품하는 척하기|한 발로 뛰기|나는 척하기|보이지 않는 벽 만지기|미끄러지는 척하기|자는 척하기|웃긴 표정 짓기|슬로 모션으로 걷기
+像企鹅一样走路|模仿机器人|像鸡一样跳舞|假装打喷嚏|假装打哈欠|单脚跳|假装飞翔|触摸看不见的墙|假装滑倒|假装睡觉|做鬼脸|慢动作走路
+`);
+  deck('history','🏰','History','歴史', `
+king|queen|knight|samurai|pirate|explorer|emperor|castle|temple|pyramid|ancient city|crown
+王様|女王|騎士|侍|海賊|探検家|皇帝|城|寺院|ピラミッド|古代都市|王冠
+rey|reina|caballero|samurái|pirata|explorador|emperador|castillo|templo|pirámide|ciudad antigua|corona
+rei|rainha|cavaleiro|samurai|pirata|explorador|imperador|castelo|templo|pirâmide|cidade antiga|coroa
+roi|reine|chevalier|samouraï|pirate|explorateur|empereur|château|temple|pyramide|ville antique|couronne
+König|Königin|Ritter|Samurai|Pirat|Entdecker|Kaiser|Burg|Tempel|Pyramide|antike Stadt|Krone
+왕|여왕|기사|사무라이|해적|탐험가|황제|성|사원|피라미드|고대 도시|왕관
+国王|女王|骑士|武士|海盗|探险家|皇帝|城堡|寺庙|金字塔|古城|王冠
+`);
+  deck('games','🎲','Games','ゲーム', `
+chess|playing cards|dice|puzzle|video game|board game|hide and seek|tag|treasure hunt|bowling|darts|jigsaw puzzle
+チェス|トランプ|サイコロ|パズル|テレビゲーム|ボードゲーム|かくれんぼ|鬼ごっこ|宝探し|ボウリング|ダーツ|ジグソーパズル
+ajedrez|naipes|dados|rompecabezas|videojuego|juego de mesa|escondite|pilla-pilla|búsqueda del tesoro|bolos|dardos|puzle
+xadrez|baralho|dados|quebra-cabeça|videogame|jogo de tabuleiro|esconde-esconde|pega-pega|caça ao tesouro|boliche|dardos|quebra-cabeça de peças
+échecs|cartes|dés|casse-tête|jeu vidéo|jeu de société|cache-cache|chat|chasse au trésor|bowling|fléchettes|puzzle
+Schach|Spielkarten|Würfel|Rätsel|Videospiel|Brettspiel|Verstecken|Fangen|Schatzsuche|Bowling|Darts|Puzzle
+체스|트럼프 카드|주사위|퍼즐|비디오 게임|보드게임|숨바꼭질|술래잡기|보물찾기|볼링|다트|직소 퍼즐
+国际象棋|扑克牌|骰子|谜题|电子游戏|桌游|捉迷藏|抓人游戏|寻宝|保龄球|飞镖|拼图
+`);
+  deck('home','🏠','Home','家', `
+bed|sofa|table|refrigerator|washing machine|lamp|mirror|pillow|stairs|kitchen|bathroom|window
+ベッド|ソファ|テーブル|冷蔵庫|洗濯機|ランプ|鏡|枕|階段|キッチン|浴室|窓
+cama|sofá|mesa|nevera|lavadora|lámpara|espejo|almohada|escaleras|cocina|baño|ventana
+cama|sofá|mesa|geladeira|máquina de lavar|lâmpada|espelho|travesseiro|escada|cozinha|banheiro|janela
+lit|canapé|table|réfrigérateur|machine à laver|lampe|miroir|oreiller|escalier|cuisine|salle de bains|fenêtre
+Bett|Sofa|Tisch|Kühlschrank|Waschmaschine|Lampe|Spiegel|Kissen|Treppe|Küche|Badezimmer|Fenster
+침대|소파|탁자|냉장고|세탁기|램프|거울|베개|계단|부엌|욕실|창문
+床|沙发|桌子|冰箱|洗衣机|台灯|镜子|枕头|楼梯|厨房|浴室|窗户
+`);
+  deck('fruits','🥝','Fruit & Vegetables','果物と野菜', `
+apple|banana|orange|strawberry|pineapple|watermelon|grapes|lemon|peach|mango|carrot|potato
+りんご|バナナ|オレンジ|いちご|パイナップル|スイカ|ぶどう|レモン|桃|マンゴー|にんじん|じゃがいも
+manzana|plátano|naranja|fresa|piña|sandía|uvas|limón|melocotón|mango|zanahoria|patata
+maçã|banana|laranja|morango|abacaxi|melancia|uvas|limão|pêssego|manga|cenoura|batata
+pomme|banane|orange|fraise|ananas|pastèque|raisins|citron|pêche|mangue|carotte|pomme de terre
+Apfel|Banane|Orange|Erdbeere|Ananas|Wassermelone|Trauben|Zitrone|Pfirsich|Mango|Karotte|Kartoffel
+사과|바나나|오렌지|딸기|파인애플|수박|포도|레몬|복숭아|망고|당근|감자
+苹果|香蕉|橙子|草莓|菠萝|西瓜|葡萄|柠檬|桃子|芒果|胡萝卜|土豆
+`);
+  deck('community','🏘️','Community','地域社会', `
+post office|crosswalk|bus stop|city hall|hospital|police station|fire station|market|playground|train station|community center|recycling bin
+郵便局|横断歩道|バス停|市役所|病院|警察署|消防署|市場|遊び場|駅|公民館|リサイクル箱
+oficina de correos|paso de peatones|parada de autobús|ayuntamiento|hospital|comisaría|estación de bomberos|mercado|parque infantil|estación de tren|centro comunitario|contenedor de reciclaje
+correios|faixa de pedestres|ponto de ônibus|prefeitura|hospital|delegacia|quartel de bombeiros|mercado|parquinho|estação de trem|centro comunitário|lixeira de reciclagem
+bureau de poste|passage piéton|arrêt de bus|mairie|hôpital|commissariat|caserne de pompiers|marché|aire de jeux|gare|centre communautaire|bac de recyclage
+Postamt|Zebrastreifen|Bushaltestelle|Rathaus|Krankenhaus|Polizeiwache|Feuerwache|Markt|Spielplatz|Bahnhof|Gemeindezentrum|Recyclingbehälter
+우체국|횡단보도|버스 정류장|시청|병원|경찰서|소방서|시장|놀이터|기차역|주민센터|재활용 쓰레기통
+邮局|人行横道|公交站|市政府|医院|警察局|消防站|市场|游乐场|火车站|社区中心|回收箱
+`);
+  deck('culture','🌏','World Cultures','世界の文化', `
+kimono|sari|flamenco|samba|taekwondo|origami|yoga|tea ceremony|carnival|festival|drum dance|mask
+着物|サリー|フラメンコ|サンバ|テコンドー|折り紙|ヨガ|茶道|カーニバル|祭り|太鼓踊り|仮面
+kimono|sari|flamenco|samba|taekwondo|origami|yoga|ceremonia del té|carnaval|festival|baile de tambores|máscara
+quimono|sári|flamenco|samba|taekwondo|origami|ioga|cerimônia do chá|carnaval|festival|dança dos tambores|máscara
+kimono|sari|flamenco|samba|taekwondo|origami|yoga|cérémonie du thé|carnaval|festival|danse du tambour|masque
+Kimono|Sari|Flamenco|Samba|Taekwondo|Origami|Yoga|Teezeremonie|Karneval|Fest|Trommeltanz|Maske
+기모노|사리|플라멩코|삼바|태권도|종이접기|요가|다도|카니발|축제|북춤|가면
+和服|纱丽|弗拉门戈|桑巴舞|跆拳道|折纸|瑜伽|茶道|狂欢节|节日|鼓舞|面具
+`);
+  deck('sea','🐠','Sea Life','海の生き物', `
+fish|shark|octopus|whale|dolphin|sea turtle|crab|jellyfish|seahorse|starfish|seal|penguin
+魚|サメ|タコ|クジラ|イルカ|ウミガメ|カニ|クラゲ|タツノオトシゴ|ヒトデ|アザラシ|ペンギン
+pez|tiburón|pulpo|ballena|delfín|tortuga marina|cangrejo|medusa|caballito de mar|estrella de mar|foca|pingüino
+peixe|tubarão|polvo|baleia|golfinho|tartaruga marinha|caranguejo|água-viva|cavalo-marinho|estrela-do-mar|foca|pinguim
+poisson|requin|pieuvre|baleine|dauphin|tortue marine|crabe|méduse|hippocampe|étoile de mer|phoque|manchot
+Fisch|Hai|Krake|Wal|Delfin|Meeresschildkröte|Krabbe|Qualle|Seepferdchen|Seestern|Robbe|Pinguin
+물고기|상어|문어|고래|돌고래|바다거북|게|해파리|해마|불가사리|물개|펭귄
+鱼|鲨鱼|章鱼|鲸鱼|海豚|海龟|螃蟹|水母|海马|海星|海豹|企鹅
+`);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
