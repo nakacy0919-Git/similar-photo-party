@@ -222,3 +222,16 @@ test('Immersive play supports native fullscreen where available without requirin
   assert.match(charades, /if \(!document\.fullscreenElement/);
   assert.match(photo, /if \(!document\.fullscreenElement/);
 });
+
+test('both games support standalone landscape/portrait home-screen launch', () => {
+  const manifest = JSON.parse(fs.readFileSync('site.webmanifest', 'utf8'));
+  assert.equal(manifest.display, 'standalone');
+  assert.equal(manifest.orientation, 'any');
+  assert.match(manifest.start_url, /index\.html/);
+  assert.ok(manifest.shortcuts.some(item => item.url.includes('charades.html')));
+  for (const html of [fs.readFileSync('index.html','utf8'),fs.readFileSync('charades.html','utf8')]) {
+    assert.match(html, /rel="manifest" href="site\.webmanifest"/);
+    assert.match(html, /apple-mobile-web-app-capable/);
+    assert.match(html, /viewport-fit=cover/);
+  }
+});
