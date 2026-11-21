@@ -110,7 +110,7 @@ test('pause keeps the answer secret and countdown frozen until resumed', () => {
   game.now(1000); game.tick();
   assert.equal(game.get('timeLeft').textContent, '54');
   game.get('correct').click();
-  assert.equal(game.get('score').textContent, '1');
+  assert.equal(Number(game.get('score').textContent), 1);
 });
 
 test('backgrounding pauses automatically and does not burn classroom time', () => {
