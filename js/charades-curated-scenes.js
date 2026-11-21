@@ -233,3 +233,79 @@ Someone is creating a quiz about %s|%sに関するクイズを作る|Alguien cre
 Someone is excited to discover %s|%sを発見して喜ぶ|Alguien se entusiasma al descubrir %s|Alguém fica animado ao descobrir %s|Quelqu'un est ravi de découvrir %s|Jemand freut sich %s zu entdecken|%s 발견하고 기뻐하기|因发现%s而兴奋
 Someone is teaching a younger student about %s|年下の生徒に%sを教える|Alguien enseña %s a un alumno menor|Alguém ensina %s a um aluno mais novo|Quelqu'un enseigne %s à un plus jeune élève|Jemand erklärt einem jüngeren Schüler %s|어린 학생에게 %s 가르치기|教低年级学生%s
 `);
+
+family('locations', `
+Someone is looking for %s|%sの場所を探している|Alguien busca %s|Alguém procura %s|Quelqu'un cherche %s|Jemand sucht %s|%s 찾기|正在寻找%s
+Someone is giving directions to %s|%sへの道順を教える|Alguien explica cómo llegar a %s|Alguém explica como chegar a %s|Quelqu'un explique le chemin vers %s|Jemand erklärt den Weg zu %s|%s 가는 길 알려주기|告诉别人怎么去%s
+Someone is waiting for a friend near %s|%sの近くで友達を待つ|Alguien espera a un amigo cerca de %s|Alguém espera um amigo perto de %s|Quelqu'un attend un ami près de %s|Jemand wartet bei %s auf einen Freund|%s 근처에서 친구 기다리기|在%s附近等朋友
+Someone is photographing %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|拍摄%s的照片
+Someone is walking past %s|%sの前を通り過ぎる|Alguien pasa caminando por %s|Alguém passa caminhando por %s|Quelqu'un passe devant %s|Jemand geht an %s vorbei|%s 앞을 지나가기|从%s旁边走过
+Someone is arriving at %s|%sに到着する|Alguien llega a %s|Alguém chega a %s|Quelqu'un arrive à %s|Jemand kommt bei %s an|%s 도착하기|抵达%s
+Someone is explaining the purpose of %s|%sが何のための場所か説明する|Alguien explica para qué sirve %s|Alguém explica a função de %s|Quelqu'un explique à quoi sert %s|Jemand erklärt wozu %s dient|%s 용도 설명하기|解释%s的用途
+Someone is meeting a stranger near %s|%sの近くで知らない人と会う|Alguien conoce a un desconocido cerca de %s|Alguém conhece um estranho perto de %s|Quelqu'un rencontre un inconnu près de %s|Jemand trifft einen Fremden bei %s|%s 근처에서 낯선 사람 만나기|在%s附近遇见陌生人
+Someone is searching for %s on a map|地図で%sを見つけようとする|Alguien busca %s en un mapa|Alguém procura %s num mapa|Quelqu'un cherche %s sur une carte|Jemand sucht %s auf einer Karte|지도에서 %s 찾기|在地图上寻找%s
+Someone is getting lost near %s|%sの近くで道に迷う|Alguien se pierde cerca de %s|Alguém se perde perto de %s|Quelqu'un se perd près de %s|Jemand verirrt sich bei %s|%s 근처에서 길 잃기|在%s附近迷路
+Someone is observing people at %s|%sにいる人々を観察する|Alguien observa a la gente en %s|Alguém observa as pessoas em %s|Quelqu'un observe les gens à %s|Jemand beobachtet Menschen bei %s|%s 사람들 관찰하기|观察%s附近的人
+Someone is finding a lost item near %s|%sの近くで落とし物を見つける|Alguien encuentra un objeto perdido cerca de %s|Alguém encontra um objeto perdido perto de %s|Quelqu'un trouve un objet perdu près de %s|Jemand findet bei %s einen verlorenen Gegenstand|%s 근처에서 분실물 찾기|在%s附近捡到失物
+Someone is describing %s to a visitor|訪問者に%sを説明する|Alguien describe %s a un visitante|Alguém descreve %s a um visitante|Quelqu'un décrit %s à un visiteur|Jemand beschreibt einem Besucher %s|방문객에게 %s 설명하기|向游客介绍%s
+Someone is asking for help near %s|%sの近くで助けを求める|Alguien pide ayuda cerca de %s|Alguém pede ajuda perto de %s|Quelqu'un demande de l'aide près de %s|Jemand bittet bei %s um Hilfe|%s 근처에서 도움 요청하기|在%s附近求助
+Someone is planning a visit to %s|%sへの訪問を計画している|Alguien planea visitar %s|Alguém planeja visitar %s|Quelqu'un prévoit de visiter %s|Jemand plant einen Besuch bei %s|%s 방문 계획 세우기|计划参观%s
+Someone is leaving %s in a hurry|急いで%sを立ち去る|Alguien sale de %s con prisa|Alguém sai de %s com pressa|Quelqu'un quitte %s en vitesse|Jemand verlässt %s in Eile|서둘러 %s 떠나기|匆忙离开%s
+`);
+
+family('vehicles', `
+Someone is learning to use %s|%sの乗り方を練習する|Alguien aprende a usar %s|Alguém aprende a usar %s|Quelqu'un apprend à utiliser %s|Jemand lernt mit %s zu fahren|%s 타는 법 배우기|学习乘坐%s
+Someone is waiting for %s|%sが来るのを待つ|Alguien espera %s|Alguém espera %s|Quelqu'un attend %s|Jemand wartet auf %s|%s 기다리기|等待%s
+Someone is watching %s arrive|%sが到着するのを見る|Alguien observa llegar %s|Alguém observa %s chegar|Quelqu'un regarde arriver %s|Jemand beobachtet die Ankunft von %s|%s 도착하는 모습 보기|看着%s抵达
+Someone is fixing a problem with %s|%sの故障を直そうとする|Alguien arregla un problema con %s|Alguém conserta um problema em %s|Quelqu'un répare un problème de %s|Jemand repariert einen Defekt an %s|%s 고장 고치기|修理出了故障的%s
+Someone is taking a photo of %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
+Someone is planning a journey with %s|%sで行く旅行を計画する|Alguien planea viajar en %s|Alguém planeja viajar de %s|Quelqu'un prévoit de voyager en %s|Jemand plant eine Reise mit %s|%s 여행 계획하기|计划乘坐%s旅行
+Someone is explaining the safety rules for %s|%sの安全ルールを説明する|Alguien explica las normas de seguridad de %s|Alguém explica as regras de segurança de %s|Quelqu'un explique les règles de sécurité de %s|Jemand erklärt die Sicherheitsregeln für %s|%s 안전수칙 설명하기|解释乘坐%s的安全规则
+Someone is rushing to catch %s|%sに乗り遅れないよう急ぐ|Alguien corre para alcanzar %s|Alguém corre para pegar %s|Quelqu'un se dépêche d'attraper %s|Jemand beeilt sich um %s zu erreichen|%s 놓치지 않으려고 서두르기|赶着去搭乘%s
+Someone is looking for a place to park %s|%sを停める場所を探す|Alguien busca dónde aparcar %s|Alguém procura onde estacionar %s|Quelqu'un cherche où garer %s|Jemand sucht einen Parkplatz für %s|%s 주차할 곳 찾기|寻找停放%s的地方
+Someone is comparing two types of %s|二種類の%sを比べている|Alguien compara dos tipos de %s|Alguém compara dois tipos de %s|Quelqu'un compare deux types de %s|Jemand vergleicht zwei Arten von %s|두 종류의 %s 비교하기|比较两种%s
+Someone is showing a friend how %s works|友達に%sの仕組みを見せる|Alguien enseña cómo funciona %s|Alguém mostra como %s funciona|Quelqu'un montre le fonctionnement de %s|Jemand zeigt wie %s funktioniert|친구에게 %s 작동 방식 보여주기|向朋友展示%s的工作方式
+Someone is traveling by %s for the first time|初めて%sに乗って旅をする|Alguien viaja en %s por primera vez|Alguém viaja de %s pela primeira vez|Quelqu'un voyage en %s pour la première fois|Jemand reist zum ersten Mal mit %s|처음으로 %s 타고 여행하기|第一次乘坐%s旅行
+Someone is cleaning %s before a trip|旅行前に%sを掃除する|Alguien limpia %s antes de viajar|Alguém limpa %s antes de viajar|Quelqu'un nettoie %s avant un voyage|Jemand reinigt %s vor einer Reise|여행 전에 %s 청소하기|出发前清洁%s
+Someone is looking through a window of %s|%sの窓から外を眺める|Alguien mira por la ventana de %s|Alguém olha pela janela de %s|Quelqu'un regarde par la fenêtre de %s|Jemand schaut aus dem Fenster von %s|%s 창밖 보기|从%s的窗户往外看
+Someone is imagining a future version of %s|未来の%sを想像する|Alguien imagina una versión futura de %s|Alguém imagina uma versão futura de %s|Quelqu'un imagine %s dans le futur|Jemand stellt sich %s in der Zukunft vor|미래의 %s 상상하기|想象未来的%s
+Someone is excited to ride %s|%sに乗るのが楽しみで仕方ない|Alguien está emocionado por subir a %s|Alguém está animado para andar de %s|Quelqu'un est impatient de monter à bord de %s|Jemand freut sich darauf mit %s zu fahren|%s 타기 전 신나 하기|兴奋地期待乘坐%s
+`);
+
+family('outdoors', `
+Someone is looking closely at %s|%sをじっくり観察する|Alguien observa atentamente %s|Alguém observa %s com atenção|Quelqu'un observe attentivement %s|Jemand betrachtet %s genau|%s 자세히 관찰하기|仔细观察%s
+Someone is trying to photograph %s|%sの写真を撮ろうとする|Alguien intenta fotografiar %s|Alguém tenta fotografar %s|Quelqu'un essaie de photographier %s|Jemand versucht %s zu fotografieren|%s 사진 찍으려고 하기|尝试拍摄%s
+Someone is describing %s to a friend|友達に%sの様子を説明する|Alguien describe %s a un amigo|Alguém descreve %s a um amigo|Quelqu'un décrit %s à un ami|Jemand beschreibt einem Freund %s|친구에게 %s 설명하기|向朋友描述%s
+Someone is drawing a picture of %s|%sの絵を描く|Alguien dibuja %s|Alguém desenha %s|Quelqu'un dessine %s|Jemand zeichnet %s|%s 그림 그리기|画一幅%s的画
+Someone is learning surprising facts about %s|%sの意外な事実を学ぶ|Alguien aprende datos curiosos sobre %s|Alguém aprende fatos curiosos sobre %s|Quelqu'un découvre des faits étonnants sur %s|Jemand lernt Erstaunliches über %s|%s 흥미로운 사실 배우기|了解%s的惊人事实
+Someone is telling a story involving %s|%sが登場する物語を語る|Alguien cuenta una historia sobre %s|Alguém conta uma história sobre %s|Quelqu'un raconte une histoire avec %s|Jemand erzählt eine Geschichte über %s|%s 이야기 들려주기|讲一个关于%s的故事
+Someone is pointing to %s in a picture|写真の中の%sを指さす|Alguien señala %s en una imagen|Alguém aponta para %s numa foto|Quelqu'un montre %s sur une image|Jemand zeigt auf %s in einem Bild|사진 속 %s 가리키기|指着照片里的%s
+Someone is asking questions about %s|%sについて質問する|Alguien hace preguntas sobre %s|Alguém faz perguntas sobre %s|Quelqu'un pose des questions sur %s|Jemand stellt Fragen über %s|%s 질문하기|询问关于%s的问题
+Someone is dreaming about %s|%sの夢を見る|Alguien sueña con %s|Alguém sonha com %s|Quelqu'un rêve de %s|Jemand träumt von %s|%s 꿈꾸기|梦见%s
+Someone is writing a poem about %s|%sをテーマに詩を書く|Alguien escribe un poema sobre %s|Alguém escreve um poema sobre %s|Quelqu'un écrit un poème sur %s|Jemand schreibt ein Gedicht über %s|%s 시 쓰기|写一首关于%s的诗
+Someone is researching %s for a school project|学校の課題で%sを調べる|Alguien investiga %s para un proyecto escolar|Alguém pesquisa %s para um projeto escolar|Quelqu'un étudie %s pour un projet scolaire|Jemand recherchiert %s für ein Schulprojekt|학교 과제로 %s 조사하기|为学校项目研究%s
+Someone is showing a visitor %s|訪問者に%sを紹介する|Alguien muestra %s a un visitante|Alguém mostra %s a um visitante|Quelqu'un montre %s à un visiteur|Jemand zeigt einem Besucher %s|방문객에게 %s 보여주기|向游客展示%s
+Someone is checking a map or chart of %s|%sの地図や図表を確認する|Alguien consulta un mapa o gráfico de %s|Alguém consulta um mapa ou gráfico de %s|Quelqu'un consulte une carte ou un graphique de %s|Jemand prüft eine Karte oder Grafik von %s|%s 지도나 도표 확인하기|查看%s的地图或图表
+Someone is explaining why %s is important|%sが大切な理由を話す|Alguien explica la importancia de %s|Alguém explica a importância de %s|Quelqu'un explique pourquoi %s est important|Jemand erklärt warum %s wichtig ist|%s 중요성 설명하기|解释%s的重要性
+Someone is imagining %s a thousand years ago|千年前の%sを想像する|Alguien imagina %s hace mil años|Alguém imagina %s há mil anos|Quelqu'un imagine %s il y a mille ans|Jemand stellt sich %s vor tausend Jahren vor|천 년 전 %s 상상하기|想象一千年前的%s
+Someone is comparing %s with a similar phenomenon|%sと似た現象を比較する|Alguien compara %s con un fenómeno parecido|Alguém compara %s com um fenômeno semelhante|Quelqu'un compare %s à un phénomène semblable|Jemand vergleicht %s mit einem ähnlichen Phänomen|%s 비슷한 현상과 비교하기|把%s与相似现象比较
+`);
+
+family('body', `
+Someone is pointing to %s|%sを指さす|Alguien señala %s|Alguém aponta para %s|Quelqu'un montre %s du doigt|Jemand zeigt auf %s|%s 가리키기|指着%s
+Someone is checking %s in a mirror|鏡で%sを確認する|Alguien mira %s en un espejo|Alguém olha %s no espelho|Quelqu'un regarde %s dans un miroir|Jemand betrachtet %s im Spiegel|거울로 %s 확인하기|照镜子检查%s
+Someone is washing %s carefully|%sを丁寧に洗う|Alguien lava %s con cuidado|Alguém lava %s com cuidado|Quelqu'un lave soigneusement %s|Jemand wäscht %s vorsichtig|%s 깨끗이 씻기|仔细清洗%s
+Someone is protecting %s from the cold|寒さから%sを守ろうとする|Alguien protege %s del frío|Alguém protege %s do frio|Quelqu'un protège %s du froid|Jemand schützt %s vor Kälte|추위에서 %s 보호하기|保护%s免受寒冷
+Someone is feeling pain in %s|%sが痛くて困っている|Alguien siente dolor en %s|Alguém sente dor em %s|Quelqu'un a mal à %s|Jemand hat Schmerzen an %s|%s 아파하기|感到%s疼痛
+Someone is explaining the function of %s|%sの働きを説明する|Alguien explica la función de %s|Alguém explica a função de %s|Quelqu'un explique la fonction de %s|Jemand erklärt die Funktion von %s|%s 역할 설명하기|解释%s的作用
+Someone is showing a doctor %s|医師に%sを見せる|Alguien muestra %s a un médico|Alguém mostra %s a um médico|Quelqu'un montre %s à un médecin|Jemand zeigt einem Arzt %s|의사에게 %s 보여주기|给医生看%s
+Someone is drawing %s in an anatomy lesson|人体の授業で%sを描く|Alguien dibuja %s en una clase de anatomía|Alguém desenha %s na aula de anatomia|Quelqu'un dessine %s en cours d'anatomie|Jemand zeichnet %s im Anatomieunterricht|해부학 시간에 %s 그리기|在人体课上画%s
+Someone is covering %s to avoid dust|ほこりが入らないように%sを覆う|Alguien cubre %s para evitar el polvo|Alguém cobre %s para evitar poeira|Quelqu'un couvre %s contre la poussière|Jemand bedeckt %s gegen Staub|먼지 막으려고 %s 가리기|为了防尘遮住%s
+Someone is carefully touching %s|%sをそっと触る|Alguien toca %s con cuidado|Alguém toca %s com cuidado|Quelqu'un touche doucement %s|Jemand berührt %s ganz vorsichtig|%s 살짝 만지기|轻轻触摸%s
+Someone is asking a question about %s|%sについて質問する|Alguien pregunta sobre %s|Alguém pergunta sobre %s|Quelqu'un pose une question sur %s|Jemand stellt eine Frage über %s|%s에 관해 질문하기|询问关于%s的问题
+Someone is applying lotion to %s|%sに保湿クリームを塗る|Alguien aplica crema en %s|Alguém passa creme em %s|Quelqu'un applique une crème sur %s|Jemand trägt Lotion auf %s auf|%s 로션 바르기|给%s涂润肤霜
+Someone is trying not to scratch %s|かゆい%sをかかずに我慢する|Alguien intenta no rascarse %s|Alguém tenta não coçar %s|Quelqu'un essaie de ne pas gratter %s|Jemand versucht %s nicht zu kratzen|%s 긁지 않으려고 참기|忍住不抓痒的%s
+Someone is learning the name of %s|%sの名前を覚える|Alguien aprende el nombre de %s|Alguém aprende o nome de %s|Quelqu'un apprend le nom de %s|Jemand lernt den Namen von %s|%s 이름 배우기|学习%s的名称
+Someone is testing how %s moves|%sがどう動くか試す|Alguien prueba cómo se mueve %s|Alguém testa como %s se move|Quelqu'un teste le mouvement de %s|Jemand testet wie sich %s bewegt|%s 움직임 시험하기|测试%s如何活动
+Someone is noticing a change in %s|%sの変化に気づく|Alguien nota un cambio en %s|Alguém percebe uma mudança em %s|Quelqu'un remarque un changement de %s|Jemand bemerkt eine Veränderung an %s|%s 변화 알아채기|察觉%s的变化
+`);
