@@ -39,8 +39,9 @@ test('independent related-category prompts precede scene variants where appropri
   }
   const sports=catalog.decks.find(x=>x.id==='sports').words;
   assert.ok(sports.some(x=>x.en==='soccer'));
-  assert.ok(sports.some(x=>x.en==='chess'));
-  assert.ok(sports.some(x=>x.en==='drawing'));
+  assert.ok(sports.some(x=>x.en==='Someone is practicing soccer very seriously'));
+  assert.ok(!sports.some(x=>x.en==='chess' || x.en==='drawing'),
+    'Narrow sports categories must not borrow board games or art prompts');
 });
 
 test('animal subjects cannot be mixed with irrelevant human actions', () => {
