@@ -140,7 +140,7 @@
                     <circle id="explain-progress" cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6" fill="transparent" class="text-purple-500 transition-all duration-1000 ease-linear" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" />
                 </svg>
                 <div class="absolute text-7xl md:text-8xl font-black text-slate-700">
-                    <span id="explain-timer">15</span>
+                    <span id="explain-timer">30</span>
                 </div>
             </div>
             <p id="explain-mission" class="mission-cue" role="status">Speaking Mission: Describe one detail clearly.</p>
@@ -266,8 +266,8 @@
                         <div>
                             <label class="font-bold text-slate-600 block mb-3"><i class="fa-solid fa-stopwatch mr-2"></i>Explain Time (Speaker)</label>
                             <div class="flex gap-2 w-full">
-                                <button class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-indigo-500 bg-indigo-500 text-white transition" data-time="15">15s</button>
-                                <button class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="30">30s</button>
+                                <button class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="15">15s</button>
+                                <button class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-indigo-500 bg-indigo-500 text-white transition" data-time="30">30s</button>
                                 <button class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="45">45s</button>
                             </div>
                         </div>
@@ -313,6 +313,7 @@
     <audio id="seCorrect" preload="auto"><source src="correct.mp3" type="audio/mpeg"></audio>
     <audio id="seWrong" preload="auto"><source src="incorrect.mp3" type="audio/mpeg"></audio>
 
+    <script src="js/charades-core.js"></script>
     <script src="js/game.js"></script>
 </body>
 </html>
