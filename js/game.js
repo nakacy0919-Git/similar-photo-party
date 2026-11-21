@@ -850,7 +850,7 @@ document.addEventListener('DOMContentLoaded', () => {
             state.resultTimeout = setTimeout(showResultPhase, 1150);
         } else {
             playEffect(elements.audio.wrong);
-            btn.classList.add('opacity-40', 'grayscale');
+            btn.classList.add('opacity-40', 'grayscale', 'shake-wrong');
         }
     }
 
