@@ -504,6 +504,89 @@ rutschen|hoch schaukeln|am Klettergerüst hangeln|in eine Pfütze springen|Himme
 滑滑梯|荡高秋千|爬猴架|跳进水坑|跳房子|玩跷跷板|坐旋转木马|玩抓人游戏|跑到树边|走平衡木|挖沙坑|跳绳
 `);
 
+
+  // Expansion pack C: everyday experiences and travel scenarios.
+  deck('household_chores','🧹','Household Chores','家事', `
+vacuum the floor|wash the dishes|fold laundry|make the bed|mop the floor|clean the windows|take out the trash|iron a shirt|hang up clothes|dust a shelf|water houseplants|change a light bulb
+掃除機をかける|皿を洗う|洗濯物をたたむ|ベッドを整える|床をモップで拭く|窓を拭く|ゴミを出す|シャツにアイロンをかける|洗濯物を干す|棚のほこりを払う|観葉植物に水をやる|電球を交換する
+pasar la aspiradora|lavar los platos|doblar la ropa|hacer la cama|fregar el suelo|limpiar las ventanas|sacar la basura|planchar una camisa|tender la ropa|quitar el polvo|regar plantas de interior|cambiar una bombilla
+passar aspirador|lavar a louça|dobrar roupas|arrumar a cama|passar pano no chão|limpar janelas|tirar o lixo|passar uma camisa|estender roupas|tirar o pó da estante|regar plantas de casa|trocar uma lâmpada
+passer l'aspirateur|faire la vaisselle|plier le linge|faire le lit|passer la serpillière|nettoyer les vitres|sortir les poubelles|repasser une chemise|étendre le linge|dépoussiérer une étagère|arroser les plantes|changer une ampoule
+Staub saugen|Geschirr spülen|Wäsche falten|Bett machen|Boden wischen|Fenster putzen|Müll rausbringen|ein Hemd bügeln|Wäsche aufhängen|ein Regal abstauben|Zimmerpflanzen gießen|eine Glühbirne wechseln
+진공청소기 돌리기|설거지하기|빨래 개기|침대 정리하기|바닥 걸레질하기|창문 닦기|쓰레기 버리기|셔츠 다림질하기|빨래 널기|선반 먼지 털기|화분에 물 주기|전구 갈기
+吸尘|洗碗|叠衣服|整理床铺|拖地|擦窗户|倒垃圾|熨衬衫|晾衣服|擦架子上的灰尘|给盆栽浇水|换灯泡
+`);
+  deck('cooking_actions','🍳','Cooking Actions','料理の動作', `
+chop vegetables|peel a potato|stir a pot|flip a pancake|crack an egg|knead dough|grate cheese|taste the soup|set the table|open a can|pour a drink|wash lettuce
+野菜を刻む|じゃがいもの皮をむく|鍋をかき混ぜる|パンケーキをひっくり返す|卵を割る|生地をこねる|チーズをおろす|スープを味見する|食卓を整える|缶詰を開ける|飲み物を注ぐ|レタスを洗う
+picar verduras|pelar una patata|remover una olla|dar la vuelta a una tortita|romper un huevo|amasar|rallar queso|probar la sopa|poner la mesa|abrir una lata|servir una bebida|lavar lechuga
+picar legumes|descascar uma batata|mexer uma panela|virar uma panqueca|quebrar um ovo|sovar massa|ralar queijo|provar a sopa|pôr a mesa|abrir uma lata|servir bebida|lavar alface
+couper des légumes|éplucher une pomme de terre|remuer une casserole|retourner une crêpe|casser un œuf|pétrir la pâte|râper du fromage|goûter la soupe|mettre la table|ouvrir une boîte|verser une boisson|laver la laitue
+Gemüse schneiden|Kartoffeln schälen|im Topf rühren|einen Pfannkuchen wenden|ein Ei aufschlagen|Teig kneten|Käse reiben|Suppe probieren|den Tisch decken|eine Dose öffnen|ein Getränk einschenken|Salat waschen
+채소 다지기|감자 껍질 벗기기|냄비 젓기|팬케이크 뒤집기|달걀 깨기|반죽 치대기|치즈 갈기|수프 맛보기|식탁 차리기|캔 따기|음료 따르기|양상추 씻기
+切蔬菜|削土豆皮|搅拌锅里的食物|翻煎饼|打鸡蛋|揉面|擦奶酪丝|尝汤|摆餐桌|开罐头|倒饮料|洗生菜
+`);
+  deck('shopping_actions','🛍️','Shopping','買い物の場面', `
+try on shoes|push a shopping cart|scan a barcode|pay with a card|look for a bargain|compare prices|carry shopping bags|return an item|wrap a gift|count coins|use a coupon|stand in a checkout line
+靴を試着する|買い物カートを押す|バーコードを読み取る|カードで払う|お買い得品を探す|値段を比べる|買い物袋を運ぶ|商品を返品する|プレゼントを包む|小銭を数える|クーポンを使う|レジに並ぶ
+probarse zapatos|empujar un carrito|escanear un código de barras|pagar con tarjeta|buscar ofertas|comparar precios|llevar bolsas|devolver un artículo|envolver un regalo|contar monedas|usar un cupón|hacer cola en caja
+experimentar sapatos|empurrar carrinho de compras|ler código de barras|pagar com cartão|procurar promoção|comparar preços|carregar sacolas|devolver um produto|embrulhar presente|contar moedas|usar cupom|ficar na fila do caixa
+essayer des chaussures|pousser un chariot|scanner un code-barres|payer par carte|chercher une bonne affaire|comparer les prix|porter des sacs|rendre un article|emballer un cadeau|compter des pièces|utiliser un bon de réduction|faire la queue à la caisse
+Schuhe anprobieren|Einkaufswagen schieben|Barcode scannen|mit Karte zahlen|Schnäppchen suchen|Preise vergleichen|Einkaufstüten tragen|einen Artikel zurückgeben|Geschenk einpacken|Münzen zählen|Gutschein benutzen|an der Kasse anstehen
+신발 신어 보기|쇼핑 카트 밀기|바코드 스캔하기|카드로 결제하기|할인 상품 찾기|가격 비교하기|쇼핑백 나르기|물건 반품하기|선물 포장하기|동전 세기|쿠폰 사용하기|계산대 줄 서기
+试鞋|推购物车|扫描条形码|刷卡付款|找特价商品|比较价格|提购物袋|退货|包装礼物|数硬币|用优惠券|排队结账
+`);
+  deck('restaurant_actions','🍽️','At a Restaurant','レストラン', `
+read the menu|order food|call the waiter|use chopsticks|cut a steak|taste spicy food|share a dessert|ask for the bill|drink from a straw|spill a drink|take a food photo|leave a tip
+メニューを読む|料理を注文する|店員を呼ぶ|箸を使う|ステーキを切る|辛い料理を味見する|デザートを分ける|お会計を頼む|ストローで飲む|飲み物をこぼす|料理の写真を撮る|チップを置く
+leer el menú|pedir comida|llamar al camarero|usar palillos|cortar un filete|probar comida picante|compartir un postre|pedir la cuenta|beber con pajita|derramar una bebida|fotografiar la comida|dejar propina
+ler o cardápio|pedir comida|chamar o garçom|usar hashis|cortar um bife|provar comida apimentada|dividir uma sobremesa|pedir a conta|beber com canudo|derramar bebida|tirar foto da comida|deixar gorjeta
+lire le menu|commander un plat|appeler le serveur|utiliser des baguettes|couper un steak|goûter un plat épicé|partager un dessert|demander l'addition|boire avec une paille|renverser un verre|photographier un plat|laisser un pourboire
+Speisekarte lesen|Essen bestellen|den Kellner rufen|Essstäbchen benutzen|ein Steak schneiden|scharfes Essen probieren|Nachtisch teilen|um die Rechnung bitten|durch einen Strohhalm trinken|ein Getränk verschütten|Essen fotografieren|Trinkgeld geben
+메뉴판 읽기|음식 주문하기|직원 부르기|젓가락 사용하기|스테이크 썰기|매운 음식 맛보기|디저트 나눠 먹기|계산서 요청하기|빨대로 마시기|음료 쏟기|음식 사진 찍기|팁 남기기
+看菜单|点菜|叫服务员|用筷子|切牛排|尝辣菜|分享甜点|买单|用吸管喝|打翻饮料|拍美食照片|留小费
+`);
+  deck('airport_actions','✈️','At the Airport','空港での行動', `
+check in a suitcase|show a passport|go through security|find the departure gate|watch the luggage belt|board an airplane|fasten a seat belt|put a bag overhead|read a boarding pass|wave goodbye|look out of a plane window|wait for a delayed flight
+スーツケースを預ける|パスポートを見せる|保安検査を通る|搭乗ゲートを探す|手荷物受取レーンを見る|飛行機に搭乗する|シートベルトを締める|荷物を頭上に入れる|搭乗券を読む|手を振って別れる|飛行機の窓から外を見る|遅延した便を待つ
+facturar una maleta|mostrar el pasaporte|pasar el control de seguridad|buscar la puerta de embarque|mirar la cinta de equipajes|subir al avión|abrochar el cinturón|guardar una bolsa arriba|leer la tarjeta de embarque|despedirse con la mano|mirar por la ventanilla|esperar un vuelo retrasado
+despachar uma mala|mostrar passaporte|passar pela segurança|procurar portão de embarque|olhar esteira de bagagem|embarcar no avião|afivelar cinto de segurança|guardar mala no bagageiro|ler cartão de embarque|acenar adeus|olhar pela janela do avião|esperar voo atrasado
+enregistrer une valise|montrer son passeport|passer le contrôle de sécurité|chercher la porte d'embarquement|regarder le tapis à bagages|monter dans l'avion|attacher sa ceinture|ranger un sac en hauteur|lire sa carte d'embarquement|faire signe au revoir|regarder par le hublot|attendre un vol retardé
+einen Koffer aufgeben|Reisepass vorzeigen|Sicherheitskontrolle passieren|das Gate suchen|am Gepäckband warten|ins Flugzeug steigen|Sicherheitsgurt anlegen|Gepäck oben verstauen|Bordkarte lesen|zum Abschied winken|aus dem Flugzeugfenster schauen|auf einen verspäteten Flug warten
+여행 가방 부치기|여권 보여 주기|보안 검색 통과하기|탑승구 찾기|수하물 컨베이어 벨트 보기|비행기 탑승하기|안전벨트 매기|짐을 선반에 넣기|탑승권 읽기|손 흔들어 작별하기|비행기 창밖 보기|지연된 비행기 기다리기
+托运行李箱|出示护照|通过安检|寻找登机口|看行李传送带|登机|系安全带|把行李放到头顶行李架|看登机牌|挥手告别|看飞机窗外|等延误航班
+`);
+  deck('hotel_actions','🛎️','At the Hotel','ホテルでの行動', `
+ring the reception bell|check in at the hotel|carry a suitcase upstairs|open a hotel door|find the room number|use a key card|order room service|ask for extra towels|turn on the air conditioner|unpack clothes|call reception|check out
+受付のベルを鳴らす|ホテルにチェックインする|スーツケースを階上へ運ぶ|ホテルのドアを開ける|部屋番号を探す|カードキーを使う|ルームサービスを頼む|タオルの追加を頼む|エアコンをつける|服を荷ほどきする|フロントに電話する|チェックアウトする
+tocar el timbre de recepción|registrarse en el hotel|subir una maleta|abrir la puerta del hotel|buscar el número de habitación|usar una tarjeta llave|pedir servicio de habitaciones|pedir toallas extra|encender el aire acondicionado|deshacer la maleta|llamar a recepción|salir del hotel
+tocar sino da recepção|fazer check-in no hotel|levar mala escada acima|abrir porta do hotel|procurar número do quarto|usar cartão-chave|pedir serviço de quarto|pedir toalhas extras|ligar ar-condicionado|desfazer a mala|ligar para a recepção|fazer check-out
+sonner à la réception|s'enregistrer à l'hôtel|monter une valise|ouvrir la porte de l'hôtel|chercher le numéro de chambre|utiliser une carte-clé|commander au service d'étage|demander des serviettes|allumer la climatisation|défaire sa valise|appeler la réception|quitter l'hôtel
+an der Rezeption klingeln|im Hotel einchecken|Koffer nach oben tragen|Hoteltür öffnen|Zimmernummer suchen|Schlüsselkarte benutzen|Zimmerservice bestellen|zusätzliche Handtücher verlangen|Klimaanlage einschalten|Koffer auspacken|Rezeption anrufen|auschecken
+프런트 벨 누르기|호텔 체크인하기|짐가방 위층으로 옮기기|호텔 문 열기|객실 번호 찾기|카드키 사용하기|룸서비스 주문하기|수건 더 요청하기|에어컨 켜기|짐 풀기|프런트에 전화하기|체크아웃하기
+按前台铃|办理酒店入住|把行李箱搬上楼|打开酒店房门|找房间号|使用房卡|叫客房服务|要更多毛巾|开空调|打开行李箱整理衣物|打电话给前台|办理退房
+`);
+  deck('travel_problems','😵','Travel Mishaps','旅行のハプニング', `
+miss the train|lose your passport|forget your luggage|read a map upside down|get lost in a city|run after a bus|drop your phone|break a suitcase wheel|forget your room key|run out of battery|take the wrong bus|get caught in the rain
+電車に乗り遅れる|パスポートをなくす|荷物を忘れる|地図を逆さに読む|街で道に迷う|バスを追いかける|携帯を落とす|スーツケースの車輪が壊れる|部屋の鍵を忘れる|充電が切れる|違うバスに乗る|雨に降られる
+perder el tren|perder el pasaporte|olvidar el equipaje|leer un mapa al revés|perderse en la ciudad|correr detrás de un autobús|dejar caer el móvil|romper una rueda de la maleta|olvidar la llave|quedarse sin batería|tomar el autobús equivocado|mojarse bajo la lluvia
+perder o trem|perder o passaporte|esquecer a bagagem|ler mapa de cabeça para baixo|se perder na cidade|correr atrás do ônibus|deixar cair o celular|quebrar a rodinha da mala|esquecer a chave do quarto|ficar sem bateria|pegar o ônibus errado|ser pego pela chuva
+rater le train|perdre son passeport|oublier ses bagages|lire une carte à l'envers|se perdre en ville|courir après un bus|faire tomber son téléphone|casser une roue de valise|oublier sa clé|ne plus avoir de batterie|prendre le mauvais bus|se faire surprendre par la pluie
+den Zug verpassen|Reisepass verlieren|Gepäck vergessen|eine Karte verkehrt herum lesen|sich in der Stadt verlaufen|dem Bus hinterherrennen|das Handy fallen lassen|ein Kofferrad zerbrechen|Zimmerschlüssel vergessen|leeren Akku haben|den falschen Bus nehmen|in den Regen geraten
+기차 놓치기|여권 잃어버리기|짐 두고 오기|지도 거꾸로 보기|도시에서 길 잃기|버스 뒤쫓아 뛰기|휴대폰 떨어뜨리기|캐리어 바퀴 부러지기|객실 열쇠 잊기|배터리 방전되기|버스 잘못 타기|비 맞기
+错过火车|丢护照|忘带行李|把地图拿反|在城市迷路|追公交车|手机掉地上|行李箱轮子坏了|忘带房间钥匙|电池没电|坐错公交车|淋雨
+`);
+  deck('city_adventures','🚦','City Adventures','街での行動', `
+hail a taxi|cross at a crosswalk|wait at a traffic light|buy a subway ticket|ask for directions|find a street sign|ride an escalator|wait for an elevator|read a bus timetable|take a city bus|look up at skyscrapers|find a public restroom
+タクシーを止める|横断歩道を渡る|信号で待つ|地下鉄の切符を買う|道を尋ねる|道路標識を探す|エスカレーターに乗る|エレベーターを待つ|バスの時刻表を読む|市バスに乗る|高層ビルを見上げる|公衆トイレを探す
+parar un taxi|cruzar un paso de peatones|esperar en el semáforo|comprar un billete de metro|preguntar direcciones|buscar una señal|subir una escalera mecánica|esperar el ascensor|leer el horario de autobús|tomar un autobús urbano|mirar rascacielos|buscar un baño público
+chamar um táxi|atravessar na faixa|esperar no semáforo|comprar bilhete de metrô|pedir informação|procurar placa de rua|subir escada rolante|esperar elevador|ler horário de ônibus|pegar ônibus urbano|olhar arranha-céus|procurar banheiro público
+héler un taxi|traverser au passage piéton|attendre au feu rouge|acheter un ticket de métro|demander son chemin|chercher une plaque de rue|prendre un escalator|attendre l'ascenseur|lire les horaires du bus|prendre un bus de ville|regarder les gratte-ciel|chercher des toilettes publiques
+ein Taxi heranwinken|am Zebrastreifen überqueren|an der Ampel warten|ein U-Bahn-Ticket kaufen|nach dem Weg fragen|Straßenschilder suchen|Rolltreppe fahren|auf den Aufzug warten|den Busfahrplan lesen|Stadtbus fahren|Wolkenkratzer anschauen|eine öffentliche Toilette suchen
+택시 잡기|횡단보도 건너기|신호등 앞에서 기다리기|지하철 표 사기|길 물어보기|도로 표지판 찾기|에스컬레이터 타기|엘리베이터 기다리기|버스 시간표 읽기|시내버스 타기|고층 건물 올려다보기|공중화장실 찾기
+招手打车|过人行横道|等红绿灯|买地铁票|问路|找路牌|乘扶梯|等电梯|看公交时刻表|坐市内公交|仰望摩天楼|找公共厕所
+`);
+
   const catalog = Object.freeze({ languages: LANGUAGES, decks });
   if (typeof module !== 'undefined' && module.exports) module.exports = catalog;
   root.CHARADES_DATA = catalog;
