@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
-    const MEMORY_TIME_OPTIONS = [5, 10, 15];
+    const MEMORY_TIME_OPTIONS = [20, 30, 40, 50];
     const SPEAKING_MISSIONS = [
         {
             title: '1 · Name it / 何がある？',
@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         en: {
             title: 'HOW TO PLAY',
             steps: [
-                { badge: 'STEP 1', title: 'Memorize', desc: 'Player A looks at the image for 10s. Memorize the details!', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'STEP 2', title: 'Explain', desc: 'Player A describes the image in English. Player B listens.', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'STEP 3', title: 'Choose', desc: 'Player B picks the correct image from 4 choices. Good luck!', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'STEP 1', title: 'Memorize', desc: 'Player A describes the photo while looking at it. The others listen without seeing it.', img: 'assets/images/tutorial_1.webp' },
+                { badge: 'STEP 2', title: 'Explain', desc: 'When the timer rings, pass the device to Player B.', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'STEP 3', title: 'Choose', desc: 'Player B chooses one of four photos. Switch roles next round!', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: 'Next',
             btnStart: 'Start Game!',
@@ -40,9 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ja: {
             title: '遊び方',
             steps: [
-                { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは画像を10秒間見て、詳細まで覚えます。', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'ステップ 2', title: '説明する', desc: 'Aさんは英語で画像の特徴を説明します。Bさんは聞きます。', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんは説明を聞いて、4枚の中から正解を選びます！', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは写真を見ながら説明します。Bさんはまだ写真を見ません。', img: 'assets/images/tutorial_1.webp' },
+                { badge: 'ステップ 2', title: '説明する', desc: '時間になったら合図が鳴ります。端末をBさんに渡します。', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんが4枚から写真を選びます。次は役割交代！', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: '次へ',
             btnStart: 'ゲーム開始！',
@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         round: 0,
         firstCorrect: 0,
         score: 0,
+        correctCount: 0,
         lastPoints: 0,
         attempts: 0,
         remaining: [],
@@ -89,8 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
         tutStep: 0,
         tutLang: 'en',
         // 時間と英語ヒントの設定（初期値）
-        memoryTime: 10,
+        memoryTime: 30,
         explainTime: 30,
+        handoffAlert: 'sound',
+        handoffAudio: null,
+        handoffTimer: null,
         hintMode: 'guided'
     };
 
@@ -165,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
             menuVol: document.getElementById('vol-menu'),
             gameVol: document.getElementById('vol-game'),
             voiceVol: document.getElementById('vol-voice'),
+            handoffAlert: document.getElementById('handoffAlert'),
             menuVal: document.getElementById('vol-menu-val'),
             gameVal: document.getElementById('vol-game-val'),
             voiceVal: document.getElementById('vol-voice-val'),
@@ -254,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Game Flow Events
-    elements.btns.memorySkip.addEventListener('click', startExplainPhase);
+    elements.btns.memorySkip.addEventListener('click', startChoicePhase);
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
     elements.btns.next.addEventListener('click', startMemoryPhase);
     elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
@@ -283,27 +288,15 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.inputs.menuVol.addEventListener('input', (e) => updateVolume('menu', e.target.value));
     elements.inputs.gameVol.addEventListener('input', (e) => updateVolume('game', e.target.value));
     elements.inputs.voiceVol.addEventListener('input', (e) => updateVolume('voice', e.target.value));
+    elements.inputs.handoffAlert.addEventListener('change', e => { state.handoffAlert = e.target.value; });
 
     elements.inputs.ratio.addEventListener('input', (e) => updateLayout('ratio', e.target.value));
     elements.inputs.textSize.addEventListener('input', (e) => updateLayout('text', e.target.value));
 
-    // 時間選択ボタンのイベント
-    elements.btns.timeSelectors.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // 全てのボタンのデザインをリセット
-            elements.btns.timeSelectors.forEach(b => {
-                b.classList.remove('bg-indigo-500', 'text-white', 'border-indigo-500');
-                b.classList.add('border-slate-200', 'text-slate-500');
-            });
-            // 選択されたボタンのデザインを変更
-            e.target.classList.remove('border-slate-200', 'text-slate-500');
-            e.target.classList.add('bg-indigo-500', 'text-white', 'border-indigo-500');
-            
-            // 状態を更新
-            state.explainTime = parseInt(e.target.getAttribute('data-time'));
-        });
+    // One visible round duration controls both the photo display and speaking time.
+    elements.btns.timeSelectors.forEach(button => {
+        button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-time')));
     });
-
 
     // Selected classroom options are applied to the next round; current scoring is unchanged.
     function markSelectedButtons(buttons, attribute, selectedValue) {
@@ -319,7 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const seconds = Number(value);
         if (!MEMORY_TIME_OPTIONS.includes(seconds)) return false;
         state.memoryTime = seconds;
-        markSelectedButtons(elements.btns.memorySelectors, 'data-memory-time', seconds);
+        state.explainTime = seconds;
+        markSelectedButtons(elements.btns.timeSelectors, 'data-time', seconds);
         if (!elements.views.tutorial.classList.contains('hidden') && state.tutStep === 0) {
             updateTutorialView();
         }
@@ -464,8 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tutElements.title.textContent = stepData.title;
         elements.tutElements.desc.textContent = state.tutStep === 0
             ? (state.tutLang === 'en'
-                ? `Player A looks at the image for ${state.memoryTime}s. Memorize the details!`
-                : `Aさんは画像を${state.memoryTime}秒間見て、詳細まで覚えます。`)
+                ? `Player A describes the photo while looking at it for ${state.memoryTime}s. Player B listens without seeing.`
+                : `Aさんは写真を見ながら${state.memoryTime}秒間説明します。Bさんはまだ見ません。`)
             : stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
         elements.tutElements.img.src = stepData.img;
@@ -523,6 +517,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function unlockHandoffSound() {
+        if (state.handoffAlert !== 'sound' && state.handoffAlert !== 'both') return;
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        try {
+            if (!state.handoffAudio) state.handoffAudio = new AudioContextClass();
+            if (state.handoffAudio.state === 'suspended') {
+                const result = state.handoffAudio.resume();
+                if (result && typeof result.catch === 'function') result.catch(() => {});
+            }
+        } catch { /* Unsupported audio should never interrupt a classroom round. */ }
+    }
+
+    function playHandoffCue() {
+        if (document.hidden) return;
+        if (state.handoffAlert === 'vibrate' || state.handoffAlert === 'both') {
+            try { window.navigator?.vibrate?.([100, 60, 120]); } catch {}
+        }
+        if (state.handoffAlert !== 'sound' && state.handoffAlert !== 'both') return;
+        const context = state.handoffAudio;
+        if (!context) return;
+        try {
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            const start = context.currentTime;
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(880, start);
+            oscillator.frequency.exponentialRampToValueAtTime(1320, start + .11);
+            gain.gain.setValueAtTime(.0001, start);
+            gain.gain.exponentialRampToValueAtTime(.08, start + .018);
+            gain.gain.exponentialRampToValueAtTime(.0001, start + .28);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start(start);
+            oscillator.stop(start + .29);
+        } catch { /* Unavailable Web Audio is not a game blocker. */ }
+    }
+
     function playEffect(audio) {
         if (document.hidden) return;
         try {
@@ -538,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateRoleCues() {
         const speaker = state.round % 2 === 1 ? 'A' : 'B';
         const listener = speaker === 'A' ? 'B' : 'A';
-        elements.roles.memory.textContent = `Player ${speaker}: 写真を記憶 ／ Player ${listener}: 画面を見ない`;
+        elements.roles.memory.textContent = `Player ${speaker}: 写真を見ながら説明 ／ Player ${listener}: 画面を見ない`;
         elements.roles.explain.textContent = `Player ${speaker}: 英語で説明 ／ Player ${listener}: 聞くだけ`;
         elements.roles.choice.textContent = `Player ${listener}: 写真を選ぶ ／ Player ${speaker}: 答えを指ささない`;
         elements.roles.result.textContent = `次はPlayer ${listener}が説明役！ 2人で英語の違いを言ってみよう。`;
@@ -683,6 +715,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        unlockHandoffSound();
         stopSpeech();
         if (!prepareQuizData()) return;
         state.attempts = 0;
@@ -695,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetPeerFeedback();
         updateMissionPrompts();
         updateRoleCues();
-        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · SCORE ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round - 1}`;
+        document.getElementById('round-status').textContent = `Round ${state.round} · 説明役: Player ${state.round % 2 ? 'A' : 'B'} · 正解 ${state.correctCount}問`;
         const generation = ++state.generation;
         showView('memory');
         elements.btns.memorySkip.disabled = true;
@@ -717,7 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generation !== state.generation || state.phase !== 'memory') return;
         elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
         elements.btns.memorySkip.disabled = false;
-        runTimer(state.memoryTime, elements.timers.memory, startExplainPhase);
+        runTimer(state.memoryTime, elements.timers.memory, startChoicePhase);
     }
 
     // Pause countdowns while settings are open or the page is in the background.
@@ -749,20 +785,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
+    // Legacy entry point kept for existing integrations; there is no longer a
+    // separate, photo-less explanation screen.
     function startExplainPhase() {
-        if (state.phase !== 'memory' || elements.btns.memorySkip.disabled) return;
-        showView('explain');
-        updateExplainHint();
-        elements.timers.explainProgress.style.strokeDashoffset = 0;
-        runTimer(state.explainTime, elements.timers.explain, startChoicePhase, elements.timers.explainProgress);
+        startChoicePhase();
     }
 
     function startChoicePhase() {
-        if (state.phase !== 'explain') return;
+        if (state.phase !== 'memory') return;
         clearInterval(state.timerInterval);
         state.activeCountdown = null;
+        playHandoffCue();
         showView('choice');
         renderGrid();
+        const banner = document.getElementById('handoff-announcement');
+        banner.hidden = false;
+        clearTimeout(state.handoffTimer);
+        state.handoffTimer = setTimeout(() => { banner.hidden = true; state.handoffTimer = null; }, 1400);
     }
 
     function renderGrid() {
@@ -799,13 +838,16 @@ document.addEventListener('DOMContentLoaded', () => {
             state.lastPoints = window.CHARADES_CORE
                 ? window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts)
                 : ([100, 60, 30][state.attempts - 1] || 10);
-            state.score += state.lastPoints;
+            state.score += state.lastPoints; // Legacy internal metric: not shown to players.
+            state.correctCount++;
             elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
             playEffect(elements.audio.correct);
+            document.getElementById('handoff-announcement').hidden = true;
+            document.getElementById('choice-success-overlay').hidden = false;
             
             btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
             triggerConfetti();
-            state.resultTimeout = setTimeout(showResultPhase, 1500);
+            state.resultTimeout = setTimeout(showResultPhase, 1150);
         } else {
             playEffect(elements.audio.wrong);
             btn.classList.add('opacity-40', 'grayscale');
@@ -814,8 +856,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showResultPhase() {
         if (state.phase !== 'feedback') return;
-        document.getElementById('result-feedback').textContent = `+${state.lastPoints} pts! ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。違いを表す英語を確認しよう。`);
-        document.getElementById('round-status').textContent = `Round ${state.round} · TOTAL ${state.score} pts · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('result-feedback').textContent =
+            `正解！ 合計${state.correctCount}問 ` + (state.attempts === 1 ? '初回で正解！' : `${state.attempts}回目で正解。`);
+        document.getElementById('round-status').textContent =
+            `Round ${state.round} · 正解 ${state.correctCount}問 · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
         showView('result');
         elements.imgs.result.src = `assets/images/${state.correctItem.filename}`;
         elements.text.resultTitle.textContent = state.correctItem.title;
@@ -833,6 +878,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(state.timerInterval);
         state.activeCountdown = null;
         clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
         state.generation++;
         stopSpeech();
         if (document.fullscreenElement && document.exitFullscreen) {
