@@ -197,3 +197,13 @@ body:has(#view-photo-summary:not(.hidden)) #bgmBtn{display:none!important}
 .photo-setup-screen,.photo-ready-screen,.photo-summary-screen{box-sizing:border-box}
 .photo-game-tools{user-select:none;-webkit-user-select:none}
 .photo-pause-overlay{overscroll-behavior:none}
+
+.photo-tool-back{background:#283b6bd9}
+@media(max-width:760px){
+  .photo-game-tools{gap:4px!important}
+  .photo-tool-btn{font-size:.7rem;padding:.36rem .5rem;min-height:40px}
+  #view-memory .role-cue{display:none!important}
+}
+@media(min-width:761px){
+  #view-memory .role-cue{right:275px!important;max-width:calc(100vw - 300px)}
+}
