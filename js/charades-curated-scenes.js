@@ -157,3 +157,79 @@ Someone is recovering from a long session of %s|長時間%sをして疲れてい
 Someone is enjoying %s with family|家族と一緒に%sを楽しむ|Alguien disfruta de %s con su familia|Alguém aproveita %s com a família|Quelqu'un profite de %s en famille|Jemand genießt %s mit der Familie|가족과 %s 즐기기|和家人一起享受%s
 Someone is explaining the basic rules of %s|%sの基本ルールを説明する|Alguien explica las reglas básicas de %s|Alguém explica as regras básicas de %s|Quelqu'un explique les règles de base de %s|Jemand erklärt die Grundregeln von %s|%s 기본 규칙 설명하기|讲解%s的基本规则
 `);
+
+family('feelings', `
+Someone suddenly feels %s|急に%sな気持ちになる|Alguien se siente %s de repente|Alguém se sente %s de repente|Quelqu'un se sent soudain %s|Jemand fühlt sich plötzlich %s|갑자기 %s 감정을 느끼기|突然感到%s
+Someone is trying to hide feeling %s|%sな気持ちを隠そうとする|Alguien intenta ocultar que está %s|Alguém tenta esconder que está %s|Quelqu'un essaie de cacher qu'il est %s|Jemand versucht zu verbergen dass er %s ist|%s 감정을 숨기려 하기|努力掩饰自己感到%s
+Someone looks %s without saying a word|ひと言も話さず%sな表情をする|Alguien parece %s sin decir nada|Alguém parece %s sem dizer nada|Quelqu'un a l'air %s sans parler|Jemand sieht %s aus ohne etwas zu sagen|말없이 %s 표정 짓기|一言不发地显得%s
+Someone feels %s before a big performance|大きな舞台の前に%sと感じる|Alguien se siente %s antes de actuar|Alguém se sente %s antes de se apresentar|Quelqu'un se sent %s avant un spectacle|Jemand fühlt sich vor einem Auftritt %s|큰 공연 전에 %s 감정 느끼기|上台表演前感到%s
+Someone becomes %s after reading a message|メッセージを読んで%sな気持ちになる|Alguien se pone %s al leer un mensaje|Alguém fica %s depois de ler uma mensagem|Quelqu'un devient %s après un message|Jemand wird nach einer Nachricht %s|메시지를 보고 %s 감정 느끼기|读完消息后变得%s
+Someone is pretending to be %s|%sなふりをする|Alguien finge estar %s|Alguém finge estar %s|Quelqu'un fait semblant d'être %s|Jemand tut so als wäre er %s|%s 척하기|假装自己很%s
+Someone feels %s without knowing why|理由もなく%sな気持ちになる|Alguien se siente %s sin saber por qué|Alguém se sente %s sem saber por quê|Quelqu'un se sent %s sans savoir pourquoi|Jemand fühlt sich ohne Grund %s|이유 없이 %s 감정 느끼기|莫名其妙地感到%s
+Someone feels %s while waiting for a result|結果を待ちながら%sと感じる|Alguien se siente %s al esperar un resultado|Alguém se sente %s esperando um resultado|Quelqu'un se sent %s en attendant un résultat|Jemand fühlt sich beim Warten auf ein Ergebnis %s|결과를 기다리며 %s 감정 느끼기|等待结果时感到%s
+Someone wakes up feeling %s|目覚めたときに%sな気分になる|Alguien se despierta sintiéndose %s|Alguém acorda sentindo-se %s|Quelqu'un se réveille en se sentant %s|Jemand wacht auf und fühlt sich %s|일어나자마자 %s 감정 느끼기|醒来时觉得%s
+Someone feels %s after a phone call|電話が終わって%sな気持ちになる|Alguien se siente %s después de llamar|Alguém se sente %s depois de telefonar|Quelqu'un se sent %s après un appel|Jemand fühlt sich nach einem Telefonat %s|통화 후 %s 감정 느끼기|打完电话后感到%s
+Someone is explaining why they feel %s|どうして%sなのか説明する|Alguien explica por qué se siente %s|Alguém explica por que se sente %s|Quelqu'un explique pourquoi il se sent %s|Jemand erklärt warum er sich %s fühlt|왜 %s 감정인지 설명하기|解释为什么感到%s
+Someone feels %s among strangers|知らない人たちの中で%sな気分になる|Alguien se siente %s entre desconocidos|Alguém se sente %s entre desconhecidos|Quelqu'un se sent %s parmi des inconnus|Jemand fühlt sich unter Fremden %s|낯선 사람들 사이에서 %s 감정 느끼기|在陌生人中间感到%s
+Someone is acting %s on a theater stage|舞台の上で%sな人物を演じる|Alguien actúa %s en el teatro|Alguém atua como %s no teatro|Quelqu'un joue une personne %s au théâtre|Jemand spielt auf einer Bühne eine %s Person|무대에서 %s 역할 연기하기|在舞台上扮演%s的人
+Someone is feeling %s in a new place|初めての場所で%sと感じる|Alguien se siente %s en un lugar nuevo|Alguém se sente %s num lugar novo|Quelqu'un se sent %s dans un lieu nouveau|Jemand fühlt sich an einem neuen Ort %s|새로운 장소에서 %s 감정 느끼기|在新地方感到%s
+Someone is remembering a time they felt %s|%sだったときを思い出している|Alguien recuerda cuando se sintió %s|Alguém lembra de quando se sentiu %s|Quelqu'un se souvient d'avoir été %s|Jemand erinnert sich daran einmal %s gewesen zu sein|%s 감정을 느꼈던 때 회상하기|回忆曾经感到%s的时刻
+Someone feels %s during a surprise party|サプライズパーティーで%sな気分になる|Alguien se siente %s en una fiesta sorpresa|Alguém se sente %s numa festa surpresa|Quelqu'un se sent %s à une fête surprise|Jemand fühlt sich auf einer Überraschungsparty %s|깜짝 파티에서 %s 감정 느끼기|在惊喜派对上感到%s
+`);
+
+family('occasions', `
+Someone is preparing a display about %s|%sについて展示を準備する|Alguien prepara una exposición sobre %s|Alguém prepara uma exposição sobre %s|Quelqu'un prépare une exposition sur %s|Jemand bereitet eine Ausstellung über %s vor|%s 주제로 전시 준비하기|准备关于%s的展览
+Someone is explaining the meaning of %s|%sの意味を説明する|Alguien explica el significado de %s|Alguém explica o significado de %s|Quelqu'un explique la signification de %s|Jemand erklärt die Bedeutung von %s|%s 의미 설명하기|解释%s的含义
+Someone is trying %s for the first time|初めて%sを体験する|Alguien prueba %s por primera vez|Alguém experimenta %s pela primeira vez|Quelqu'un découvre %s pour la première fois|Jemand erlebt %s zum ersten Mal|처음 %s 체험하기|第一次体验%s
+Someone is teaching a child about %s|子どもに%sを教えている|Alguien enseña %s a un niño|Alguém ensina %s a uma criança|Quelqu'un apprend %s à un enfant|Jemand erklärt einem Kind %s|아이에게 %s 가르치기|教孩子认识%s
+Someone is making a poster about %s|%sのポスターを作る|Alguien hace un cartel sobre %s|Alguém faz um cartaz sobre %s|Quelqu'un crée une affiche sur %s|Jemand gestaltet ein Plakat über %s|%s 포스터 만들기|制作关于%s的海报
+Someone is showing %s to a visitor|訪問者に%sを紹介する|Alguien muestra %s a un visitante|Alguém mostra %s a um visitante|Quelqu'un présente %s à un visiteur|Jemand zeigt einem Besucher %s|방문객에게 %s 소개하기|向游客展示%s
+Someone is inviting a friend to experience %s|友達を%sの体験に誘う|Alguien invita a un amigo a experimentar %s|Alguém convida um amigo para conhecer %s|Quelqu'un invite un ami à découvrir %s|Jemand lädt einen Freund ein %s zu erleben|친구에게 %s 체험 권하기|邀请朋友体验%s
+Someone is asking questions about %s|%sについて質問をする|Alguien hace preguntas sobre %s|Alguém faz perguntas sobre %s|Quelqu'un pose des questions sur %s|Jemand stellt Fragen zu %s|%s에 관해 질문하기|询问关于%s的问题
+Someone is telling a story connected to %s|%sにまつわる話をする|Alguien cuenta una historia sobre %s|Alguém conta uma história sobre %s|Quelqu'un raconte une histoire liée à %s|Jemand erzählt eine Geschichte über %s|%s 관련 이야기 들려주기|讲一个与%s有关的故事
+Someone is watching a demonstration of %s|%sの実演を見学する|Alguien observa una demostración de %s|Alguém assiste a uma demonstração de %s|Quelqu'un regarde une démonstration de %s|Jemand sieht eine Vorführung von %s|%s 시연 구경하기|观看%s的演示
+Someone is taking a souvenir photo of %s|%sの記念写真を撮る|Alguien toma una foto de recuerdo de %s|Alguém tira uma foto de lembrança de %s|Quelqu'un prend une photo souvenir de %s|Jemand macht ein Erinnerungsfoto von %s|%s 기념사진 찍기|给%s拍纪念照片
+Someone is comparing two traditions involving %s|%sに関わる二つの伝統を比べる|Alguien compara dos tradiciones de %s|Alguém compara duas tradições de %s|Quelqu'un compare deux traditions liées à %s|Jemand vergleicht zwei Traditionen rund um %s|%s 관련 두 전통 비교하기|比较与%s有关的两种传统
+Someone is rehearsing for a presentation about %s|%sの発表を練習する|Alguien ensaya una presentación sobre %s|Alguém ensaia uma apresentação sobre %s|Quelqu'un répète un exposé sur %s|Jemand übt einen Vortrag über %s|%s 발표 연습하기|排练关于%s的介绍
+Someone is remembering a special moment of %s|%sの特別な思い出を振り返る|Alguien recuerda un momento especial de %s|Alguém lembra um momento especial de %s|Quelqu'un se rappelle un moment spécial de %s|Jemand erinnert sich an einen besonderen Moment mit %s|%s 특별한 추억 떠올리기|回忆关于%s的特别时刻
+Someone is learning how to participate in %s|%sへの参加方法を学んでいる|Alguien aprende a participar en %s|Alguém aprende como participar de %s|Quelqu'un apprend à participer à %s|Jemand lernt wie man bei %s mitmacht|%s 참여 방법 배우기|学习如何参与%s
+Someone is sharing an interesting fact about %s|%sについて面白い事実を教える|Alguien comparte un dato curioso sobre %s|Alguém conta uma curiosidade sobre %s|Quelqu'un raconte un fait intéressant sur %s|Jemand erzählt etwas Interessantes über %s|%s 흥미로운 사실 소개하기|分享一个关于%s的趣闻
+`);
+
+family('belongings', `
+Someone is trying to learn how to use %s|%sの使い方を習っている|Alguien aprende a utilizar %s|Alguém aprende a usar %s|Quelqu'un apprend à utiliser %s|Jemand lernt %s zu benutzen|%s 사용법 배우기|学习使用%s
+Someone is searching for %s|%sを一生懸命探している|Alguien busca %s|Alguém procura %s|Quelqu'un cherche %s|Jemand sucht nach %s|%s 열심히 찾기|努力寻找%s
+Someone is explaining how %s works|%sの仕組みを説明する|Alguien explica cómo funciona %s|Alguém explica como funciona %s|Quelqu'un explique comment fonctionne %s|Jemand erklärt wie %s funktioniert|%s 작동 원리 설명하기|解释%s的工作原理
+Someone is showing %s to a friend|友達に%sを見せている|Alguien muestra %s a un amigo|Alguém mostra %s a um amigo|Quelqu'un montre %s à un ami|Jemand zeigt einem Freund %s|친구에게 %s 보여주기|向朋友展示%s
+Someone is asking for help with %s|%sについて助けを求める|Alguien pide ayuda con %s|Alguém pede ajuda com %s|Quelqu'un demande de l'aide avec %s|Jemand bittet um Hilfe bei %s|%s 사용 도와달라고 하기|请求别人帮忙处理%s
+Someone is taking a photo of %s|%sの写真を撮る|Alguien fotografía %s|Alguém fotografa %s|Quelqu'un photographie %s|Jemand fotografiert %s|%s 사진 찍기|给%s拍照
+Someone is shopping for %s|買い物で%sを選ぶ|Alguien compra %s|Alguém compra %s|Quelqu'un achète %s|Jemand kauft %s|%s 쇼핑하기|购买%s
+Someone is explaining why %s is useful|%sが便利な理由を説明する|Alguien explica por qué sirve %s|Alguém explica por que %s é útil|Quelqu'un explique pourquoi %s est utile|Jemand erklärt warum %s nützlich ist|%s 유용한 이유 설명하기|解释%s为什么有用
+Someone is presenting a new version of %s|新しい%sを紹介する|Alguien presenta una versión nueva de %s|Alguém apresenta uma nova versão de %s|Quelqu'un présente une nouvelle version de %s|Jemand stellt eine neue Version von %s vor|새로운 %s 소개하기|介绍新版%s
+Someone is comparing %s with something similar|%sと似た物を比べている|Alguien compara %s con algo parecido|Alguém compara %s com algo parecido|Quelqu'un compare %s à quelque chose de semblable|Jemand vergleicht %s mit etwas Ähnlichem|%s 비슷한 물건과 비교하기|把%s与相似物品比较
+Someone is imagining an unusual design for %s|変わった%sのデザインを考える|Alguien imagina un diseño extraño de %s|Alguém imagina um desenho diferente para %s|Quelqu'un imagine un modèle original de %s|Jemand denkt sich ein ungewöhnliches Design für %s aus|특별한 %s 디자인 상상하기|想象一种特别设计的%s
+Someone is deciding whether to keep %s|%sを残すか迷っている|Alguien decide si conservar %s|Alguém decide se guarda %s|Quelqu'un hésite à garder %s|Jemand überlegt ob er %s behalten soll|%s 보관할지 고민하기|犹豫是否保留%s
+Someone is giving a talk about %s|%sについて話をする|Alguien da una charla sobre %s|Alguém faz uma palestra sobre %s|Quelqu'un fait un exposé sur %s|Jemand hält einen Vortrag über %s|%s에 대해 발표하기|做关于%s的介绍
+Someone is receiving %s as a surprise gift|%sをサプライズでプレゼントされる|Alguien recibe %s como regalo sorpresa|Alguém ganha %s como presente surpresa|Quelqu'un reçoit %s comme cadeau surprise|Jemand bekommt %s überraschend geschenkt|%s 깜짝 선물 받기|意外收到%s作为礼物
+Someone is learning to recognize %s|%sを見分ける練習をしている|Alguien aprende a reconocer %s|Alguém aprende a reconhecer %s|Quelqu'un apprend à reconnaître %s|Jemand lernt %s zu erkennen|%s 알아보는 연습하기|练习辨认%s
+Someone is discovering a surprising fact about %s|%sの意外な特徴を知って驚く|Alguien descubre algo sorprendente sobre %s|Alguém descobre algo surpreendente sobre %s|Quelqu'un découvre un fait surprenant sur %s|Jemand erfährt etwas Erstaunliches über %s|%s 의외의 특징 발견하기|发现%s的惊人特点
+`);
+
+family('education', `
+Someone is learning about %s in class|授業で%sについて学んでいる|Alguien aprende sobre %s en clase|Alguém aprende sobre %s na aula|Quelqu'un étudie %s en classe|Jemand lernt im Unterricht etwas über %s|수업에서 %s 배우기|在课堂上学习%s
+Someone is asking a teacher about %s|先生に%sについて質問する|Alguien pregunta al profesor por %s|Alguém pergunta ao professor sobre %s|Quelqu'un interroge son professeur sur %s|Jemand fragt die Lehrkraft nach %s|선생님에게 %s 질문하기|向老师请教%s
+Someone is explaining %s to a classmate|クラスメートに%sを説明する|Alguien explica %s a un compañero|Alguém explica %s a um colega|Quelqu'un explique %s à un camarade|Jemand erklärt einem Mitschüler %s|친구에게 %s 설명하기|给同学解释%s
+Someone is searching for information about %s|%sについて調べものをする|Alguien busca información sobre %s|Alguém pesquisa sobre %s|Quelqu'un recherche des informations sur %s|Jemand recherchiert über %s|%s 자료 조사하기|查找关于%s的资料
+Someone is making a diagram about %s|%sについて図を描く|Alguien dibuja un esquema sobre %s|Alguém desenha um esquema sobre %s|Quelqu'un dessine un schéma de %s|Jemand zeichnet eine Skizze zu %s|%s 그림 도식 만들기|画关于%s的示意图
+Someone is preparing a presentation about %s|%sの発表を準備する|Alguien prepara una presentación sobre %s|Alguém prepara uma apresentação sobre %s|Quelqu'un prépare un exposé sur %s|Jemand bereitet einen Vortrag über %s vor|%s 발표 준비하기|准备关于%s的演讲
+Someone is making a model related to %s|%sに関する模型を作る|Alguien construye un modelo de %s|Alguém monta um modelo de %s|Quelqu'un construit une maquette de %s|Jemand baut ein Modell zu %s|%s 관련 모형 만들기|制作与%s有关的模型
+Someone is checking the meaning of %s|%sの意味を確認する|Alguien comprueba qué significa %s|Alguém confere o significado de %s|Quelqu'un vérifie le sens de %s|Jemand prüft die Bedeutung von %s|%s 뜻 확인하기|查清%s的含义
+Someone is remembering a lesson about %s|%sについて習ったことを思い出す|Alguien recuerda una lección sobre %s|Alguém lembra uma aula sobre %s|Quelqu'un se rappelle une leçon sur %s|Jemand erinnert sich an eine Lektion über %s|%s 수업 기억하기|回忆关于%s的课程
+Someone is discussing %s in a group|グループで%sについて話し合う|Alguien debate %s en grupo|Alguém debate %s em grupo|Quelqu'un discute de %s en groupe|Jemand diskutiert %s in einer Gruppe|조별로 %s 토론하기|小组讨论%s
+Someone is wondering how %s works|%sの仕組みが気になっている|Alguien se pregunta cómo funciona %s|Alguém se pergunta como funciona %s|Quelqu'un se demande comment fonctionne %s|Jemand fragt sich wie %s funktioniert|%s 원리 궁금해하기|好奇%s如何运作
+Someone is trying to demonstrate %s|%sを実演しようとする|Alguien intenta demostrar %s|Alguém tenta demonstrar %s|Quelqu'un essaie de démontrer %s|Jemand versucht %s zu demonstrieren|%s 실험 시연하기|尝试演示%s
+Someone is writing notes about %s|%sについてノートを取る|Alguien toma apuntes sobre %s|Alguém faz anotações sobre %s|Quelqu'un prend des notes sur %s|Jemand macht sich Notizen über %s|%s 필기하기|做关于%s的笔记
+Someone is creating a quiz about %s|%sに関するクイズを作る|Alguien crea un cuestionario sobre %s|Alguém cria um quiz sobre %s|Quelqu'un crée un quiz sur %s|Jemand erstellt ein Quiz über %s|%s 퀴즈 만들기|制作关于%s的测验
+Someone is excited to discover %s|%sを発見して喜ぶ|Alguien se entusiasma al descubrir %s|Alguém fica animado ao descobrir %s|Quelqu'un est ravi de découvrir %s|Jemand freut sich %s zu entdecken|%s 발견하고 기뻐하기|因发现%s而兴奋
+Someone is teaching a younger student about %s|年下の生徒に%sを教える|Alguien enseña %s a un alumno menor|Alguém ensina %s a um aluno mais novo|Quelqu'un enseigne %s à un plus jeune élève|Jemand erklärt einem jüngeren Schüler %s|어린 학생에게 %s 가르치기|教低年级学生%s
+`);
