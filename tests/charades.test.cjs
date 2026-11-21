@@ -5,13 +5,17 @@ const path = require('node:path');
 const catalog = require('../js/charades-data.js');
 const core = require('../js/charades-core.js');
 
-test('32 independent decks contain 384 original prompts in eight complete languages', () => {
+test('64 independent decks contain 768 original prompts in eight complete languages', () => {
   assert.equal(catalog.languages.length, 8);
-  assert.equal(catalog.decks.length, 32);
-  assert.equal(catalog.decks.reduce((sum, deck) => sum + deck.words.length, 0), 384);
+  assert.equal(catalog.decks.length, 64);
+  assert.equal(catalog.decks.reduce((sum, deck) => sum + deck.words.length, 0), 768);
   assert.equal(core.validateCatalog(catalog), true);
   for (const deck of catalog.decks) {
     assert.equal(deck.words.length, 12, deck.id);
+    for (const [lang] of catalog.languages) {
+      const normalized = deck.words.map(item => item[lang].trim().toLocaleLowerCase());
+      assert.equal(new Set(normalized).size, normalized.length, deck.id + ' duplicate in ' + lang);
+    }
     for (const item of deck.words) {
       for (const [language] of catalog.languages) {
         assert.ok(item[language].trim().length > 0, deck.id + ':' + language);
@@ -24,7 +28,7 @@ test('category filters return only the requested deck and the selected language'
   for (const [lang] of catalog.languages) {
     assert.equal(core.availableWords(catalog, 'animals', lang).length, 12);
     assert.ok(core.availableWords(catalog, 'animals', lang).every(item => item.deckId === 'animals'));
-    assert.ok(core.availableWords(catalog, 'all', lang).length >= 300);
+    assert.ok(core.availableWords(catalog, 'all', lang).length >= 600);
   }
   assert.equal(core.availableWords(catalog, 'not-a-deck', 'en').length, 0);
   assert.equal(core.availableWords(catalog, 'animals', 'missing').length, 0);
@@ -56,6 +60,16 @@ test('charades page has local scripts, CSP and accessible answer controls', () =
     assert.match(html, new RegExp('id="' + id + '"'));
   }
   assert.doesNotMatch(html, /<script(?![^>]*src=)[^>]*>/);
+});
+
+test('all 64 categories have translated selection labels and search control', () => {
+  const source = fs.readFileSync(path.join(__dirname, '../js/charades.js'), 'utf8');
+  const html = fs.readFileSync(path.join(__dirname, '../charades.html'), 'utf8');
+  for (const deck of catalog.decks) {
+    assert.ok(source.includes(deck.id + ':['), deck.id + ' localized label missing');
+  }
+  assert.match(html, /id="deckSearch"/);
+  assert.match(source, /SEARCH_PLACEHOLDERS/);
 });
 
 test('original photo game still has automatic photo phases and scoring', () => {
