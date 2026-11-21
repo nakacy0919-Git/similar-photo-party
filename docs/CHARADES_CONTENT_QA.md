@@ -47,7 +47,7 @@
 | Jobs | The teacher is telling a funny story | A complete scene |
 | Emotions | Someone suddenly feels happy | One recognizable emotion |
 | Cooking Actions | Slowly chop vegetables | A single cooking action |
-| Travel | Someone is getting ready for a passport | Travel preparation |
+| Travel | Someone is getting ready for the passport | Travel preparation |
 | Community | Someone is giving directions to the hospital | One community-related scene |
 
 **Rejected:** `butterfly — rushing to catch a bus`, `cat + dog`, `cooking vegetables + flying a kite`.
