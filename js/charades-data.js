@@ -676,12 +676,12 @@ auf einem unsichtbaren Seil balancieren|gegen eine unsichtbare Mücke kämpfen|e
   if (typeof validateStandaloneDecks !== 'function') throw new Error('Missing Charades prompt validator');
   validateStandaloneDecks(decks);
 
-  // Every additional task is a cohesive, family-appropriate scene. Unrelated
-  // keyword-pairs are never composed or displayed.
+  // Standard uses independently-authored short labels; Challenge combines two
+  // curated concepts in the SAME category. The former sentence templates are gone.
   const sceneCatalog = root.CHARADES_SCENES ||
     (typeof module !== 'undefined' && module.exports ? require('./charades-curated-scenes.js') : null);
   if (!sceneCatalog || typeof sceneCatalog.expand !== 'function') {
-    throw new Error('Missing quality-screened Charades scenario pack');
+    throw new Error('Missing Charades two-level card catalog');
   }
   sceneCatalog.expand(decks);
   validateStandaloneDecks(decks);
