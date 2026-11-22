@@ -1,12 +1,5 @@
-/*
- * Single-concept quality gate for the original multilingual Charades catalog.
- *
- * The previous 200-per-category generator combined unrelated concepts
- * ("cat + dog", "butterfly — rushing to catch a bus"). It has been removed.
- *
- * We only publish fully authored standalone prompts. If new prompts are added
- * to the source decks, they must be translated in all eight languages and
- * pass this quality gate; nothing is synthesized just to reach a quota.
+/* Validate classroom Charades labels before and after expansion.
+ * Standard is one concept/action; Challenge is an intentional two-part mime task.
  */
 (function (root) {
   'use strict';
@@ -39,6 +32,18 @@
           }
           if (label !== label.trim() || MULTI_PROMPT_SEPARATOR.test(label)) {
             throw new Error('Two-concept Charades prompt rejected: ' + deck.id + '/' + lang);
+          }
+          const level = item.level || 'standard';
+          if (!['standard','challenge'].includes(level)) throw new Error('Invalid Charades level: '+deck.id);
+          const pieces = label.split(/\\s(?:&|→)\\s/u);
+          if (level === 'standard' && pieces.length !== 1) {
+            throw new Error('Standard must contain one concept: '+deck.id+'/'+lang);
+          }
+          if (level === 'challenge' && (pieces.length !== 2 || pieces.some(x => !x.trim()))) {
+            throw new Error('Challenge must contain two concise concepts: '+deck.id+'/'+lang);
+          }
+          if (level === 'challenge' && !['both','sequence'].includes(item.kind)) {
+            throw new Error('Unknown Challenge kind: '+deck.id);
           }
           const normalized = label.toLocaleLowerCase();
           if (used[lang].has(normalized)) {
