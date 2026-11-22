@@ -210,3 +210,12 @@ button, a, select, input { touch-action: manipulation; }
 @media(prefers-reduced-motion:reduce){
   #ready #beginRound.ready-start{transition:none!important}
 }
+
+/* Level selector and in-game mode visibility: readable on phones and iPads. */
+#difficultyGuide{margin:0;line-height:1.45}
+#difficulty{font-weight:850}
+.level-badge{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;
+ padding:.22rem .62rem;border:1px solid #a89df9;background:rgba(35,21,97,.85);
+ border-radius:999px;color:#ffdfaa;font-size:.73rem;font-weight:950;letter-spacing:.045em}
+.prompt-top{align-items:center;flex-wrap:wrap}
+@media(max-width:540px){.prompt-top{gap:.35rem}.prompt-top #playInstruction{flex-basis:100%;text-align:center;font-size:.73rem}}
