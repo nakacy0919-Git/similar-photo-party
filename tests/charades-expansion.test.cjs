@@ -4,122 +4,113 @@ const fs = require('node:fs');
 const path = require('node:path');
 const catalog = require('../js/charades-data.js');
 const check = require('../js/charades-expansion.js');
-const scenarios = require('../js/charades-curated-scenes.js');
+const cards = require('../js/charades-curated-scenes.js');
 const core = require('../js/charades-core.js');
+const langs = catalog.languages.map(([lang]) => lang);
+const separator = /\\s(?:&|→)\\s/u;
 
-const langs = catalog.languages.map(([code]) => code);
-const forbidden = /\s(?:\+|＋|—|–)\s/u;
-
-test('all 64 categories have 200 meaningful, complete 8-language prompts', () => {
+test('64 categories keep 200 cards each, and separate concise Standard and Challenge prompts', () => {
   assert.equal(catalog.decks.length, 64);
   assert.deepEqual(langs, ['en','ja','es','pt','fr','de','ko','zh']);
   assert.equal(check(catalog.decks), catalog.decks);
-  let total=0;
-  for(const deck of catalog.decks) {
-    assert.equal(deck.words.length,200,deck.id);
-    total+=deck.words.length;
-    for(const lang of langs) {
-      const entries=deck.words.map(item=>item[lang]);
-      assert.ok(entries.every(x=>typeof x==='string' && x.trim() && x===x.trim()),deck.id+'/'+lang);
-      assert.equal(new Set(entries.map(x=>x.toLocaleLowerCase())).size,200,deck.id+'/'+lang+' duplicates');
-      assert.ok(entries.every(x=>!forbidden.test(x)),deck.id+'/'+lang+' combined keyword');
+  assert.equal(core.validateCatalog(catalog), true);
+  let total = 0;
+  for (const deck of catalog.decks) {
+    assert.equal(deck.words.length, 200, deck.id);
+    total += deck.words.length;
+    const standard = deck.words.filter(card => card.level === 'standard');
+    const challenge = deck.words.filter(card => card.level === 'challenge');
+    assert.ok(standard.length >= 12 && standard.length < 200, deck.id);
+    assert.equal(standard.length + challenge.length, 200, deck.id);
+    for (const word of standard) {
+      for (const lang of langs) {
+        assert.ok(word[lang] && !separator.test(word[lang]), deck.id+'/'+lang+' single concept');
+        assert.doesNotMatch(word[lang], /\\s(?:\\+|—|–)\\s/u);
+        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\\b/i);
+      }
+    }
+    for (const word of challenge) {
+      assert.ok(['both','sequence'].includes(word.kind));
+      for (const lang of langs) {
+        const split = word[lang].split(separator);
+        assert.equal(split.length, 2, deck.id+'/'+lang+' two parts');
+        assert.ok(split.every(text => text.trim().length), deck.id+'/'+lang);
+        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\\b/i);
+      }
+    }
+    for (const lang of langs) {
+      const unique = new Set(deck.words.map(word => word[lang].toLocaleLowerCase()));
+      assert.equal(unique.size, 200, deck.id+'/'+lang+' duplicate');
     }
   }
-  assert.equal(total,12800);
+  assert.equal(total, 12800);
 });
 
-test('independent related-category prompts precede scene variants where appropriate', () => {
-  const animals=catalog.decks.find(x=>x.id==='animals').words;
-  for(const term of ['cat','lion','butterfly','giraffe','parrot','dragonfly','octopus']) {
-    assert.ok(animals.some(p=>p.en===term), 'broader Animals includes '+term);
+test('Standard contains the original simple terms; Challenge contains purposeful same-category combinations', () => {
+  const animals = catalog.decks.find(d => d.id === 'animals').words;
+  for (const word of ['cat','dog','butterfly','giraffe','parrot','dragonfly','octopus']) {
+    assert.ok(animals.some(card => card.level === 'standard' && card.en === word), word);
   }
-  const food=catalog.decks.find(x=>x.id==='food').words;
-  for(const term of ['pizza','cake','apple','sushi','ramen','bubble tea']) {
-    assert.ok(food.some(p=>p.en===term),'broader Food includes '+term);
-  }
-  const sports=catalog.decks.find(x=>x.id==='sports').words;
-  assert.ok(sports.some(x=>x.en==='soccer'));
-  assert.ok(sports.some(x=>x.en==='Someone is practicing soccer very seriously'));
-  assert.ok(!sports.some(x=>x.en==='chess' || x.en==='drawing'),
-    'Narrow sports categories must not borrow board games or art prompts');
+  assert.ok(animals.some(card => card.level === 'challenge' && card.en === 'cat & dog'));
+  assert.ok(animals.some(card => card.level === 'challenge' && card.en.includes(' → ')));
+  const sports = catalog.decks.find(d => d.id === 'sports').words;
+  assert.ok(sports.some(card => card.level === 'standard' && card.en === 'soccer'));
+  assert.ok(!sports.some(card => card.en === 'chess' || card.en === 'drawing'));
+  assert.ok(sports.filter(card => card.level === 'challenge').every(card => !/chess|drawing/i.test(card.en)));
 });
 
-test('animal subjects cannot be mixed with irrelevant human actions', () => {
-  const animals=catalog.decks.find(x=>x.id==='animals').words;
-  assert.ok(animals.some(item=>item.en==='butterfly'));
-  assert.ok(animals.some(item=>item.en==='The butterfly is sleeping'));
-  assert.ok(animals.some(item=>item.en==='The butterfly is searching for food'));
-  for(const word of animals) {
-    assert.doesNotMatch(word.en,/butterfly.*(?:bus|suitcase|driving|robot|office)/i);
-    assert.doesNotMatch(word.en,/\s\+\s|\s—\s/);
-    assert.doesNotMatch(word.ja,/\s\+\s|\s—\s/);
-  }
-});
-
-test('scenario prompts stay natural within different thematic groups', () => {
-  const animal=catalog.decks.find(x=>x.id==='wildlife').words;
-  assert.ok(animal.some(x=>x.en==='The giraffe is searching for food'));
-  const food=catalog.decks.find(x=>x.id==='food').words;
-  assert.ok(food.some(x=>x.en==='Someone is tasting pizza'));
-  const actions=catalog.decks.find(x=>x.id==='cooking_actions').words;
-  assert.ok(actions.some(x=>x.en==='Slowly chop vegetables'));
-  const emotions=catalog.decks.find(x=>x.id==='emotions').words;
-  assert.ok(emotions.some(x=>x.en==='Someone suddenly feels happy'));
-  const places=catalog.decks.find(x=>x.id==='places').words;
-  assert.ok(places.some(x=>x.en==='Someone is looking for the hospital'));
-  const travel=catalog.decks.find(x=>x.id==='travel').words;
-  assert.ok(travel.some(x=>x.en==='Someone is getting ready for the passport'));
-  for(const deck of catalog.decks) {
-    assert.ok(deck.words.some(x=>x.en.includes(' ')),deck.id+' needs real scene variation');
-  }
-});
-
-test('each authored scenario family contains 16 truly multilingual templates', () => {
-  const families=Object.entries(scenarios.families);
-  assert.equal(families.length,14);
-  let mapped=[];
-  for(const [group,rows] of Object.entries(scenarios.assignments)){
-    assert.equal(rows.length>0,true,group);
-    mapped.push(...rows);
-    assert.equal(scenarios.families[group].length,16,group);
-    for(const scene of scenarios.families[group]) {
-      assert.equal(Object.keys(scene).length,8,group);
-      for(const lang of langs)assert.ok(scene[lang].includes('%s'),group+'/'+lang);
+test('each level can be selected independently without leaking cards from the other level', () => {
+  for (const deck of catalog.decks) {
+    for (const lang of langs) {
+      const standard = core.availableWords(catalog, deck.id, lang, 'standard');
+      const challenge = core.availableWords(catalog, deck.id, lang, 'challenge');
+      assert.ok(standard.length >= 12 && challenge.length >= 1);
+      assert.equal(standard.length+challenge.length, 200);
+      assert.ok(standard.every(card => card.level === 'standard'));
+      assert.ok(challenge.every(card => card.level === 'challenge'));
+      assert.equal(core.availableWords(catalog, deck.id, lang).length, 200);
     }
   }
-  assert.equal(mapped.length,64);
-  assert.equal(new Set(mapped).size,64);
+  assert.equal(core.availableWords(catalog,'animals','en','unknown').length, 0);
+  assert.equal(core.availableWords(catalog,'not-a-deck','en','standard').length, 0);
 });
 
-test('semantic validator catches fabricated phrases in every language', () => {
-  const clone=()=>({id:'qa',words:catalog.decks[0].words.map(item=>({...item}))});
-  for(const {lang,label} of [
-    {lang:'en',label:'butterfly — rushing to catch a bus'},
-    {lang:'en',label:'cat + dog'},
-    {lang:'ja',label:'蝶 — バスに間に合おうと急ぐ'},
-    {lang:'es',label:'mariposa + autobús'},
-    {lang:'de',label:'Schmetterling — Bus fahren'}
-  ]){
-    const candidate=clone();candidate.words[3][lang]=label;
-    assert.throws(()=>check([candidate]),/Two-concept Charades prompt rejected/);
+test('each translated level remains unique in All Categories mode', () => {
+  for (const lang of langs) {
+    for (const level of ['standard','challenge']) {
+      const all = core.availableWords(catalog, 'all', lang, level);
+      const unique = new Set(all.map(card => card.text.toLocaleLowerCase()));
+      assert.equal(unique.size, all.length, lang+'/'+level);
+      assert.ok(all.every(card => card.level === level));
+    }
   }
 });
 
-test('catalog and landing display accurately show 12,800 tasks and maintain 8 languages', () => {
-  const html=fs.readFileSync(path.join(__dirname,'../charades.html'),'utf8');
-  const page=fs.readFileSync(path.join(__dirname,'../index.html'),'utf8');
-  const data=fs.readFileSync(path.join(__dirname,'../js/charades-data.js'),'utf8');
-  assert.ok(html.indexOf('js/charades-curated-scenes.js')<html.indexOf('js/charades-data.js'));
-  assert.match(page,/64 categories · 12,800 scene prompts · 8 languages/);
-  assert.match(data,/sceneCatalog\.expand\(decks\)/);
-  assert.equal(core.availableWords(catalog,'animals','en').length,200);
-  assert.equal(core.availableWords(catalog,'animals','ja').length,200);
+test('reject accidentally concatenated junk, challenge sentences, or pairs marked Standard', () => {
+  const copy = () => [{id:'qa', words:catalog.decks[0].words.map(card => ({...card}))}];
+  for (const [level,kind,label] of [
+    ['standard',undefined,'cat & dog'],
+    ['standard',undefined,'butterfly — rushing to catch a bus'],
+    ['challenge','both','Someone is rushing to catch a bus'],
+    ['challenge','both','cat & dog & bird']
+  ]) {
+    const deck = copy(); Object.assign(deck[0].words[0],{level,kind,en:label});
+    assert.throws(() => check(deck));
+  }
 });
 
-test('source catalog expansion rejects repeated, missing or incomplete content', () => {
-  const original=12;
-  const source=Object.fromEntries(langs.map(lang=>[lang,'example']));
-  const bad=[{id:'bad',words:Array.from({length:original},()=>({...source}))}];
-  assert.throws(()=>scenarios.expand(bad),/Expected 64 Charades decks/);
-  assert.throws(()=>check([{id:'broken',words:[]}]),/Expected at least 12/);
+test('category mappings are complete and the sentence-template generator is gone', () => {
+  const mapped = Object.values(cards.assignments).flat();
+  assert.equal(mapped.length, 64);
+  assert.equal(new Set(mapped).size, 64);
+  assert.equal(cards.families, undefined);
+  const script = fs.readFileSync(path.join(__dirname,'../js/charades-curated-scenes.js'),'utf8');
+  assert.doesNotMatch(script, /Someone is (?:looking|trying|making)/);
+  const html = fs.readFileSync(path.join(__dirname,'../charades.html'),'utf8');
+  const app = fs.readFileSync(path.join(__dirname,'../js/charades.js'),'utf8');
+  assert.match(html,/id="difficulty"/);
+  assert.match(html,/value="standard" selected/);
+  assert.match(html,/value="challenge"/);
+  assert.match(app,/state\\.level/);
+  assert.match(app,/CORE\\.availableWords\\(DATA, state\\.deck, state\\.language, state\\.level\\)/);
 });
