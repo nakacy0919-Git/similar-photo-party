@@ -39,6 +39,7 @@ function createHarness(options = {}) {
   };
   element('language').value = 'ja';
   element('duration').value = '60';
+  element('difficulty').value = 'standard';
   element('deckSearch').value = '';
   element('teamA').value = 'TEAM A';
   element('teamB').value = 'TEAM B';
@@ -196,6 +197,27 @@ test('Charades defaults to English and can switch prompts to Japanese during pla
   game.get('correct').click();
   assert.equal(Number(game.get('score').textContent), 1);
   assert.ok(category.words.length >= 12);
+});
+
+test('difficulty change keeps Standard short and Challenge two-part before starting a round', () => {
+  const game = createHarness();
+  game.get('language').value = 'en';
+  game.get('difficulty').value = 'challenge';
+  game.get('difficulty').events.get('change')?.({target:game.get('difficulty')});
+  game.get('start').click();
+  game.get('beginRound').click();
+  assert.match(game.get('prompt').textContent, / & | → /);
+  assert.equal(game.get('levelBadge').textContent, 'Challenge');
+  assert.match(game.get('hint').textContent, /act both/);
+  game.get('playLanguage').click();
+  assert.match(game.get('prompt').textContent, / & | → /);
+  game.get('newGame').click();
+  game.get('difficulty').value = 'standard';
+  game.get('difficulty').events.get('change')?.({target:game.get('difficulty')});
+  game.get('start').click();
+  game.get('beginRound').click();
+  assert.doesNotMatch(game.get('prompt').textContent, / & | → /);
+  assert.equal(game.get('levelBadge').textContent, 'Standard');
 });
 
 test('Charades and Similar Photo use fixed full visual-viewport game surfaces and visible bottom corners', () => {
