@@ -35,7 +35,7 @@
           }
           const level = item.level || 'standard';
           if (!['standard','challenge'].includes(level)) throw new Error('Invalid Charades level: '+deck.id);
-          const pieces = label.split(/\\s(?:&|→)\\s/u);
+          const pieces = label.split(/\s(?:&|→)\s/u);
           if (level === 'standard' && pieces.length !== 1) {
             throw new Error('Standard must contain one concept: '+deck.id+'/'+lang);
           }
