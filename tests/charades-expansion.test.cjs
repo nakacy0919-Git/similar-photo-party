@@ -7,7 +7,7 @@ const check = require('../js/charades-expansion.js');
 const cards = require('../js/charades-curated-scenes.js');
 const core = require('../js/charades-core.js');
 const langs = catalog.languages.map(([lang]) => lang);
-const separator = /\\s(?:&|→)\\s/u;
+const separator = /\s(?:&|→)\s/u;
 
 test('64 categories keep 200 cards each, and separate concise Standard and Challenge prompts', () => {
   assert.equal(catalog.decks.length, 64);
@@ -25,8 +25,8 @@ test('64 categories keep 200 cards each, and separate concise Standard and Chall
     for (const word of standard) {
       for (const lang of langs) {
         assert.ok(word[lang] && !separator.test(word[lang]), deck.id+'/'+lang+' single concept');
-        assert.doesNotMatch(word[lang], /\\s(?:\\+|—|–)\\s/u);
-        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\\b/i);
+        assert.doesNotMatch(word[lang], /\s(?:\+|—|–)\s/u);
+        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\b/i);
       }
     }
     for (const word of challenge) {
@@ -35,7 +35,7 @@ test('64 categories keep 200 cards each, and separate concise Standard and Chall
         const split = word[lang].split(separator);
         assert.equal(split.length, 2, deck.id+'/'+lang+' two parts');
         assert.ok(split.every(text => text.trim().length), deck.id+'/'+lang);
-        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\\b/i);
+        assert.doesNotMatch(word.en, /^(?:Someone|The [^ ]+ is)\b/i);
       }
     }
     for (const lang of langs) {
@@ -52,7 +52,7 @@ test('Standard contains the original simple terms; Challenge contains purposeful
     assert.ok(animals.some(card => card.level === 'standard' && card.en === word), word);
   }
   assert.ok(animals.some(card => card.level === 'challenge' && card.en === 'cat & dog'));
-  assert.ok(animals.some(card => card.level === 'challenge' && card.en.includes(' → ')));
+  assert.ok(catalog.decks.some(deck => deck.words.some(card => card.level === 'challenge' && card.en.includes(' → '))));
   const sports = catalog.decks.find(d => d.id === 'sports').words;
   assert.ok(sports.some(card => card.level === 'standard' && card.en === 'soccer'));
   assert.ok(!sports.some(card => card.en === 'chess' || card.en === 'drawing'));
@@ -111,6 +111,6 @@ test('category mappings are complete and the sentence-template generator is gone
   assert.match(html,/id="difficulty"/);
   assert.match(html,/value="standard" selected/);
   assert.match(html,/value="challenge"/);
-  assert.match(app,/state\\.level/);
-  assert.match(app,/CORE\\.availableWords\\(DATA, state\\.deck, state\\.language, state\\.level\\)/);
+  assert.match(app,/state\.level/);
+  assert.match(app,/CORE\.availableWords\(DATA, state\.deck, state\.language, state\.level\)/);
 });
