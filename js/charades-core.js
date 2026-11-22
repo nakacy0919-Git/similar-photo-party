@@ -9,19 +9,21 @@
     }
     return result;
   }
-  function availableWords(catalog, deckId, language) {
+  function availableWords(catalog, deckId, language, level = 'all') {
     if (!catalog || !Array.isArray(catalog.decks) || !catalog.languages.some(row => row[0] === language)) {
       return [];
     }
+    if (!['all','standard','challenge'].includes(level)) return [];
     const decks = deckId === 'all' ? catalog.decks : catalog.decks.filter(deck => deck.id === deckId);
     const seen = new Set();
     return decks.flatMap(deck => deck.words.map(word => {
+      if (level !== 'all' && (word.level || 'standard') !== level) return null;
       const term = word[language];
       if (!term || !term.trim()) return null;
       const identity = term.trim().toLocaleLowerCase();
       if (seen.has(identity)) return null;
       seen.add(identity);
-      return { text: term.trim(), deckId: deck.id };
+      return { text: term.trim(), deckId: deck.id, level: word.level || 'standard', kind: word.kind || null };
     }).filter(Boolean));
   }
   function pointsForPhotoAttempt(attempts) {
@@ -35,6 +37,7 @@
       if (!deck.id || ids.has(deck.id) || !Array.isArray(deck.words) || deck.words.length < 10) return false;
       ids.add(deck.id);
       return deck.words.every(word => catalog.languages.every(([lang]) => (
+        ['standard','challenge'].includes(word.level || 'standard') &&
         typeof word[lang] === 'string' && word[lang].trim().length > 0
       )));
     });

@@ -58,6 +58,14 @@
         <div class="options-panel">
           <h2 data-i18n="settings">ゲーム設定</h2>
           <div class="setting-block">
+            <label for="difficulty" data-i18n="difficultyTitle">難易度</label>
+            <select id="difficulty" aria-describedby="difficultyGuide">
+              <option value="standard" selected data-i18n="levelStandard">Standard · 単独のお題</option>
+              <option value="challenge" data-i18n="levelChallenge">Challenge · 組み合わせ</option>
+            </select>
+            <p id="difficultyGuide" class="micro-note" data-i18n="difficultyGuide">Standard は単独のお題。Challenge は2つの要素を表現します。</p>
+          </div>
+          <div class="setting-block">
             <label for="duration" data-i18n="roundLength">1ラウンドの時間</label>
             <select id="duration">
               <option value="30">30s</option><option value="60" selected>60s</option>
@@ -102,7 +110,7 @@
       <div class="timer-track"><div id="timeBar" class="timer-bar"></div></div>
       <button id="playLanguage" type="button" aria-label="Switch prompt language to Japanese">日本語</button>
       <div id="promptBoard" class="prompt-board">
-        <div class="prompt-top"><span id="questionNo">#1</span><span id="playInstruction"></span></div>
+        <div class="prompt-top"><span id="questionNo">#1</span><span id="levelBadge" class="level-badge">STANDARD</span><span id="playInstruction"></span></div>
         <div id="prompt" class="prompt" lang="en" role="status" aria-live="polite">READY?</div>
         <p id="hint" class="prompt-hint"></p>
         <div id="correctBurst" class="charades-correct-burst" aria-live="polite" aria-atomic="true" hidden>

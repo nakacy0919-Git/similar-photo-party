@@ -82,8 +82,18 @@
     ko:{readyTitle:'준비됐나요?',readyMessage:'모두 준비해 주세요.',readyActing:'표현하는 사람만 문제를 봅니다.',readyForehead:'맞히는 사람은 화면을 보지 않고 이마에 기기를 댑니다. 다른 사람들이 힌트를 줍니다.',begin:'▶ 라운드 시작',readyNote:'시작 버튼을 누르면 시간이 흐릅니다.',pause:'⏸ 일시정지',resume:'▶ 계속하기',pausedMessage:'일시정지 · 문제가 숨겨졌습니다'},
     zh:{readyTitle:'准备好了吗？',readyMessage:'请做好准备。',readyActing:'只有表演者看题目，其他人不要看。',readyForehead:'猜题者不看屏幕，把设备放在额头。其他人提供提示。',begin:'▶ 开始本轮',readyNote:'点击开始后才开始计时。',pause:'⏸ 暂停',resume:'▶ 继续',pausedMessage:'已暂停 · 题目已隐藏'}
   };
+  const LEVEL_UI = {
+    en:{difficultyTitle:'Difficulty',levelStandard:'Standard · Single concepts',levelChallenge:'Challenge · Two-part prompts',difficultyGuide:'Standard: one concept or action. Challenge: & means act both; → means act in order.',challengeHint:'& = act both  ·  → = act in order'},
+    ja:{difficultyTitle:'難易度',levelStandard:'Standard · 単独のお題',levelChallenge:'Challenge · 組み合わせ',difficultyGuide:'Standardは単語・単独の動作。Challengeは＆で2つ、→で順番に表現。',challengeHint:'＆＝両方を表現  ·  →＝順番に表現'},
+    es:{difficultyTitle:'Dificultad',levelStandard:'Standard · Concepto único',levelChallenge:'Challenge · Dos conceptos',difficultyGuide:'Standard: un concepto. Challenge: & representa ambos; → en orden.',challengeHint:'& = ambos  ·  → = en orden'},
+    pt:{difficultyTitle:'Dificuldade',levelStandard:'Standard · Um conceito',levelChallenge:'Challenge · Dois conceitos',difficultyGuide:'Standard: um conceito. Challenge: & represente ambos; → em ordem.',challengeHint:'& = ambos  ·  → = em ordem'},
+    fr:{difficultyTitle:'Difficulté',levelStandard:'Standard · Un concept',levelChallenge:'Challenge · Deux concepts',difficultyGuide:'Standard : un concept. Challenge : & mimez les deux ; → dans l’ordre.',challengeHint:'& = les deux  ·  → = dans l’ordre'},
+    de:{difficultyTitle:'Schwierigkeit',levelStandard:'Standard · Ein Begriff',levelChallenge:'Challenge · Zwei Begriffe',difficultyGuide:'Standard: ein Begriff. Challenge: & beide darstellen; → nacheinander.',challengeHint:'& = beide  ·  → = nacheinander'},
+    ko:{difficultyTitle:'난이도',levelStandard:'Standard · 한 가지 주제',levelChallenge:'Challenge · 두 가지 조합',difficultyGuide:'Standard: 한 가지 주제. Challenge: & 둘 다 표현, → 순서대로 표현.',challengeHint:'& = 둘 다  ·  → = 순서대로'},
+    zh:{difficultyTitle:'难度',levelStandard:'Standard · 单一主题',levelChallenge:'Challenge · 两个主题',difficultyGuide:'Standard：单一主题。Challenge：& 表演两项，→ 按顺序表演。',challengeHint:'& = 两项  ·  → = 按顺序'}
+  };
   const state = {
-    language: 'en', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair',
+    language: 'en', deck: 'all', stage: 'setup', playStyle: 'acting', mode: 'pair', level: 'standard',
     duration: 60, teams: ['TEAM A','TEAM B'], scores: [0, 0], turn: 0, correct: 0, passed: 0,
     streak: 0, maxStreak: 0, shown: 0, current: null, remainingWords: [],
     remainingMs: 60000, lastTick: 0, interval: null, paused: false, wakeLock: null, tiltActive: false,
@@ -91,7 +101,7 @@
     celebrationTimeout: null, celebrating: false
   };
   let correctAudio = null;
-  const t = key => (MOBILE_LABELS[state.language] || MOBILE_LABELS.en)[key] || (UI[state.language] || UI.en)[key] || UI.en[key] || key;
+  const t = key => (LEVEL_UI[state.language] || LEVEL_UI.en)[key] || (MOBILE_LABELS[state.language] || MOBILE_LABELS.en)[key] || (UI[state.language] || UI.en)[key] || UI.en[key] || key;
   function categoryLabel(deck) {
     if (state.language === 'ja' || state.language === 'en') return deck.names[state.language];
     const index = EXTRA_LANGS.indexOf(state.language);
@@ -111,7 +121,7 @@
     const previousScroll = target.scrollTop;
     const search = $('deckSearch').value.trim().toLocaleLowerCase();
     target.replaceChildren();
-    const all = { id: 'all', emoji: '🎲', names: { en: 'All categories', ja: 'すべて' }, words: CORE.availableWords(DATA, 'all', state.language) };
+    const all = { id: 'all', emoji: '🎲', names: { en: 'All categories', ja: 'すべて' }, words: CORE.availableWords(DATA, 'all', state.language, state.level) };
     for (const item of [all, ...DATA.decks]) {
       const searchable = [item.id, item.names.en, item.names.ja,
         item.id === 'all' ? t('all') : categoryLabel(item)
@@ -126,7 +136,7 @@
       const name = document.createElement('span');
       name.className = 'deck-name'; name.textContent = item.id === 'all' ? t('all') : categoryLabel(item);
       const count = document.createElement('span');
-      count.className = 'deck-count'; count.textContent = item.words.length + ' ' + t('words');
+      count.className = 'deck-count'; count.textContent = CORE.availableWords(DATA, item.id, state.language, state.level).length + ' ' + t('words');
       button.append(emoji, name, count);
       button.addEventListener('click', () => {
         state.deck = item.id;
@@ -135,7 +145,7 @@
       target.append(button);
     }
     target.scrollTop = previousScroll;
-    $('deckCount').textContent = DATA.decks.length + ' categories · ' + DATA.decks.reduce((sum, item) => sum + item.words.length, 0) + ' prompts';
+    $('deckCount').textContent = DATA.decks.length + ' categories · ' + DATA.decks.reduce((sum, item) => sum + item.words.filter(word => word.level === state.level).length, 0) + ' ' + t('words');
   }
   function show(stage) {
     state.stage = stage;
@@ -268,6 +278,7 @@
     state.language = $('language').value;
     state.mode = document.querySelector('input[name="players"]:checked').value;
     state.playStyle = document.querySelector('input[name="style"]:checked').value;
+    state.level = $('difficulty').value || 'standard';
     state.duration = Number($('duration').value);
     state.teams = [String($('teamA').value).trim().slice(0, 24) || 'TEAM A', String($('teamB').value).trim().slice(0, 24) || 'TEAM B'];
     state.scores = [0, 0];
@@ -284,7 +295,7 @@
     state.remainingMs = state.duration * 1000;
     $('playLanguage').textContent = state.language === 'ja' ? 'English' : '日本語';
     $('playLanguage').setAttribute('aria-label', state.language === 'ja' ? 'Switch prompt language to English' : 'Switch prompt language to Japanese');
-    state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language));
+    state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language, state.level));
     if (!state.remainingWords.length) {
       window.alert(t('noContent'));
       show('setup');
@@ -295,8 +306,9 @@
     $('tiltFeedback').textContent = '';
     $('activeTeam').textContent = state.mode === 'teams' ? state.teams[state.turn] : 'PAIR / GROUP';
     $('categoryName').textContent = state.deck === 'all' ? t('all') : categoryLabel(DATA.decks.find(deck => deck.id === state.deck));
+    $('levelBadge').textContent = state.level === 'challenge' ? t('levelChallenge').split(' · ')[0] : t('levelStandard').split(' · ')[0];
     $('playInstruction').textContent = state.playStyle === 'acting' ? t('actingHint') : t('foreheadHint');
-    $('hint').textContent = t('tapHint');
+    $('hint').textContent = state.level === 'challenge' ? t('challengeHint') : t('tapHint');
     $('readyTeam').textContent = state.mode === 'teams' ? state.teams[state.turn] : 'PAIR / GROUP';
     $('readyInstruction').textContent = t(state.playStyle === 'acting' ? 'readyActing' : 'readyForehead');
     $('pauseShield').hidden = true;
@@ -307,7 +319,7 @@
     if (state.stage !== 'play') return;
     // Only recycle the same deck when a very fast team completes every card.
     if (!state.remainingWords.length) {
-      state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language));
+      state.remainingWords = CORE.shuffle(CORE.availableWords(DATA, state.deck, state.language, state.level));
     }
     state.current = state.remainingWords.pop();
     state.shown++;
@@ -336,7 +348,7 @@
     ]));
     const translate = item => !item ? item : ({
       text: byDeck.get(item.deckId)?.get(item.text) || item.text,
-      deckId: item.deckId
+      deckId: item.deckId, level: item.level, kind: item.kind
     });
     state.current = translate(state.current);
     state.remainingWords = state.remainingWords.map(translate);
@@ -344,8 +356,9 @@
     $('language').value = newLanguage;
     localize();
     $('categoryName').textContent = state.deck === 'all' ? t('all') : categoryLabel(DATA.decks.find(deck => deck.id === state.deck));
+    $('levelBadge').textContent = state.level === 'challenge' ? t('levelChallenge').split(' · ')[0] : t('levelStandard').split(' · ')[0];
     $('playInstruction').textContent = state.playStyle === 'acting' ? t('actingHint') : t('foreheadHint');
-    $('hint').textContent = t('tapHint');
+    $('hint').textContent = state.level === 'challenge' ? t('challengeHint') : t('tapHint');
     $('pauseResume').textContent = t(state.paused ? 'resume' : 'pause');
     $('playLanguage').textContent = newLanguage === 'ja' ? 'English' : '日本語';
     $('playLanguage').setAttribute('aria-label', newLanguage === 'ja' ? 'Switch prompt language to English' : 'Switch prompt language to Japanese');
@@ -451,6 +464,10 @@
   }
   $('deckSearch').addEventListener('input', () => {
     $('decks').scrollTop = 0;
+    renderDecks();
+  });
+  $('difficulty').addEventListener('change', event => {
+    state.level = event.target.value === 'challenge' ? 'challenge' : 'standard';
     renderDecks();
   });
   $('language').addEventListener('change', event => {
