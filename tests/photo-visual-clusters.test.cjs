@@ -67,8 +67,22 @@ test('visual set groups differ from basic sequential-by-number grouping',()=>{
  const base=imported.find(x=>x.sourcePath==='images/000/042.webp');
  assert.ok(base);
  assert.notEqual(visual[base.sourcePath].group,base.group);
- const altered=imported.filter(item=>visual[item.sourcePath].group!==item.group);
- assert.ok(altered.length>200,'visual model must actually improve, not merely rename, the old arrangement');
+ const originalMembers=new Map();
+ const newMembers=new Map();
+ for(const item of imported){
+   if(!originalMembers.has(item.group))originalMembers.set(item.group,[]);
+   originalMembers.get(item.group).push(item.sourcePath);
+   const visualGroup=visual[item.sourcePath].group;
+   if(!newMembers.has(visualGroup))newMembers.set(visualGroup,[]);
+   newMembers.get(visualGroup).push(item.sourcePath);
+ }
+ const changedMemberships=imported.filter(item=>{
+   const old=originalMembers.get(item.group).slice().sort().join(',');
+   const current=newMembers.get(visual[item.sourcePath].group).slice().sort().join(',');
+   return old!==current;
+ });
+ assert.ok(changedMemberships.length>=400,
+   'more than 400 photos should have genuinely different distractor groups, not just new IDs');
 });
 
 test('HTML loads only local image analysis metadata scripts ahead of gameplay',()=>{
