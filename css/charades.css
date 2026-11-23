@@ -219,3 +219,99 @@ button, a, select, input { touch-action: manipulation; }
  border-radius:999px;color:#ffdfaa;font-size:.73rem;font-weight:950;letter-spacing:.045em}
 .prompt-top{align-items:center;flex-wrap:wrap}
 @media(max-width:540px){.prompt-top{gap:.35rem}.prompt-top #playInstruction{flex-basis:100%;text-align:center;font-size:.73rem}}
+
+
+/* Tablet fit, including iPad mini and larger iPads in both orientations. */
+html,body{max-width:100%;overflow-x:hidden}
+.app,.setup-panel,.setup-grid,.decks-panel,.options-panel,.ready-panel,.result-panel{
+  box-sizing:border-box;min-width:0;max-width:100%;
+}
+@media (min-width:761px) and (max-width:950px){
+  .setup-grid{grid-template-columns:minmax(0,1fr)}
+  .decks{max-height:min(38dvh,420px);min-height:185px}
+  .options-panel{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem 1rem;
+  }
+  .options-panel>h2,.options-panel>.primary-btn,.options-panel>.micro-note{grid-column:1/-1}
+}
+@media (min-width:800px) and (orientation:landscape) and (min-height:541px) and (max-height:1100px){
+  .topbar{
+    min-height:48px;max-height:72px;
+    padding-top:max(.45rem,env(safe-area-inset-top));
+    padding-bottom:.45rem;
+  }
+  .app{
+    box-sizing:border-box;
+    width:min(100%,1400px);max-width:100%;
+    padding:0 max(14px,env(safe-area-inset-right))
+      max(8px,env(safe-area-inset-bottom))
+      max(14px,env(safe-area-inset-left));
+  }
+  .setup-panel{padding:clamp(10px,1.5dvh,20px)}
+  .hero{margin-bottom:clamp(7px,1.5dvh,16px)}
+  .hero h1{font-size:clamp(1.75rem,3.2vw,2.6rem);margin:.25rem 0}
+  .hero p{line-height:1.35}
+  .setup-grid{grid-template-columns:minmax(0,1.35fr) minmax(300px,.82fr);gap:clamp(10px,1.5vw,20px)}
+  .decks{
+    min-height:150px;max-height:clamp(240px,50dvh,520px);
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:clamp(.3rem,.7dvh,.55rem);
+  }
+  .deck{min-height:70px}
+  .deck-emoji{font-size:1.4rem}
+  .options-panel{display:flex;gap:clamp(.25rem,.75dvh,.6rem);padding:.75rem .9rem}
+  .setting-block{gap:.25rem}
+  .choice-line{min-height:34px;padding:.22rem .3rem}
+  .options-panel>.primary-btn{min-height:46px;padding:.6rem}
+  .ready-panel{
+    width:min(calc(100% - 24px),1000px)!important;max-width:1000px!important;
+    height:min(calc(100dvh - 77px),720px)!important;
+    min-height:0!important;margin:0 auto!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(210px,.9fr);
+    grid-template-rows:repeat(5,auto);align-content:center;justify-items:center;
+    gap:clamp(7px,1.6dvh,16px) clamp(18px,3vw,58px);
+    padding:clamp(15px,3dvh,35px);
+    overflow:hidden;
+  }
+  #ready .ready-emoji{grid-column:1;grid-row:1;font-size:clamp(2.5rem,5dvh,4rem)}
+  #ready .ready-eyebrow{grid-column:1;grid-row:2;margin:0}
+  #ready h1{grid-column:1;grid-row:3;font-size:clamp(2rem,3.3vw,3rem)}
+  #ready #readyInstruction{grid-column:1;grid-row:4;margin:0;font-size:clamp(1rem,1.8vw,1.27rem)}
+  #ready .micro-note{grid-column:1;grid-row:5;margin:0}
+  #ready #beginRound.ready-start{
+    grid-column:2;grid-row:1 / 6;align-self:center;
+    width:clamp(170px,27dvh,225px)!important;
+    height:clamp(170px,27dvh,225px)!important;
+    margin:0 auto!important;
+  }
+  #result.result-panel{
+    box-sizing:border-box;max-width:min(100% - 28px,760px);
+    max-height:calc(100dvh - 78px);overflow-y:auto;overscroll-behavior:contain;
+    padding:clamp(14px,2.6dvh,26px);margin:0 auto;
+  }
+  #result .result-emoji{font-size:2.65rem}
+  #result h1{margin:.25rem 0}
+  #result .leaderboard{margin:.45rem auto}
+  #play #prompt.long-prompt{overflow-wrap:anywhere}
+}
+@media (min-width:700px) and (max-width:1050px) and (orientation:portrait){
+  .app{max-width:100%;padding-inline:max(12px,env(safe-area-inset-left))}
+  .ready-panel{
+    box-sizing:border-box;width:min(calc(100% - 16px),720px);
+    min-height:0;height:auto;max-height:calc(100dvh - 91px);
+    padding:clamp(15px,3dvh,30px);gap:clamp(8px,1.4dvh,16px);
+    overflow-y:auto;overscroll-behavior:contain;
+  }
+  .ready-emoji{font-size:clamp(2.5rem,6vw,4.5rem)}
+  #ready #beginRound.ready-start{
+    width:clamp(165px,22vmin,215px)!important;
+    height:clamp(165px,22vmin,215px)!important;
+    margin:clamp(6px,1dvh,12px) auto!important;
+  }
+  #result.result-panel{max-width:calc(100% - 16px);max-height:calc(100dvh - 92px);overflow-y:auto}
+  .decks{max-height:35dvh}
+}
+@media (orientation:landscape) and (max-height:540px){
+  #ready.ready-panel{box-sizing:border-box;max-height:calc(100dvh - 53px);overflow-y:auto}
+}
