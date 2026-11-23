@@ -22,6 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
     const PHOTO_GENRES = window.PHOTO_CATEGORIES;
+    // Original SimilarPhoto repository: public image assets only, revision pinned.
+    // The imported data is a local manifest; no remote JavaScript is executed.
+    const SOURCE_IMAGE_ROOT = 'https://raw.githubusercontent.com/nakacy0919-Git/SimilarPhoto/53625ffce31f14200a3b4eced23e5fd2c3099211/';
+    const SOURCE_CDN_ROOT = 'https://cdn.jsdelivr.net/gh/nakacy0919-Git/SimilarPhoto@53625ffce31f14200a3b4eced23e5fd2c3099211/';
+    const SOURCE_PATH_PATTERN = /^images\/(?:000|100|200|300|400|500|600|700|800|900|1000)\/\d{3,4}\.webp$/;
+    const sourceFallbacks = new Set();
+    function photoUrl(item) {
+        if (!item.sourcePath) return `assets/images/${item.filename}`;
+        if (!SOURCE_PATH_PATTERN.test(item.sourcePath)) throw new Error('Invalid original image path');
+        return (sourceFallbacks.has(item.sourcePath) ? SOURCE_CDN_ROOT : SOURCE_IMAGE_ROOT) + item.sourcePath;
+    }
+    function setPhotoImage(img, item) {
+        img.onerror = () => {
+            if (!item.sourcePath || sourceFallbacks.has(item.sourcePath)) return;
+            sourceFallbacks.add(item.sourcePath);
+            img.src = photoUrl(item);
+        };
+        img.src = photoUrl(item);
+    }
+
     
     // チュートリアル用のデータ (英語/日本語)
     const TUTORIAL_DATA = {
@@ -217,14 +237,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
         .then(data => {
             if (!Array.isArray(data)) throw new Error('Invalid data');
+            const imported = Array.isArray(window.SIMILAR_PHOTO_LIBRARY) ? window.SIMILAR_PHOTO_LIBRARY : [];
+            const combined = [...data, ...imported];
             const ids = new Set();
             const files = new Set();
             const groups = new Map();
-            for (const item of data) {
+            for (const item of combined) {
                 if (!item || !['id', 'filename', 'group', 'title', 'key_phrase', 'translation'].every(
                     key => typeof item[key] === 'string' && item[key].trim() && item[key].length <= 2000
                 ) || !/^[a-zA-Z0-9_-]+\.(webp|png|jpe?g)$/.test(item.filename)
-                    || ids.has(item.id) || files.has(item.filename)) throw new Error('Invalid item');
+                    || ids.has(item.id) || files.has(item.filename)
+                    || (item.sourcePath && !SOURCE_PATH_PATTERN.test(item.sourcePath))
+                    || (item.sourcePath && !/^\d{3,4}$/.test(item.sourceSeries || ''))) throw new Error('Invalid item');
                 ids.add(item.id); files.add(item.filename);
                 if (!groups.has(item.group)) groups.set(item.group, []);
                 groups.get(item.group).push(item);
@@ -233,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
             state.activePool = state.quizData;
             renderPhotoCategories();
             if (state.quizData.length < 4) throw new Error('No complete image groups');
-            loadStatus.textContent = 'ペアやグループで遊べます。説明役だけが写真を見て、回答役が4枚から選びます。';
+            loadStatus.textContent = `${state.quizData.length}枚の写真からジャンルを選べます。説明役が写真を説明し、回答役が4枚から選びます。`;
             elements.btns.start.disabled = false;
             elements.btns.photoSetupNext.disabled = false;
         })
@@ -870,8 +894,15 @@ document.addEventListener('DOMContentLoaded', () => {
             await Promise.all(state.currentSet.map(item => new Promise((resolve, reject) => {
                 const img = new Image();
                 img.onload = resolve;
-                img.onerror = reject;
-                img.src = `assets/images/${item.filename}`;
+                let retried = false;
+                img.onerror = () => {
+                    if (item.sourcePath && !retried) {
+                        retried = true;
+                        sourceFallbacks.add(item.sourcePath);
+                        img.src = photoUrl(item);
+                    } else reject(new Error('Photo load failed'));
+                };
+                img.src = photoUrl(item);
             })));
         } catch {
             if (generation !== state.generation) return;
@@ -880,7 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         if (generation !== state.generation || state.phase !== 'memory') return;
-        elements.imgs.memory.src = `assets/images/${state.correctItem.filename}`;
+        setPhotoImage(elements.imgs.memory, state.correctItem);
         elements.btns.memorySkip.disabled = false;
         runTimer(state.memoryTime, elements.timers.memory, startChoicePhase);
     }
@@ -941,7 +972,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.className = 'relative w-full h-full overflow-hidden rounded-2xl border-4 border-white shadow-lg hover:scale-[1.02] transition-transform duration-200 group bg-slate-100';
             
             const img = document.createElement('img');
-            img.src = `assets/images/${item.filename}`;
+            setPhotoImage(img, item);
             img.className = 'w-full h-full object-contain';
             img.alt = `選択肢 ${index + 1}`;
             btn.setAttribute('aria-label', `選択肢 ${index + 1}`);
@@ -992,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('round-status').textContent =
             `Round ${state.round} · 正解 ${state.correctCount}問 · 初回正解 ${state.firstCorrect}/${state.round} · 次は役割交代！`;
         showView('result');
-        elements.imgs.result.src = `assets/images/${state.correctItem.filename}`;
+        setPhotoImage(elements.imgs.result, state.correctItem);
         elements.text.resultTitle.textContent = state.correctItem.title;
         elements.text.resultPhrase.textContent = state.correctItem.key_phrase;
         elements.text.resultTrans.textContent = state.correctItem.translation;
