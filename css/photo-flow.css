@@ -222,7 +222,8 @@ body:has(#view-photo-summary:not(.hidden)) #bgmBtn{display:none!important}
 @media (min-width:761px) and (max-width:950px){
   .photo-setup-grid{grid-template-columns:minmax(0,1fr)}
   .photo-setup-shell{max-width:730px}
-  .photo-category-list{max-height:min(38dvh,400px)}
+  .photo-category-list{max-height:min(32dvh,325px)}
+  .photo-setup-intro{margin:clamp(8px,1.5dvh,18px) 0 clamp(10px,1.5dvh,17px)}
   .photo-options-panel{gap:12px}
   .photo-time-options{max-width:510px;width:100%;align-self:center}
   .photo-next-btn{max-width:510px;align-self:center}
