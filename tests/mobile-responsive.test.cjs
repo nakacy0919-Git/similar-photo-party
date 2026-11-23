@@ -334,3 +334,29 @@ test('Charades and Similar Photo share a prominent circular centered READY contr
   assert.match(photoHtml,/id="photo-ready-start"/);
   assert.match(photoHtml,/id="photo-ready-back"/);
 });
+
+
+test('iPad landscape READY screens use a split layout, preserving the circular start button and safe areas',()=>{
+  const photo=fs.readFileSync('css/photo-flow.css','utf8');
+  const charades=fs.readFileSync('css/charades.css','utf8');
+  assert.match(photo,/@media \(min-width:800px\) and \(orientation:landscape\)/);
+  assert.match(photo,/\.photo-ready-inner[\s\S]*grid-template-columns:minmax\(0,1fr\) minmax\(210px,\.82fr\)/);
+  assert.match(photo,/\.photo-orb-start\{[\s\S]*grid-column:2;grid-row:1 \/ 8/);
+  assert.match(photo,/\.photo-setup-shell\{[\s\S]*height:100%;max-height:100dvh/);
+  assert.match(photo,/\.photo-category-list\{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto\}/);
+  assert.match(charades,/#ready #beginRound\.ready-start\{[\s\S]*grid-column:2;grid-row:1 \/ 6/);
+  assert.match(charades,/\.setup-grid\{grid-template-columns:minmax\(0,1\.35fr\) minmax\(300px,\.82fr\)/);
+});
+
+test('tablet photo memory, choice, results and Charades prompt do not require horizontal page scrolling',()=>{
+  const css=fs.readFileSync('css/immersive.css','utf8');
+  const photo=fs.readFileSync('css/photo-flow.css','utf8');
+  const charades=fs.readFileSync('css/charades.css','utf8');
+  assert.match(css,/#view-choice #choice-grid\{[\s\S]*top:calc\(var\(--play-top\) \+ 51px\)/);
+  assert.match(css,/#view-result #photo-result-main\{[\s\S]*flex-direction:row!important/);
+  assert.match(css,/#view-result #result-layout-img\{[\s\S]*width:55%!important/);
+  assert.match(css,/@media \(min-width:700px\) and \(max-width:1050px\) and \(orientation:portrait\)/);
+  assert.match(css,/#play #prompt\.very-long-prompt\{font-size:clamp\(1\.35rem,3\.35vw,3rem\)/);
+  assert.match(photo,/@media \(min-width:761px\) and \(max-width:950px\)/);
+  assert.match(charades,/html,body\{max-width:100%;overflow-x:hidden\}/);
+});

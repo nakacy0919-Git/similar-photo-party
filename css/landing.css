@@ -415,3 +415,31 @@ body:has(#view-landing:not(.hidden)) #settingsBtn:hover {background:rgba(93,76,1
 
 /* A prior display:block!important kept the landing page visible during rounds. */
 #view-landing.landing-screen.hidden { display:none!important; }
+
+
+/* Small landscape phones: keep both game modes above the browser toolbar.
+   The titles remain visible; nonessential intro copy yields screen space. */
+@media (orientation:landscape) and (max-height:450px){
+  .landing-shell{padding-top:5px;padding-bottom:5px}
+  .landing-brandbar{min-height:30px}
+  .landing-brandmark{width:28px;height:28px}
+  .landing-intro{margin:0 auto}
+  #view-landing #landing-title{
+    font-size:clamp(1.35rem,3.2vw,1.75rem)!important;
+    line-height:1.08!important;margin:1px 0!important;
+  }
+  .landing-lead{display:none}
+  .landing-mode-label{margin:3px 0!important}
+  .landing-mode-grid{gap:9px}
+  #view-landing .landing-mode-card,.mode-card-copy{
+    box-sizing:border-box;min-height:0!important;height:clamp(137px,37dvh,160px)!important;
+  }
+  .mode-card-copy{padding:6px 10px;justify-content:space-between}
+  .mode-card-title{font-size:clamp(1.35rem,3vw,1.8rem)!important;margin:2px 0!important;line-height:1!important}
+  .mode-card-kicker{font-size:.49rem;line-height:1}
+  .mode-card-description{font-size:.62rem;line-height:1.15}
+  .mode-card-bottom{padding-top:3px}
+  .mode-card-action i{width:24px;height:24px;flex-basis:24px}
+  .landing-below-cards{margin:4px 0!important}
+  .landing-footer{padding-top:3px}
+}
