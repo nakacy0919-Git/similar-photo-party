@@ -400,3 +400,34 @@ test('photo result has no oversized green count and gives image/English panel av
  assert.doesNotMatch(source,/getElementById\('photo-result-count'\)/);
  assert.match(source,/合計\$\{state\.correctCount\}問/);
 });
+
+test('imported SimilarPhoto is playable through genre → READY → picture → four choices → English result',async()=>{
+ const imported=require('../js/similarphoto-library.js');
+ const h=harness(data,{window:{SIMILAR_PHOTO_LIBRARY:imported}});
+ await h.flush();
+ assert.equal(h.api.state.quizData.length,625);
+ h.api.openPhotoSetup();
+ assert.equal(h.api.selectPhotoGenre('source-1000'),true);
+ h.api.preparePhotoReady();
+ assert.equal(h.api.state.phase,'photoReady');
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/接続詞・論理/);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.api.state.activePool.length,25);
+ assert.equal(h.api.state.currentSet.length,4);
+ assert.ok(h.api.state.currentSet.every(x=>x.group===h.api.state.correctItem.group));
+ assert.match(h.nodes.get('memory-img').src,/^https:\/\/raw\.githubusercontent\.com\/nakacy0919-Git\/SimilarPhoto\//);
+ h.api.startChoicePhase();
+ assert.equal(h.api.state.phase,'choice');
+ const images=h.nodes.get('choice-grid').children.map(btn=>btn.children[0].src);
+ assert.equal(images.length,4);
+ assert.ok(images.every(x=>x.startsWith('https://raw.githubusercontent.com/')));
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showResultPhase();
+ assert.equal(h.api.state.phase,'result');
+ assert.equal(h.api.state.correctCount,1);
+ assert.match(h.nodes.get('result-img').src,/^https:\/\/raw\.githubusercontent\.com/);
+ assert.ok(h.nodes.get('result-phrase').textContent.length>10);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
