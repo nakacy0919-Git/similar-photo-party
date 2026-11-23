@@ -50,7 +50,7 @@
     if(sourceGroups.length){
       const similarGroups=sourceGroups.filter(id=>byGroup.get(id).every(item=>
         typeof item.visualDistance==='number' && !item.needsVisualReview));
-      if(similarGroups.length)categories.push({id:'source-similar',ja:'よく似た写真',en:'Visually matched',emoji:'🔎',groups:similarGroups});
+      if(similarGroups.length)categories.push({id:'source-similar',ja:'類似写真候補',en:'Visual similarity candidates',emoji:'🔎',groups:similarGroups});
       categories.push({id:'source-all',ja:'追加教材・すべて',en:'Original SimilarPhoto',emoji:'📚',groups:sourceGroups});
       for(const c of SOURCE_DEFINITIONS){
         const groups=sourceGroups.filter(id=>byGroup.get(id).some(item=>item.sourceSeries===c.series));
