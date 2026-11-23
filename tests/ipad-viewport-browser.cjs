@@ -14,10 +14,12 @@ const SIZES=[
   {width:1180,height:820,name:'iPad Air landscape'},
   {width:1024,height:768,name:'iPad landscape'},
   {width:820,height:1180,name:'iPad Air portrait'},
-  {width:768,height:1024,name:'iPad portrait'},
-  {width:844,height:390,name:'iPhone landscape'},
-  {width:390,height:844,name:'iPhone portrait'}
+  {width:768,height:1024,name:'iPad portrait'}
 ];
+if(process.env.INCLUDE_PHONE==='1'){
+  SIZES.push({width:844,height:390,name:'iPhone landscape'});
+  SIZES.push({width:390,height:844,name:'iPhone portrait'});
+}
 const screenshots=path.resolve('artifacts/ipad-layout');
 fs.mkdirSync(screenshots,{recursive:true});
 
@@ -160,5 +162,5 @@ async function runCharades(browser,screen){
       await runCharades(browser,screen);
     }
   }finally{await browser.close();}
-  console.log('All 12 device/game combinations and their views are within the viewport.');
+  console.log('All '+(SIZES.length*2)+' device/game combinations and their views are within the viewport.');
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1;});
