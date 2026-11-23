@@ -64,6 +64,17 @@ async function runPhoto(browser,screen){
     await page.goto(BASE+'/index.html',{waitUntil:'domcontentloaded',timeout:35000});
     await page.waitForFunction(()=>!document.getElementById('start-btn').disabled,{timeout:20000});
     await inside(page,['#view-landing','.landing-mode-grid','#start-btn'],screen,'Photo home');
+    if(screen.width>=700){
+      await page.locator('#tutorial-btn').click();
+      await page.waitForSelector('#view-tutorial:not(.hidden)');
+      await inside(page,['#view-tutorial','#tut-next-btn','#tut-close-btn'],screen,'Photo instructions');
+      await page.locator('#tut-close-btn').click();
+      await page.waitForSelector('#view-tutorial.hidden');
+      await page.locator('#settingsBtn').click();
+      await page.waitForSelector('#view-settings.flex');
+      await inside(page,['#view-settings','#view-settings>div','#closeSettingsBtn'],screen,'Photo settings');
+      await page.locator('#closeSettingsBtn').click();
+    }
     await page.locator('#start-btn').click();
     await page.waitForSelector('#view-photo-setup:not(.hidden)');
     await inside(page,['#view-photo-setup','.photo-setup-shell','.photo-genre-panel','.photo-options-panel','#photo-setup-next'],screen,'Photo category setup');
