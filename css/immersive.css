@@ -438,3 +438,13 @@ body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
   }
   #view-result #result-layout-text{justify-content:flex-start!important}
 }
+
+
+/* A pulsing Next button moves under the finger on iPad and Chromium refuses
+   stable clicks. Keep game controls stationary; celebrate on the overlay only. */
+#view-result #next-btn.heartbeat-btn{
+  animation:none!important;transform:none!important;
+  transition:background-color .18s ease,box-shadow .18s ease!important;
+}
+#view-result #next-btn.heartbeat-btn:hover,
+#view-result #next-btn.heartbeat-btn:active{transform:none!important}
