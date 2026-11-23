@@ -28,7 +28,7 @@ jobs:
       - name: Install Chromium browser automation
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
       - name: Verify iPad portrait/landscape and iPhone layouts
         run: |
           python3 -m http.server 8787 --bind 127.0.0.1 >/tmp/tablet-preview-server.log 2>&1 &
