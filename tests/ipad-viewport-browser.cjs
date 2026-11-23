@@ -77,7 +77,15 @@ async function runPhoto(browser,screen){
     }
     await page.locator('#start-btn').click();
     await page.waitForSelector('#view-photo-setup:not(.hidden)');
-    await inside(page,['#view-photo-setup','.photo-setup-shell','.photo-genre-panel','.photo-options-panel','#photo-setup-next'],screen,'Photo category setup');
+    if(screen.width<700||screen.height<=540){
+      // Small phones scroll the setup screen intentionally; all controls still
+      // have to be reachable without sideways scrolling.
+      await inside(page,['#view-photo-setup'],screen,'Photo category setup');
+      await page.locator('#photo-setup-next').scrollIntoViewIfNeeded();
+      await inside(page,['#photo-setup-next'],screen,'Photo setup START reachable');
+    } else {
+      await inside(page,['#view-photo-setup','.photo-setup-shell','.photo-genre-panel','.photo-options-panel','#photo-setup-next'],screen,'Photo category setup');
+    }
     const all=page.locator('#photo-category-list .photo-genre-card');
     assert.ok((await all.count())>=8,screen.name+' categories missing');
     await page.locator('#photo-setup-next').click();
