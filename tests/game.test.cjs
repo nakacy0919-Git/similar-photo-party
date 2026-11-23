@@ -431,3 +431,29 @@ test('imported SimilarPhoto is playable through genre → READY → picture → 
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
+
+test('photo game applies visual clusters to its 457 imported photos and launches a reviewed candidate group',async()=>{
+ const imported=require('../js/similarphoto-library.js');
+ const visual=require('../js/similarphoto-visual-groups.js');
+ const h=harness(data,{window:{SIMILAR_PHOTO_LIBRARY:imported,SIMILARPHOTO_VISUAL_GROUPS:visual}});
+ await h.flush();
+ assert.equal(h.api.state.quizData.length,625);
+ const photo=h.api.state.quizData.find(item=>item.sourcePath==='images/000/042.webp');
+ assert.ok(photo);
+ assert.equal(photo.group,visual[photo.sourcePath].group);
+ assert.equal(photo.needsVisualReview,visual[photo.sourcePath].needsReview);
+ h.api.openPhotoSetup();
+ assert.equal(h.api.selectPhotoGenre('source-similar'),true);
+ assert.equal(h.api.state.activePool.length,136);
+ h.api.preparePhotoReady();
+ assert.equal(h.api.state.phase,'photoReady');
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.api.state.currentSet.length,4);
+ assert.ok(h.api.state.currentSet.every(item=>item.group===h.api.state.correctItem.group));
+ assert.ok(h.api.state.currentSet.every(item=>!item.needsVisualReview));
+ h.api.startChoicePhase();
+ assert.equal(h.api.state.phase,'choice');
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+});
