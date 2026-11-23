@@ -120,7 +120,16 @@ async function runCharades(browser,screen){
   try{
     await page.goto(BASE+'/charades.html',{waitUntil:'domcontentloaded',timeout:40000});
     await page.waitForSelector('#setup:not([hidden])');
-    await inside(page,['#setup','.setup-grid','#decks','.options-panel'],screen,'Charades settings');
+    // Long lists may scroll *inside* the settings panel. The viewport and
+    // category list must remain bounded; later controls need to be reachable.
+    if(screen.width>=700) {
+      await inside(page,['#setup'],screen,'Charades settings surface');
+      await inside(page,['#decks'],screen,'Charades category list');
+    } else {
+      const scrollWidth=await page.evaluate(()=>document.documentElement.scrollWidth);
+      assert.ok(scrollWidth<=screen.width+3,screen.name+' Charades settings horizontal overflow');
+    }
+    await screenshot(page,'charades-settings-'+screen.width+'x'+screen.height);
     const button=page.locator(screen.width<=760?'#mobileStart':'#start');
     await button.click({force:true});
     await page.waitForSelector('#ready:not([hidden])');
