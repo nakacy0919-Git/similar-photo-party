@@ -1,0 +1,43 @@
+name: Original SimilarPhoto image-similarity audit
+
+on:
+  pull_request:
+    paths:
+      - "tools/audit-photo-similarity.py"
+      - "js/similarphoto-library.js"
+      - "js/similarphoto-visual-groups.js"
+      - ".github/workflows/photo-visual-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  visual-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Similar Photo Party
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Checkout original SimilarPhoto photos at pinned revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: nakacy0919-Git/SimilarPhoto
+          ref: 53625ffce31f14200a3b4eced23e5fd2c3099211
+          path: original
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.11'
+      - name: Install audit-only image analysis dependencies
+        run: python -m pip install --disable-pip-version-check pillow==11.3.0 numpy==2.2.6 scipy==1.15.3 scikit-learn==1.7.1
+      - name: Analyze actual images and generate visually clustered candidates
+        run: python tools/audit-photo-similarity.py --source original --out photo_similarity_review
+      - name: Preserve visual contact sheets and grouping audit
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: original-similarphoto-visual-review
+          path: photo_similarity_review/
+          if-no-files-found: warn
+          retention-days: 14

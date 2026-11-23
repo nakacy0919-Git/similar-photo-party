@@ -238,7 +238,23 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             if (!Array.isArray(data)) throw new Error('Invalid data');
             const imported = Array.isArray(window.SIMILAR_PHOTO_LIBRARY) ? window.SIMILAR_PHOTO_LIBRARY : [];
-            const combined = [...data, ...imported];
+            const visual = window.SIMILARPHOTO_VISUAL_GROUPS;
+            if (visual && imported.length) {
+                const expected = new Set(imported.map(item => item.sourcePath));
+                if (Object.keys(visual).length !== expected.size ||
+                    [...expected].some(path => !visual[path] || !/^sp_\d{3,4}_v\d{2}$/.test(visual[path].group))) {
+                    throw new Error('Incomplete visual photo grouping');
+                }
+            }
+            const importedForPlay = imported.map(item => {
+                const match = visual && visual[item.sourcePath];
+                return match ? {...item,
+                    group: match.group,
+                    visualDistance: match.distance,
+                    needsVisualReview: match.needsReview === true
+                } : item;
+            });
+            const combined = [...data, ...importedForPlay];
             const ids = new Set();
             const files = new Set();
             const groups = new Map();
