@@ -315,3 +315,33 @@ html,body{max-width:100%;overflow-x:hidden}
 @media (orientation:landscape) and (max-height:540px){
   #ready.ready-panel{box-sizing:border-box;max-height:calc(100dvh - 53px);overflow-y:auto}
 }
+
+
+/* Portrait iPad category pages use one bounded scroll surface rather than
+   stretching below the tablet screen and moving the entire page. */
+@media (min-width:700px) and (max-width:1050px) and (orientation:portrait){
+  #setup.setup-panel{
+    box-sizing:border-box;
+    max-height:calc(100dvh - max(82px,env(safe-area-inset-top) + 69px));
+    overflow-y:auto;overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:clamp(12px,2dvh,22px);
+  }
+  #setup .hero{margin-bottom:clamp(8px,1.5dvh,18px)}
+  #setup .hero h1{font-size:clamp(1.7rem,3.3vw,2.4rem)}
+  #setup .decks{max-height:clamp(190px,23dvh,275px);min-height:170px}
+  #setup .deck{min-height:72px}
+  #setup .options-panel{gap:clamp(.3rem,1dvh,.65rem) clamp(.5rem,1.8vw,1rem)}
+  #setup .options-panel .choice-line{min-height:36px;padding:.22rem}
+  #setup .setting-block{gap:.3rem}
+  #setup .options-panel>h2{font-size:1.1rem}
+  #setup .options-panel>.micro-note{margin:0}
+}
+@media (orientation:landscape) and (max-height:540px){
+  #setup.setup-panel{
+    max-height:calc(100dvh - max(49px,env(safe-area-inset-top) + 43px));
+    overflow-y:auto;overscroll-behavior:contain;
+  }
+  #setup .decks{max-height:clamp(115px,33dvh,220px);min-height:110px}
+  #setup .options-panel{gap:.3rem;padding:.6rem}
+}
