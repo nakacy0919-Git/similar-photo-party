@@ -110,7 +110,7 @@ async function runCharades(browser,screen){
     await page.goto(BASE+'/charades.html',{waitUntil:'domcontentloaded',timeout:40000});
     await page.waitForSelector('#setup:not([hidden])');
     await inside(page,['#setup','.setup-grid','#decks','.options-panel'],screen,'Charades settings');
-    const button=page.locator('#start');
+    const button=page.locator(screen.width<=760?'#mobileStart':'#start');
     await button.click({force:true});
     await page.waitForSelector('#ready:not([hidden])');
     await inside(page,['#ready','#beginRound','#readyInstruction'],screen,'Charades READY');
