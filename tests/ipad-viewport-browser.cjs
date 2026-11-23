@@ -69,7 +69,7 @@ async function runPhoto(browser,screen){
       await page.waitForSelector('#view-tutorial:not(.hidden)');
       await inside(page,['#view-tutorial','#tut-next-btn','#tut-close-btn'],screen,'Photo instructions');
       await page.locator('#tut-close-btn').click();
-      await page.waitForSelector('#view-tutorial.hidden');
+      await page.waitForSelector('#view-tutorial',{state:'hidden'});
       await page.locator('#settingsBtn').click();
       await page.waitForSelector('#view-settings.flex');
       await inside(page,['#view-settings','#view-settings>div','#closeSettingsBtn'],screen,'Photo settings');
