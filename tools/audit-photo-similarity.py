@@ -216,6 +216,7 @@ def main():
         line=";".join(",".join(group) for group in group_manifest[series])
         print(f"VISUAL_CLUSTER_{series}={line}",flush=True)
         print(f"VISUAL_QUALITY_{series}="+json.dumps(report[series],ensure_ascii=False),flush=True)
+        print(f"VISUAL_GROUP_SCORES_{series}="+",".join(f"{pair_cost(g,dist)/max(1,len(g)*(len(g)-1)/2):.3f}" for g in found),flush=True)
         preview_contact_sheet(series,source_rows,found,dist,output)
     (output/"visual-clusters.json").write_text(json.dumps(group_manifest,ensure_ascii=False,indent=2),encoding="utf-8")
     (output/"quality-report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
