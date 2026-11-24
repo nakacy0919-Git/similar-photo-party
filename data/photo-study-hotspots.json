@@ -1,0 +1,806 @@
+{
+  "version": 1,
+  "coordinateSystem": "normalized top-left image bounds: [x,y,width,height], no crop",
+  "photos": [
+    {
+      "id": "picnic_20261125_01",
+      "theme": "Picnic in the Park",
+      "themeJa": "公園でピクニック",
+      "width": 1000,
+      "height": 1000,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "picnic basket",
+          "jaLabel": "ピクニックバスケット",
+          "box": [
+            0.04,
+            0.11,
+            0.48,
+            0.46
+          ],
+          "en": "A wicker picnic basket is behind the apple.",
+          "ja": "リンゴの後ろにかご製のピクニックバスケットがあります。"
+        },
+        {
+          "id": "apple",
+          "label": "red apple",
+          "jaLabel": "赤のリンゴ",
+          "box": [
+            0.105,
+            0.52,
+            0.163,
+            0.17
+          ],
+          "en": "There is a red apple in front of the basket.",
+          "ja": "バスケットの前に赤のリンゴがあります。"
+        },
+        {
+          "id": "banana",
+          "label": "large banana",
+          "jaLabel": "大きなバナナ",
+          "box": [
+            0.06,
+            0.64,
+            0.29,
+            0.19
+          ],
+          "en": "A large yellow banana is lying in front of the apple.",
+          "ja": "リンゴの手前に大きな黄色いバナナが置いてあります。"
+        },
+        {
+          "id": "bottle",
+          "label": "blue water bottle",
+          "jaLabel": "青い水筒",
+          "box": [
+            0.568,
+            0.215,
+            0.16,
+            0.345
+          ],
+          "en": "A blue water bottle stands behind the plate.",
+          "ja": "お皿の後ろに青い水筒があります。"
+        },
+        {
+          "id": "sandwiches",
+          "label": "two sandwiches",
+          "jaLabel": "サンドイッチ2つ",
+          "box": [
+            0.365,
+            0.56,
+            0.375,
+            0.22
+          ],
+          "en": "There are two triangular sandwiches on a white plate.",
+          "ja": "白いお皿の上に三角形のサンドイッチが2つあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "bouquet of flowers",
+          "jaLabel": "花束",
+          "box": [
+            0.7,
+            0.41,
+            0.29,
+            0.34
+          ],
+          "en": "A bouquet of flowers is lying to the right of the plate.",
+          "ja": "お皿の右側に花束が置いてあります。"
+        },
+        {
+          "id": "blanket",
+          "label": "checkered blanket",
+          "jaLabel": "チェック柄のシート",
+          "box": [
+            0.35,
+            0.84,
+            0.38,
+            0.14
+          ],
+          "en": "The picnic blanket has a red and white checkered pattern.",
+          "ja": "ピクニックシートは赤と白のチェック柄です。"
+        }
+      ]
+    },
+    {
+      "id": "picnic_20261125_02",
+      "theme": "Picnic in the Park",
+      "themeJa": "公園でピクニック",
+      "width": 1000,
+      "height": 1000,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "picnic basket",
+          "jaLabel": "ピクニックバスケット",
+          "box": [
+            0.04,
+            0.11,
+            0.48,
+            0.46
+          ],
+          "en": "A wicker picnic basket is behind the apple.",
+          "ja": "リンゴの後ろにかご製のピクニックバスケットがあります。"
+        },
+        {
+          "id": "apple",
+          "label": "green apple",
+          "jaLabel": "緑色のリンゴ",
+          "box": [
+            0.105,
+            0.52,
+            0.163,
+            0.17
+          ],
+          "en": "There is a green apple in front of the basket.",
+          "ja": "バスケットの前に緑色のリンゴがあります。"
+        },
+        {
+          "id": "banana",
+          "label": "large banana",
+          "jaLabel": "大きなバナナ",
+          "box": [
+            0.06,
+            0.64,
+            0.29,
+            0.19
+          ],
+          "en": "A large yellow banana is lying in front of the apple.",
+          "ja": "リンゴの手前に大きな黄色いバナナが置いてあります。"
+        },
+        {
+          "id": "bottle",
+          "label": "blue water bottle",
+          "jaLabel": "青い水筒",
+          "box": [
+            0.568,
+            0.215,
+            0.16,
+            0.345
+          ],
+          "en": "A blue water bottle stands behind the plate.",
+          "ja": "お皿の後ろに青い水筒があります。"
+        },
+        {
+          "id": "sandwiches",
+          "label": "two sandwiches",
+          "jaLabel": "サンドイッチ2つ",
+          "box": [
+            0.365,
+            0.56,
+            0.375,
+            0.22
+          ],
+          "en": "There are two triangular sandwiches on a white plate.",
+          "ja": "白いお皿の上に三角形のサンドイッチが2つあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "bouquet of flowers",
+          "jaLabel": "花束",
+          "box": [
+            0.7,
+            0.41,
+            0.29,
+            0.34
+          ],
+          "en": "A bouquet of flowers is lying to the right of the plate.",
+          "ja": "お皿の右側に花束が置いてあります。"
+        },
+        {
+          "id": "blanket",
+          "label": "checkered blanket",
+          "jaLabel": "チェック柄のシート",
+          "box": [
+            0.35,
+            0.84,
+            0.38,
+            0.14
+          ],
+          "en": "The picnic blanket has a red and white checkered pattern.",
+          "ja": "ピクニックシートは赤と白のチェック柄です。"
+        }
+      ]
+    },
+    {
+      "id": "picnic_20261125_03",
+      "theme": "Picnic in the Park",
+      "themeJa": "公園でピクニック",
+      "width": 1000,
+      "height": 1000,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "picnic basket",
+          "jaLabel": "ピクニックバスケット",
+          "box": [
+            0.04,
+            0.11,
+            0.48,
+            0.46
+          ],
+          "en": "A wicker picnic basket is behind the apple.",
+          "ja": "リンゴの後ろにかご製のピクニックバスケットがあります。"
+        },
+        {
+          "id": "apple",
+          "label": "red apple",
+          "jaLabel": "赤のリンゴ",
+          "box": [
+            0.105,
+            0.52,
+            0.163,
+            0.17
+          ],
+          "en": "There is a red apple in front of the basket.",
+          "ja": "バスケットの前に赤のリンゴがあります。"
+        },
+        {
+          "id": "banana",
+          "label": "large banana",
+          "jaLabel": "大きなバナナ",
+          "box": [
+            0.06,
+            0.64,
+            0.29,
+            0.19
+          ],
+          "en": "A large yellow banana is lying in front of the apple.",
+          "ja": "リンゴの手前に大きな黄色いバナナが置いてあります。"
+        },
+        {
+          "id": "bottle",
+          "label": "red water bottle",
+          "jaLabel": "赤い水筒",
+          "box": [
+            0.568,
+            0.215,
+            0.16,
+            0.345
+          ],
+          "en": "A red water bottle stands behind the plate.",
+          "ja": "お皿の後ろに赤い水筒があります。"
+        },
+        {
+          "id": "sandwiches",
+          "label": "two sandwiches",
+          "jaLabel": "サンドイッチ2つ",
+          "box": [
+            0.365,
+            0.56,
+            0.375,
+            0.22
+          ],
+          "en": "There are two triangular sandwiches on a white plate.",
+          "ja": "白いお皿の上に三角形のサンドイッチが2つあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "bouquet of flowers",
+          "jaLabel": "花束",
+          "box": [
+            0.7,
+            0.41,
+            0.29,
+            0.34
+          ],
+          "en": "A bouquet of flowers is lying to the right of the plate.",
+          "ja": "お皿の右側に花束が置いてあります。"
+        },
+        {
+          "id": "blanket",
+          "label": "checkered blanket",
+          "jaLabel": "チェック柄のシート",
+          "box": [
+            0.35,
+            0.84,
+            0.38,
+            0.14
+          ],
+          "en": "The picnic blanket has a red and white checkered pattern.",
+          "ja": "ピクニックシートは赤と白のチェック柄です。"
+        }
+      ]
+    },
+    {
+      "id": "picnic_20261125_04",
+      "theme": "Picnic in the Park",
+      "themeJa": "公園でピクニック",
+      "width": 1000,
+      "height": 1000,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "picnic basket",
+          "jaLabel": "ピクニックバスケット",
+          "box": [
+            0.04,
+            0.11,
+            0.48,
+            0.46
+          ],
+          "en": "A wicker picnic basket is behind the apple.",
+          "ja": "リンゴの後ろにかご製のピクニックバスケットがあります。"
+        },
+        {
+          "id": "apple",
+          "label": "red apple",
+          "jaLabel": "赤のリンゴ",
+          "box": [
+            0.105,
+            0.52,
+            0.163,
+            0.17
+          ],
+          "en": "There is a red apple in front of the basket.",
+          "ja": "バスケットの前に赤のリンゴがあります。"
+        },
+        {
+          "id": "banana",
+          "label": "small banana",
+          "jaLabel": "小さなバナナ",
+          "box": [
+            0.085,
+            0.675,
+            0.165,
+            0.13
+          ],
+          "en": "A small yellow banana is lying in front of the apple.",
+          "ja": "リンゴの手前に小さな黄色いバナナが置いてあります。"
+        },
+        {
+          "id": "bottle",
+          "label": "blue water bottle",
+          "jaLabel": "青い水筒",
+          "box": [
+            0.568,
+            0.215,
+            0.16,
+            0.345
+          ],
+          "en": "A blue water bottle stands behind the plate.",
+          "ja": "お皿の後ろに青い水筒があります。"
+        },
+        {
+          "id": "sandwiches",
+          "label": "two sandwiches",
+          "jaLabel": "サンドイッチ2つ",
+          "box": [
+            0.365,
+            0.56,
+            0.375,
+            0.22
+          ],
+          "en": "There are two triangular sandwiches on a white plate.",
+          "ja": "白いお皿の上に三角形のサンドイッチが2つあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "bouquet of flowers",
+          "jaLabel": "花束",
+          "box": [
+            0.7,
+            0.41,
+            0.29,
+            0.34
+          ],
+          "en": "A bouquet of flowers is lying to the right of the plate.",
+          "ja": "お皿の右側に花束が置いてあります。"
+        },
+        {
+          "id": "blanket",
+          "label": "checkered blanket",
+          "jaLabel": "チェック柄のシート",
+          "box": [
+            0.35,
+            0.84,
+            0.38,
+            0.14
+          ],
+          "en": "The picnic blanket has a red and white checkered pattern.",
+          "ja": "ピクニックシートは赤と白のチェック柄です。"
+        }
+      ]
+    },
+    {
+      "id": "sneaker_store_20261125_01",
+      "theme": "At a Sneaker Store",
+      "themeJa": "スニーカーショップ",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "boxes",
+          "label": "three shoe boxes",
+          "jaLabel": "靴箱3つ",
+          "box": [
+            0.025,
+            0.335,
+            0.24,
+            0.415
+          ],
+          "en": "Three shoe boxes are stacked on the left side of the table.",
+          "ja": "テーブルの左側に靴箱が3つ積まれています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "鉢植え",
+          "box": [
+            0.215,
+            0.255,
+            0.2,
+            0.385
+          ],
+          "en": "A green plant in a pot is next to the shoe boxes.",
+          "ja": "靴箱の隣に緑の鉢植えがあります。"
+        },
+        {
+          "id": "left_shoe",
+          "label": "white sneaker",
+          "jaLabel": "白いスニーカー",
+          "box": [
+            0.285,
+            0.497,
+            0.245,
+            0.254
+          ],
+          "en": "The sneaker on the left is white.",
+          "ja": "左側のスニーカーは白色です。"
+        },
+        {
+          "id": "right_shoe",
+          "label": "black sneaker",
+          "jaLabel": "黒いスニーカー",
+          "box": [
+            0.54,
+            0.497,
+            0.25,
+            0.254
+          ],
+          "en": "A black sneaker is displayed to the right of the white one.",
+          "ja": "白いスニーカーの右側に黒いスニーカーが置かれています。"
+        },
+        {
+          "id": "bag",
+          "label": "blue shopping bag",
+          "jaLabel": "青い紙袋",
+          "box": [
+            0.74,
+            0.24,
+            0.215,
+            0.46
+          ],
+          "en": "A blue shopping bag with a white rope handle stands on the right.",
+          "ja": "右側に白いひもの持ち手が付いた青い紙袋があります。"
+        },
+        {
+          "id": "shelves",
+          "label": "display shelves",
+          "jaLabel": "陳列棚",
+          "box": [
+            0.42,
+            0.05,
+            0.23,
+            0.34
+          ],
+          "en": "Several shoes are displayed on the shelves in the background.",
+          "ja": "背景の棚には何足かの靴が陳列されています。"
+        },
+        {
+          "id": "table",
+          "label": "wooden display table",
+          "jaLabel": "木製の陳列台",
+          "box": [
+            0.28,
+            0.77,
+            0.46,
+            0.07
+          ],
+          "en": "The sneakers are displayed on a wooden table.",
+          "ja": "スニーカーは木製のテーブルに並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "sneaker_store_20261125_02",
+      "theme": "At a Sneaker Store",
+      "themeJa": "スニーカーショップ",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "boxes",
+          "label": "three shoe boxes",
+          "jaLabel": "靴箱3つ",
+          "box": [
+            0.025,
+            0.335,
+            0.24,
+            0.415
+          ],
+          "en": "Three shoe boxes are stacked on the left side of the table.",
+          "ja": "テーブルの左側に靴箱が3つ積まれています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "鉢植え",
+          "box": [
+            0.215,
+            0.255,
+            0.2,
+            0.385
+          ],
+          "en": "A green plant in a pot is next to the shoe boxes.",
+          "ja": "靴箱の隣に緑の鉢植えがあります。"
+        },
+        {
+          "id": "left_shoe",
+          "label": "red sneaker",
+          "jaLabel": "赤いスニーカー",
+          "box": [
+            0.285,
+            0.497,
+            0.245,
+            0.254
+          ],
+          "en": "The sneaker on the left is red.",
+          "ja": "左側のスニーカーは赤色です。"
+        },
+        {
+          "id": "right_shoe",
+          "label": "black sneaker",
+          "jaLabel": "黒いスニーカー",
+          "box": [
+            0.54,
+            0.497,
+            0.25,
+            0.254
+          ],
+          "en": "A black sneaker is displayed to the right of the red one.",
+          "ja": "赤いスニーカーの右側に黒いスニーカーが置かれています。"
+        },
+        {
+          "id": "bag",
+          "label": "blue shopping bag",
+          "jaLabel": "青い紙袋",
+          "box": [
+            0.74,
+            0.24,
+            0.215,
+            0.46
+          ],
+          "en": "A blue shopping bag with a white rope handle stands on the right.",
+          "ja": "右側に白いひもの持ち手が付いた青い紙袋があります。"
+        },
+        {
+          "id": "shelves",
+          "label": "display shelves",
+          "jaLabel": "陳列棚",
+          "box": [
+            0.42,
+            0.05,
+            0.23,
+            0.34
+          ],
+          "en": "Several shoes are displayed on the shelves in the background.",
+          "ja": "背景の棚には何足かの靴が陳列されています。"
+        },
+        {
+          "id": "table",
+          "label": "wooden display table",
+          "jaLabel": "木製の陳列台",
+          "box": [
+            0.28,
+            0.77,
+            0.46,
+            0.07
+          ],
+          "en": "The sneakers are displayed on a wooden table.",
+          "ja": "スニーカーは木製のテーブルに並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "sneaker_store_20261125_03",
+      "theme": "At a Sneaker Store",
+      "themeJa": "スニーカーショップ",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "boxes",
+          "label": "three shoe boxes",
+          "jaLabel": "靴箱3つ",
+          "box": [
+            0.025,
+            0.335,
+            0.24,
+            0.415
+          ],
+          "en": "Three shoe boxes are stacked on the left side of the table.",
+          "ja": "テーブルの左側に靴箱が3つ積まれています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "鉢植え",
+          "box": [
+            0.215,
+            0.255,
+            0.2,
+            0.385
+          ],
+          "en": "A green plant in a pot is next to the shoe boxes.",
+          "ja": "靴箱の隣に緑の鉢植えがあります。"
+        },
+        {
+          "id": "left_shoe",
+          "label": "white sneaker",
+          "jaLabel": "白いスニーカー",
+          "box": [
+            0.285,
+            0.497,
+            0.245,
+            0.254
+          ],
+          "en": "The sneaker on the left is white.",
+          "ja": "左側のスニーカーは白色です。"
+        },
+        {
+          "id": "right_shoe",
+          "label": "black sneaker",
+          "jaLabel": "黒いスニーカー",
+          "box": [
+            0.54,
+            0.497,
+            0.25,
+            0.254
+          ],
+          "en": "A black sneaker is displayed to the right of the white one.",
+          "ja": "白いスニーカーの右側に黒いスニーカーが置かれています。"
+        },
+        {
+          "id": "bag",
+          "label": "yellow shopping bag",
+          "jaLabel": "黄色い紙袋",
+          "box": [
+            0.74,
+            0.24,
+            0.215,
+            0.46
+          ],
+          "en": "A yellow shopping bag with a white rope handle stands on the right.",
+          "ja": "右側に白いひもの持ち手が付いた黄色い紙袋があります。"
+        },
+        {
+          "id": "shelves",
+          "label": "display shelves",
+          "jaLabel": "陳列棚",
+          "box": [
+            0.42,
+            0.05,
+            0.23,
+            0.34
+          ],
+          "en": "Several shoes are displayed on the shelves in the background.",
+          "ja": "背景の棚には何足かの靴が陳列されています。"
+        },
+        {
+          "id": "table",
+          "label": "wooden display table",
+          "jaLabel": "木製の陳列台",
+          "box": [
+            0.28,
+            0.77,
+            0.46,
+            0.07
+          ],
+          "en": "The sneakers are displayed on a wooden table.",
+          "ja": "スニーカーは木製のテーブルに並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "sneaker_store_20261125_04",
+      "theme": "At a Sneaker Store",
+      "themeJa": "スニーカーショップ",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "boxes",
+          "label": "four shoe boxes",
+          "jaLabel": "靴箱4つ",
+          "box": [
+            0.025,
+            0.3,
+            0.24,
+            0.45
+          ],
+          "en": "Four shoe boxes are stacked on the left side of the table.",
+          "ja": "テーブルの左側に靴箱が4つ積まれています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "鉢植え",
+          "box": [
+            0.215,
+            0.255,
+            0.2,
+            0.385
+          ],
+          "en": "A green plant in a pot is next to the shoe boxes.",
+          "ja": "靴箱の隣に緑の鉢植えがあります。"
+        },
+        {
+          "id": "left_shoe",
+          "label": "white sneaker",
+          "jaLabel": "白いスニーカー",
+          "box": [
+            0.285,
+            0.497,
+            0.245,
+            0.254
+          ],
+          "en": "The sneaker on the left is white.",
+          "ja": "左側のスニーカーは白色です。"
+        },
+        {
+          "id": "right_shoe",
+          "label": "black sneaker",
+          "jaLabel": "黒いスニーカー",
+          "box": [
+            0.54,
+            0.497,
+            0.25,
+            0.254
+          ],
+          "en": "A black sneaker is displayed to the right of the white one.",
+          "ja": "白いスニーカーの右側に黒いスニーカーが置かれています。"
+        },
+        {
+          "id": "bag",
+          "label": "blue shopping bag",
+          "jaLabel": "青い紙袋",
+          "box": [
+            0.74,
+            0.24,
+            0.215,
+            0.46
+          ],
+          "en": "A blue shopping bag with a white rope handle stands on the right.",
+          "ja": "右側に白いひもの持ち手が付いた青い紙袋があります。"
+        },
+        {
+          "id": "shelves",
+          "label": "display shelves",
+          "jaLabel": "陳列棚",
+          "box": [
+            0.42,
+            0.05,
+            0.23,
+            0.34
+          ],
+          "en": "Several shoes are displayed on the shelves in the background.",
+          "ja": "背景の棚には何足かの靴が陳列されています。"
+        },
+        {
+          "id": "table",
+          "label": "wooden display table",
+          "jaLabel": "木製の陳列台",
+          "box": [
+            0.28,
+            0.77,
+            0.46,
+            0.07
+          ],
+          "en": "The sneakers are displayed on a wooden table.",
+          "ja": "スニーカーは木製のテーブルに並べられています。"
+        }
+      ]
+    }
+  ]
+}
