@@ -46,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
+    function readPhotoMusicPreference() {
+        try { return window.localStorage?.getItem('photo-bgm-enabled') !== 'false'; }
+        catch { return true; }
+    }
+
     // === 状態管理 ===
     const state = {
         quizData: [],
@@ -69,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentSet: [],
         correctItem: null,
         timerInterval: null,
-        isBgmEnabled: true, 
+        isBgmEnabled: readPhotoMusicPreference(), 
         isSpeaking: false,
         speechToken: 0,
         speechTimeout: null,
@@ -553,19 +558,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === Common Functions ===
 
+    function syncPhotoMusicButtons() {
+        const enabled = state.isBgmEnabled;
+        const label = photoText(enabled?'musicOn':'musicOff');
+        for (const button of [elements.btns.bgmToggle,elements.btns.photoBgmSetup,elements.btns.photoBgmPlay]) {
+            button.setAttribute('aria-pressed',String(enabled));
+            button.setAttribute('aria-label',label);
+            button.setAttribute('title',label);
+        }
+        elements.btns.photoBgmPlay.textContent = enabled ? '♫' : '♬̸';
+        const status = elements.btns.photoBgmSetup.querySelector('.photo-music-status');
+        status.textContent = enabled ? 'BGM ON':'BGM OFF';
+        const icon = elements.btns.bgmToggle.querySelector('i');
+        icon.classList.toggle('fa-music',enabled);
+        icon.classList.toggle('fa-volume-xmark',!enabled);
+        icon.style.color = enabled ? '' : '#888';
+    }
+
     function toggleBgm() {
         state.isBgmEnabled = !state.isBgmEnabled;
-        const icon = elements.btns.bgmToggle.querySelector('i');
-        
+        try { window.localStorage?.setItem('photo-bgm-enabled',String(state.isBgmEnabled)); }
+        catch { /* Private browsing may disallow persistent storage. */ }
+        syncPhotoMusicButtons();
         if (state.isBgmEnabled) {
-            icon.classList.remove('fa-volume-xmark');
-            icon.classList.add('fa-music');
-            icon.style.color = "";
             if (!state.isSpeaking && elements.views.tutorial.classList.contains('hidden')) playBgm();
         } else {
-            icon.classList.remove('fa-music');
-            icon.classList.add('fa-volume-xmark');
-            icon.style.color = "#aaa";
             elements.audio.bgm.pause();
         }
     }
@@ -636,7 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateRoleCues() {
         const speaker = state.round % 2 === 1 ? 'A' : 'B';
         const listener = speaker === 'A' ? 'B' : 'A';
-        elements.roles.memory.textContent = `Player ${speaker}: 写真を見ながら説明 ／ Player ${listener}: 画面を見ない`;
+        elements.roles.memory.textContent = photoText('memoryRole',{speaker,listener});
         elements.roles.explain.textContent = `Player ${speaker}: 英語で説明 ／ Player ${listener}: 聞くだけ`;
         elements.roles.choice.textContent = `Player ${listener}: 写真を選ぶ ／ Player ${speaker}: 答えを指ささない`;
         elements.roles.result.textContent = `次はPlayer ${listener}が説明役！ 2人で英語の違いを言ってみよう。`;
@@ -780,9 +797,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = document.createElement('span');
             label.className = 'photo-genre-copy';
             const title = document.createElement('strong');
-            title.textContent = genre.ja;
+            title.textContent = state.tutLang === 'ja' ? genre.ja : genre.en;
             const subtitle = document.createElement('small');
-            subtitle.textContent = PHOTO_GENRES.pool(state.quizData, genre.id).length + '枚 · ' + genre.en;
+            subtitle.textContent = PHOTO_GENRES.pool(state.quizData, genre.id).length +
+                ' ' + photoText('photos') + ' · ' + (state.tutLang === 'ja' ? genre.en : genre.ja);
             label.appendChild(title);
             label.appendChild(subtitle);
             button.appendChild(emoji);
@@ -790,7 +808,8 @@ document.addEventListener('DOMContentLoaded', () => {
             button.addEventListener('click', () => selectPhotoGenre(genre.id));
             list.appendChild(button);
         }
-        document.getElementById('photo-genre-count').textContent = state.quizData.length + '枚の写真';
+        document.getElementById('photo-genre-count').textContent =
+            state.quizData.length + ' ' + photoText('photos');
     }
 
     function selectPhotoGenre(id) {
@@ -842,15 +861,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stopSpeech();
         state.paused = false;
         document.getElementById('photo-pause-overlay').hidden = true;
-        const nextRound = state.round + 1;
-        const speaker = nextRound % 2 ? 'A' : 'B';
-        const listener = speaker === 'A' ? 'B' : 'A';
-        const chosen = PHOTO_GENRES.options(state.quizData).find(item => item.id === state.selectedGenre);
-        document.getElementById('photo-ready-round').textContent = 'ROUND ' + nextRound;
-        document.getElementById('photo-ready-roles').textContent =
-            'Player ' + speaker + ' が説明 ／ Player ' + listener + ' は画面を見ない';
-        document.getElementById('photo-ready-summary').textContent =
-            (chosen ? chosen.ja : 'すべて') + ' · ' + state.sessionDuration + '秒チャレンジ · 1枚10秒';
+        updateReadyText();
         showView('photoReady');
     }
 
@@ -936,7 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('choice-success-overlay').hidden = true;
         document.getElementById('handoff-announcement').hidden = true;
         document.getElementById('photo-summary-correct').textContent = String(state.correctCount);
-        document.getElementById('photo-summary-rounds').textContent = '挑戦 ' + state.answeredCount + ' 問 ／ ' + state.sessionDuration + ' 秒';
+        updatePhotoSummaryText();
         if (document.fullscreenElement && document.exitFullscreen) {
             Promise.resolve(document.exitFullscreen()).catch(() => {});
         }
@@ -953,7 +964,7 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.views[viewName].classList.remove('hidden');
 
         state.isPlaying = viewName !== 'landing';
-        const active = ['photoReady','memory','choice','photoNext','result'].includes(viewName);
+        const active = ['memory','choice','photoNext','result'].includes(viewName);
         document.getElementById('photo-session-hud').hidden =
             !['memory','choice','photoNext','result'].includes(viewName);
         document.getElementById('photo-game-tools').hidden = !active;
@@ -1147,13 +1158,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('choice-success-overlay').hidden = true;
         document.getElementById('handoff-announcement').hidden = true;
         const feedback = document.getElementById('photo-next-feedback');
-        feedback.textContent = state.lastAnswerCorrect ? '✓ 正解！' : '✕ おしい！';
         feedback.classList.toggle('wrong', !state.lastAnswerCorrect);
-        const upcoming = state.round + 1;
-        const speaker = upcoming % 2 ? 'A' : 'B';
-        const listener = speaker === 'A' ? 'B' : 'A';
-        document.getElementById('photo-next-roles').textContent =
-            '次はPlayer ' + speaker + 'が説明 ／ Player ' + listener + 'は見ない';
+        updatePhotoNextText();
         showView('photoNext');
         updateSessionHud();
     }
