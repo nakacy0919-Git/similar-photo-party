@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
-    const SESSION_TIME_OPTIONS = [60, 90, 120];
-    const PHOTO_EXPLAIN_SECONDS = 10;
+    const SESSION_TIME_OPTIONS = [90, 120, 150, 180];
+    const PHOTO_EXPLAIN_SECONDS = 20;
     const SPEAKING_MISSIONS = [
         {
             title: '1 · Name it / 何がある？',
@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
     const PHOTO_GENRES = window.PHOTO_CATEGORIES;
+    const PHOTO_I18N = window.PHOTO_I18N;
+    const photoText = (key,vars={}) => PHOTO_I18N.text(state.tutLang,key,vars);
     // Original SimilarPhoto repository: public image assets only, revision pinned.
     // The imported data is a local manifest; no remote JavaScript is executed.
     const SOURCE_IMAGE_ROOT = 'https://raw.githubusercontent.com/nakacy0919-Git/SimilarPhoto/53625ffce31f14200a3b4eced23e5fd2c3099211/';
@@ -44,40 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    // チュートリアル用のデータ (英語/日本語)
-    const TUTORIAL_DATA = {
-        en: {
-            title: 'HOW TO PLAY',
-            steps: [
-                { badge: 'STEP 1', title: 'Memorize', desc: 'Player A describes the photo while looking at it. The others listen without seeing it.', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'STEP 2', title: 'Choose', desc: 'After 10 seconds, pick one of four photos. One try per question.', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'STEP 3', title: 'Next', desc: 'Tap the large NEXT button before showing the next photo. The overall timer keeps counting.', img: 'assets/images/tutorial_3.webp' }
-            ],
-            btnNext: 'Next',
-            btnStart: 'Start Game!',
-            langLabel: '日本語',
-            btnPrev: 'Back'
-        },
-        ja: {
-            title: '遊び方',
-            steps: [
-                { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは写真を見ながら説明します。Bさんはまだ写真を見ません。', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'ステップ 2', title: '4択に答える', desc: '説明10秒で4択へ自動切替。回答は1問1回だけです。', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'ステップ 3', title: 'NEXTを押す', desc: '大きなNEXTボタンを押してから次の写真を表示。全体の時間は進み続けます。', img: 'assets/images/tutorial_3.webp' }
-            ],
-            btnNext: '次へ',
-            btnStart: 'ゲーム開始！',
-            langLabel: 'English',
-            btnPrev: '戻る'
-        }
-    };
-
     // === 状態管理 ===
     const state = {
         quizData: [],
         phase: "landing",
-        sessionDuration: 60,
-        sessionRemainingMs: 60000,
+        sessionDuration: 90,
+        sessionRemainingMs: 90000,
         sessionTimerInterval: null,
         sessionLast: 0,
         sessionStarted: false,
@@ -147,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
             photoSetupHome: document.getElementById('photo-setup-home'),
             photoSetupNext: document.getElementById('photo-setup-next'),
             photoReadyStart: document.getElementById('photo-ready-start'),
-            photoReadyBack: document.getElementById('photo-ready-back'),
             photoNextStart: document.getElementById('photo-next-start'),
             photoEnd: document.getElementById('photo-end'),
             photoBack: document.getElementById('photo-back'),
@@ -161,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tutClose: document.getElementById('tut-close-btn'),
             tutNext: document.getElementById('tut-next-btn'),
             tutPrev: document.getElementById('tut-prev-btn'),
-            tutLang: document.getElementById('tut-lang-btn'),
             review: document.getElementById('reviewLink'),
             
             memorySkip: document.getElementById('memory-skip-btn'),
@@ -173,6 +145,10 @@ document.addEventListener('DOMContentLoaded', () => {
             closeSettings: document.getElementById('closeSettingsBtn'),
             backHome: document.getElementById('backHomeBtn'),
             bgmToggle: document.getElementById('bgmBtn'),
+            photoBgmSetup: document.getElementById('photo-bgm-btn'),
+            photoBgmPlay: document.getElementById('photo-bgm-play'),
+            photoLanguage: document.getElementById('photo-language'),
+            tutorialLanguage: document.getElementById('tut-lang-select'),
             // 時間選択ボタン
             timeSelectors: document.querySelectorAll('.time-select-btn'),
             memorySelectors: document.querySelectorAll('.memory-time-select-btn'),
@@ -185,8 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
             img: document.getElementById('tut-img'),
             badge: document.getElementById('tut-step-badge'),
             title: document.getElementById('tut-title'),
-            desc: document.getElementById('tut-desc'),
-            langText: document.getElementById('tut-lang-text')
+            desc: document.getElementById('tut-desc')
         },
         timers: {
             memory: document.getElementById('memory-timer'),
@@ -243,6 +218,8 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.start.disabled = true;
     elements.btns.photoSetupNext.disabled = true;
     const loadStatus = document.getElementById('load-status');
+    applyPhotoLanguage();
+    syncPhotoMusicButtons();
     fetch('data/content.json')
         .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
         .then(data => {
@@ -317,7 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.photoSetupHome.addEventListener('click', backToLanding);
     elements.btns.photoSetupNext.addEventListener('click', preparePhotoReady);
     elements.btns.photoReadyStart.addEventListener('click', startMemoryPhase);
-    elements.btns.photoReadyBack.addEventListener('click', openPhotoSetup);
     elements.btns.photoNextStart.addEventListener('click', startMemoryPhase);
     elements.btns.photoEnd.addEventListener('click', finishPhotoGame);
     elements.btns.photoBack.addEventListener('click', returnPhotoToSetup);
@@ -334,7 +310,8 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.tutClose.addEventListener('click', closeTutorial);
     elements.btns.tutNext.addEventListener('click', nextTutorialStep);
     elements.btns.tutPrev.addEventListener('click', prevTutorialStep);
-    elements.btns.tutLang.addEventListener('click', toggleTutorialLang);
+    elements.btns.photoLanguage.addEventListener('change', e => setPhotoLanguage(e.target.value));
+    elements.btns.tutorialLanguage.addEventListener('change', e => setPhotoLanguage(e.target.value));
 
     // Review Link Event
     elements.btns.review.addEventListener('click', () => {
@@ -365,6 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     elements.btns.bgmToggle.addEventListener('click', toggleBgm);
+    elements.btns.photoBgmSetup.addEventListener('click', toggleBgm);
+    elements.btns.photoBgmPlay.addEventListener('click', toggleBgm);
 
     elements.inputs.menuVol.addEventListener('input', (e) => updateVolume('menu', e.target.value));
     elements.inputs.gameVol.addEventListener('input', (e) => updateVolume('game', e.target.value));
@@ -401,10 +380,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!elements.views.tutorial.classList.contains('hidden') && state.tutStep === 0) {
             updateTutorialView();
         }
+        if (state.phase === 'photoReady') updateReadyText();
         return true;
     }
 
-    // Original API alias for integrations; explanation time is fixed at 10 seconds.
+    // Original API alias; each photo is now limited to twenty seconds.
     function setMemoryTime(value) {
         return setSessionDuration(value);
     }
@@ -481,10 +461,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function toggleTutorialLang() {
-        state.tutLang = state.tutLang === 'en' ? 'ja' : 'en';
-        updateTutorialView();
-    }
 
     function setTutorialButton(button, label, iconClass, iconFirst) {
         // Never interpret labels as HTML, even if localized labels change later.
@@ -503,40 +479,77 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateTutorialView() {
-        const data = TUTORIAL_DATA[state.tutLang];
-        const stepData = data.steps[state.tutStep];
-
-        elements.tutElements.header.textContent = data.title;
-        elements.tutElements.badge.textContent = stepData.badge;
-        elements.tutElements.title.textContent = stepData.title;
-        elements.tutElements.desc.textContent = state.tutStep === 0
-            ? (state.tutLang === 'en'
-                ? `Player A has ${PHOTO_EXPLAIN_SECONDS}s to describe each photo. Score as many correct answers as you can in ${state.sessionDuration}s.`
-                : `1枚${PHOTO_EXPLAIN_SECONDS}秒説明し、${state.sessionDuration}秒の制限時間で何問正解できるか挑戦します。`)
-            : stepData.desc;
-        elements.tutElements.langText.textContent = data.langLabel;
-        elements.tutElements.img.src = stepData.img;
-
+        const data = PHOTO_I18N.languages[state.tutLang] || PHOTO_I18N.languages.en;
+        const step = data.tutSteps[state.tutStep];
+        elements.tutElements.header.textContent = data.howTitle;
+        elements.tutElements.badge.textContent = step[0];
+        elements.tutElements.title.textContent = step[1];
+        elements.tutElements.desc.textContent = step[2];
+        elements.tutElements.img.src = 'assets/images/tutorial_' + (state.tutStep + 1) + '.webp';
+        elements.btns.tutorialLanguage.value = state.tutLang;
         if (state.tutStep === 0) {
             elements.btns.tutPrev.disabled = true;
-            elements.btns.tutPrev.classList.add('opacity-30', 'pointer-events-none');
+            elements.btns.tutPrev.classList.add('opacity-30','pointer-events-none');
         } else {
             elements.btns.tutPrev.disabled = false;
-            elements.btns.tutPrev.classList.remove('opacity-30', 'pointer-events-none');
-            setTutorialButton(elements.btns.tutPrev, data.btnPrev, 'fa-solid fa-chevron-left', true);
+            elements.btns.tutPrev.classList.remove('opacity-30','pointer-events-none');
+            setTutorialButton(elements.btns.tutPrev,data.tutPrev,'fa-solid fa-chevron-left',true);
         }
-
-        if (state.tutStep === 2) {
-            setTutorialButton(elements.btns.tutNext, data.btnStart, 'fa-solid fa-play ml-2', false);
-            elements.btns.tutNext.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-            elements.btns.tutNext.classList.add('bg-pink-500', 'hover:bg-pink-600');
-        } else {
-            setTutorialButton(elements.btns.tutNext, data.btnNext, 'fa-solid fa-chevron-right ml-2', false);
-            elements.btns.tutNext.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
-            elements.btns.tutNext.classList.remove('bg-pink-500', 'hover:bg-pink-600');
-        }
+        const last = state.tutStep === 2;
+        setTutorialButton(elements.btns.tutNext,last?data.tutStart:data.tutNext,
+            last?'fa-solid fa-play ml-2':'fa-solid fa-chevron-right ml-2',false);
+        elements.btns.tutNext.classList.toggle('bg-pink-500',last);
+        elements.btns.tutNext.classList.toggle('bg-indigo-600',!last);
     }
 
+    function setPhotoLanguage(code) {
+        if (!PHOTO_I18N.codes.includes(code)) return false;
+        state.tutLang = code;
+        applyPhotoLanguage();
+        if (!elements.views.tutorial.classList.contains('hidden')) updateTutorialView();
+        if (state.quizData.length) renderPhotoCategories();
+        if (state.phase === 'photoReady') updateReadyText();
+        if (state.phase === 'photoNext') updatePhotoNextText();
+        if (state.phase === 'memory') updateRoleCues();
+        if (state.phase === 'photoSummary') updatePhotoSummaryText();
+        return true;
+    }
+
+    function applyPhotoLanguage() {
+        document.documentElement.lang = state.tutLang;
+        elements.btns.photoLanguage.value = state.tutLang;
+        elements.btns.tutorialLanguage.value = state.tutLang;
+        document.querySelectorAll('[data-photo-i18n]').forEach(node => {
+            const key = node.getAttribute('data-photo-i18n');
+            node.textContent = photoText(key);
+        });
+        const btn = elements.btns.memorySkip;
+        btn.setAttribute('aria-label',photoText('readyGuess'));
+        syncPhotoMusicButtons();
+    }
+
+    function updateReadyText() {
+        const upcoming = state.round + 1;
+        const speaker = upcoming % 2 ? 'A':'B';
+        const listener = speaker === 'A'?'B':'A';
+        const genre = PHOTO_GENRES.options(state.quizData).find(item => item.id === state.selectedGenre);
+        document.getElementById('photo-ready-round').textContent = 'ROUND '+upcoming;
+        document.getElementById('photo-ready-roles').textContent = photoText('roleExplain',{speaker,listener});
+        document.getElementById('photo-ready-summary').textContent =
+            photoText('summaryLine',{genre:genre?(state.tutLang==='ja'?genre.ja:genre.en):photoText('categories'),seconds:state.sessionDuration});
+    }
+
+    function updatePhotoNextText() {
+        const feedback = document.getElementById('photo-next-feedback');
+        feedback.textContent = photoText(state.lastAnswerCorrect?'correct':'wrong');
+        const upcoming=state.round+1,speaker=upcoming%2?'A':'B',listener=speaker==='A'?'B':'A';
+        document.getElementById('photo-next-roles').textContent = photoText('nextRole',{speaker,listener});
+    }
+
+    function updatePhotoSummaryText() {
+        document.getElementById('photo-summary-rounds').textContent =
+            photoText('attempts',{count:state.answeredCount,seconds:state.sessionDuration});
+    }
 
     // === Common Functions ===
 
