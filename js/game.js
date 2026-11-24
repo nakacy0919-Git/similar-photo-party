@@ -807,6 +807,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function preparePhotoReady() {
         if (!['photoSetup', 'result', 'photoSummary'].includes(state.phase)) return;
         if (state.phase !== 'result') {
+            stopSessionClock();
             state.round = 0;
             state.answeredCount = 0;
             state.correctCount = 0;
@@ -850,6 +851,44 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.btns.photoPause.setAttribute('aria-pressed', String(state.paused));
     }
 
+    // One uninterrupted Charades-style session clock survives photo/answer/NEXT.
+    // It starts with the first loaded photo and counts down even on NEXT.
+    // Pausing or backgrounding stops elapsed-time accounting, not the game.
+    function updateSessionHud() {
+        document.getElementById('photo-total-time').textContent =
+            String(Math.ceil(Math.max(0, state.sessionRemainingMs) / 1000));
+        document.getElementById('photo-total-correct').textContent = String(state.correctCount);
+    }
+
+    function stopSessionClock() {
+        if (state.sessionTimerInterval !== null) {
+            clearInterval(state.sessionTimerInterval);
+            state.sessionTimerInterval = null;
+        }
+        state.sessionStarted = false;
+    }
+
+    function startSessionClock() {
+        if (state.sessionStarted) return;
+        state.sessionStarted = true;
+        state.sessionLast = performance.now();
+        updateSessionHud();
+        const interval = setInterval(() => {
+            if (!state.sessionStarted || state.sessionTimerInterval !== interval) return;
+            const now = performance.now();
+            if (!document.hidden && !state.paused &&
+                elements.views.settings.classList.contains('hidden')) {
+                state.sessionRemainingMs = Math.max(0, state.sessionRemainingMs - (now - state.sessionLast));
+            }
+            state.sessionLast = now;
+            updateSessionHud();
+            if (state.sessionRemainingMs <= 0) {
+                finishPhotoGame();
+            }
+        }, 100);
+        state.sessionTimerInterval = interval;
+    }
+
     function returnPhotoToSetup() {
         if (!['photoReady','memory','choice','photoNext','feedback','result'].includes(state.phase)) return;
         stopSessionClock();
@@ -873,6 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!['photoReady', 'memory', 'choice', 'photoNext', 'feedback', 'result'].includes(state.phase)) return;
         stopSessionClock();
         clearInterval(state.timerInterval);
+        state.timerInterval = null;
         clearTimeout(state.resultTimeout);
         clearTimeout(state.handoffTimer);
         state.generation++;
@@ -925,6 +965,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('handoff-announcement').hidden = true;
         unlockHandoffSound();
         stopSpeech();
+        if (state.sessionStarted && state.sessionRemainingMs <= 0) {
+            finishPhotoGame();
+            return;
+        }
         if (!prepareQuizData()) return;
         state.attempts = 0;
         state.round++;
@@ -964,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generation !== state.generation || state.phase !== 'memory') return;
         setPhotoImage(elements.imgs.memory, state.correctItem);
         elements.btns.memorySkip.disabled = false;
+        updateSessionHud();
         if (!state.sessionStarted) startSessionClock();
         runTimer(PHOTO_EXPLAIN_SECONDS, elements.timers.memory, startChoicePhase);
     }
@@ -1006,6 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startChoicePhase() {
         if (state.phase !== 'memory' || state.paused) return;
         clearInterval(state.timerInterval);
+        state.timerInterval = null;
         state.activeCountdown = null;
         playHandoffCue();
         showView('choice');
@@ -1041,30 +1087,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkAnswer(item, btn) {
-        if (state.phase !== 'choice' || btn.disabled || state.paused) return;
-        state.attempts++;
+        // The first answer finishes this question. No repeat guesses for points.
+        if (state.phase !== 'choice' || btn.disabled || state.paused || !state.sessionStarted) return;
+        state.phase = 'feedback';
+        state.attempts = 1;
+        state.answeredCount++;
+        state.lastAnswerCorrect = item.id === state.correctItem.id;
         btn.disabled = true;
-        if (item.id === state.correctItem.id) {
-            state.phase = 'feedback';
-            if (state.attempts === 1) state.firstCorrect++;
-            state.lastPoints = window.CHARADES_CORE
-                ? window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts)
-                : ([100, 60, 30][state.attempts - 1] || 10);
-            state.score += state.lastPoints; // Legacy internal metric: not shown to players.
+        elements.imgs.grid.querySelectorAll('button').forEach(button => { button.disabled = true; });
+        document.getElementById('handoff-announcement').hidden = true;
+        elements.btns.photoPause.hidden = true;
+
+        const overlay = document.getElementById('choice-success-overlay');
+        const check = overlay.querySelector('.success-check');
+        const label = overlay.querySelector('strong');
+        const detail = overlay.querySelector('small');
+        if (state.lastAnswerCorrect) {
+            state.firstCorrect++;
             state.correctCount++;
-            elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
+            state.score = state.correctCount;
             playEffect(elements.audio.correct);
-            document.getElementById('handoff-announcement').hidden = true;
-            document.getElementById('choice-success-overlay').hidden = false;
-            elements.btns.photoPause.hidden = true;
-            
-            btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
+            check.textContent = '✓';
+            label.textContent = 'CORRECT!';
+            detail.textContent = '正解！';
+            overlay.classList.remove('is-wrong');
             triggerConfetti();
-            state.resultTimeout = setTimeout(showResultPhase, 1150);
         } else {
             playEffect(elements.audio.wrong);
-            btn.classList.add('opacity-40', 'grayscale', 'shake-wrong');
+            check.textContent = '✕';
+            label.textContent = 'NEXT!';
+            detail.textContent = '不正解 · 次の問題へ';
+            overlay.classList.add('is-wrong');
+            btn.classList.add('shake-wrong');
         }
+        updateSessionHud();
+        overlay.hidden = false;
+        clearTimeout(state.resultTimeout);
+        state.resultTimeout = setTimeout(showPhotoNext, 750);
+    }
+
+    function showPhotoNext() {
+        if (state.phase !== 'feedback' && state.phase !== 'result') return;
+        clearTimeout(state.resultTimeout);
+        state.resultTimeout = null;
+        stopSpeech();
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        const feedback = document.getElementById('photo-next-feedback');
+        feedback.textContent = state.lastAnswerCorrect ? '✓ 正解！' : '✕ おしい！';
+        feedback.classList.toggle('wrong', !state.lastAnswerCorrect);
+        const upcoming = state.round + 1;
+        const speaker = upcoming % 2 ? 'A' : 'B';
+        const listener = speaker === 'A' ? 'B' : 'A';
+        document.getElementById('photo-next-roles').textContent =
+            '次はPlayer ' + speaker + 'が説明 ／ Player ' + listener + 'は見ない';
+        showView('photoNext');
+        updateSessionHud();
     }
 
     function showResultPhase() {
