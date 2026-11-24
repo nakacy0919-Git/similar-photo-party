@@ -155,16 +155,15 @@
                     </div>
                     <aside class="photo-options-panel">
                         <h2>プレイ設定</h2>
-                        <p class="photo-option-label">写真を見ながら説明する時間</p>
-                        <div class="photo-time-options" role="group" aria-label="写真の説明時間">
-                            <button type="button" class="photo-duration-btn" data-photo-duration="20" aria-pressed="false">20<span>秒</span></button>
-                            <button type="button" class="photo-duration-btn" data-photo-duration="30" aria-pressed="true">30<span>秒</span></button>
-                            <button type="button" class="photo-duration-btn" data-photo-duration="40" aria-pressed="false">40<span>秒</span></button>
-                            <button type="button" class="photo-duration-btn" data-photo-duration="50" aria-pressed="false">50<span>秒</span></button>
+                        <p class="photo-option-label">1ゲームの制限時間</p>
+                        <div class="photo-time-options" role="group" aria-label="ゲームの制限時間">
+                            <button type="button" class="photo-duration-btn" data-photo-duration="60" aria-pressed="true">60<span>秒</span></button>
+                            <button type="button" class="photo-duration-btn" data-photo-duration="90" aria-pressed="false">90<span>秒</span></button>
+                            <button type="button" class="photo-duration-btn" data-photo-duration="120" aria-pressed="false">120<span>秒</span></button>
                         </div>
-                        <p class="photo-option-helper">時間が終わると合図が鳴り、4枚の写真に自動切替。</p>
+                        <p class="photo-option-helper">1枚につき説明10秒 → 自動で4択。回答は一度だけ。制限時間内の正解数を競おう！</p>
                         <div class="photo-setup-flow" aria-label="ゲームの流れ">
-                            <span>👀 写真を説明</span><b>→</b><span>🔔 交代</span><b>→</b><span>🖼️ 4択</span>
+                            <span>🖼️ 10秒説明</span><b>→</b><span>👆 4択</span><b>→</b><span>▶ NEXT</span>
                         </div>
                         <button id="photo-setup-next" class="photo-next-btn" type="button">準備画面へ <span aria-hidden="true">→</span></button>
                     </aside>
@@ -178,13 +177,28 @@
                 <span class="photo-ready-round" id="photo-ready-round">ROUND 1</span>
                 <h1 id="photo-ready-heading">準備はいいですか？</h1>
                 <p id="photo-ready-roles" class="photo-ready-roles">Player A が説明 / Player B は画面を見ない</p>
-                <p id="photo-ready-summary" class="photo-ready-summary">すべて · 30秒</p>
+                <p id="photo-ready-summary" class="photo-ready-summary">すべて · 60秒チャレンジ · 1枚10秒</p>
                 <button id="photo-ready-start" class="photo-orb-start" type="button" aria-label="準備完了、写真ゲームをスタート">
                     <span class="photo-orb-icon" aria-hidden="true">▶</span>
                     <strong>START</strong><small>はじめる</small>
                 </button>
-                <p class="photo-ready-note">ボタンを押すまで写真もタイマーも始まりません</p>
+                <p class="photo-ready-note">STARTを押すまで60秒のカウントダウンは始まりません</p>
                 <button id="photo-ready-back" class="photo-outline-btn" type="button">← ジャンル・設定に戻る</button>
+            </div>
+        </section>
+
+        <!-- Safe handoff: the next photograph is never revealed until this central NEXT is pressed. -->
+        <section id="view-photo-next" class="hidden photo-next-screen" aria-labelledby="photo-next-heading">
+            <div class="photo-next-inner">
+                <span class="photo-eyebrow">KEEP GOING!</span>
+                <span class="photo-next-feedback" id="photo-next-feedback" role="status" aria-live="polite">NEXT QUESTION</span>
+                <h1 id="photo-next-heading">次の問題へ！</h1>
+                <p id="photo-next-roles" class="photo-ready-roles">次のプレイヤーが説明します</p>
+                <button id="photo-next-start" class="photo-orb-start photo-next-orb" type="button" aria-label="次の写真の説明を開始する">
+                    <span class="photo-orb-icon" aria-hidden="true">▶</span>
+                    <strong>NEXT</strong><small>次の写真を表示</small>
+                </button>
+                <p class="photo-ready-note">NEXTを押すまで、次の写真は表示されません</p>
             </div>
         </section>
 
@@ -195,7 +209,7 @@
                 <h1 id="photo-summary-heading">おつかれさまでした！</h1>
                 <strong id="photo-summary-correct" class="photo-summary-number">0</strong>
                 <span class="photo-summary-caption">正解した問題数</span>
-                <p id="photo-summary-rounds" class="photo-summary-small">0 ラウンド</p>
+                <p id="photo-summary-rounds" class="photo-summary-small">挑戦 0 問</p>
                 <div class="photo-summary-buttons">
                     <button id="photo-summary-replay" class="photo-next-btn" type="button">もう一度チャレンジ <span aria-hidden="true">→</span></button>
                     <button id="photo-summary-change" class="photo-outline-btn" type="button">ジャンルを選び直す</button>
@@ -257,7 +271,7 @@
             <div class="relative w-full h-full flex-1 flex items-center justify-center overflow-hidden">
                 <img id="memory-img" src="" alt="説明役が記憶する写真" class="w-full h-full object-contain rounded-xl drop-shadow-2xl">
             </div>
-            <button id="memory-skip-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95 shrink-0 mb-16">
+            <button hidden id="memory-skip-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-2xl py-4 px-12 rounded-full shadow-xl transition-transform active:scale-95 shrink-0 mb-16">
                 4択へ進む <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
         </section>
@@ -346,10 +360,14 @@
             </button>
         </section>
 
+        <div id="photo-session-hud" class="photo-session-hud" hidden aria-live="off">
+            <div class="photo-hud-pill photo-hud-time" aria-label="残り時間"><span aria-hidden="true">⏱</span> <strong id="photo-total-time">60</strong><small>秒</small></div>
+            <div class="photo-hud-pill photo-hud-score" aria-label="正解数"><span aria-hidden="true">✓</span> <strong id="photo-total-correct">0</strong><small>問正解</small></div>
+        </div>
         <div id="photo-game-tools" class="photo-game-tools" hidden>
-            <button id="photo-back" type="button" class="photo-tool-btn photo-tool-back">← 戻る</button>
-            <button id="photo-pause" type="button" class="photo-tool-btn" aria-pressed="false">⏸ 一時停止</button>
-            <button id="photo-end" type="button" class="photo-tool-btn photo-tool-end">■ 終了</button>
+            <button id="photo-back" type="button" class="photo-tool-btn photo-tool-back" aria-label="ジャンル選択に戻る" title="戻る">↩</button>
+            <button id="photo-pause" type="button" class="photo-tool-btn" aria-pressed="false" aria-label="一時停止／再開" title="一時停止">⏸</button>
+            <button id="photo-end" type="button" class="photo-tool-btn photo-tool-end" aria-label="ゲームを終了する" title="終了">■</button>
         </div>
         <div id="photo-pause-overlay" class="photo-pause-overlay" hidden role="status" aria-live="polite">
             <div class="photo-pause-box">
@@ -401,14 +419,13 @@
                         <h3 class="font-bold text-slate-400 uppercase tracking-wider text-sm border-b border-slate-100 pb-2">Game Rules</h3>
                         
                         <div>
-                            <label class="font-bold text-slate-600 block mb-3"><i class="fa-solid fa-stopwatch mr-2"></i>写真を見ながら説明する時間</label>
-                            <div class="flex gap-2 w-full" role="group" aria-label="説明時間">
-                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="20" aria-pressed="false">20s</button>
-                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-indigo-500 bg-indigo-500 text-white transition" data-time="30" aria-pressed="true">30s</button>
-                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="40" aria-pressed="false">40s</button>
-                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="50" aria-pressed="false">50s</button>
+                            <label class="font-bold text-slate-600 block mb-3"><i class="fa-solid fa-stopwatch mr-2"></i>1ゲームの制限時間</label>
+                            <div class="flex gap-2 w-full" role="group" aria-label="制限時間">
+                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-indigo-500 bg-indigo-500 text-white transition" data-time="60" aria-pressed="true">60s</button>
+                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="90" aria-pressed="false">90s</button>
+                                <button type="button" class="time-select-btn flex-1 py-2 rounded-xl font-bold border-2 border-slate-200 text-slate-500 hover:border-indigo-300 transition" data-time="120" aria-pressed="false">120s</button>
                             </div>
-                            <p class="text-xs text-slate-500 mt-2">終了すると4択に自動切替。説明役はその間、写真を見ながら話します。</p>
+                            <p class="text-xs text-slate-500 mt-2">各写真を10秒説明した後に4択へ。NEXT中も全体のタイマーは進みます。</p>
                         </div>
                         <div>
                             <label class="font-bold text-slate-600 block mb-2" for="handoffAlert"><i class="fa-solid fa-bell mr-2"></i>交代の合図</label>

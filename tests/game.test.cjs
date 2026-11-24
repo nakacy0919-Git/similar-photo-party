@@ -3,52 +3,76 @@ const data=JSON.parse(fs.readFileSync('data/content.json'));
 const PHOTO_CATEGORIES=require('../js/photo-categories.js');
 function harness(payload=data, options={}){
  const nodes=new Map();let start;let timers=new Map();let id=0;let clock=0;const events=new Map();
- function el(key=''){if(nodes.has(key))return nodes.get(key);const classes=new Set(key.startsWith('view-')&&key!=='view-landing'?['hidden']:[]);const listeners=new Map();const attrs=new Map();const e={id:key,style:{},disabled:false,hidden:false,textContent:'',children:[],classList:{add(...v){v.forEach(x=>classes.add(x))},remove(...v){v.forEach(x=>classes.delete(x))},contains(v){return classes.has(v)}},addEventListener(name,fn){listeners.set(name,fn)},click(){listeners.get('click')?.({target:this})},setAttribute(k,v){attrs.set(k,v)},getAttribute(k){return attrs.get(k)},appendChild(e){this.children.push(e)},querySelector(){return el('icon')},querySelectorAll(){return this.children},pause(){},play(){return Promise.resolve()}};Object.defineProperty(e,'innerHTML',{set(value){if(value==='')this.children=[]},get(){return''}});nodes.set(key,e);return e;}
+ function el(key=''){if(nodes.has(key))return nodes.get(key);const classes=new Set(key.startsWith('view-')&&key!=='view-landing'?['hidden']:[]);const listeners=new Map();const attrs=new Map();const e={id:key,style:{},disabled:false,hidden:false,textContent:'',children:[],classList:{add(...v){v.forEach(x=>classes.add(x))},remove(...v){v.forEach(x=>classes.delete(x))},contains(v){return classes.has(v)},toggle(v,force){const on=force===undefined?!classes.has(v):!!force;if(on)classes.add(v);else classes.delete(v);return on}},addEventListener(name,fn){listeners.set(name,fn)},click(){listeners.get('click')?.({target:this})},setAttribute(k,v){attrs.set(k,v)},getAttribute(k){return attrs.get(k)},appendChild(e){this.children.push(e)},querySelector(selector){return el(key+'-'+selector)},querySelectorAll(){return this.children},pause(){},play(){return Promise.resolve()}};Object.defineProperty(e,'innerHTML',{set(value){if(value==='')this.children=[]},get(){return''}});nodes.set(key,e);return e;}
  const document={hidden:false,getElementById:el,createElement:()=>el('new'+id++),querySelectorAll:()=>[],body:el('body'),addEventListener:(n,f)=>{if(n==='DOMContentLoaded')start=f;else events.set(n,f)}};
  const ctx={document,console:{error(){}},fetch:async()=>({ok:true,json:async()=>payload}),performance:{now:()=>clock},Image:class{set src(v){this.onload()}},setInterval:f=>{timers.set(++id,f);return id},clearInterval:i=>timers.delete(i),setTimeout:f=>{timers.set(++id,f);return id},clearTimeout:i=>timers.delete(i),alert(){},window:{matchMedia:()=>({matches:false}),PHOTO_CATEGORIES,...(options.window||{})}};
- const src=fs.readFileSync('js/game.js','utf8').replace(/\n\}\);\s*$/, '\n globalThis.api={state,startMemoryPhase,startExplainPhase,startChoicePhase,checkAnswer,showResultPhase,backToLanding,prepareQuizData,openSettings,closeSettings,setMemoryTime,setHintMode,speak,stopSpeech,askForOneMoreClue,openPhotoSetup,preparePhotoReady,selectPhotoGenre,setPhotoPaused,finishPhotoGame};\n});');
+ const src=fs.readFileSync('js/game.js','utf8').replace(/\n\}\);\s*$/, '\n globalThis.api={state,startMemoryPhase,startExplainPhase,startChoicePhase,checkAnswer,showResultPhase,showPhotoNext,backToLanding,prepareQuizData,openSettings,closeSettings,setSessionDuration,setMemoryTime,setHintMode,speak,stopSpeech,askForOneMoreClue,openPhotoSetup,preparePhotoReady,selectPhotoGenre,setPhotoPaused,finishPhotoGame};\n});');
  vm.createContext(ctx);vm.runInContext(src,ctx);start();return {ctx,nodes,timers,events,api:ctx.api,advance:ms=>{clock+=ms;},flush:()=>new Promise(r=>setImmediate(r))};
 }
 test('all 168 records have unique IDs, images and complete groups',()=>{assert.equal(data.length,168);assert.equal(new Set(data.map(x=>x.id)).size,168);const groups={};for(const x of data){assert.ok(fs.existsSync('assets/images/'+x.filename));groups[x.group]=(groups[x.group]||0)+1;}assert.equal(Object.keys(groups).length,42);assert.ok(Object.values(groups).every(n=>n===4));});
 test('each cycle uses all questions once; options stay in the same group',async()=>{const h=harness();await h.flush();let seen=new Set();for(let i=0;i<data.length;i++){assert.ok(h.api.prepareQuizData());let {correctItem,currentSet}=h.api.state;assert.ok(!seen.has(correctItem.id));seen.add(correctItem.id);assert.equal(currentSet.length,4);assert.ok(currentSet.every(x=>x.group===correctItem.group));assert.ok(currentSet.includes(correctItem));}});
-test('round flow, repeated clicks, attempts, role switch, home cancels callbacks',async()=>{const h=harness();await h.flush();await h.api.startMemoryPhase();assert.equal(h.api.state.phase,'memory');h.api.startExplainPhase();h.api.startChoicePhase();const correct=h.api.state.correctItem;const wrong=h.api.state.currentSet.find(x=>x!==correct);const btn={disabled:false,classList:{add(){}}};h.api.checkAnswer(wrong,btn);h.api.checkAnswer(wrong,btn);assert.equal(h.api.state.attempts,1);h.api.checkAnswer(correct,{disabled:false});h.api.checkAnswer(correct,{disabled:false});assert.equal(h.api.state.attempts,2);h.api.showResultPhase();assert.match(h.nodes.get('result-feedback').textContent,/2回目/);await h.api.startMemoryPhase();assert.match(h.nodes.get('round-status').textContent,/Player B/);h.api.backToLanding();assert.equal(h.timers.size,0);h.api.showResultPhase();assert.equal(h.api.state.phase,'landing');});
+test('single wrong answer locks the question and central NEXT hides the following photo',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'memory');
+ h.api.startChoicePhase();
+ const correct=h.api.state.correctItem;
+ const wrong=h.api.state.currentSet.find(x=>x.id!==correct.id);
+ const btn={disabled:false,classList:{add(){}}};
+ h.api.checkAnswer(wrong,btn);
+ assert.equal(h.api.state.answeredCount,1);
+ assert.equal(h.api.state.correctCount,0);
+ assert.equal(h.api.state.phase,'feedback');
+ h.api.checkAnswer(correct,{disabled:false,classList:{add(){}}});
+ assert.equal(h.api.state.answeredCount,1,'no second guess allowed after wrong');
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
+ assert.equal(h.nodes.get('view-memory').classList.contains('hidden'),true);
+ assert.equal(h.nodes.get('view-choice').classList.contains('hidden'),true);
+ assert.equal(h.nodes.get('photo-next-start').hidden,false);
+ assert.equal(h.api.state.round,1,'next photo must not be prepared before NEXT');
+ assert.equal(h.api.state.sessionStarted,true);
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.api.state.round,2);
+ h.api.backToLanding();
+ assert.equal(h.timers.size,0);
+ assert.equal(h.api.state.phase,'landing');
+});
 test('invalid paths, duplicate IDs and failed schemas disable play',async()=>{for(const bad of [[{...data[0],filename:'../secret.png'}],[data[0],data[0]],{}]){const h=harness(bad);await h.flush();assert.equal(h.nodes.get('start-btn').disabled,true);assert.match(h.nodes.get('load-status').textContent,/読み込めません/);}});
 
-test('memory time and guided/free support are configurable without affecting scoring', async () => {
- const h=harness(); await h.flush();
- assert.equal(h.api.state.memoryTime,30);
+test('whole-game duration is selectable, but every photo has exactly ten explanation seconds',async()=>{
+ const h=harness();await h.flush();
+ assert.equal(h.api.state.sessionDuration,60);
+ assert.equal(h.api.state.memoryTime,10);
  assert.equal(h.api.state.hintMode,'guided');
- assert.equal(h.api.setMemoryTime(40),true);
- assert.equal(h.api.setMemoryTime(999),false);
- assert.equal(h.api.state.memoryTime,40);
+ assert.equal(h.api.setSessionDuration(90),true);
+ assert.equal(h.api.setMemoryTime(120),true,'legacy API selects whole session length');
+ assert.equal(h.api.setSessionDuration(50),false);
+ assert.equal(h.api.state.sessionDuration,120);
  await h.api.startMemoryPhase();
- assert.equal(h.nodes.get('memory-timer').textContent,40);
- h.api.startExplainPhase();
+ assert.equal(h.nodes.get('memory-timer').textContent,10);
+ assert.equal(h.api.setSessionDuration(60),false,'duration cannot change mid-game');
  assert.equal(h.nodes.get('explain-hint').classList.contains('hidden'),false);
  assert.equal(h.api.setHintMode('free'),true);
  assert.equal(h.nodes.get('explain-hint').classList.contains('hidden'),true);
  assert.equal(h.api.setHintMode('invalid'),false);
- assert.equal(h.api.state.hintMode,'free');
  h.api.setHintMode('guided');
  assert.equal(h.nodes.get('explain-hint').classList.contains('hidden'),false);
- assert.equal(h.api.state.firstCorrect,0);
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
-
-test('role cues are clearly assigned to both players and rotate every round', async () => {
- const h=harness(); await h.flush();
- await h.api.startMemoryPhase();
- assert.match(h.nodes.get('role-memory').textContent, /Player A: 写真を見ながら説明/);
- assert.match(h.nodes.get('role-memory').textContent, /Player B: 画面を見ない/);
- assert.match(h.nodes.get('role-explain').textContent, /Player A: 英語で説明/);
- assert.match(h.nodes.get('role-choice').textContent, /Player B: 写真を選ぶ/);
- h.api.startExplainPhase();h.api.startChoicePhase();
- h.api.state.phase='feedback';h.api.showResultPhase();
- assert.match(h.nodes.get('next-role').textContent, /Player B speaks/);
- await h.api.startMemoryPhase();
- assert.match(h.nodes.get('role-memory').textContent, /Player B: 写真を見ながら説明/);
- assert.match(h.nodes.get('role-choice').textContent, /Player A: 写真を選ぶ/);
+test('role cues rotate from A to B, and an opaque NEXT screen separates the photos',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();
+ assert.match(h.nodes.get('role-memory').textContent,/Player A: 写真を見ながら説明/);
+ assert.match(h.nodes.get('role-choice').textContent,/Player B: 写真を選ぶ/);
+ h.api.startChoicePhase();
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ assert.match(h.nodes.get('photo-next-roles').textContent,/Player B/);
+ assert.equal(h.nodes.get('view-memory').classList.contains('hidden'),true);
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.match(h.nodes.get('role-memory').textContent,/Player B: 写真を見ながら説明/);
+ assert.match(h.nodes.get('role-choice').textContent,/Player A: 写真を選ぶ/);
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
@@ -138,29 +162,25 @@ test('speaking missions rotate across rounds and Guided/Free change only the sca
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
 });
-test('photo explanation is a single configurable 20–50-second stage, then automatic four-choice', async () => {
- const h=harness(); await h.flush();
- assert.equal(h.api.setMemoryTime(20),true);
- assert.equal(h.api.setMemoryTime(50),true);
- assert.equal(h.api.setMemoryTime(25),false);
+test('ten-second photo explanation switches directly to four choices; session clock remains active',async()=>{
+ const h=harness();await h.flush();assert.equal(h.api.setSessionDuration(90),true);
  await h.api.startMemoryPhase();
  assert.equal(h.api.state.phase,'memory');
- assert.equal(h.nodes.get('memory-timer').textContent,50);
+ assert.equal(h.nodes.get('memory-timer').textContent,10);
  assert.equal(h.api.askForOneMoreClue(),false);
- const oldTimer=h.api.state.timerInterval;
- const tick=h.timers.get(oldTimer);
- assert.equal(typeof tick,'function');
- h.advance(49900);tick();
- assert.equal(h.api.state.phase,'memory');
- h.advance(100);tick();
- assert.equal(h.api.state.phase,'choice');
+ const photoTimer=h.api.state.timerInterval;
+ const wholeGameTimer=h.api.state.sessionTimerInterval;
+ const tick=h.timers.get(photoTimer);
+ assert.equal(typeof tick,'function');assert.ok(h.timers.has(wholeGameTimer));
+ h.advance(9900);tick();assert.equal(h.api.state.phase,'memory');
+ h.advance(100);tick();assert.equal(h.api.state.phase,'choice');
  assert.equal(h.api.state.activeCountdown,null);
- assert.equal(h.nodes.get('handoff-announcement').hidden,false);
  assert.equal(h.nodes.get('choice-grid').children.length,4);
- h.api.backToLanding();
- assert.equal(h.timers.size,0);
+ assert.equal(h.api.state.sessionStarted,true);
+ h.timers.get(wholeGameTimer)();
+ assert.equal(h.nodes.get('photo-total-time').textContent,'80');
+ h.api.backToLanding();assert.equal(h.timers.size,0);
 });
-
 test('peer-feedback panel and automatic peer tracking are removed from results', () => {
  const html=fs.readFileSync('index.html','utf8');
  const source=fs.readFileSync('js/game.js','utf8');
@@ -215,11 +235,11 @@ test('photo mode plays a handoff chime and switches straight from visible photo 
  }
  const h=harness(data,{window:{AudioContext:FakeAudioContext}});
  await h.flush();
- assert.equal(h.api.setMemoryTime(20),true);
+ assert.equal(h.api.setSessionDuration(90),true);
  await h.api.startMemoryPhase();
  assert.equal(h.api.state.phase,'memory');
  const tick=h.timers.get(h.api.state.timerInterval);
- h.advance(20000);tick();
+ h.advance(10000);tick();
  assert.equal(h.api.state.phase,'choice');
  assert.equal(plays,1,'a short sound marks the handoff');
  assert.equal(h.nodes.get('handoff-announcement').hidden,false);
@@ -227,24 +247,32 @@ test('photo mode plays a handoff chime and switches straight from visible photo 
  assert.equal(h.timers.size,0);
 });
 
-test('photo mode correct-answer feedback is visual, audible and shows correct count rather than pts',async()=>{
+test('Photo counts each first-try success once and never grants points for repeated taps',async()=>{
  const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
  const correct=h.api.state.correctItem;
- h.api.checkAnswer(correct,{disabled:false,classList:{add(){}}});
+ const btn={disabled:false,classList:{add(){}}};
+ h.api.checkAnswer(correct,btn);
  assert.equal(h.nodes.get('choice-success-overlay').hidden,false);
+ assert.equal(h.api.state.answeredCount,1);
  assert.equal(h.api.state.correctCount,1);
- h.api.showResultPhase();
- assert.equal(h.nodes.get('choice-success-overlay').hidden,true);
- assert.match(h.nodes.get('result-feedback').textContent,/合計1問/);
- assert.doesNotMatch(h.nodes.get('result-feedback').textContent,/pts|points/i);
- await h.api.startMemoryPhase();h.api.startChoicePhase();
- h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
- h.api.showResultPhase();
- assert.equal(h.api.state.correctCount,2);
- assert.match(h.nodes.get('result-feedback').textContent,/合計2問/);
- h.api.backToLanding();
+ assert.equal(h.nodes.get('photo-total-correct').textContent,'1');
+ h.api.checkAnswer(correct,{disabled:false,classList:{add(){}}});
+ assert.equal(h.api.state.correctCount,1);
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
+ assert.match(h.nodes.get('photo-next-feedback').textContent,/正解/);
+ h.nodes.get('photo-next-start').click();await h.flush();
+ h.api.startChoicePhase();
+ const wrong=h.api.state.currentSet.find(x=>x.id!==h.api.state.correctItem.id);
+ h.api.checkAnswer(wrong,{disabled:false,classList:{add(){}}});
+ assert.equal(h.api.state.correctCount,1);
+ assert.equal(h.api.state.answeredCount,2);
+ h.api.showPhotoNext();
+ assert.match(h.nodes.get('photo-next-feedback').textContent,/おしい/);
+ h.api.finishPhotoGame();
+ assert.equal(h.nodes.get('photo-summary-correct').textContent,'1');
+ assert.equal(h.nodes.get('photo-summary-rounds').textContent,'挑戦 2 問 ／ 60 秒');
 });
-
 test('photo handoff supports optional vibration-only setting without Web Audio',async()=>{
  let vibrations=0;
  const h=harness(data,{window:{navigator:{vibrate(pattern){assert.ok(pattern.length>0);vibrations++;return true;}}}});
@@ -256,18 +284,24 @@ test('photo handoff supports optional vibration-only setting without Web Audio',
  h.api.backToLanding();
 });
 
-test('photo settings simplify to one 20/30/40/50 second round timer and hide landing during play',()=>{
+test('Photo setup and settings offer 60/90/120-second sessions; each image is a fixed 10-second turn',()=>{
  const html=fs.readFileSync('index.html','utf8');
  const js=fs.readFileSync('js/game.js','utf8');
  const css=fs.readFileSync('css/landing.css','utf8');
- for (const seconds of [20,30,40,50]) assert.match(html,new RegExp('data-time="'+seconds+'"'));
+ for(const sec of [60,90,120]){
+   assert.match(html,new RegExp('data-time="'+sec+'"'));
+   assert.match(html,new RegExp('data-photo-duration="'+sec+'"'));
+ }
  assert.doesNotMatch(html,/data-memory-time=/);
- assert.match(html,/id="handoffAlert"/);
- assert.match(js,/runTimer\(state\.memoryTime, elements\.timers\.memory, startChoicePhase\)/);
- assert.doesNotMatch(js,/runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
+ assert.match(html,/id="photo-total-time"/);
+ assert.match(html,/id="photo-total-correct"/);
+ assert.match(html,/id="view-photo-next"/);
+ assert.match(html,/id="photo-next-start"/);
+ assert.match(js,/runTimer\(PHOTO_EXPLAIN_SECONDS, elements\.timers\.memory, startChoicePhase\)/);
+ assert.match(js,/function startSessionClock\(\)/);
+ assert.match(js,/function showPhotoNext\(\)/);
  assert.match(css,/#view-landing\.landing-screen\.hidden\s*\{\s*display:none!important/);
 });
-
 test('Similar Photo starts with a genre choice rather than immediately exposing a photo', async () => {
  const h=harness(); await h.flush();
  assert.equal(h.api.state.phase,'landing');
@@ -293,27 +327,27 @@ test('Similar Photo starts with a genre choice rather than immediately exposing 
  h.api.backToLanding();
 });
 
-test('Next Player uses a round-specific central READY screen before the next photo',async()=>{
+test('only first question uses READY; each subsequent photo waits behind a big central NEXT while clock counts down',async()=>{
  const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ assert.equal(h.api.state.phase,'photoReady');
+ assert.equal(h.timers.size,0);
  await h.api.startMemoryPhase();h.api.startChoicePhase();
  h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
- h.api.showResultPhase();
- assert.equal(h.api.state.correctCount,1);
- assert.match(h.nodes.get('result-feedback').textContent,/合計1問/);
- h.nodes.get('next-btn').click();
- assert.equal(h.api.state.phase,'photoReady');
- assert.match(h.nodes.get('photo-ready-roles').textContent,/Player B が説明/);
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
+ assert.equal(h.api.state.round,1);
+ const whole=h.api.state.sessionTimerInterval;
+ assert.ok(h.timers.has(whole),'whole-session clock keeps ticking on NEXT');
+ h.advance(5000);h.timers.get(whole)();
+ assert.equal(h.nodes.get('photo-total-time').textContent,'55');
  assert.equal(h.nodes.get('view-memory').classList.contains('hidden'),true);
- assert.equal(h.timers.size,0);
  await h.api.startMemoryPhase();
  assert.equal(h.api.state.phase,'memory');
  assert.equal(h.api.state.round,2);
  assert.equal(h.api.state.correctCount,1);
- h.api.finishPhotoGame();
- assert.equal(h.api.state.phase,'photoSummary');
- assert.equal(h.nodes.get('photo-summary-correct').textContent,'1');
+ assert.equal(h.api.state.sessionTimerInterval,whole,'NEXT does not restart 60-second timer');
+ h.api.finishPhotoGame();assert.equal(h.api.state.phase,'photoSummary');
 });
-
 test('pause freezes photo countdown and hides image while the game is paused',async()=>{
  const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
  await h.api.startMemoryPhase();
@@ -334,25 +368,27 @@ test('pause freezes photo countdown and hides image while the game is paused',as
  assert.equal(h.timers.size,0);
 });
 
-test('end-game summary retains correct count and offers retry or genre change',async()=>{
+test('final result shows number correct out of attempts and restarting resets the entire game',async()=>{
  const h=harness();await h.flush();
- h.api.openPhotoSetup();h.api.selectPhotoGenre('food');h.api.preparePhotoReady();
+ h.api.openPhotoSetup();h.api.selectPhotoGenre('food');h.api.setSessionDuration(120);h.api.preparePhotoReady();
  await h.api.startMemoryPhase();h.api.startChoicePhase();
  h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
- h.api.showResultPhase();h.api.finishPhotoGame();
+ h.api.showPhotoNext();h.api.finishPhotoGame();
  assert.equal(h.api.state.phase,'photoSummary');
  assert.equal(h.nodes.get('photo-summary-correct').textContent,'1');
- assert.equal(h.nodes.get('photo-summary-rounds').textContent,'1 ラウンド');
+ assert.equal(h.nodes.get('photo-summary-rounds').textContent,'挑戦 1 問 ／ 120 秒');
+ assert.equal(h.api.state.sessionStarted,false);
  h.nodes.get('photo-summary-replay').click();
  assert.equal(h.api.state.phase,'photoReady');
  assert.equal(h.api.state.correctCount,0);
+ assert.equal(h.api.state.sessionRemainingMs,120000);
  assert.match(h.nodes.get('photo-ready-summary').textContent,/料理・食べ物/);
  h.nodes.get('photo-ready-back').click();
  assert.equal(h.api.state.phase,'photoSetup');
  h.nodes.get('photo-setup-home').click();
  assert.equal(h.api.state.phase,'landing');
+ assert.equal(h.timers.size,0);
 });
-
 test('photo categories cover every existing group while supporting future groups',()=>{
  const genres=PHOTO_CATEGORIES.options(data);
  assert.equal(PHOTO_CATEGORIES.pool(data,'all').length,168);
@@ -401,10 +437,9 @@ test('photo result has no oversized green count and gives image/English panel av
  assert.match(source,/合計\$\{state\.correctCount\}問/);
 });
 
-test('imported SimilarPhoto is playable through genre → READY → picture → four choices → English result',async()=>{
+test('imported SimilarPhoto plays genre → READY → timed picture → four choices → protected NEXT',async()=>{
  const imported=require('../js/similarphoto-library.js');
- const h=harness(data,{window:{SIMILAR_PHOTO_LIBRARY:imported}});
- await h.flush();
+ const h=harness(data,{window:{SIMILAR_PHOTO_LIBRARY:imported}});await h.flush();
  assert.equal(h.api.state.quizData.length,625);
  h.api.openPhotoSetup();
  assert.equal(h.api.selectPhotoGenre('source-1000'),true);
@@ -423,15 +458,12 @@ test('imported SimilarPhoto is playable through genre → READY → picture → 
  assert.equal(images.length,4);
  assert.ok(images.every(x=>x.startsWith('https://raw.githubusercontent.com/')));
  h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
- h.api.showResultPhase();
- assert.equal(h.api.state.phase,'result');
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
  assert.equal(h.api.state.correctCount,1);
- assert.match(h.nodes.get('result-img').src,/^https:\/\/raw\.githubusercontent\.com/);
- assert.ok(h.nodes.get('result-phrase').textContent.length>10);
- h.api.backToLanding();
- assert.equal(h.timers.size,0);
+ assert.equal(h.nodes.get('view-memory').classList.contains('hidden'),true);
+ h.api.backToLanding();assert.equal(h.timers.size,0);
 });
-
 test('photo game applies visual clusters to its 457 imported photos and launches a reviewed candidate group',async()=>{
  const imported=require('../js/similarphoto-library.js');
  const visual=require('../js/similarphoto-visual-groups.js');
@@ -456,4 +488,95 @@ test('photo game applies visual clusters to its 457 imported photos and launches
  assert.equal(h.api.state.phase,'choice');
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
+});
+
+
+test('whole-game countdown ends automatically at zero and presents correct-answer summary',async()=>{
+ const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ assert.equal(h.api.state.sessionStarted,false);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.sessionRemainingMs,60000);
+ const oldPhotoTick=h.timers.get(h.api.state.timerInterval);
+ const whole=h.api.state.sessionTimerInterval,wholeTick=h.timers.get(whole);
+ h.advance(60000);wholeTick();
+ assert.equal(h.api.state.phase,'photoSummary');
+ assert.equal(h.nodes.get('photo-summary-correct').textContent,'0');
+ assert.equal(h.nodes.get('photo-summary-rounds').textContent,'挑戦 0 問 ／ 60 秒');
+ assert.equal(h.nodes.get('photo-session-hud').hidden,true);
+ assert.equal(h.api.state.sessionTimerInterval,null);
+ assert.equal(h.timers.size,0);
+ oldPhotoTick();
+ assert.equal(h.api.state.phase,'photoSummary','stale photo countdown cannot reveal a new photo');
+});
+
+test('session time keeps counting behind NEXT but pause truly freezes both clocks',async()=>{
+ const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ await h.api.startMemoryPhase();h.api.startChoicePhase();
+ const wrong=h.api.state.currentSet.find(item=>item.id!==h.api.state.correctItem.id);
+ h.api.checkAnswer(wrong,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
+ const whole=h.api.state.sessionTimerInterval,tick=h.timers.get(whole);
+ h.advance(7000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,53000,'NEXT must not stop the 60-second game');
+ h.nodes.get('photo-pause').click();
+ assert.equal(h.api.state.paused,true);
+ assert.equal(h.nodes.get('photo-pause-overlay').hidden,false);
+ h.advance(16000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,53000,'pause must protect the total clock');
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'photoNext','cannot accidentally reveal the next photo while paused');
+ h.nodes.get('photo-resume').click();
+ h.advance(2000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,51000);
+ h.api.backToLanding();assert.equal(h.timers.size,0);
+});
+
+test('hidden browser tab pauses the whole Photo session and NEXT cannot leak the next image',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ const previous=h.api.state.correctItem.id,previousRound=h.api.state.round;
+ h.ctx.document.hidden=true;h.events.get('visibilitychange')();
+ assert.equal(h.api.state.paused,true);
+ const tick=h.timers.get(h.api.state.sessionTimerInterval);
+ h.advance(100000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,60000);
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.equal(h.api.state.phase,'photoNext');
+ assert.equal(h.api.state.round,previousRound);
+ assert.equal(h.api.state.correctItem.id,previous);
+ h.ctx.document.hidden=false;h.events.get('visibilitychange')();
+ h.nodes.get('photo-resume').click();
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.api.state.round,previousRound+1);
+ h.api.backToLanding();
+});
+
+test('zero-time session ends on four-choice screen even when no answer was chosen',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ const tick=h.timers.get(h.api.state.sessionTimerInterval);
+ h.advance(60000);tick();
+ assert.equal(h.api.state.phase,'photoSummary');
+ assert.equal(h.api.state.answeredCount,0);
+ assert.equal(h.api.state.correctCount,0);
+ assert.equal(h.timers.size,0);
+});
+
+test('rapid Photo interface hides upcoming images and shows central NEXT plus persistent HUD',()=>{
+ const html=fs.readFileSync('index.html','utf8');
+ const photoCSS=fs.readFileSync('css/photo-flow.css','utf8');
+ const immersive=fs.readFileSync('css/immersive.css','utf8');
+ assert.match(html,/id="view-photo-next"/);
+ assert.match(html,/id="photo-next-start"/);
+ assert.match(html,/id="photo-session-hud"/);
+ assert.match(html,/id="photo-total-time"/);
+ assert.match(html,/id="photo-total-correct"/);
+ assert.match(html,/hidden id="memory-skip-btn"/);
+ assert.match(photoCSS,/#view-photo-next\.hidden\{display:none!important\}/);
+ assert.match(photoCSS,/\.photo-hud-time\{left:/);
+ assert.match(photoCSS,/\.photo-hud-score\{right:/);
+ assert.match(photoCSS,/\.photo-next-orb/);
+ assert.match(immersive,/#view-memory #memory-skip-btn\{display:none!important\}/);
 });

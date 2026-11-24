@@ -533,3 +533,36 @@ body:has(#view-choice:not(.hidden)) #settingsBtn{display:none!important}
     font-size:.88rem!important;
   }
 }
+
+
+/* Rapid-session HUD reserves space above photographs and all four choices. */
+#view-choice #choice-grid{
+  top:calc(max(8px,env(safe-area-inset-top)) + 57px)!important;
+}
+#view-memory>div:nth-of-type(1){
+  top:calc(max(8px,env(safe-area-inset-top)) + 55px)!important;
+}
+#view-memory>div:nth-of-type(2){
+  padding-top:calc(max(8px,env(safe-area-inset-top)) + 118px)!important;
+  padding-bottom:calc(max(8px,env(safe-area-inset-bottom)) + 10px)!important;
+}
+#view-memory #memory-skip-btn{display:none!important}
+#view-choice #choice-success-overlay.is-wrong:not([hidden]){
+  background:radial-gradient(circle at center,#d65271b5 0%,#903452a5 50%,#151b3cce 100%)!important;
+}
+#view-choice #choice-success-overlay.is-wrong .success-check{
+  background:linear-gradient(145deg,#ffb5c8,#f26591)!important;
+  color:#5a1035!important;box-shadow:0 0 42px #fcaac8!important;
+}
+@media(orientation:landscape) and (max-height:540px){
+  #view-choice #choice-grid{
+    top:calc(max(8px,env(safe-area-inset-top)) + 48px)!important;
+  }
+  #view-memory>div:nth-of-type(1){
+    top:calc(max(8px,env(safe-area-inset-top)) + 42px)!important;
+  }
+  #view-memory>div:nth-of-type(2){
+    padding-top:calc(max(8px,env(safe-area-inset-top)) + 94px)!important;
+    padding-bottom:calc(max(8px,env(safe-area-inset-bottom)) + 9px)!important;
+  }
+}

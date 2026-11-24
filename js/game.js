@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 定数 ===
-    const MEMORY_TIME_OPTIONS = [20, 30, 40, 50];
+    const SESSION_TIME_OPTIONS = [60, 90, 120];
+    const PHOTO_EXPLAIN_SECONDS = 10;
     const SPEAKING_MISSIONS = [
         {
             title: '1 · Name it / 何がある？',
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'HOW TO PLAY',
             steps: [
                 { badge: 'STEP 1', title: 'Memorize', desc: 'Player A describes the photo while looking at it. The others listen without seeing it.', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'STEP 2', title: 'Explain', desc: 'When the timer rings, pass the device to Player B.', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'STEP 3', title: 'Choose', desc: 'Player B chooses one of four photos. Switch roles next round!', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'STEP 2', title: 'Choose', desc: 'After 10 seconds, pick one of four photos. One try per question.', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'STEP 3', title: 'Next', desc: 'Tap the large NEXT button before showing the next photo. The overall timer keeps counting.', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: 'Next',
             btnStart: 'Start Game!',
@@ -61,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
             title: '遊び方',
             steps: [
                 { badge: 'ステップ 1', title: '覚える', desc: 'Aさんは写真を見ながら説明します。Bさんはまだ写真を見ません。', img: 'assets/images/tutorial_1.webp' },
-                { badge: 'ステップ 2', title: '説明する', desc: '時間になったら合図が鳴ります。端末をBさんに渡します。', img: 'assets/images/tutorial_2.webp' },
-                { badge: 'ステップ 3', title: '選ぶ', desc: 'Bさんが4枚から写真を選びます。次は役割交代！', img: 'assets/images/tutorial_3.webp' }
+                { badge: 'ステップ 2', title: '4択に答える', desc: '説明10秒で4択へ自動切替。回答は1問1回だけです。', img: 'assets/images/tutorial_2.webp' },
+                { badge: 'ステップ 3', title: 'NEXTを押す', desc: '大きなNEXTボタンを押してから次の写真を表示。全体の時間は進み続けます。', img: 'assets/images/tutorial_3.webp' }
             ],
             btnNext: '次へ',
             btnStart: 'ゲーム開始！',
@@ -75,6 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const state = {
         quizData: [],
         phase: "landing",
+        sessionDuration: 60,
+        sessionRemainingMs: 60000,
+        sessionTimerInterval: null,
+        sessionLast: 0,
+        sessionStarted: false,
+        answeredCount: 0,
+        lastAnswerCorrect: false,
         round: 0,
         firstCorrect: 0,
         score: 0,
@@ -111,8 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tutStep: 0,
         tutLang: 'en',
         // 時間と英語ヒントの設定（初期値）
-        memoryTime: 30,
-        explainTime: 30,
+        memoryTime: PHOTO_EXPLAIN_SECONDS,
+        explainTime: PHOTO_EXPLAIN_SECONDS,
         handoffAlert: 'sound',
         handoffAudio: null,
         handoffTimer: null,
@@ -125,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             landing: document.getElementById('view-landing'),
             photoSetup: document.getElementById('view-photo-setup'),
             photoReady: document.getElementById('view-photo-ready'),
+            photoNext: document.getElementById('view-photo-next'),
             photoSummary: document.getElementById('view-photo-summary'),
             tutorial: document.getElementById('view-tutorial'),
             memory: document.getElementById('view-memory'),
@@ -139,6 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
             photoSetupNext: document.getElementById('photo-setup-next'),
             photoReadyStart: document.getElementById('photo-ready-start'),
             photoReadyBack: document.getElementById('photo-ready-back'),
+            photoNextStart: document.getElementById('photo-next-start'),
             photoEnd: document.getElementById('photo-end'),
             photoBack: document.getElementById('photo-back'),
             photoPause: document.getElementById('photo-pause'),
@@ -285,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', initAudio, { once: true });
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-            if (['memory', 'choice'].includes(state.phase)) setPhotoPaused(true);
+            if (['memory', 'choice', 'photoNext', 'feedback'].includes(state.phase)) setPhotoPaused(true);
             elements.audio.bgm.pause();
             if (state.isSpeaking) {
                 stopSpeech();
@@ -308,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.photoSetupNext.addEventListener('click', preparePhotoReady);
     elements.btns.photoReadyStart.addEventListener('click', startMemoryPhase);
     elements.btns.photoReadyBack.addEventListener('click', openPhotoSetup);
+    elements.btns.photoNextStart.addEventListener('click', startMemoryPhase);
     elements.btns.photoEnd.addEventListener('click', finishPhotoGame);
     elements.btns.photoBack.addEventListener('click', returnPhotoToSetup);
     elements.btns.photoPause.addEventListener('click', () => setPhotoPaused(!state.paused));
@@ -316,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.photoSummaryReplay.addEventListener('click', preparePhotoReady);
     elements.btns.photoSummaryChange.addEventListener('click', openPhotoSetup);
     elements.btns.photoSummaryHome.addEventListener('click', backToLanding);
-    elements.btns.photoDuration.forEach(button => button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-photo-duration'))));
+    elements.btns.photoDuration.forEach(button => button.addEventListener('click', () => setSessionDuration(button.getAttribute('data-photo-duration'))));
     
     // Tutorial Events
     elements.btns.tutorial.addEventListener('click', openTutorial);
@@ -333,7 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Game Flow Events
     elements.btns.memorySkip.addEventListener('click', startChoicePhase);
     elements.btns.explainSkip.addEventListener('click', startChoicePhase);
-    elements.btns.next.addEventListener('click', preparePhotoReady);
+    // The legacy English result screen is not part of rapid-play sessions.
+    elements.btns.next.addEventListener('click', showPhotoNext);
     elements.btns.speak.addEventListener('click', () => { if (state.phase === 'result' && state.correctItem) speak(state.correctItem.key_phrase); });
     elements.btns.translationToggle.addEventListener('click', () => {
         if (state.phase !== 'result') return;
@@ -362,9 +374,9 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.inputs.ratio.addEventListener('input', (e) => updateLayout('ratio', e.target.value));
     elements.inputs.textSize.addEventListener('input', (e) => updateLayout('text', e.target.value));
 
-    // One visible round duration controls both the photo display and speaking time.
+    // The overall session clock is separate from each fixed ten-second photo.
     elements.btns.timeSelectors.forEach(button => {
-        button.addEventListener('click', () => setMemoryTime(button.getAttribute('data-time')));
+        button.addEventListener('click', () => setSessionDuration(button.getAttribute('data-time')));
     });
 
     // Selected classroom options are applied to the next round; current scoring is unchanged.
@@ -377,17 +389,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function setMemoryTime(value) {
+    function setSessionDuration(value) {
         const seconds = Number(value);
-        if (!MEMORY_TIME_OPTIONS.includes(seconds)) return false;
-        state.memoryTime = seconds;
-        state.explainTime = seconds;
+        if (!SESSION_TIME_OPTIONS.includes(seconds) || state.sessionStarted) return false;
+        state.sessionDuration = seconds;
+        state.sessionRemainingMs = seconds * 1000;
+        const display = document.getElementById('photo-total-time');
+        display.textContent = String(seconds);
         markSelectedButtons(elements.btns.timeSelectors, 'data-time', seconds);
         markSelectedButtons(elements.btns.photoDuration, 'data-photo-duration', seconds);
         if (!elements.views.tutorial.classList.contains('hidden') && state.tutStep === 0) {
             updateTutorialView();
         }
         return true;
+    }
+
+    // Original API alias for integrations; explanation time is fixed at 10 seconds.
+    function setMemoryTime(value) {
+        return setSessionDuration(value);
     }
 
     function updateExplainHint() {
@@ -492,8 +511,8 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.tutElements.title.textContent = stepData.title;
         elements.tutElements.desc.textContent = state.tutStep === 0
             ? (state.tutLang === 'en'
-                ? `Player A describes the photo while looking at it for ${state.memoryTime}s. Player B listens without seeing.`
-                : `Aさんは写真を見ながら${state.memoryTime}秒間説明します。Bさんはまだ見ません。`)
+                ? `Player A has ${PHOTO_EXPLAIN_SECONDS}s to describe each photo. Score as many correct answers as you can in ${state.sessionDuration}s.`
+                : `1枚${PHOTO_EXPLAIN_SECONDS}秒説明し、${state.sessionDuration}秒の制限時間で何問正解できるか挑戦します。`)
             : stepData.desc;
         elements.tutElements.langText.textContent = data.langLabel;
         elements.tutElements.img.src = stepData.img;
@@ -772,6 +791,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openPhotoSetup() {
+        stopSessionClock();
+        clearInterval(state.timerInterval);
+        state.activeCountdown = null;
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        state.generation++;
         stopSpeech();
         state.paused = false;
         document.getElementById('photo-pause-overlay').hidden = true;
@@ -782,11 +807,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function preparePhotoReady() {
         if (!['photoSetup', 'result', 'photoSummary'].includes(state.phase)) return;
         if (state.phase !== 'result') {
+            stopSessionClock();
             state.round = 0;
+            state.answeredCount = 0;
             state.correctCount = 0;
             state.firstCorrect = 0;
             state.score = 0;
             state.remaining = [];
+            state.sessionStarted = false;
+            state.sessionRemainingMs = state.sessionDuration * 1000;
+            document.getElementById('photo-total-time').textContent = String(state.sessionDuration);
+            document.getElementById('photo-total-correct').textContent = '0';
         }
         state.activePool = PHOTO_GENRES.pool(state.quizData, state.selectedGenre);
         if (state.activePool.length < 4) {
@@ -806,21 +837,61 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('photo-ready-roles').textContent =
             'Player ' + speaker + ' が説明 ／ Player ' + listener + ' は画面を見ない';
         document.getElementById('photo-ready-summary').textContent =
-            (chosen ? chosen.ja : 'すべて') + ' · ' + state.memoryTime + '秒 · 正解 ' + state.correctCount + '問';
+            (chosen ? chosen.ja : 'すべて') + ' · ' + state.sessionDuration + '秒チャレンジ · 1枚10秒';
         showView('photoReady');
     }
 
     function setPhotoPaused(paused) {
-        if (!['memory', 'choice'].includes(state.phase)) return;
+        if (!['memory', 'choice', 'photoNext', 'feedback'].includes(state.phase)) return;
         state.paused = !!paused;
         if (state.activeCountdown) state.activeCountdown.last = performance.now();
+        state.sessionLast = performance.now();
         document.getElementById('photo-pause-overlay').hidden = !state.paused;
-        elements.btns.photoPause.textContent = state.paused ? '▶ 再開' : '⏸ 一時停止';
+        elements.btns.photoPause.textContent = state.paused ? '▶' : '⏸';
         elements.btns.photoPause.setAttribute('aria-pressed', String(state.paused));
     }
 
+    // One uninterrupted Charades-style session clock survives photo/answer/NEXT.
+    // It starts with the first loaded photo and counts down even on NEXT.
+    // Pausing or backgrounding stops elapsed-time accounting, not the game.
+    function updateSessionHud() {
+        document.getElementById('photo-total-time').textContent =
+            String(Math.ceil(Math.max(0, state.sessionRemainingMs) / 1000));
+        document.getElementById('photo-total-correct').textContent = String(state.correctCount);
+    }
+
+    function stopSessionClock() {
+        if (state.sessionTimerInterval !== null) {
+            clearInterval(state.sessionTimerInterval);
+            state.sessionTimerInterval = null;
+        }
+        state.sessionStarted = false;
+    }
+
+    function startSessionClock() {
+        if (state.sessionStarted) return;
+        state.sessionStarted = true;
+        state.sessionLast = performance.now();
+        updateSessionHud();
+        const interval = setInterval(() => {
+            if (!state.sessionStarted || state.sessionTimerInterval !== interval) return;
+            const now = performance.now();
+            if (!document.hidden && !state.paused &&
+                elements.views.settings.classList.contains('hidden')) {
+                state.sessionRemainingMs = Math.max(0, state.sessionRemainingMs - (now - state.sessionLast));
+            }
+            state.sessionLast = now;
+            updateSessionHud();
+            if (state.sessionRemainingMs <= 0) {
+                finishPhotoGame();
+            }
+        }, 100);
+        state.sessionTimerInterval = interval;
+    }
+
     function returnPhotoToSetup() {
-        if (!['photoReady','memory','choice','feedback','result'].includes(state.phase)) return;
+        if (!['photoReady','memory','choice','photoNext','feedback','result'].includes(state.phase)) return;
+        stopSessionClock();
         clearInterval(state.timerInterval);
         clearTimeout(state.resultTimeout);
         clearTimeout(state.handoffTimer);
@@ -838,8 +909,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function finishPhotoGame() {
-        if (!['photoReady', 'memory', 'choice', 'feedback', 'result'].includes(state.phase)) return;
+        if (!['photoReady', 'memory', 'choice', 'photoNext', 'feedback', 'result'].includes(state.phase)) return;
+        stopSessionClock();
         clearInterval(state.timerInterval);
+        state.timerInterval = null;
         clearTimeout(state.resultTimeout);
         clearTimeout(state.handoffTimer);
         state.generation++;
@@ -850,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('choice-success-overlay').hidden = true;
         document.getElementById('handoff-announcement').hidden = true;
         document.getElementById('photo-summary-correct').textContent = String(state.correctCount);
-        document.getElementById('photo-summary-rounds').textContent = state.round + ' ラウンド';
+        document.getElementById('photo-summary-rounds').textContent = '挑戦 ' + state.answeredCount + ' 問 ／ ' + state.sessionDuration + ' 秒';
         if (document.fullscreenElement && document.exitFullscreen) {
             Promise.resolve(document.exitFullscreen()).catch(() => {});
         }
@@ -867,10 +940,12 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.views[viewName].classList.remove('hidden');
 
         state.isPlaying = viewName !== 'landing';
-        const active = ['photoReady','memory','choice','result'].includes(viewName);
+        const active = ['photoReady','memory','choice','photoNext','result'].includes(viewName);
+        document.getElementById('photo-session-hud').hidden =
+            !['memory','choice','photoNext','result'].includes(viewName);
         document.getElementById('photo-game-tools').hidden = !active;
-        elements.btns.photoPause.hidden = !['memory','choice'].includes(viewName);
-        if (viewName !== 'memory' && viewName !== 'choice') {
+        elements.btns.photoPause.hidden = !['memory','choice','photoNext'].includes(viewName);
+        if (!['memory', 'choice', 'photoNext'].includes(viewName)) {
             state.paused = false;
             document.getElementById('photo-pause-overlay').hidden = true;
         }
@@ -878,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function startMemoryPhase() {
-        if (!['landing', 'result', 'photoReady'].includes(state.phase) || elements.btns.start.disabled) return;
+        if (!['landing', 'result', 'photoReady', 'photoNext'].includes(state.phase) || elements.btns.start.disabled || state.paused) return;
         // Try native fullscreen on browsers that support it; fixed-viewport CSS is the Safari fallback.
         if (!document.fullscreenElement && document.documentElement?.requestFullscreen) {
             try { Promise.resolve(document.documentElement.requestFullscreen()).catch(() => {}); } catch { /* unsupported or blocked */ }
@@ -890,6 +965,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('handoff-announcement').hidden = true;
         unlockHandoffSound();
         stopSpeech();
+        if (state.sessionStarted && state.sessionRemainingMs <= 0) {
+            finishPhotoGame();
+            return;
+        }
         if (!prepareQuizData()) return;
         state.attempts = 0;
         state.round++;
@@ -929,7 +1008,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (generation !== state.generation || state.phase !== 'memory') return;
         setPhotoImage(elements.imgs.memory, state.correctItem);
         elements.btns.memorySkip.disabled = false;
-        runTimer(state.memoryTime, elements.timers.memory, startChoicePhase);
+        updateSessionHud();
+        if (!state.sessionStarted) startSessionClock();
+        runTimer(PHOTO_EXPLAIN_SECONDS, elements.timers.memory, startChoicePhase);
     }
 
     // Pause countdowns while settings are open or the page is in the background.
@@ -970,6 +1051,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startChoicePhase() {
         if (state.phase !== 'memory' || state.paused) return;
         clearInterval(state.timerInterval);
+        state.timerInterval = null;
         state.activeCountdown = null;
         playHandoffCue();
         showView('choice');
@@ -1005,30 +1087,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkAnswer(item, btn) {
-        if (state.phase !== 'choice' || btn.disabled || state.paused) return;
-        state.attempts++;
+        // The first answer finishes this question. No repeat guesses for points.
+        if (state.phase !== 'choice' || btn.disabled || state.paused || !state.sessionStarted) return;
+        state.phase = 'feedback';
+        state.attempts = 1;
+        state.answeredCount++;
+        state.lastAnswerCorrect = item.id === state.correctItem.id;
         btn.disabled = true;
-        if (item.id === state.correctItem.id) {
-            state.phase = 'feedback';
-            if (state.attempts === 1) state.firstCorrect++;
-            state.lastPoints = window.CHARADES_CORE
-                ? window.CHARADES_CORE.pointsForPhotoAttempt(state.attempts)
-                : ([100, 60, 30][state.attempts - 1] || 10);
-            state.score += state.lastPoints; // Legacy internal metric: not shown to players.
+        elements.imgs.grid.querySelectorAll('button').forEach(button => { button.disabled = true; });
+        document.getElementById('handoff-announcement').hidden = true;
+        elements.btns.photoPause.hidden = true;
+
+        const overlay = document.getElementById('choice-success-overlay');
+        const check = overlay.querySelector('.success-check');
+        const label = overlay.querySelector('strong');
+        const detail = overlay.querySelector('small');
+        if (state.lastAnswerCorrect) {
+            state.firstCorrect++;
             state.correctCount++;
-            elements.imgs.grid.querySelectorAll('button').forEach(button => button.disabled = true);
+            state.score = state.correctCount;
             playEffect(elements.audio.correct);
-            document.getElementById('handoff-announcement').hidden = true;
-            document.getElementById('choice-success-overlay').hidden = false;
-            elements.btns.photoPause.hidden = true;
-            
-            btn.className += ' border-yellow-400 ring-8 ring-yellow-200 z-20';
+            check.textContent = '✓';
+            label.textContent = 'CORRECT!';
+            detail.textContent = '正解！';
+            overlay.classList.remove('is-wrong');
             triggerConfetti();
-            state.resultTimeout = setTimeout(showResultPhase, 1150);
         } else {
             playEffect(elements.audio.wrong);
-            btn.classList.add('opacity-40', 'grayscale', 'shake-wrong');
+            check.textContent = '✕';
+            label.textContent = 'NEXT!';
+            detail.textContent = '不正解 · 次の問題へ';
+            overlay.classList.add('is-wrong');
+            btn.classList.add('shake-wrong');
         }
+        updateSessionHud();
+        overlay.hidden = false;
+        clearTimeout(state.resultTimeout);
+        state.resultTimeout = setTimeout(showPhotoNext, 750);
+    }
+
+    function showPhotoNext() {
+        if (state.phase !== 'feedback' && state.phase !== 'result') return;
+        clearTimeout(state.resultTimeout);
+        state.resultTimeout = null;
+        stopSpeech();
+        document.getElementById('choice-success-overlay').hidden = true;
+        document.getElementById('handoff-announcement').hidden = true;
+        const feedback = document.getElementById('photo-next-feedback');
+        feedback.textContent = state.lastAnswerCorrect ? '✓ 正解！' : '✕ おしい！';
+        feedback.classList.toggle('wrong', !state.lastAnswerCorrect);
+        const upcoming = state.round + 1;
+        const speaker = upcoming % 2 ? 'A' : 'B';
+        const listener = speaker === 'A' ? 'B' : 'A';
+        document.getElementById('photo-next-roles').textContent =
+            '次はPlayer ' + speaker + 'が説明 ／ Player ' + listener + 'は見ない';
+        showView('photoNext');
+        updateSessionHud();
     }
 
     function showResultPhase() {
@@ -1051,6 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function backToLanding() {
+        stopSessionClock();
         clearInterval(state.timerInterval);
         state.paused = false;
         document.getElementById('photo-pause-overlay').hidden = true;
