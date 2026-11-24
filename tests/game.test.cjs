@@ -581,3 +581,60 @@ test('rapid Photo interface hides upcoming images and shows central NEXT plus pe
  assert.match(photoCSS,/\.photo-next-orb/);
  assert.match(photoCSS,/#view-memory #memory-skip-btn\{/);
 });
+
+
+test('all photo instructions switch among eight languages and update category and READY prompts',async()=>{
+ const h=harness();await h.flush();
+ assert.equal(h.api.state.tutLang,'en');
+ assert.equal(h.nodes.get('photo-language').value,'en');
+ assert.equal(h.api.setPhotoLanguage('es'),true);
+ h.api.openPhotoSetup();
+ h.api.preparePhotoReady();
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/90 s/);
+ assert.equal(h.api.setPhotoLanguage('ko'),true);
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/90초/);
+ assert.equal(h.api.setPhotoLanguage('zh'),true);
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/90秒/);
+ assert.equal(h.api.setPhotoLanguage('ja'),true);
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/90秒/);
+ assert.equal(h.api.setPhotoLanguage('xx'),false,'unknown languages must be rejected');
+ h.api.backToLanding();assert.equal(h.timers.size,0);
+});
+
+test('BGM can be muted from photo setup or during a game and remains off until explicitly enabled',async()=>{
+ const store=new Map();
+ const storage={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)};
+ const h=harness(data,{window:{localStorage:storage}});await h.flush();
+ assert.equal(h.api.state.isBgmEnabled,true);
+ h.nodes.get('photo-bgm-btn').click();
+ assert.equal(h.api.state.isBgmEnabled,false);
+ assert.equal(store.get('photo-bgm-enabled'),'false');
+ assert.equal(h.nodes.get('photo-bgm-btn').getAttribute('aria-pressed'),'false');
+ assert.equal(h.nodes.get('photo-bgm-play').getAttribute('aria-pressed'),'false');
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.isBgmEnabled,false);
+ h.nodes.get('photo-bgm-play').click();
+ assert.equal(h.api.state.isBgmEnabled,true);
+ assert.equal(store.get('photo-bgm-enabled'),'true');
+ h.api.backToLanding();
+});
+
+test('I am Ready immediately advances to four choices, while waiting retains twenty-second auto-handoff',async()=>{
+ const h=harness();await h.flush();
+ h.api.openPhotoSetup();h.api.preparePhotoReady();
+ assert.equal(h.nodes.get('photo-game-tools').hidden,true);
+ await h.api.startMemoryPhase();
+ assert.equal(h.nodes.get('memory-timer').textContent,20);
+ assert.equal(h.nodes.get('memory-skip-btn').disabled,false);
+ h.advance(3000);h.nodes.get('memory-skip-btn').click();
+ assert.equal(h.api.state.phase,'choice');
+ assert.equal(h.nodes.get('choice-grid').children.length,4);
+ assert.equal(h.api.state.sessionStarted,true);
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ h.nodes.get('photo-next-start').click();await h.flush();
+ const photoTick=h.timers.get(h.api.state.timerInterval);
+ h.advance(20000);photoTick();
+ assert.equal(h.api.state.phase,'choice');
+ h.api.backToLanding();assert.equal(h.timers.size,0);
+});
