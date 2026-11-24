@@ -78,9 +78,9 @@ test('all 64 categories have translated selection labels and search control', ()
   assert.match(source, /SEARCH_PLACEHOLDERS/);
 });
 
-test('Photo now uses a ten-second image timer plus a continuous Charades-like countdown', () => {
+test('Photo now uses a twenty-second image timer plus a continuous Charades-like countdown', () => {
   const source = fs.readFileSync(path.join(__dirname, '../js/game.js'), 'utf8');
-  assert.match(source, /const PHOTO_EXPLAIN_SECONDS = 10/);
+  assert.match(source, /const PHOTO_EXPLAIN_SECONDS = 20/);
   assert.match(source, /runTimer\(PHOTO_EXPLAIN_SECONDS, elements\.timers\.memory, startChoicePhase\)/);
   assert.match(source, /function startSessionClock\(\)/);
   assert.match(source, /function showPhotoNext\(\)/);
