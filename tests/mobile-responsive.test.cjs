@@ -332,7 +332,7 @@ test('Charades and Similar Photo share a prominent circular centered READY contr
   assert.match(photoCss,/\.photo-orb-start/);
   assert.match(photoCss,/border-radius:50%/);
   assert.match(photoHtml,/id="photo-ready-start"/);
-  assert.match(photoHtml,/id="photo-ready-back"/);
+  assert.doesNotMatch(photoHtml,/id="photo-ready-back"/);
 });
 
 
