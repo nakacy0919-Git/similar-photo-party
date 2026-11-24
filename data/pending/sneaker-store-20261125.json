@@ -1,0 +1,142 @@
+[
+  {
+    "id": "sneaker_store_20261125_01",
+    "filename": "sneaker_store_20261125_01.webp",
+    "group": "sneaker_store_20261125",
+    "title": "White sneaker, blue bag, three boxes",
+    "key_phrase": "A white sneaker and a black sneaker are displayed next to a blue shopping bag, with three shoe boxes stacked on the left.",
+    "translation": "白いスニーカーと黒いスニーカーが青い紙袋の隣に並び、左側には靴箱が3つ積まれています。",
+    "examples": [
+      {
+        "title": "White sneaker",
+        "en": "The sneaker on the left is white.",
+        "ja": "左側のスニーカーは白色です。"
+      },
+      {
+        "title": "Blue bag",
+        "en": "There is a blue shopping bag behind the black sneaker.",
+        "ja": "黒いスニーカーの後ろに青い紙袋があります。"
+      },
+      {
+        "title": "Three boxes",
+        "en": "Three shoe boxes are stacked on the left side of the table.",
+        "ja": "テーブルの左側に靴箱が3つ積まれています。"
+      },
+      {
+        "title": "Potted plant",
+        "en": "A green plant in a pot is standing next to the boxes.",
+        "ja": "靴箱の隣に緑の鉢植えがあります。"
+      },
+      {
+        "title": "White soles",
+        "en": "Both sneakers have white soles.",
+        "ja": "どちらのスニーカーも靴底が白いです。"
+      }
+    ]
+  },
+  {
+    "id": "sneaker_store_20261125_02",
+    "filename": "sneaker_store_20261125_02.webp",
+    "group": "sneaker_store_20261125",
+    "title": "Red sneaker, blue bag, three boxes",
+    "key_phrase": "A red sneaker and a black sneaker are displayed next to a blue shopping bag, with three shoe boxes stacked on the left.",
+    "translation": "赤いスニーカーと黒いスニーカーが青い紙袋の隣に並び、左側には靴箱が3つ積まれています。",
+    "examples": [
+      {
+        "title": "Red sneaker",
+        "en": "The sneaker on the left is red.",
+        "ja": "左側のスニーカーは赤色です。"
+      },
+      {
+        "title": "Red laces",
+        "en": "The red sneaker has red shoelaces and a white sole.",
+        "ja": "赤いスニーカーには赤い靴ひもと白い靴底があります。"
+      },
+      {
+        "title": "Black sneaker",
+        "en": "A black sneaker is displayed to the right of the red one.",
+        "ja": "赤いスニーカーの右側に黒いスニーカーが置かれています。"
+      },
+      {
+        "title": "Blue bag",
+        "en": "The shopping bag on the far right is blue.",
+        "ja": "右端の紙袋は青色です。"
+      },
+      {
+        "title": "Three boxes",
+        "en": "There are three shoe boxes next to the plant.",
+        "ja": "鉢植えの隣に靴箱が3つあります。"
+      }
+    ]
+  },
+  {
+    "id": "sneaker_store_20261125_03",
+    "filename": "sneaker_store_20261125_03.webp",
+    "group": "sneaker_store_20261125",
+    "title": "White sneaker, yellow bag, three boxes",
+    "key_phrase": "A white sneaker and a black sneaker are displayed next to a yellow shopping bag, with three shoe boxes stacked on the left.",
+    "translation": "白いスニーカーと黒いスニーカーが黄色い紙袋の隣に並び、左側には靴箱が3つ積まれています。",
+    "examples": [
+      {
+        "title": "Yellow bag",
+        "en": "There is a bright yellow shopping bag on the right.",
+        "ja": "右側に鮮やかな黄色の紙袋があります。"
+      },
+      {
+        "title": "Bag handle",
+        "en": "The yellow bag has a white rope handle.",
+        "ja": "黄色い紙袋には白いひもの持ち手が付いています。"
+      },
+      {
+        "title": "Two sneakers",
+        "en": "A white sneaker is sitting next to a black sneaker.",
+        "ja": "白いスニーカーが黒いスニーカーの隣に置いてあります。"
+      },
+      {
+        "title": "Three boxes",
+        "en": "Three shoe boxes are piled up on the left.",
+        "ja": "左側に靴箱が3つ積み重ねられています。"
+      },
+      {
+        "title": "Store shelves",
+        "en": "Several shoes can be seen on the shelves in the background.",
+        "ja": "背景の棚には何足かの靴が見えます。"
+      }
+    ]
+  },
+  {
+    "id": "sneaker_store_20261125_04",
+    "filename": "sneaker_store_20261125_04.webp",
+    "group": "sneaker_store_20261125",
+    "title": "White sneaker, blue bag, four boxes",
+    "key_phrase": "A white sneaker and a black sneaker are displayed next to a blue shopping bag, with four shoe boxes stacked on the left.",
+    "translation": "白いスニーカーと黒いスニーカーが青い紙袋の隣に並び、左側には靴箱が4つ積まれています。",
+    "examples": [
+      {
+        "title": "Four boxes",
+        "en": "There are four shoe boxes on the left side of the table.",
+        "ja": "テーブルの左側に靴箱が4つあります。"
+      },
+      {
+        "title": "Top box",
+        "en": "The light gray box is at the top of the stack.",
+        "ja": "薄い灰色の箱が一番上にあります。"
+      },
+      {
+        "title": "Bottom box",
+        "en": "The brown box is at the bottom of the stack.",
+        "ja": "茶色の箱が一番下にあります。"
+      },
+      {
+        "title": "Two colors",
+        "en": "The sneaker on the left is white, while the one on the right is black.",
+        "ja": "左側のスニーカーは白色で、右側のスニーカーは黒色です。"
+      },
+      {
+        "title": "Blue bag",
+        "en": "A blue shopping bag stands behind the black sneaker.",
+        "ja": "黒いスニーカーの後ろに青い紙袋が置いてあります。"
+      }
+    ]
+  }
+]
