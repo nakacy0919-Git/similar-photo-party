@@ -78,10 +78,12 @@ test('all 64 categories have translated selection labels and search control', ()
   assert.match(source, /SEARCH_PLACEHOLDERS/);
 });
 
-test('original photo game still has automatic photo phases and scoring', () => {
+test('Photo now uses a ten-second image timer plus a continuous Charades-like countdown', () => {
   const source = fs.readFileSync(path.join(__dirname, '../js/game.js'), 'utf8');
-  assert.match(source, /runTimer\(state\.memoryTime, elements\.timers\.memory, startChoicePhase\)/);
-  assert.doesNotMatch(source, /runTimer\(state\.explainTime, elements\.timers\.explain, startChoicePhase/);
-  assert.match(source, /state\.score \+= state\.lastPoints/);
-  assert.match(source, /pointsForPhotoAttempt\(state\.attempts\)/);
+  assert.match(source, /const PHOTO_EXPLAIN_SECONDS = 10/);
+  assert.match(source, /runTimer\(PHOTO_EXPLAIN_SECONDS, elements\.timers\.memory, startChoicePhase\)/);
+  assert.match(source, /function startSessionClock\(\)/);
+  assert.match(source, /function showPhotoNext\(\)/);
+  assert.match(source, /state\.correctCount\+\+/);
+  assert.doesNotMatch(source, /state\.score \+= state\.lastPoints/);
 });
