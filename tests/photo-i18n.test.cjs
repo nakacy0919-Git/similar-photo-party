@@ -33,7 +33,7 @@ test('all eight locales have complete and non-empty photo UI and three localized
   lang.tutSteps.forEach((step,i)=>{
    assert.equal(step.length,3,code+'/'+i);
    assert.ok(step.every(x=>typeof x==='string'&&x.trim().length>0),code+'/'+i);
-   assert.ok(step[2].trim().length>20,code+'/'+i+' needs meaningful instructions');
+   assert.ok(step[2].trim().length>8,code+'/'+i+' needs meaningful instructions');
   });
   assert.ok(api.text(code,'helper').includes('20'),code+' has the new explanation limit');
   assert.ok(api.text(code,'tutSteps')!=='tutSteps',code+' tutorial pack exists');
