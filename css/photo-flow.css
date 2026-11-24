@@ -520,3 +520,8 @@ body:has(#view-photo-next:not(.hidden)){height:100dvh!important;overflow:hidden!
 @media(prefers-reduced-motion:reduce){
   #view-memory #memory-skip-btn{transition:none!important}
 }
+
+/* First-party hook selectors for localized tutorial and early-handoff controls. */
+.tutorial-language-control{display:inline-flex;align-items:center;position:relative}
+.tutorial-language-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.photo-im-ready{touch-action:manipulation}
