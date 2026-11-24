@@ -235,11 +235,11 @@ test('photo mode plays a handoff chime and switches straight from visible photo 
  }
  const h=harness(data,{window:{AudioContext:FakeAudioContext}});
  await h.flush();
- assert.equal(h.api.setMemoryTime(20),true);
+ assert.equal(h.api.setSessionDuration(90),true);
  await h.api.startMemoryPhase();
  assert.equal(h.api.state.phase,'memory');
  const tick=h.timers.get(h.api.state.timerInterval);
- h.advance(20000);tick();
+ h.advance(10000);tick();
  assert.equal(h.api.state.phase,'choice');
  assert.equal(plays,1,'a short sound marks the handoff');
  assert.equal(h.nodes.get('handoff-announcement').hidden,false);
@@ -488,4 +488,95 @@ test('photo game applies visual clusters to its 457 imported photos and launches
  assert.equal(h.api.state.phase,'choice');
  h.api.backToLanding();
  assert.equal(h.timers.size,0);
+});
+
+
+test('whole-game countdown ends automatically at zero and presents correct-answer summary',async()=>{
+ const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ assert.equal(h.api.state.sessionStarted,false);
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.sessionRemainingMs,60000);
+ const oldPhotoTick=h.timers.get(h.api.state.timerInterval);
+ const whole=h.api.state.sessionTimerInterval,wholeTick=h.timers.get(whole);
+ h.advance(60000);wholeTick();
+ assert.equal(h.api.state.phase,'photoSummary');
+ assert.equal(h.nodes.get('photo-summary-correct').textContent,'0');
+ assert.equal(h.nodes.get('photo-summary-rounds').textContent,'挑戦 0 問 ／ 60 秒');
+ assert.equal(h.nodes.get('photo-session-hud').hidden,true);
+ assert.equal(h.api.state.sessionTimerInterval,null);
+ assert.equal(h.timers.size,0);
+ oldPhotoTick();
+ assert.equal(h.api.state.phase,'photoSummary','stale photo countdown cannot reveal a new photo');
+});
+
+test('session time keeps counting behind NEXT but pause truly freezes both clocks',async()=>{
+ const h=harness();await h.flush();h.api.openPhotoSetup();h.api.preparePhotoReady();
+ await h.api.startMemoryPhase();h.api.startChoicePhase();
+ const wrong=h.api.state.currentSet.find(item=>item.id!==h.api.state.correctItem.id);
+ h.api.checkAnswer(wrong,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ assert.equal(h.api.state.phase,'photoNext');
+ const whole=h.api.state.sessionTimerInterval,tick=h.timers.get(whole);
+ h.advance(7000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,53000,'NEXT must not stop the 60-second game');
+ h.nodes.get('photo-pause').click();
+ assert.equal(h.api.state.paused,true);
+ assert.equal(h.nodes.get('photo-pause-overlay').hidden,false);
+ h.advance(16000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,53000,'pause must protect the total clock');
+ await h.api.startMemoryPhase();
+ assert.equal(h.api.state.phase,'photoNext','cannot accidentally reveal the next photo while paused');
+ h.nodes.get('photo-resume').click();
+ h.advance(2000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,51000);
+ h.api.backToLanding();assert.equal(h.timers.size,0);
+});
+
+test('hidden browser tab pauses the whole Photo session and NEXT cannot leak the next image',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ h.api.checkAnswer(h.api.state.correctItem,{disabled:false,classList:{add(){}}});
+ h.api.showPhotoNext();
+ const previous=h.api.state.correctItem.id,previousRound=h.api.state.round;
+ h.ctx.document.hidden=true;h.events.get('visibilitychange')();
+ assert.equal(h.api.state.paused,true);
+ const tick=h.timers.get(h.api.state.sessionTimerInterval);
+ h.advance(100000);tick();
+ assert.equal(h.api.state.sessionRemainingMs,60000);
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.equal(h.api.state.phase,'photoNext');
+ assert.equal(h.api.state.round,previousRound);
+ assert.equal(h.api.state.correctItem.id,previous);
+ h.ctx.document.hidden=false;h.events.get('visibilitychange')();
+ h.nodes.get('photo-resume').click();
+ h.nodes.get('photo-next-start').click();await h.flush();
+ assert.equal(h.api.state.phase,'memory');
+ assert.equal(h.api.state.round,previousRound+1);
+ h.api.backToLanding();
+});
+
+test('zero-time session ends on four-choice screen even when no answer was chosen',async()=>{
+ const h=harness();await h.flush();await h.api.startMemoryPhase();h.api.startChoicePhase();
+ const tick=h.timers.get(h.api.state.sessionTimerInterval);
+ h.advance(60000);tick();
+ assert.equal(h.api.state.phase,'photoSummary');
+ assert.equal(h.api.state.answeredCount,0);
+ assert.equal(h.api.state.correctCount,0);
+ assert.equal(h.timers.size,0);
+});
+
+test('rapid Photo interface hides upcoming images and shows central NEXT plus persistent HUD',()=>{
+ const html=fs.readFileSync('index.html','utf8');
+ const photoCSS=fs.readFileSync('css/photo-flow.css','utf8');
+ const immersive=fs.readFileSync('css/immersive.css','utf8');
+ assert.match(html,/id="view-photo-next"/);
+ assert.match(html,/id="photo-next-start"/);
+ assert.match(html,/id="photo-session-hud"/);
+ assert.match(html,/id="photo-total-time"/);
+ assert.match(html,/id="photo-total-correct"/);
+ assert.match(html,/hidden id="memory-skip-btn"/);
+ assert.match(photoCSS,/#view-photo-next\.hidden\{display:none!important\}/);
+ assert.match(photoCSS,/\.photo-hud-time\{left:/);
+ assert.match(photoCSS,/\.photo-hud-score\{right:/);
+ assert.match(photoCSS,/\.photo-next-orb/);
+ assert.match(immersive,/#view-memory #memory-skip-btn\{display:none!important\}/);
 });
