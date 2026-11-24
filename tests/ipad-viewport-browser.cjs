@@ -69,6 +69,9 @@ async function runPhoto(browser,screen){
     if(screen.width>=700){
       await page.locator('#tutorial-btn').click();
       await page.waitForSelector('#view-tutorial:not(.hidden)');
+      await page.locator('#tut-lang-select').selectOption('es');
+      assert.equal(await page.locator('#tut-header').textContent(),'CÓMO JUGAR');
+      await page.locator('#tut-lang-select').selectOption('en');
       await inside(page,['#view-tutorial','#tut-next-btn','#tut-close-btn'],screen,'Photo instructions');
       await page.locator('#tut-close-btn').click();
       await page.waitForSelector('#view-tutorial',{state:'hidden'});
@@ -88,11 +91,21 @@ async function runPhoto(browser,screen){
     } else {
       await inside(page,['#view-photo-setup','.photo-setup-shell','.photo-genre-panel','.photo-options-panel','#photo-setup-next'],screen,'Photo category setup');
     }
+    // Both selectors expose the same eight Charades languages.
+    assert.equal(await page.locator('#photo-language option').count(),8);
+    await page.locator('#photo-language').selectOption('ja');
+    assert.equal(await page.locator('#photo-setup-heading').textContent(),'どの写真で遊ぶ？');
+    await page.locator('#photo-language').selectOption('en');
+    assert.equal(await page.locator('#photo-setup-heading').textContent(),'Choose your photos');
+    // BGM must be controllable from the genre screen and remain off into play.
+    await page.locator('#photo-bgm-btn').click();
+    assert.equal(await page.locator('#photo-bgm-btn').getAttribute('aria-pressed'),'false');
     const all=page.locator('#photo-category-list .photo-genre-card');
     assert.ok((await all.count())>=8,screen.name+' categories missing');
     await page.locator('#photo-setup-next').click();
     await page.waitForSelector('#view-photo-ready:not(.hidden)');
-    await inside(page,['#view-photo-ready','.photo-ready-inner','#photo-ready-heading','#photo-ready-start','#photo-ready-back'],screen,'Photo READY');
+    await inside(page,['#view-photo-ready','.photo-ready-inner','#photo-ready-heading','#photo-ready-start'],screen,'Photo READY');
+    assert.equal(await page.locator('#photo-game-tools').isVisible(),false,'No pause/back toolbar on READY');
     if(screen.name.includes('landscape')&&screen.width>=800&&screen.height>540){
       const positions=await page.evaluate(()=>({
         start:document.getElementById('photo-ready-start').getBoundingClientRect().left,
@@ -102,11 +115,12 @@ async function runPhoto(browser,screen){
     }
     await screenshot(page,'photo-ready-'+screen.width+'x'+screen.height);
     await page.locator('#photo-ready-start').click();
+    assert.equal(await page.locator('#photo-bgm-play').getAttribute('aria-pressed'),'false');
     await page.waitForSelector('#view-memory:not(.hidden)',{timeout:20000});
-    await inside(page,['#view-memory','#memory-img','#photo-total-time','#photo-total-correct','#photo-back','#photo-pause','#photo-end'],screen,'Photo speaking');
-    // Similar Photo now reveals the four choices automatically after 10 seconds.
-    // The old manual skip is intentionally unavailable to players.
-    await page.waitForSelector('#view-choice:not(.hidden)',{timeout:20000});
+    await inside(page,['#view-memory','#memory-img','#photo-total-time','#photo-total-correct','#memory-skip-btn','#photo-back','#photo-pause','#photo-end'],screen,'Photo speaking');
+    // Students can hand off early, before the automatic 20-second explanation ends.
+    await page.locator('#memory-skip-btn').click();
+    await page.waitForSelector('#view-choice:not(.hidden)',{timeout:15000});
     await page.waitForFunction(()=>document.querySelectorAll('#choice-grid>button').length===4,{timeout:15000});
     await inside(page,['#view-choice','#choice-grid','#choice-grid>button','#photo-back','#photo-end'],screen,'Photo four choices');
     await screenshot(page,'photo-choice-'+screen.width+'x'+screen.height);
@@ -125,7 +139,7 @@ async function runPhoto(browser,screen){
     }));
     assert.equal(secure.hidden,true,'next image must be hidden until NEXT is tapped');
     assert.equal(secure.score,'1','correct answers accumulate across the session');
-    assert.ok(secure.time<=60&&secure.time>0,'overall countdown persists after first photo');
+    assert.ok(secure.time<=90&&secure.time>0,'overall countdown persists after first photo');
     await screenshot(page,'photo-next-'+screen.width+'x'+screen.height);
     await page.locator('#photo-next-start').click();
     await page.waitForSelector('#view-memory:not(.hidden)',{timeout:15000});
