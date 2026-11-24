@@ -103,9 +103,10 @@ async function runPhoto(browser,screen){
     await screenshot(page,'photo-ready-'+screen.width+'x'+screen.height);
     await page.locator('#photo-ready-start').click();
     await page.waitForSelector('#view-memory:not(.hidden)',{timeout:20000});
-    await inside(page,['#view-memory','#memory-img','#memory-skip-btn','#photo-back','#photo-pause','#photo-end'],screen,'Photo speaking');
-    await page.locator('#memory-skip-btn').click();
-    await page.waitForSelector('#view-choice:not(.hidden)',{timeout:10000});
+    await inside(page,['#view-memory','#memory-img','#photo-total-time','#photo-total-correct','#photo-back','#photo-pause','#photo-end'],screen,'Photo speaking');
+    // Similar Photo now reveals the four choices automatically after 10 seconds.
+    // The old manual skip is intentionally unavailable to players.
+    await page.waitForSelector('#view-choice:not(.hidden)',{timeout:20000});
     await page.waitForFunction(()=>document.querySelectorAll('#choice-grid>button').length===4,{timeout:15000});
     await inside(page,['#view-choice','#choice-grid','#choice-grid>button','#photo-back','#photo-end'],screen,'Photo four choices');
     await screenshot(page,'photo-choice-'+screen.width+'x'+screen.height);
@@ -115,12 +116,20 @@ async function runPhoto(browser,screen){
     });
     assert.ok(correctIndex>=0,'Correct candidate not in four options');
     await page.locator('#choice-grid>button').nth(correctIndex).click({force:true});
-    await page.waitForSelector('#view-result:not(.hidden)',{timeout:15000});
-    await inside(page,['#view-result','#photo-result-main','#result-layout-img','#result-layout-text','#next-btn'],screen,'Photo results');
-    await screenshot(page,'photo-result-'+screen.width+'x'+screen.height);
-    await page.locator('#next-btn').click();
-    await page.waitForSelector('#view-photo-ready:not(.hidden)');
-    await inside(page,['#view-photo-ready','#photo-ready-start'],screen,'Photo next player');
+    await page.waitForSelector('#view-photo-next:not(.hidden)',{timeout:15000});
+    await inside(page,['#view-photo-next','.photo-next-inner','#photo-next-start','#photo-total-time','#photo-total-correct'],screen,'Photo protected NEXT');
+    const secure=await page.evaluate(()=>({
+      hidden:document.getElementById('view-memory').classList.contains('hidden'),
+      score:document.getElementById('photo-total-correct').textContent,
+      time:parseInt(document.getElementById('photo-total-time').textContent,10)
+    }));
+    assert.equal(secure.hidden,true,'next image must be hidden until NEXT is tapped');
+    assert.equal(secure.score,'1','correct answers accumulate across the session');
+    assert.ok(secure.time<=60&&secure.time>0,'overall countdown persists after first photo');
+    await screenshot(page,'photo-next-'+screen.width+'x'+screen.height);
+    await page.locator('#photo-next-start').click();
+    await page.waitForSelector('#view-memory:not(.hidden)',{timeout:15000});
+    await inside(page,['#view-memory','#photo-total-time','#photo-total-correct'],screen,'Photo next round');
   }finally{await context.close();}
 }
 async function runCharades(browser,screen){
