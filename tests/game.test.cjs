@@ -446,7 +446,7 @@ test('imported SimilarPhoto plays genre → READY → timed picture → four cho
  assert.equal(h.api.selectPhotoGenre('source-1000'),true);
  h.api.preparePhotoReady();
  assert.equal(h.api.state.phase,'photoReady');
- assert.match(h.nodes.get('photo-ready-summary').textContent,/接続詞・論理/);
+ assert.match(h.nodes.get('photo-ready-summary').textContent,/Conjunctions & logic/);
  await h.api.startMemoryPhase();
  assert.equal(h.api.state.phase,'memory');
  assert.equal(h.api.state.activePool.length,25);
