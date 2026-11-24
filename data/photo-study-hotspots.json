@@ -801,6 +801,406 @@
           "ja": "スニーカーは木製のテーブルに並べられています。"
         }
       ]
+    },
+    {
+      "id": "laundromat_20261125_01",
+      "theme": "At a Laundromat",
+      "themeJa": "コインランドリー",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "laundry basket",
+          "jaLabel": "洗濯かご",
+          "box": [
+            0.11,
+            0.38,
+            0.305,
+            0.42
+          ],
+          "en": "There is a blue laundry basket on the table.",
+          "ja": "テーブルの上に青い洗濯かごがあります。"
+        },
+        {
+          "id": "towels",
+          "label": "folded towels",
+          "jaLabel": "折りたたまれたタオル",
+          "box": [
+            0.5,
+            0.52,
+            0.33,
+            0.415
+          ],
+          "en": "Three towels are neatly stacked on the table.",
+          "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+        },
+        {
+          "id": "detergent",
+          "label": "laundry detergent",
+          "jaLabel": "洗濯用洗剤",
+          "box": [
+            0.405,
+            0.4,
+            0.11,
+            0.37
+          ],
+          "en": "A white bottle of laundry detergent has a blue cap.",
+          "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+        },
+        {
+          "id": "door",
+          "label": "washing machine door",
+          "jaLabel": "洗濯機のドア",
+          "box": [
+            0.74,
+            0.13,
+            0.255,
+            0.41
+          ],
+          "en": "The door of the washing machine on the far right is closed.",
+          "ja": "一番右の洗濯機のドアは閉まっています。"
+        },
+        {
+          "id": "plant",
+          "label": "green plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0,
+            0.12,
+            0.195,
+            0.59
+          ],
+          "en": "There is a green plant near the window.",
+          "ja": "窓の近くに緑の観葉植物があります。"
+        },
+        {
+          "id": "table",
+          "label": "wooden folding table",
+          "jaLabel": "木製の作業台",
+          "box": [
+            0.12,
+            0.82,
+            0.35,
+            0.15
+          ],
+          "en": "The laundry supplies are on a wooden table.",
+          "ja": "洗濯用品が木製のテーブルの上にあります。"
+        },
+        {
+          "id": "panel",
+          "label": "control panel",
+          "jaLabel": "操作パネル",
+          "box": [
+            0.52,
+            0.025,
+            0.2,
+            0.08
+          ],
+          "en": "There is a control panel above the round door.",
+          "ja": "丸いドアの上に操作パネルがあります。"
+        }
+      ]
+    },
+    {
+      "id": "laundromat_20261125_02",
+      "theme": "At a Laundromat",
+      "themeJa": "コインランドリー",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "laundry basket",
+          "jaLabel": "洗濯かご",
+          "box": [
+            0.04,
+            0.36,
+            0.345,
+            0.48
+          ],
+          "en": "There is a red laundry basket on the table.",
+          "ja": "テーブルの上に赤い洗濯かごがあります。"
+        },
+        {
+          "id": "towels",
+          "label": "folded towels",
+          "jaLabel": "折りたたまれたタオル",
+          "box": [
+            0.42,
+            0.57,
+            0.35,
+            0.4
+          ],
+          "en": "Three towels are neatly stacked on the table.",
+          "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+        },
+        {
+          "id": "detergent",
+          "label": "laundry detergent",
+          "jaLabel": "洗濯用洗剤",
+          "box": [
+            0.35,
+            0.425,
+            0.1,
+            0.38
+          ],
+          "en": "A white bottle of laundry detergent has a blue cap.",
+          "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+        },
+        {
+          "id": "door",
+          "label": "washing machine door",
+          "jaLabel": "洗濯機のドア",
+          "box": [
+            0.77,
+            0.115,
+            0.22,
+            0.43
+          ],
+          "en": "The door of the washing machine on the far right is closed.",
+          "ja": "一番右の洗濯機のドアは閉まっています。"
+        },
+        {
+          "id": "plant",
+          "label": "green plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.15,
+            0,
+            0.19,
+            0.33
+          ],
+          "en": "There is a green plant near the window.",
+          "ja": "窓の近くに緑の観葉植物があります。"
+        },
+        {
+          "id": "table",
+          "label": "wooden folding table",
+          "jaLabel": "木製の作業台",
+          "box": [
+            0.12,
+            0.86,
+            0.27,
+            0.12
+          ],
+          "en": "The laundry supplies are on a wooden table.",
+          "ja": "洗濯用品が木製のテーブルの上にあります。"
+        },
+        {
+          "id": "panel",
+          "label": "control panel",
+          "jaLabel": "操作パネル",
+          "box": [
+            0.8,
+            0.005,
+            0.175,
+            0.08
+          ],
+          "en": "There is a control panel above the round door.",
+          "ja": "丸いドアの上に操作パネルがあります。"
+        }
+      ]
+    },
+    {
+      "id": "laundromat_20261125_03",
+      "theme": "At a Laundromat",
+      "themeJa": "コインランドリー",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "laundry basket",
+          "jaLabel": "洗濯かご",
+          "box": [
+            0.05,
+            0.4,
+            0.315,
+            0.38
+          ],
+          "en": "There is a blue laundry basket on the table.",
+          "ja": "テーブルの上に青い洗濯かごがあります。"
+        },
+        {
+          "id": "towels",
+          "label": "folded towels",
+          "jaLabel": "折りたたまれたタオル",
+          "box": [
+            0.42,
+            0.49,
+            0.35,
+            0.41
+          ],
+          "en": "Four towels are neatly stacked on the table.",
+          "ja": "テーブルの上に4枚のタオルがきれいに積み重ねられています。"
+        },
+        {
+          "id": "detergent",
+          "label": "laundry detergent",
+          "jaLabel": "洗濯用洗剤",
+          "box": [
+            0.34,
+            0.39,
+            0.105,
+            0.4
+          ],
+          "en": "A white bottle of laundry detergent has a blue cap.",
+          "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+        },
+        {
+          "id": "door",
+          "label": "washing machine door",
+          "jaLabel": "洗濯機のドア",
+          "box": [
+            0.82,
+            0.13,
+            0.175,
+            0.38
+          ],
+          "en": "The door of the washing machine on the far right is closed.",
+          "ja": "一番右の洗濯機のドアは閉まっています。"
+        },
+        {
+          "id": "plant",
+          "label": "green plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.055,
+            0.005,
+            0.18,
+            0.4
+          ],
+          "en": "There is a green plant near the window.",
+          "ja": "窓の近くに緑の観葉植物があります。"
+        },
+        {
+          "id": "table",
+          "label": "wooden folding table",
+          "jaLabel": "木製の作業台",
+          "box": [
+            0.09,
+            0.81,
+            0.3,
+            0.16
+          ],
+          "en": "The laundry supplies are on a wooden table.",
+          "ja": "洗濯用品が木製のテーブルの上にあります。"
+        },
+        {
+          "id": "panel",
+          "label": "control panel",
+          "jaLabel": "操作パネル",
+          "box": [
+            0.8,
+            0.025,
+            0.18,
+            0.08
+          ],
+          "en": "There is a control panel above the round door.",
+          "ja": "丸いドアの上に操作パネルがあります。"
+        }
+      ]
+    },
+    {
+      "id": "laundromat_20261125_04",
+      "theme": "At a Laundromat",
+      "themeJa": "コインランドリー",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "basket",
+          "label": "laundry basket",
+          "jaLabel": "洗濯かご",
+          "box": [
+            0.36,
+            0.345,
+            0.24,
+            0.34
+          ],
+          "en": "There is a blue laundry basket on the table.",
+          "ja": "テーブルの上に青い洗濯かごがあります。"
+        },
+        {
+          "id": "towels",
+          "label": "folded towels",
+          "jaLabel": "折りたたまれたタオル",
+          "box": [
+            0.02,
+            0.46,
+            0.32,
+            0.4
+          ],
+          "en": "Three towels are neatly stacked on the table.",
+          "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+        },
+        {
+          "id": "detergent",
+          "label": "laundry detergent",
+          "jaLabel": "洗濯用洗剤",
+          "box": [
+            0.3,
+            0.36,
+            0.1,
+            0.34
+          ],
+          "en": "A white bottle of laundry detergent has a blue cap.",
+          "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+        },
+        {
+          "id": "door",
+          "label": "washing machine door",
+          "jaLabel": "洗濯機のドア",
+          "box": [
+            0.61,
+            0.15,
+            0.38,
+            0.57
+          ],
+          "en": "The door of the washing machine on the far right is open.",
+          "ja": "一番右の洗濯機のドアは開いています。"
+        },
+        {
+          "id": "plant",
+          "label": "green plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.05,
+            0.09,
+            0.23,
+            0.37
+          ],
+          "en": "There is a green plant near the window.",
+          "ja": "窓の近くに緑の観葉植物があります。"
+        },
+        {
+          "id": "table",
+          "label": "wooden folding table",
+          "jaLabel": "木製の作業台",
+          "box": [
+            0.1,
+            0.86,
+            0.33,
+            0.12
+          ],
+          "en": "The laundry supplies are on a wooden table.",
+          "ja": "洗濯用品が木製のテーブルの上にあります。"
+        },
+        {
+          "id": "panel",
+          "label": "control panel",
+          "jaLabel": "操作パネル",
+          "box": [
+            0.87,
+            0.01,
+            0.12,
+            0.09
+          ],
+          "en": "There is a control panel above the round door.",
+          "ja": "丸いドアの上に操作パネルがあります。"
+        }
+      ]
     }
   ]
 }

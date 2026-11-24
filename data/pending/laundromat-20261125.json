@@ -1,0 +1,142 @@
+[
+  {
+    "id": "laundromat_20261125_01",
+    "filename": "laundromat_20261125_01.webp",
+    "group": "laundromat_20261125",
+    "title": "Blue basket, three towels, closed door",
+    "key_phrase": "There is a blue laundry basket, a stack of three towels, and the washing machine on the far right has its door closed.",
+    "translation": "青い洗濯かごと3枚のタオルがあり、一番右の洗濯機のドアは閉まっています。",
+    "examples": [
+      {
+        "title": "laundry basket",
+        "en": "There is a blue laundry basket on the table.",
+        "ja": "テーブルの上に青い洗濯かごがあります。"
+      },
+      {
+        "title": "folded towels",
+        "en": "Three towels are neatly stacked on the table.",
+        "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+      },
+      {
+        "title": "laundry detergent",
+        "en": "A white bottle of laundry detergent has a blue cap.",
+        "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+      },
+      {
+        "title": "washing machine door",
+        "en": "The door of the washing machine on the far right is closed.",
+        "ja": "一番右の洗濯機のドアは閉まっています。"
+      },
+      {
+        "title": "Towel colors",
+        "en": "The towels are white, pink, and light blue.",
+        "ja": "タオルの色は白、ピンク、水色です。"
+      }
+    ]
+  },
+  {
+    "id": "laundromat_20261125_02",
+    "filename": "laundromat_20261125_02.webp",
+    "group": "laundromat_20261125",
+    "title": "Red basket, three towels, closed door",
+    "key_phrase": "There is a red laundry basket, a stack of three towels, and the washing machine on the far right has its door closed.",
+    "translation": "赤い洗濯かごと3枚のタオルがあり、一番右の洗濯機のドアは閉まっています。",
+    "examples": [
+      {
+        "title": "laundry basket",
+        "en": "There is a red laundry basket on the table.",
+        "ja": "テーブルの上に赤い洗濯かごがあります。"
+      },
+      {
+        "title": "folded towels",
+        "en": "Three towels are neatly stacked on the table.",
+        "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+      },
+      {
+        "title": "laundry detergent",
+        "en": "A white bottle of laundry detergent has a blue cap.",
+        "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+      },
+      {
+        "title": "washing machine door",
+        "en": "The door of the washing machine on the far right is closed.",
+        "ja": "一番右の洗濯機のドアは閉まっています。"
+      },
+      {
+        "title": "Towel colors",
+        "en": "The towels are white, yellow, and light blue.",
+        "ja": "タオルの色は白、黄色、水色です。"
+      }
+    ]
+  },
+  {
+    "id": "laundromat_20261125_03",
+    "filename": "laundromat_20261125_03.webp",
+    "group": "laundromat_20261125",
+    "title": "Blue basket, four towels, closed door",
+    "key_phrase": "There is a blue laundry basket, a stack of four towels, and the washing machine on the far right has its door closed.",
+    "translation": "青い洗濯かごと4枚のタオルがあり、一番右の洗濯機のドアは閉まっています。",
+    "examples": [
+      {
+        "title": "laundry basket",
+        "en": "There is a blue laundry basket on the table.",
+        "ja": "テーブルの上に青い洗濯かごがあります。"
+      },
+      {
+        "title": "folded towels",
+        "en": "Four towels are neatly stacked on the table.",
+        "ja": "テーブルの上に4枚のタオルがきれいに積み重ねられています。"
+      },
+      {
+        "title": "laundry detergent",
+        "en": "A white bottle of laundry detergent has a blue cap.",
+        "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+      },
+      {
+        "title": "washing machine door",
+        "en": "The door of the washing machine on the far right is closed.",
+        "ja": "一番右の洗濯機のドアは閉まっています。"
+      },
+      {
+        "title": "Towel colors",
+        "en": "The towels are white, pink, gray, and light blue.",
+        "ja": "タオルの色は白、ピンク、灰色、水色です。"
+      }
+    ]
+  },
+  {
+    "id": "laundromat_20261125_04",
+    "filename": "laundromat_20261125_04.webp",
+    "group": "laundromat_20261125",
+    "title": "Blue basket, three towels, open door",
+    "key_phrase": "There is a blue laundry basket, a stack of three towels, and the washing machine on the far right has its door open.",
+    "translation": "青い洗濯かごと3枚のタオルがあり、一番右の洗濯機のドアは開いています。",
+    "examples": [
+      {
+        "title": "laundry basket",
+        "en": "There is a blue laundry basket on the table.",
+        "ja": "テーブルの上に青い洗濯かごがあります。"
+      },
+      {
+        "title": "folded towels",
+        "en": "Three towels are neatly stacked on the table.",
+        "ja": "テーブルの上に3枚のタオルがきれいに積み重ねられています。"
+      },
+      {
+        "title": "laundry detergent",
+        "en": "A white bottle of laundry detergent has a blue cap.",
+        "ja": "白い洗濯用洗剤のボトルには青いキャップが付いています。"
+      },
+      {
+        "title": "washing machine door",
+        "en": "The door of the washing machine on the far right is open.",
+        "ja": "一番右の洗濯機のドアは開いています。"
+      },
+      {
+        "title": "Towel colors",
+        "en": "The towels are white, light blue, and yellow.",
+        "ja": "タオルの色は白、水色、黄色です。"
+      }
+    ]
+  }
+]
