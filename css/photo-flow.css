@@ -407,3 +407,6 @@ body:has(#view-photo-next:not(.hidden)){height:100dvh!important;overflow:hidden!
   .photo-next-inner .photo-ready-note{grid-column:1;grid-row:5}
   .photo-next-orb{grid-column:2;grid-row:1 / 6;align-self:center;margin:0}
 }
+
+/* Explicit local UI hook classes, not Tailwind utilities. */
+.photo-next-screen,.photo-session-hud{box-sizing:border-box}
