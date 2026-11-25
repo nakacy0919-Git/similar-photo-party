@@ -110,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = {
         views: {
             landing: document.getElementById('view-landing'),
+            photoMode: document.getElementById('view-photo-mode'),
             photoSetup: document.getElementById('view-photo-setup'),
             photoReady: document.getElementById('view-photo-ready'),
             photoNext: document.getElementById('view-photo-next'),
@@ -139,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tutClose: document.getElementById('tut-close-btn'),
             tutNext: document.getElementById('tut-next-btn'),
             tutPrev: document.getElementById('tut-prev-btn'),
-            review: document.getElementById('reviewLink'),
+
             
             memorySkip: document.getElementById('memory-skip-btn'),
             explainSkip: document.getElementById('explain-skip-btn'),
@@ -268,9 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
             loadStatus.textContent = `${state.quizData.length}枚の写真からジャンルを選べます。説明役が写真を説明し、回答役が4枚から選びます。`;
             elements.btns.start.disabled = false;
             elements.btns.photoSetupNext.disabled = false;
-            if (window.location.hash === '#play' && state.phase === 'landing') {
+            if (['#play','#similar-photo'].includes(window.location.hash) && state.phase === 'landing') {
+                const directPlay = window.location.hash === '#play';
                 window.history.replaceState(null, '', window.location.pathname + window.location.search);
-                openPhotoSetup();
+                if (directPlay) openPhotoSetup(); else openPhotoMode();
             }
         })
         .catch(err => {
@@ -299,8 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // === イベントリスナー ===
-    elements.btns.start.addEventListener('click', openPhotoSetup);
-    elements.btns.photoSetupHome.addEventListener('click', backToLanding);
+    elements.btns.start.addEventListener('click', openPhotoMode);
+    document.getElementById('photo-mode-home').addEventListener('click', backToLanding);
+    document.getElementById('photo-mode-play').addEventListener('click', openPhotoSetup);
+    elements.btns.photoSetupHome.addEventListener('click', openPhotoMode);
     elements.btns.photoSetupNext.addEventListener('click', preparePhotoReady);
     elements.btns.photoReadyStart.addEventListener('click', startMemoryPhase);
     elements.btns.photoNextStart.addEventListener('click', startMemoryPhase);
@@ -322,10 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     elements.btns.photoLanguage.addEventListener('change', e => setPhotoLanguage(e.target.value));
     elements.btns.tutorialLanguage.addEventListener('change', e => setPhotoLanguage(e.target.value));
 
-    // Review Link Event
-    elements.btns.review.addEventListener('click', () => {
-        elements.audio.bgm.pause();
-    });
+
 
     // Game Flow Events
     elements.btns.memorySkip.addEventListener('click', startChoicePhase);
@@ -824,6 +825,17 @@ document.addEventListener('DOMContentLoaded', () => {
         state.activePool = PHOTO_GENRES.pool(state.quizData, id);
         renderPhotoCategories();
         return true;
+    }
+
+    function openPhotoMode() {
+        stopSessionClock();
+        clearInterval(state.timerInterval);
+        clearTimeout(state.resultTimeout);
+        clearTimeout(state.handoffTimer);
+        state.activeCountdown = null;
+        state.generation++;
+        stopSpeech();
+        showView('photoMode');
     }
 
     function openPhotoSetup() {
