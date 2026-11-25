@@ -17,7 +17,7 @@
     <script src="js/vendor/confetti.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/immersive.css">
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/landing.css?v=20261125-study">
     <link rel="stylesheet" href="css/photo-flow.css">
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
@@ -35,7 +35,7 @@
         </button>
     </div>
 
-    <p id="round-status" role="status" class="round-status"></p>
+    <p id="round-status" class="round-status hidden" hidden aria-hidden="true"></p>
     <main class="flex-1 w-full h-full relative flex flex-col items-center justify-center p-2 md:p-4 landscape-fit">
 
         <section id="view-landing" class="landing-screen" aria-labelledby="landing-title">
@@ -74,7 +74,7 @@
                     <p class="landing-lead">写真で伝える？ ジェスチャーで当てる？<br class="lead-mobile-break"> 好きなゲームを選んでスタート。</p>
                 </div>
 
-                <div class="landing-mode-label" aria-hidden="true"><span>CHOOSE YOUR GAME</span><span class="mode-label-line"></span><span class="mode-label-aside">SELECT A MODE</span></div>
+                <div class="landing-mode-label"><span>CHOOSE YOUR GAME</span><span class="mode-label-line" aria-hidden="true"></span><a class="landing-study-link" href="study.html"><i class="fa-solid fa-book-open" aria-hidden="true"></i> STUDY MODE / 学習</a></div>
                 <div class="landing-mode-grid">
                     <button disabled id="start-btn" type="button" class="landing-mode-card photo-mode" aria-label="Play Similar Photo. Look at a photo, describe it and choose the correct image from four choices.">
                         <span class="mode-card-glow" aria-hidden="true"></span>
@@ -91,7 +91,7 @@
                             <span class="mode-card-kicker"><span class="mode-card-dot"></span> MODE 01 <span class="mode-card-divider">/</span> PHOTO GUESSING</span>
                             <strong class="mode-card-title">SIMILAR<br>PHOTO</strong>
                             <span class="mode-card-description">写真を見て、伝えて、4枚から当てる。</span>
-                            <span class="mode-card-bottom"><span class="mode-card-action">PLAY THIS GAME <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">PAIR / GROUP</span></span>
+                            <span class="mode-card-bottom"><span class="mode-card-action">PLAY MODE <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">PAIR / GROUP</span></span>
                         </span>
                     </button>
 
@@ -145,7 +145,7 @@
                 </header>
                 <div class="photo-setup-intro">
                     <h1 id="photo-setup-heading" data-photo-i18n="which">Choose your photos</h1>
-                    <p data-photo-i18n="subtitle">Pick a category and set your game time.</p>
+                    <p data-photo-i18n="subtitle">Pick a category and set your game time.</p><a href="study.html" class="photo-outline-btn">📖 Study Mode / 学習モード</a>
                 </div>
                 <div class="photo-setup-grid">
                     <div class="photo-genre-panel">
@@ -472,6 +472,6 @@
     <script src="js/similarphoto-visual-groups.js"></script>
     <script src="js/photo-categories.js"></script>
     <script src="js/photo-i18n.js"></script>
-    <script src="js/game.js"></script>
+    <script src="js/game.js?v=20261125-study"></script>
 </body>
 </html>
