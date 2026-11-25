@@ -268,6 +268,10 @@ document.addEventListener('DOMContentLoaded', () => {
             loadStatus.textContent = `${state.quizData.length}枚の写真からジャンルを選べます。説明役が写真を説明し、回答役が4枚から選びます。`;
             elements.btns.start.disabled = false;
             elements.btns.photoSetupNext.disabled = false;
+            if (window.location.hash === '#play' && state.phase === 'landing') {
+                window.history.replaceState(null, '', window.location.pathname + window.location.search);
+                openPhotoSetup();
+            }
         })
         .catch(err => {
             loadStatus.textContent = '教材を読み込めませんでした。ページを再読み込みしてください。';
@@ -958,6 +962,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showView(viewName) {
         state.phase = viewName;
+        const roundStatus = document.getElementById('round-status');
+        if (roundStatus && !['memory', 'choice', 'photoNext', 'result'].includes(viewName)) roundStatus.textContent = '';
         Object.values(elements.views).forEach(el => {
             if(el.id !== 'view-settings' && el.id !== 'view-tutorial') el.classList.add('hidden');
         });
