@@ -443,3 +443,10 @@ body:has(#view-landing:not(.hidden)) #settingsBtn:hover {background:rgba(93,76,1
   .landing-below-cards{margin:4px 0!important}
   .landing-footer{padding-top:3px}
 }
+
+/* Keep gameplay-only legacy status off the landing page. */
+#round-status[hidden]{display:none!important}
+#view-landing .landing-study-link{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;padding:9px 15px;min-height:44px;border:1px solid #77dcd6;border-radius:12px;background:#1a556b;color:#e3fffb;text-decoration:none;font-size:clamp(.65rem,1.3vw,.82rem);letter-spacing:.04em;font-weight:900}
+#view-landing .landing-study-link:hover,#view-landing .landing-study-link:focus-visible{background:#26788c;color:white}
+#view-landing .landing-study-link:focus-visible{outline:2px solid white;outline-offset:3px}
+#view-landing .landing-mode-label{gap:8px}
