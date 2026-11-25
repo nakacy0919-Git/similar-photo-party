@@ -446,7 +446,45 @@ body:has(#view-landing:not(.hidden)) #settingsBtn:hover {background:rgba(93,76,1
 
 /* Keep gameplay-only legacy status off the landing page. */
 #round-status[hidden]{display:none!important}
-#view-landing .landing-study-link{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;padding:9px 15px;min-height:44px;border:1px solid #77dcd6;border-radius:12px;background:#1a556b;color:#e3fffb;text-decoration:none;font-size:clamp(.65rem,1.3vw,.82rem);letter-spacing:.04em;font-weight:900}
-#view-landing .landing-study-link:hover,#view-landing .landing-study-link:focus-visible{background:#26788c;color:white}
-#view-landing .landing-study-link:focus-visible{outline:2px solid white;outline-offset:3px}
 #view-landing .landing-mode-label{gap:8px}
+
+/* Compact landing and dedicated Similar Photo mode chooser. */
+#view-landing .landing-intro{margin-top:clamp(2px,1dvh,10px)}
+#view-photo-mode{position:relative;width:100%;height:100%;min-height:0;overflow:auto;color:#f8f8ff;background:radial-gradient(ellipse at 35% 0,#342468,#11152e 60%,#0c1025);border-radius:20px}
+#view-photo-mode.hidden{display:none!important}
+body:has(#view-photo-mode:not(.hidden)) #bgmBtn,body:has(#view-photo-mode:not(.hidden)) #settingsBtn{display:none!important}
+.photo-mode-shell{width:min(1050px,calc(100% - 32px));min-height:100%;margin:auto;padding:max(12px,env(safe-area-inset-top)) 0 max(12px,env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,3dvh,30px)}
+.photo-mode-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.9rem;font-weight:900;letter-spacing:.12em;color:#c4c8f8}
+.photo-mode-intro{text-align:center}
+.photo-mode-intro>span{font-size:.7rem;letter-spacing:.2em;color:#9ce4f4;font-weight:800}
+.photo-mode-intro h1{font-size:clamp(1.8rem,5vw,3.7rem);line-height:1.1;font-weight:950;margin:.2em 0}
+.photo-mode-intro p{font-size:clamp(.8rem,1.6vw,1rem);color:#bfc8eb}
+.photo-mode-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,2vw,24px)}
+.photo-mode-tile{text-align:left;display:flex;flex-direction:column;gap:clamp(5px,1.3dvh,12px);align-items:flex-start;min-width:0;padding:clamp(15px,3vw,32px);border:1px solid #85b5dc88;border-radius:24px;color:#fff;text-decoration:none;background:linear-gradient(145deg,#254e72,#222644);box-shadow:0 14px 45px #03061765;touch-action:manipulation}
+.photo-mode-study{background:linear-gradient(145deg,#225a60,#222944);border-color:#83e1ce88}
+.photo-mode-tile strong{font-size:clamp(1.55rem,3.8vw,3.25rem);font-weight:950;line-height:1.05}
+.photo-mode-tile small,.photo-mode-tile b{font-size:.72rem;letter-spacing:.09em;color:#b7f5f5;font-weight:850}
+.photo-mode-tile>span:not(.photo-mode-icon){font-size:clamp(.76rem,1.5vw,1rem);color:#d9e3f5}
+.photo-mode-icon{font-size:clamp(1.5rem,4vw,3rem);color:#a9e8fa}
+.photo-mode-tile:focus-visible,.photo-mode-tile:hover{outline:2px solid #b5f9f7;outline-offset:2px}
+@media (min-width:700px) and (orientation:landscape) and (max-height:1000px){
+  #view-landing .landing-shell{min-height:100%;padding-top:clamp(8px,1.6dvh,16px);padding-bottom:8px}
+  #view-landing .landing-brandbar{min-height:42px}
+  #view-landing .landing-intro{margin-top:0}
+  #view-landing #landing-title{font-size:clamp(2rem,6.2dvh,4rem);line-height:1.02;margin:6px 0}
+  #view-landing .landing-lead{margin-top:5px}
+  #view-landing .landing-mode-label{margin:clamp(5px,1.2dvh,14px) 0 8px}
+  #view-landing .landing-mode-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #view-landing .landing-mode-card,#view-landing .mode-card-copy{min-height:clamp(150px,34dvh,300px)}
+  #view-landing .landing-below-cards{margin:8px 0;min-height:35px}
+  #view-landing .landing-footer{min-height:26px;padding-top:6px}
+}
+@media (min-width:700px) and (max-width:1050px) and (orientation:portrait){
+  #view-landing .landing-shell{width:calc(100% - 36px);min-height:100%;padding-top:14px}
+  #view-landing .landing-intro{margin-top:8px}
+  #view-landing .landing-mode-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #view-landing .landing-mode-card,#view-landing .mode-card-copy{min-height:clamp(205px,27dvh,290px)}
+  #view-landing .mode-card-title{font-size:clamp(1.65rem,4.4vw,2.7rem)}
+}
+@media(max-width:600px) and (orientation:portrait){.photo-mode-choices{grid-template-columns:1fr}.photo-mode-shell{justify-content:flex-start}.photo-mode-tile{border-radius:18px}}
+@media(orientation:landscape) and (max-height:520px){.photo-mode-shell{gap:8px}.photo-mode-tile{padding:12px;gap:5px}.photo-mode-icon{font-size:1.4rem}.photo-mode-intro h1{font-size:1.6rem}.photo-mode-intro p{font-size:.75rem}}
