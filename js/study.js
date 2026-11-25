@@ -43,8 +43,8 @@ function render(){
   const spots=$('study-hotspots');spots.replaceChildren();activeRegion=-1;
   const raw=Array.isArray(regions[item.id])?regions[item.id]:(Array.isArray(item.hotspots)?item.hotspots:[]);
   const valid=raw.map(h=>Number.isFinite(h.left)?h:{...h,left:Math.max(0,h.x-3),top:Math.max(0,h.y-3),width:Math.min(6,100-Math.max(0,h.x-3)),height:Math.min(6,100-Math.max(0,h.y-3))}).filter(h=>['left','top','width','height'].every(k=>Number.isFinite(h[k]))&&h.left>=0&&h.top>=0&&h.width>0&&h.height>0&&h.left+h.width<=100.001&&h.top+h.height<=100.001&&typeof h.en==='string'&&h.en.trim());
-  const corrected=valid.length&&(item.needsReview||item.id==='sp_100_103');
-  if(corrected)text('study-title',valid[0].title||item.title);
+  const corrected=valid.length>0;
+  if(corrected&&item.sourcePath&&(item.id==='sp_100_103'||item.id==='sp_100_101'||item.id==='sp_400_407'))text('study-title',valid[0].title||item.title);
   function selectRegion(i){
     activeRegion=i;const h=valid[i];
     [...spots.children].forEach((el,j)=>{el.classList.toggle('selected',j===i);el.setAttribute('aria-pressed',String(j===i));});
@@ -55,7 +55,7 @@ function render(){
   if(valid.length){
     for(const [i,h] of valid.entries()){
       const marker=make('button','hotspot');marker.type='button';
-      marker.style.left=h.left+'%';marker.style.top=h.top+'%';marker.style.width=h.width+'%';marker.style.height=h.height+'%';
+      marker.style.left=h.left+'%';marker.style.top=h.top+'%';marker.style.width=h.width+'%';marker.style.height=h.height+'%';marker.style.zIndex=String(10000-Math.round(h.width*h.height));
       marker.setAttribute('aria-label',(i+1)+'. '+(h.title||h.en));marker.setAttribute('aria-pressed','false');marker.append(make('span','hotspot-number',String(i+1)));
       marker.addEventListener('click',()=>selectRegion(i));spots.append(marker);
       addPhrase(phrases,h.en,h.ja,(i+1)+' · '+(h.title||'PHOTO DETAIL'));
@@ -107,7 +107,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
   try{
     const response=await fetch('data/content.json');if(!response.ok)throw Error('HTTP '+response.status);
     const local=await response.json();if(!Array.isArray(local))throw Error('Invalid data');
-    try{const rr=await fetch('data/study-hotspots.json?v=20261125-modes2');if(!rr.ok)throw Error('HTTP '+rr.status);const rd=await rr.json();regions=rd.photos||{};}catch(e){console.error('Hotspot data:',e);text('study-status','地点データを読み込めませんでした。');}
+    try{const rr=await fetch('data/study-hotspots.json?v=20261125-regions-final');if(!rr.ok)throw Error('HTTP '+rr.status);const rd=await rr.json();regions=rd.photos||{};}catch(e){console.error('Hotspot data:',e);text('study-status','地点データを読み込めませんでした。');}
     const imported=Array.isArray(window.SIMILAR_PHOTO_LIBRARY)?window.SIMILAR_PHOTO_LIBRARY:[];
     const visual=window.SIMILARPHOTO_VISUAL_GROUPS||{};
     items=[...local,...imported.map(item=>visual[item.sourcePath]?{...item,group:visual[item.sourcePath].group,visualDistance:visual[item.sourcePath].distance,needsVisualReview:visual[item.sourcePath].needsReview===true}:item)];
