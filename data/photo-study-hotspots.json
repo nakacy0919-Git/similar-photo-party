@@ -1201,6 +1201,510 @@
           "ja": "丸いドアの上に操作パネルがあります。"
         }
       ]
+    },
+    {
+      "id": "flower_shop_20261125_01",
+      "theme": "At a Flower Shop",
+      "themeJa": "花屋",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "pots",
+          "label": "three terracotta pots",
+          "jaLabel": "素焼きの植木鉢3個",
+          "box": [
+            0.03,
+            0.46,
+            0.145,
+            0.35
+          ],
+          "en": "There are three terracotta pots stacked on the left side of the table.",
+          "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.18,
+            0.17,
+            0.24,
+            0.59
+          ],
+          "en": "A leafy green plant is growing in a beige pot.",
+          "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+        },
+        {
+          "id": "roses",
+          "label": "red roses",
+          "jaLabel": "赤いバラ",
+          "box": [
+            0.37,
+            0.43,
+            0.215,
+            0.38
+          ],
+          "en": "A bouquet of red roses is lying in the middle of the table.",
+          "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+        },
+        {
+          "id": "wrapping",
+          "label": "brown wrapping paper",
+          "jaLabel": "茶色の包装紙",
+          "box": [
+            0.6,
+            0.45,
+            0.09,
+            0.26
+          ],
+          "en": "The bouquet is wrapped in brown paper.",
+          "ja": "花束は茶色の紙で包まれています。"
+        },
+        {
+          "id": "twine",
+          "label": "twine bow",
+          "jaLabel": "麻ひものリボン",
+          "box": [
+            0.66,
+            0.53,
+            0.065,
+            0.2
+          ],
+          "en": "The wrapping is tied with a piece of twine.",
+          "ja": "包装紙が麻ひもで結ばれています。"
+        },
+        {
+          "id": "can",
+          "label": "blue watering can",
+          "jaLabel": "青いじょうろ",
+          "box": [
+            0.71,
+            0.345,
+            0.27,
+            0.44
+          ],
+          "en": "A blue watering can stands on the right side of the table.",
+          "ja": "テーブルの右側に青いじょうろがあります。"
+        },
+        {
+          "id": "sunflowers",
+          "label": "sunflowers",
+          "jaLabel": "ヒマワリ",
+          "box": [
+            0.38,
+            0.06,
+            0.16,
+            0.29
+          ],
+          "en": "There are yellow sunflowers in a metal bucket in the background.",
+          "ja": "背景の金属製のバケツに黄色いヒマワリがあります。"
+        },
+        {
+          "id": "hydrangeas",
+          "label": "hydrangeas",
+          "jaLabel": "アジサイ",
+          "box": [
+            0.49,
+            0.13,
+            0.22,
+            0.22
+          ],
+          "en": "Pink and white hydrangeas are displayed behind the bouquet.",
+          "ja": "花束の後ろにピンクと白のアジサイが並べられています。"
+        },
+        {
+          "id": "lilies",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0.71,
+            0.09,
+            0.13,
+            0.24
+          ],
+          "en": "Pink lilies are displayed to the right of the white flowers.",
+          "ja": "白い花の右側にピンクのユリが並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "flower_shop_20261125_02",
+      "theme": "At a Flower Shop",
+      "themeJa": "花屋",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "pots",
+          "label": "three terracotta pots",
+          "jaLabel": "素焼きの植木鉢3個",
+          "box": [
+            0.03,
+            0.46,
+            0.145,
+            0.35
+          ],
+          "en": "There are three terracotta pots stacked on the left side of the table.",
+          "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.18,
+            0.17,
+            0.24,
+            0.59
+          ],
+          "en": "A leafy green plant is growing in a beige pot.",
+          "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+        },
+        {
+          "id": "roses",
+          "label": "yellow roses",
+          "jaLabel": "黄色いバラ",
+          "box": [
+            0.37,
+            0.43,
+            0.215,
+            0.38
+          ],
+          "en": "A bouquet of yellow roses is lying in the middle of the table.",
+          "ja": "テーブルの中央に黄色いバラの花束が置いてあります。"
+        },
+        {
+          "id": "wrapping",
+          "label": "brown wrapping paper",
+          "jaLabel": "茶色の包装紙",
+          "box": [
+            0.6,
+            0.45,
+            0.09,
+            0.26
+          ],
+          "en": "The bouquet is wrapped in brown paper.",
+          "ja": "花束は茶色の紙で包まれています。"
+        },
+        {
+          "id": "twine",
+          "label": "twine bow",
+          "jaLabel": "麻ひものリボン",
+          "box": [
+            0.66,
+            0.53,
+            0.065,
+            0.2
+          ],
+          "en": "The wrapping is tied with a piece of twine.",
+          "ja": "包装紙が麻ひもで結ばれています。"
+        },
+        {
+          "id": "can",
+          "label": "blue watering can",
+          "jaLabel": "青いじょうろ",
+          "box": [
+            0.71,
+            0.345,
+            0.27,
+            0.44
+          ],
+          "en": "A blue watering can stands on the right side of the table.",
+          "ja": "テーブルの右側に青いじょうろがあります。"
+        },
+        {
+          "id": "sunflowers",
+          "label": "sunflowers",
+          "jaLabel": "ヒマワリ",
+          "box": [
+            0.38,
+            0.06,
+            0.16,
+            0.29
+          ],
+          "en": "There are yellow sunflowers in a metal bucket in the background.",
+          "ja": "背景の金属製のバケツに黄色いヒマワリがあります。"
+        },
+        {
+          "id": "hydrangeas",
+          "label": "hydrangeas",
+          "jaLabel": "アジサイ",
+          "box": [
+            0.49,
+            0.13,
+            0.22,
+            0.22
+          ],
+          "en": "Pink and white hydrangeas are displayed behind the bouquet.",
+          "ja": "花束の後ろにピンクと白のアジサイが並べられています。"
+        },
+        {
+          "id": "lilies",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0.71,
+            0.09,
+            0.13,
+            0.24
+          ],
+          "en": "Pink lilies are displayed to the right of the white flowers.",
+          "ja": "白い花の右側にピンクのユリが並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "flower_shop_20261125_03",
+      "theme": "At a Flower Shop",
+      "themeJa": "花屋",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "pots",
+          "label": "four terracotta pots",
+          "jaLabel": "素焼きの植木鉢4個",
+          "box": [
+            0.03,
+            0.42,
+            0.145,
+            0.39
+          ],
+          "en": "There are four terracotta pots stacked on the left side of the table.",
+          "ja": "テーブルの左側に素焼きの植木鉢が4個積み重ねられています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.18,
+            0.17,
+            0.24,
+            0.59
+          ],
+          "en": "A leafy green plant is growing in a beige pot.",
+          "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+        },
+        {
+          "id": "roses",
+          "label": "red roses",
+          "jaLabel": "赤いバラ",
+          "box": [
+            0.37,
+            0.43,
+            0.215,
+            0.38
+          ],
+          "en": "A bouquet of red roses is lying in the middle of the table.",
+          "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+        },
+        {
+          "id": "wrapping",
+          "label": "brown wrapping paper",
+          "jaLabel": "茶色の包装紙",
+          "box": [
+            0.6,
+            0.45,
+            0.09,
+            0.26
+          ],
+          "en": "The bouquet is wrapped in brown paper.",
+          "ja": "花束は茶色の紙で包まれています。"
+        },
+        {
+          "id": "twine",
+          "label": "twine bow",
+          "jaLabel": "麻ひものリボン",
+          "box": [
+            0.66,
+            0.53,
+            0.065,
+            0.2
+          ],
+          "en": "The wrapping is tied with a piece of twine.",
+          "ja": "包装紙が麻ひもで結ばれています。"
+        },
+        {
+          "id": "can",
+          "label": "blue watering can",
+          "jaLabel": "青いじょうろ",
+          "box": [
+            0.71,
+            0.345,
+            0.27,
+            0.44
+          ],
+          "en": "A blue watering can stands on the right side of the table.",
+          "ja": "テーブルの右側に青いじょうろがあります。"
+        },
+        {
+          "id": "sunflowers",
+          "label": "sunflowers",
+          "jaLabel": "ヒマワリ",
+          "box": [
+            0.38,
+            0.06,
+            0.16,
+            0.29
+          ],
+          "en": "There are yellow sunflowers in a metal bucket in the background.",
+          "ja": "背景の金属製のバケツに黄色いヒマワリがあります。"
+        },
+        {
+          "id": "hydrangeas",
+          "label": "hydrangeas",
+          "jaLabel": "アジサイ",
+          "box": [
+            0.49,
+            0.13,
+            0.22,
+            0.22
+          ],
+          "en": "Pink and white hydrangeas are displayed behind the bouquet.",
+          "ja": "花束の後ろにピンクと白のアジサイが並べられています。"
+        },
+        {
+          "id": "lilies",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0.71,
+            0.09,
+            0.13,
+            0.24
+          ],
+          "en": "Pink lilies are displayed to the right of the white flowers.",
+          "ja": "白い花の右側にピンクのユリが並べられています。"
+        }
+      ]
+    },
+    {
+      "id": "flower_shop_20261125_04",
+      "theme": "At a Flower Shop",
+      "themeJa": "花屋",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "pots",
+          "label": "three terracotta pots",
+          "jaLabel": "素焼きの植木鉢3個",
+          "box": [
+            0.03,
+            0.46,
+            0.145,
+            0.35
+          ],
+          "en": "There are three terracotta pots stacked on the left side of the table.",
+          "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+        },
+        {
+          "id": "plant",
+          "label": "potted plant",
+          "jaLabel": "観葉植物",
+          "box": [
+            0.18,
+            0.17,
+            0.24,
+            0.59
+          ],
+          "en": "A leafy green plant is growing in a beige pot.",
+          "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+        },
+        {
+          "id": "roses",
+          "label": "red roses",
+          "jaLabel": "赤いバラ",
+          "box": [
+            0.37,
+            0.43,
+            0.215,
+            0.38
+          ],
+          "en": "A bouquet of red roses is lying in the middle of the table.",
+          "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+        },
+        {
+          "id": "wrapping",
+          "label": "brown wrapping paper",
+          "jaLabel": "茶色の包装紙",
+          "box": [
+            0.6,
+            0.45,
+            0.09,
+            0.26
+          ],
+          "en": "The bouquet is wrapped in brown paper.",
+          "ja": "花束は茶色の紙で包まれています。"
+        },
+        {
+          "id": "twine",
+          "label": "twine bow",
+          "jaLabel": "麻ひものリボン",
+          "box": [
+            0.66,
+            0.53,
+            0.065,
+            0.2
+          ],
+          "en": "The wrapping is tied with a piece of twine.",
+          "ja": "包装紙が麻ひもで結ばれています。"
+        },
+        {
+          "id": "can",
+          "label": "green watering can",
+          "jaLabel": "緑色のじょうろ",
+          "box": [
+            0.71,
+            0.345,
+            0.27,
+            0.44
+          ],
+          "en": "A green watering can stands on the right side of the table.",
+          "ja": "テーブルの右側に緑色のじょうろがあります。"
+        },
+        {
+          "id": "sunflowers",
+          "label": "sunflowers",
+          "jaLabel": "ヒマワリ",
+          "box": [
+            0.38,
+            0.06,
+            0.16,
+            0.29
+          ],
+          "en": "There are yellow sunflowers in a metal bucket in the background.",
+          "ja": "背景の金属製のバケツに黄色いヒマワリがあります。"
+        },
+        {
+          "id": "hydrangeas",
+          "label": "hydrangeas",
+          "jaLabel": "アジサイ",
+          "box": [
+            0.49,
+            0.13,
+            0.22,
+            0.22
+          ],
+          "en": "Pink and white hydrangeas are displayed behind the bouquet.",
+          "ja": "花束の後ろにピンクと白のアジサイが並べられています。"
+        },
+        {
+          "id": "lilies",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0.71,
+            0.09,
+            0.13,
+            0.24
+          ],
+          "en": "Pink lilies are displayed to the right of the white flowers.",
+          "ja": "白い花の右側にピンクのユリが並べられています。"
+        }
+      ]
     }
   ]
 }

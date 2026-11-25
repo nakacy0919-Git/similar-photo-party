@@ -1,0 +1,142 @@
+[
+  {
+    "id": "flower_shop_20261125_01",
+    "filename": "flower_shop_20261125_01.webp",
+    "group": "flower_shop_20261125",
+    "title": "Red roses, three pots, blue watering can",
+    "key_phrase": "There is a bouquet of red roses in the middle, with three stacked terracotta pots on the left and a blue watering can on the right.",
+    "translation": "中央に赤いバラの花束があり、左側には素焼きの植木鉢が3個積まれ、右側には青いじょうろがあります。",
+    "examples": [
+      {
+        "title": "three terracotta pots",
+        "en": "There are three terracotta pots stacked on the left side of the table.",
+        "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+      },
+      {
+        "title": "potted plant",
+        "en": "A leafy green plant is growing in a beige pot.",
+        "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+      },
+      {
+        "title": "red roses",
+        "en": "A bouquet of red roses is lying in the middle of the table.",
+        "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+      },
+      {
+        "title": "brown wrapping paper",
+        "en": "The bouquet is wrapped in brown paper.",
+        "ja": "花束は茶色の紙で包まれています。"
+      },
+      {
+        "title": "blue watering can",
+        "en": "A blue watering can stands on the right side of the table.",
+        "ja": "テーブルの右側に青いじょうろがあります。"
+      }
+    ]
+  },
+  {
+    "id": "flower_shop_20261125_02",
+    "filename": "flower_shop_20261125_02.webp",
+    "group": "flower_shop_20261125",
+    "title": "Yellow roses, three pots, blue watering can",
+    "key_phrase": "There is a bouquet of yellow roses in the middle, with three stacked terracotta pots on the left and a blue watering can on the right.",
+    "translation": "中央に黄色いバラの花束があり、左側には素焼きの植木鉢が3個積まれ、右側には青いじょうろがあります。",
+    "examples": [
+      {
+        "title": "three terracotta pots",
+        "en": "There are three terracotta pots stacked on the left side of the table.",
+        "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+      },
+      {
+        "title": "potted plant",
+        "en": "A leafy green plant is growing in a beige pot.",
+        "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+      },
+      {
+        "title": "yellow roses",
+        "en": "A bouquet of yellow roses is lying in the middle of the table.",
+        "ja": "テーブルの中央に黄色いバラの花束が置いてあります。"
+      },
+      {
+        "title": "brown wrapping paper",
+        "en": "The bouquet is wrapped in brown paper.",
+        "ja": "花束は茶色の紙で包まれています。"
+      },
+      {
+        "title": "blue watering can",
+        "en": "A blue watering can stands on the right side of the table.",
+        "ja": "テーブルの右側に青いじょうろがあります。"
+      }
+    ]
+  },
+  {
+    "id": "flower_shop_20261125_03",
+    "filename": "flower_shop_20261125_03.webp",
+    "group": "flower_shop_20261125",
+    "title": "Red roses, four pots, blue watering can",
+    "key_phrase": "There is a bouquet of red roses in the middle, with four stacked terracotta pots on the left and a blue watering can on the right.",
+    "translation": "中央に赤いバラの花束があり、左側には素焼きの植木鉢が4個積まれ、右側には青いじょうろがあります。",
+    "examples": [
+      {
+        "title": "four terracotta pots",
+        "en": "There are four terracotta pots stacked on the left side of the table.",
+        "ja": "テーブルの左側に素焼きの植木鉢が4個積み重ねられています。"
+      },
+      {
+        "title": "potted plant",
+        "en": "A leafy green plant is growing in a beige pot.",
+        "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+      },
+      {
+        "title": "red roses",
+        "en": "A bouquet of red roses is lying in the middle of the table.",
+        "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+      },
+      {
+        "title": "brown wrapping paper",
+        "en": "The bouquet is wrapped in brown paper.",
+        "ja": "花束は茶色の紙で包まれています。"
+      },
+      {
+        "title": "blue watering can",
+        "en": "A blue watering can stands on the right side of the table.",
+        "ja": "テーブルの右側に青いじょうろがあります。"
+      }
+    ]
+  },
+  {
+    "id": "flower_shop_20261125_04",
+    "filename": "flower_shop_20261125_04.webp",
+    "group": "flower_shop_20261125",
+    "title": "Red roses, three pots, green watering can",
+    "key_phrase": "There is a bouquet of red roses in the middle, with three stacked terracotta pots on the left and a green watering can on the right.",
+    "translation": "中央に赤いバラの花束があり、左側には素焼きの植木鉢が3個積まれ、右側には緑色のじょうろがあります。",
+    "examples": [
+      {
+        "title": "three terracotta pots",
+        "en": "There are three terracotta pots stacked on the left side of the table.",
+        "ja": "テーブルの左側に素焼きの植木鉢が3個積み重ねられています。"
+      },
+      {
+        "title": "potted plant",
+        "en": "A leafy green plant is growing in a beige pot.",
+        "ja": "葉の茂った緑の観葉植物がベージュの鉢に植えられています。"
+      },
+      {
+        "title": "red roses",
+        "en": "A bouquet of red roses is lying in the middle of the table.",
+        "ja": "テーブルの中央に赤いバラの花束が置いてあります。"
+      },
+      {
+        "title": "brown wrapping paper",
+        "en": "The bouquet is wrapped in brown paper.",
+        "ja": "花束は茶色の紙で包まれています。"
+      },
+      {
+        "title": "green watering can",
+        "en": "A green watering can stands on the right side of the table.",
+        "ja": "テーブルの右側に緑色のじょうろがあります。"
+      }
+    ]
+  }
+]
