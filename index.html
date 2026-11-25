@@ -17,14 +17,10 @@
     <script src="js/vendor/confetti.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/immersive.css">
-    <link rel="stylesheet" href="css/landing.css?v=20261125-study">
+    <link rel="stylesheet" href="css/landing.css?v=20261125-modes2">
     <link rel="stylesheet" href="css/photo-flow.css">
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
-
-    <a id="reviewLink" href="https://nakacy0919-git.github.io/SimilarPhoto/" target="_blank" rel="noopener noreferrer" class="fixed top-4 left-4 z-[100] h-10 px-4 flex items-center bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition font-bold text-slate-600 border-2 border-slate-100 text-sm">
-        <i class="fa-solid fa-arrow-left mr-2"></i> Review
-    </a>
 
     <div class="fixed top-4 right-4 z-[100] flex gap-2">
         <button aria-label="BGM切替" id="bgmBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center">
@@ -74,7 +70,7 @@
                     <p class="landing-lead">写真で伝える？ ジェスチャーで当てる？<br class="lead-mobile-break"> 好きなゲームを選んでスタート。</p>
                 </div>
 
-                <div class="landing-mode-label"><span>CHOOSE YOUR GAME</span><span class="mode-label-line" aria-hidden="true"></span><a class="landing-study-link" href="study.html"><i class="fa-solid fa-book-open" aria-hidden="true"></i> STUDY MODE / 学習</a></div>
+                <div class="landing-mode-label" aria-hidden="true"><span>CHOOSE YOUR GAME</span><span class="mode-label-line"></span><span class="mode-label-aside">SELECT A MODE</span></div>
                 <div class="landing-mode-grid">
                     <button disabled id="start-btn" type="button" class="landing-mode-card photo-mode" aria-label="Play Similar Photo. Look at a photo, describe it and choose the correct image from four choices.">
                         <span class="mode-card-glow" aria-hidden="true"></span>
@@ -91,7 +87,7 @@
                             <span class="mode-card-kicker"><span class="mode-card-dot"></span> MODE 01 <span class="mode-card-divider">/</span> PHOTO GUESSING</span>
                             <strong class="mode-card-title">SIMILAR<br>PHOTO</strong>
                             <span class="mode-card-description">写真を見て、伝えて、4枚から当てる。</span>
-                            <span class="mode-card-bottom"><span class="mode-card-action">PLAY MODE <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">PAIR / GROUP</span></span>
+                            <span class="mode-card-bottom"><span class="mode-card-action">OPEN SIMILAR PHOTO <i class="fa-solid fa-arrow-right"></i></span><span class="mode-card-meta">PLAY / STUDY</span></span>
                         </span>
                     </button>
 
@@ -135,17 +131,28 @@
             </div>
         </section>
 
+        <section id="view-photo-mode" class="hidden photo-mode-screen" aria-labelledby="photo-mode-heading">
+            <div class="photo-mode-shell">
+                <header class="photo-mode-head"><button id="photo-mode-home" type="button" class="photo-outline-btn">← Home</button><span>SIMILAR PHOTO</span></header>
+                <div class="photo-mode-intro"><span>LOOK · DESCRIBE · CONNECT</span><h1 id="photo-mode-heading">Choose your mode</h1><p>写真を使って、英語を学ぼう。ゲームで伝えよう。</p></div>
+                <div class="photo-mode-choices">
+                    <button id="photo-mode-play" type="button" class="photo-mode-tile photo-mode-play"><span class="photo-mode-icon"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span><small>01 / PAIR &amp; GROUP</small><strong>Play Mode</strong><span>写真を説明して、4枚から正解を選ぶ。</span><b>START GAME →</b></button>
+                    <a href="study.html" class="photo-mode-tile photo-mode-study"><span class="photo-mode-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span><small>02 / INDIVIDUAL LEARNING</small><strong>Study Mode</strong><span>写真の地点をタップして、英語表現を学ぶ。</span><b>START STUDY →</b></a>
+                </div>
+            </div>
+        </section>
+
         <!-- Similar Photo setup: every group remains a four-image guessing set. -->
         <section id="view-photo-setup" class="hidden photo-setup-screen" aria-labelledby="photo-setup-heading">
             <div class="photo-setup-shell">
                 <header class="photo-setup-header">
-                    <button id="photo-setup-home" type="button" class="photo-outline-btn" data-photo-i18n="home" aria-label="Home">← Home</button>
+                    <button id="photo-setup-home" type="button" class="photo-outline-btn" aria-label="Back to Similar Photo">← Modes</button>
                     <span class="photo-setup-brand">◈ SIMILAR PHOTO</span>
                     <div class="photo-header-controls"><label class="photo-language-control"><span data-photo-i18n="language">Language</span><select id="photo-language" class="photo-language-select" aria-label="Similar Photo language"><option value="en" selected>English</option><option value="ja">日本語</option><option value="es">Español</option><option value="pt">Português</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="ko">한국어</option><option value="zh">中文</option></select></label><button id="photo-bgm-btn" class="photo-music-btn" type="button" aria-pressed="true" aria-label="BGM on"><span aria-hidden="true">♫</span><span class="photo-music-status">BGM ON</span></button></div>
                 </header>
                 <div class="photo-setup-intro">
                     <h1 id="photo-setup-heading" data-photo-i18n="which">Choose your photos</h1>
-                    <p data-photo-i18n="subtitle">Pick a category and set your game time.</p><a href="study.html" class="photo-outline-btn">📖 Study Mode / 学習モード</a>
+                    <p data-photo-i18n="subtitle">Pick a category and set your game time.</p>
                 </div>
                 <div class="photo-setup-grid">
                     <div class="photo-genre-panel">
@@ -472,6 +479,6 @@
     <script src="js/similarphoto-visual-groups.js"></script>
     <script src="js/photo-categories.js"></script>
     <script src="js/photo-i18n.js"></script>
-    <script src="js/game.js?v=20261125-study"></script>
+    <script src="js/game.js?v=20261125-modes2"></script>
 </body>
 </html>
