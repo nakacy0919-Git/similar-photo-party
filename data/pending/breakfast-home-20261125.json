@@ -1,0 +1,142 @@
+[
+  {
+    "id": "breakfast_home_20261125_01",
+    "filename": "breakfast_home_20261125_01.webp",
+    "group": "breakfast_home_20261125",
+    "title": "Two fried eggs and bacon",
+    "key_phrase": "There are two fried eggs and bacon on the plate, and a glass of orange juice is on the left.",
+    "translation": "お皿には目玉焼きが2つとベーコンがあり、左側にはオレンジジュースのグラスがあります。",
+    "examples": [
+      {
+        "title": "two fried eggs",
+        "en": "There are two fried eggs on the plate.",
+        "ja": "お皿の上に目玉焼きが2つあります。"
+      },
+      {
+        "title": "bacon",
+        "en": "Some strips of bacon are next to the eggs.",
+        "ja": "目玉焼きの隣にベーコンが数枚あります。"
+      },
+      {
+        "title": "toast",
+        "en": "Toast is on the right side of the plate.",
+        "ja": "トーストはお皿の右側にあります。"
+      },
+      {
+        "title": "orange juice",
+        "en": "A glass of orange juice stands to the left of the plate.",
+        "ja": "お皿の左側にオレンジジュースのグラスがあります。"
+      },
+      {
+        "title": "fruit bowl",
+        "en": "A white bowl contains bananas, grapes, an apple, and an orange.",
+        "ja": "白いボウルにはバナナ、ブドウ、リンゴ、オレンジが入っています。"
+      }
+    ]
+  },
+  {
+    "id": "breakfast_home_20261125_02",
+    "filename": "breakfast_home_20261125_02.webp",
+    "group": "breakfast_home_20261125",
+    "title": "Scrambled eggs and bacon",
+    "key_phrase": "There are scrambled eggs and bacon on the plate, and a light blue mug is on the right.",
+    "translation": "お皿にはスクランブルエッグとベーコンがあり、右側には水色のマグカップがあります。",
+    "examples": [
+      {
+        "title": "scrambled eggs",
+        "en": "Scrambled eggs are in the middle of the plate.",
+        "ja": "お皿の中央にスクランブルエッグがあります。"
+      },
+      {
+        "title": "bacon",
+        "en": "The bacon is to the left of the scrambled eggs.",
+        "ja": "ベーコンはスクランブルエッグの左側にあります。"
+      },
+      {
+        "title": "toast",
+        "en": "A piece of toast is on the right side of the plate.",
+        "ja": "お皿の右側にトーストが1枚あります。"
+      },
+      {
+        "title": "orange juice",
+        "en": "A glass of orange juice is behind the fruit bowl.",
+        "ja": "果物のボウルの後ろにオレンジジュースのグラスがあります。"
+      },
+      {
+        "title": "fruit salad",
+        "en": "A white bowl holds strawberries, kiwi, and orange pieces.",
+        "ja": "白いボウルにイチゴ、キウイ、オレンジが入っています。"
+      }
+    ]
+  },
+  {
+    "id": "breakfast_home_20261125_03",
+    "filename": "breakfast_home_20261125_03.webp",
+    "group": "breakfast_home_20261125",
+    "title": "Scrambled eggs and sausages",
+    "key_phrase": "There are scrambled eggs and two sausages on the plate, and a white teapot is behind it.",
+    "translation": "お皿にはスクランブルエッグとソーセージが2本あり、その後ろに白いティーポットがあります。",
+    "examples": [
+      {
+        "title": "scrambled eggs",
+        "en": "Scrambled eggs are on the left side of the plate.",
+        "ja": "お皿の左側にスクランブルエッグがあります。"
+      },
+      {
+        "title": "two sausages",
+        "en": "Two sausages lie in front of the scrambled eggs.",
+        "ja": "スクランブルエッグの手前にソーセージが2本あります。"
+      },
+      {
+        "title": "toast",
+        "en": "A piece of toast is next to the sausages.",
+        "ja": "ソーセージの隣にトーストが1枚あります。"
+      },
+      {
+        "title": "orange juice",
+        "en": "A glass of orange juice is at the front left of the table.",
+        "ja": "テーブルの左手前にオレンジジュースのグラスがあります。"
+      },
+      {
+        "title": "fruit basket",
+        "en": "There are bananas and apples in a wicker basket.",
+        "ja": "編みかごにバナナとリンゴが入っています。"
+      }
+    ]
+  },
+  {
+    "id": "breakfast_home_20261125_04",
+    "filename": "breakfast_home_20261125_04.webp",
+    "group": "breakfast_home_20261125",
+    "title": "One fried egg and a jar of jam",
+    "key_phrase": "There is one fried egg on the plate, and an open jar of jam stands on the right.",
+    "translation": "お皿には目玉焼きが1つあり、右側にはふたの開いたジャムの瓶があります。",
+    "examples": [
+      {
+        "title": "one fried egg",
+        "en": "There is one fried egg at the front of the plate.",
+        "ja": "お皿の手前に目玉焼きが1つあります。"
+      },
+      {
+        "title": "bacon",
+        "en": "Bacon is on the left side of the egg.",
+        "ja": "目玉焼きの左側にベーコンがあります。"
+      },
+      {
+        "title": "two slices of toast",
+        "en": "Two slices of toast are stacked on the plate.",
+        "ja": "お皿にトーストが2枚重ねてあります。"
+      },
+      {
+        "title": "orange juice",
+        "en": "A glass of orange juice is between the fruit basket and the plate.",
+        "ja": "果物かごとお皿の間にオレンジジュースのグラスがあります。"
+      },
+      {
+        "title": "fruit basket",
+        "en": "A wicker basket is filled with fruit.",
+        "ja": "編みかごに果物が入っています。"
+      }
+    ]
+  }
+]

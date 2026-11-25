@@ -1705,6 +1705,458 @@
           "ja": "白い花の右側にピンクのユリが並べられています。"
         }
       ]
+    },
+    {
+      "id": "breakfast_home_20261125_01",
+      "theme": "Breakfast at Home",
+      "themeJa": "家での朝食",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "eggs",
+          "label": "two fried eggs",
+          "jaLabel": "目玉焼き2つ",
+          "box": [
+            0.49,
+            0.765,
+            0.22,
+            0.095
+          ],
+          "en": "There are two fried eggs on the plate.",
+          "ja": "お皿の上に目玉焼きが2つあります。"
+        },
+        {
+          "id": "bacon",
+          "label": "bacon",
+          "jaLabel": "ベーコン",
+          "box": [
+            0.425,
+            0.718,
+            0.18,
+            0.102
+          ],
+          "en": "Some strips of bacon are next to the eggs.",
+          "ja": "目玉焼きの隣にベーコンが数枚あります。"
+        },
+        {
+          "id": "toast",
+          "label": "toast",
+          "jaLabel": "トースト",
+          "box": [
+            0.6,
+            0.646,
+            0.155,
+            0.16
+          ],
+          "en": "Toast is on the right side of the plate.",
+          "ja": "トーストはお皿の右側にあります。"
+        },
+        {
+          "id": "juice",
+          "label": "orange juice",
+          "jaLabel": "オレンジジュース",
+          "box": [
+            0.34,
+            0.52,
+            0.09,
+            0.245
+          ],
+          "en": "A glass of orange juice stands to the left of the plate.",
+          "ja": "お皿の左側にオレンジジュースのグラスがあります。"
+        },
+        {
+          "id": "fruit",
+          "label": "fruit bowl",
+          "jaLabel": "果物のボウル",
+          "box": [
+            0.05,
+            0.4,
+            0.285,
+            0.39
+          ],
+          "en": "A white bowl contains bananas, grapes, an apple, and an orange.",
+          "ja": "白いボウルにはバナナ、ブドウ、リンゴ、オレンジが入っています。"
+        },
+        {
+          "id": "mug",
+          "label": "white mug",
+          "jaLabel": "白いマグカップ",
+          "box": [
+            0.73,
+            0.55,
+            0.135,
+            0.2
+          ],
+          "en": "A white mug is behind the toast.",
+          "ja": "トーストの後ろに白いマグカップがあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "pink flowers",
+          "jaLabel": "ピンクの花",
+          "box": [
+            0.82,
+            0.25,
+            0.175,
+            0.49
+          ],
+          "en": "Pink flowers are in a glass vase on the right.",
+          "ja": "右側のガラスの花瓶にピンクの花が生けられています。"
+        },
+        {
+          "id": "kettle",
+          "label": "blue kettle",
+          "jaLabel": "青いやかん",
+          "box": [
+            0.042,
+            0.02,
+            0.135,
+            0.27
+          ],
+          "en": "A blue kettle is sitting on the stove.",
+          "ja": "コンロの上に青いやかんがあります。"
+        }
+      ]
+    },
+    {
+      "id": "breakfast_home_20261125_02",
+      "theme": "Breakfast at Home",
+      "themeJa": "家での朝食",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "eggs",
+          "label": "scrambled eggs",
+          "jaLabel": "スクランブルエッグ",
+          "box": [
+            0.47,
+            0.69,
+            0.15,
+            0.135
+          ],
+          "en": "Scrambled eggs are in the middle of the plate.",
+          "ja": "お皿の中央にスクランブルエッグがあります。"
+        },
+        {
+          "id": "bacon",
+          "label": "bacon",
+          "jaLabel": "ベーコン",
+          "box": [
+            0.36,
+            0.69,
+            0.15,
+            0.14
+          ],
+          "en": "The bacon is to the left of the scrambled eggs.",
+          "ja": "ベーコンはスクランブルエッグの左側にあります。"
+        },
+        {
+          "id": "toast",
+          "label": "toast",
+          "jaLabel": "トースト",
+          "box": [
+            0.56,
+            0.59,
+            0.16,
+            0.21
+          ],
+          "en": "A piece of toast is on the right side of the plate.",
+          "ja": "お皿の右側にトーストが1枚あります。"
+        },
+        {
+          "id": "juice",
+          "label": "orange juice",
+          "jaLabel": "オレンジジュース",
+          "box": [
+            0.24,
+            0.42,
+            0.12,
+            0.25
+          ],
+          "en": "A glass of orange juice is behind the fruit bowl.",
+          "ja": "果物のボウルの後ろにオレンジジュースのグラスがあります。"
+        },
+        {
+          "id": "fruit",
+          "label": "fruit salad",
+          "jaLabel": "フルーツサラダ",
+          "box": [
+            0.11,
+            0.61,
+            0.22,
+            0.22
+          ],
+          "en": "A white bowl holds strawberries, kiwi, and orange pieces.",
+          "ja": "白いボウルにイチゴ、キウイ、オレンジが入っています。"
+        },
+        {
+          "id": "mug",
+          "label": "light blue mug",
+          "jaLabel": "水色のマグカップ",
+          "box": [
+            0.7,
+            0.48,
+            0.175,
+            0.23
+          ],
+          "en": "A light blue mug is next to the plate.",
+          "ja": "お皿の隣に水色のマグカップがあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "pink flowers",
+          "jaLabel": "ピンクの花",
+          "box": [
+            0,
+            0.15,
+            0.27,
+            0.56
+          ],
+          "en": "Pink flowers are arranged in a glass vase on the left.",
+          "ja": "左側のガラスの花瓶にピンクの花が生けられています。"
+        },
+        {
+          "id": "fork",
+          "label": "fork",
+          "jaLabel": "フォーク",
+          "box": [
+            0.69,
+            0.72,
+            0.105,
+            0.25
+          ],
+          "en": "A fork lies to the right of the plate.",
+          "ja": "お皿の右側にフォークが置いてあります。"
+        }
+      ]
+    },
+    {
+      "id": "breakfast_home_20261125_03",
+      "theme": "Breakfast at Home",
+      "themeJa": "家での朝食",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "eggs",
+          "label": "scrambled eggs",
+          "jaLabel": "スクランブルエッグ",
+          "box": [
+            0.41,
+            0.635,
+            0.17,
+            0.13
+          ],
+          "en": "Scrambled eggs are on the left side of the plate.",
+          "ja": "お皿の左側にスクランブルエッグがあります。"
+        },
+        {
+          "id": "sausages",
+          "label": "two sausages",
+          "jaLabel": "ソーセージ2本",
+          "box": [
+            0.47,
+            0.715,
+            0.145,
+            0.11
+          ],
+          "en": "Two sausages lie in front of the scrambled eggs.",
+          "ja": "スクランブルエッグの手前にソーセージが2本あります。"
+        },
+        {
+          "id": "toast",
+          "label": "toast",
+          "jaLabel": "トースト",
+          "box": [
+            0.58,
+            0.635,
+            0.2,
+            0.18
+          ],
+          "en": "A piece of toast is next to the sausages.",
+          "ja": "ソーセージの隣にトーストが1枚あります。"
+        },
+        {
+          "id": "juice",
+          "label": "orange juice",
+          "jaLabel": "オレンジジュース",
+          "box": [
+            0.12,
+            0.58,
+            0.12,
+            0.3
+          ],
+          "en": "A glass of orange juice is at the front left of the table.",
+          "ja": "テーブルの左手前にオレンジジュースのグラスがあります。"
+        },
+        {
+          "id": "fruit",
+          "label": "fruit basket",
+          "jaLabel": "果物かご",
+          "box": [
+            0.17,
+            0.265,
+            0.3,
+            0.335
+          ],
+          "en": "There are bananas and apples in a wicker basket.",
+          "ja": "編みかごにバナナとリンゴが入っています。"
+        },
+        {
+          "id": "teapot",
+          "label": "white teapot",
+          "jaLabel": "白いティーポット",
+          "box": [
+            0.635,
+            0.29,
+            0.23,
+            0.3
+          ],
+          "en": "A white teapot stands behind the plate.",
+          "ja": "お皿の後ろに白いティーポットがあります。"
+        },
+        {
+          "id": "mug",
+          "label": "white mug",
+          "jaLabel": "白いマグカップ",
+          "box": [
+            0.8,
+            0.51,
+            0.17,
+            0.26
+          ],
+          "en": "A white mug sits to the right of the plate.",
+          "ja": "お皿の右側に白いマグカップがあります。"
+        },
+        {
+          "id": "flowers",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0,
+            0.13,
+            0.19,
+            0.53
+          ],
+          "en": "Pink lilies are in a glass vase on the left.",
+          "ja": "左側のガラスの花瓶にピンクのユリが生けられています。"
+        }
+      ]
+    },
+    {
+      "id": "breakfast_home_20261125_04",
+      "theme": "Breakfast at Home",
+      "themeJa": "家での朝食",
+      "width": 1280,
+      "height": 720,
+      "hotspots": [
+        {
+          "id": "egg",
+          "label": "one fried egg",
+          "jaLabel": "目玉焼き1つ",
+          "box": [
+            0.46,
+            0.71,
+            0.21,
+            0.13
+          ],
+          "en": "There is one fried egg at the front of the plate.",
+          "ja": "お皿の手前に目玉焼きが1つあります。"
+        },
+        {
+          "id": "bacon",
+          "label": "bacon",
+          "jaLabel": "ベーコン",
+          "box": [
+            0.35,
+            0.68,
+            0.165,
+            0.135
+          ],
+          "en": "Bacon is on the left side of the egg.",
+          "ja": "目玉焼きの左側にベーコンがあります。"
+        },
+        {
+          "id": "toast",
+          "label": "two slices of toast",
+          "jaLabel": "トースト2枚",
+          "box": [
+            0.53,
+            0.575,
+            0.2,
+            0.2
+          ],
+          "en": "Two slices of toast are stacked on the plate.",
+          "ja": "お皿にトーストが2枚重ねてあります。"
+        },
+        {
+          "id": "juice",
+          "label": "orange juice",
+          "jaLabel": "オレンジジュース",
+          "box": [
+            0.325,
+            0.44,
+            0.105,
+            0.21
+          ],
+          "en": "A glass of orange juice is between the fruit basket and the plate.",
+          "ja": "果物かごとお皿の間にオレンジジュースのグラスがあります。"
+        },
+        {
+          "id": "fruit",
+          "label": "fruit basket",
+          "jaLabel": "果物かご",
+          "box": [
+            0.02,
+            0.29,
+            0.305,
+            0.43
+          ],
+          "en": "A wicker basket is filled with fruit.",
+          "ja": "編みかごに果物が入っています。"
+        },
+        {
+          "id": "mug",
+          "label": "white mug",
+          "jaLabel": "白いマグカップ",
+          "box": [
+            0.69,
+            0.42,
+            0.155,
+            0.24
+          ],
+          "en": "A white mug is behind the toast.",
+          "ja": "トーストの後ろに白いマグカップがあります。"
+        },
+        {
+          "id": "jam",
+          "label": "open jar of jam",
+          "jaLabel": "ふたの開いたジャムの瓶",
+          "box": [
+            0.81,
+            0.57,
+            0.12,
+            0.24
+          ],
+          "en": "An open jar of jam has a spoon in it.",
+          "ja": "ふたの開いたジャムの瓶にスプーンが入っています。"
+        },
+        {
+          "id": "flowers",
+          "label": "pink lilies",
+          "jaLabel": "ピンクのユリ",
+          "box": [
+            0.775,
+            0,
+            0.225,
+            0.58
+          ],
+          "en": "Pink lilies are in a glass vase on the right.",
+          "ja": "右側のガラスの花瓶にピンクのユリが生けられています。"
+        }
+      ]
     }
   ]
 }
