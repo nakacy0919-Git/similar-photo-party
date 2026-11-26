@@ -17,10 +17,13 @@
     <script src="js/vendor/confetti.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/immersive.css">
-    <link rel="stylesheet" href="css/landing.css?v=20261125-modes2">
+    <link rel="stylesheet" href="css/landing.css?v=20261126-cinema1">
     <link rel="stylesheet" href="css/photo-flow.css">
+    <link rel="preload" as="image" href="assets/images/similar-photo-badge.avif">
+    <link rel="preload" as="image" href="assets/images/charade-badge.avif">
 </head>
 <body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 h-screen w-screen overflow-hidden font-sans text-slate-800 selection:bg-pink-200 flex flex-col">
+    <script src="js/party-opening.js"></script>
 
     <div class="fixed top-4 right-4 z-[100] flex gap-2">
         <button aria-label="BGM切替" id="bgmBtn" class="w-10 h-10 bg-white/90 backdrop-blur rounded-full shadow hover:bg-white hover:scale-105 transition text-slate-600 border-2 border-slate-100 flex items-center justify-center">
@@ -54,10 +57,7 @@
             </div>
             <div class="landing-shell">
                 <header class="landing-brandbar">
-                    <div class="landing-brandmark" aria-hidden="true">
-                        <span class="brandmark-a"></span><span class="brandmark-b"></span>
-                        <span class="brandmark-star">✦</span>
-                    </div>
+                    <div class="landing-brandmark" aria-hidden="true"><img src="assets/images/similar-photo-badge.avif" alt="" width="256" height="256"></div>
                     <div class="landing-brandwords">
                         <strong>SIMILAR PHOTO <span>PARTY</span></strong>
                         <small>PLAY · GUESS · CONNECT</small>
@@ -96,7 +96,7 @@
                         <span class="mode-art charades-art" aria-hidden="true">
                             <span class="charades-art-ring ring-outer"></span>
                             <span class="charades-art-ring ring-inner"></span>
-                            <span class="charades-art-symbol"><i class="fa-solid fa-masks-theater"></i></span>
+                            <span class="charades-art-symbol"><img src="assets/images/charade-badge.avif" alt="" width="256" height="256"></span>
                             <span class="charades-art-tag tag-left">ACT</span>
                             <span class="charades-art-tag tag-right">GUESS</span>
                             <span class="charades-art-spark">✦</span>
